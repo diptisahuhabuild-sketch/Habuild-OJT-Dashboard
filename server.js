@@ -23,6 +23,12 @@ const PORT = process.env.PORT || 3848;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const CONFIG_FILE = path.join(__dirname, 'server-config.json');
 
+// Ensure data.json exists
+if (!fs.existsSync(DATA_FILE)) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify({ scanData: {}, leadsConfig: {} }, null, 2));
+  console.log('[Init] Created empty data.json');
+}
+
 // ===== SERVER CONFIG (persistent) =====
 function getConfig() {
   try { return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')); }
