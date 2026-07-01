@@ -989,7 +989,7 @@ cron.schedule('*/30 * * * *', async () => {
 // ============================
 // START
 // ============================
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`\n===================================`);
   console.log(`  Habuild OJT Dashboard`);
   console.log(`  http://localhost:${PORT}`);
@@ -1004,4 +1004,45 @@ app.listen(PORT, () => {
   console.log(`  💬 Friday 5PM — Pulse survey to interns`);
   console.log(`  🔄 Every 30min — Auto-sync Google Sheets`);
   console.log(`===================================\n`);
+
+  // Auto-sync on startup (after 10 seconds to let everything initialize)
+  if (sheets) {
+    setTimeout(async () => {
+      const cfg = getConfig();
+      const hasSheets = Object.values(cfg.sheets || {}).some(u => u);
+      if (hasSheets) {
+        console.log('[Startup] Auto-syncing all Google Sheets...');
+        for (const [lead, url] of Object.entries(cfg.sheets || {})) {
+          if (!url) continue;
+          try {
+            const r = await syncSheet(lead, url);
+            if (!r.error && r.totalRecords > 0) {
+              const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+              for (const [batch, recs] of Object.entries(r.batches)) {
+                if (!data.scanData[batch]) data.scanData[batch] = [];
+                const existing = new Set(data.scanData[batch].map(r2 => `${r2.internName}|${r2.scanDate}|${r2.number}`));
+                recs.forEach(r2 => {
+                  const key = `${r2.internName}|${r2.scanDate}|${r2.number}`;
+                  if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
+                });
+              }
+              fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+              console.log(`[Startup] Synced ${lead}: ${r.totalRecords} records`);
+            }
+          } catch (e) { console.error('[Startup] Sync error for', lead, ':', e.message); }
+        }
+        // Also sync QC docs
+        for (const [lead, docInfo] of Object.entries(cfg.docs || {})) {
+          if (!docInfo?.url) continue;
+          try {
+            await syncQCDoc(lead, docInfo.url);
+            console.log(`[Startup] Synced QC doc for ${lead}`);
+          } catch (e) { console.error('[Startup] Doc sync error:', lead, e.message); }
+        }
+        console.log('[Startup] Auto-sync complete!');
+      } else {
+        console.log('[Startup] No sheet URLs configured. Add them in Admin > Settings.');
+      }
+    }, 10000);
+  }
 });
