@@ -9,12 +9,15 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static('.'));
-const quizFile = path.join(path.dirname(__dirname), 'habuild-quiz', 'index.html');
-const typingTestFile = path.join(path.dirname(__dirname), 'habuild-quiz', 'typing-test.html');
-app.get('/quiz', (req, res) => { res.sendFile(quizFile); });
-app.get('/quiz/', (req, res) => { res.sendFile(quizFile); });
-app.get('/typing-test', (req, res) => { res.sendFile(typingTestFile); });
-app.get('/typing-test/', (req, res) => { res.sendFile(typingTestFile); });
+const quizDir = path.join(path.dirname(__dirname), 'habuild-quiz');
+if (fs.existsSync(quizDir)) {
+  const quizFile = path.join(quizDir, 'index.html');
+  const typingTestFile = path.join(quizDir, 'typing-test.html');
+  app.get('/quiz', (req, res) => { res.sendFile(quizFile); });
+  app.get('/quiz/', (req, res) => { res.sendFile(quizFile); });
+  app.get('/typing-test', (req, res) => { res.sendFile(typingTestFile); });
+  app.get('/typing-test/', (req, res) => { res.sendFile(typingTestFile); });
+}
 
 const PORT = process.env.PORT || 3848;
 const DATA_FILE = path.join(__dirname, 'data.json');
