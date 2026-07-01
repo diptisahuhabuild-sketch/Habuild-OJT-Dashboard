@@ -1,0 +1,331 @@
+<body>
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div class="login-overlay" id="login-screen">
+        <div class="login-box">
+            <h1>QC Analytics</h1>
+            <div class="subtitle">Training Support System</div>
+            <input type="text" id="login-id" placeholder="Enter your User ID" />
+            <input type="password" id="login-pin" placeholder="Enter PIN" />
+            <div class="login-error" id="login-error">Invalid credentials. Please try again.</div>
+            <button class="btn-primary" onclick="attemptLogin()">Sign In</button>
+            <button class="btn-viewer" onclick="viewerLogin()">View as Guest (Read Only)</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL for viewing feedback details ===== -->
+    <div class="modal-overlay" id="feedback-modal" onclick="if(event.target===this)closeFeedbackModal()">
+        <div class="modal" style="position:relative;">
+            <button class="modal-close" onclick="closeFeedbackModal()">&times;</button>
+            <div id="feedback-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL for viewing document ===== -->
+    <div class="modal-overlay" id="doc-modal" onclick="if(event.target===this)closeDocModal()">
+        <div class="modal modal-wide" style="position:relative;">
+            <button class="modal-close" onclick="closeDocModal()">&times;</button>
+            <div id="doc-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL for upload preview ===== -->
+    <div class="modal-overlay" id="preview-modal" onclick="if(event.target===this)closePreviewModal()">
+        <div class="modal modal-wide" style="position:relative;">
+            <button class="modal-close" onclick="closePreviewModal()">&times;</button>
+            <div id="preview-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <div class="header" id="app-header" style="display:none;">
+        <h1><span>QC</span> Analytics & Training</h1>
+        <div class="header-right">
+            <span id="current-lead-label" style="font-size:12px; color:#888;"></span>
+            <span class="user-badge" id="user-badge"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- ===== NAV TABS ===== -->
+    <div class="nav-tabs" id="nav-tabs" style="display:none;">
+        <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+        <div class="nav-tab" data-tab="patterns">Error Patterns</div>
+        <div class="nav-tab" data-tab="feedback">Feedback Summary</div>
+        <div class="nav-tab" data-tab="training">Training Insights</div>
+        <div class="nav-tab" data-tab="scenarios">Scenarios</div>
+        <div class="nav-tab" data-tab="tests">Weekly Tests</div>
+        <div class="nav-tab admin-only" data-tab="admin">Admin Panel</div>
+    </div>
+
+    <!-- ===== GLOBAL FILTERS ===== -->
+    <div class="filters-bar" id="filters-bar" style="display:none;">
+        <div class="filter-group">
+            <label>Lead:</label>
+            <select id="filter-lead" onchange="onLeadChange()"></select>
+        </div>
+        <div class="filter-group">
+            <label>Batch:</label>
+            <div class="batch-pills" id="batch-pills"></div>
+        </div>
+        <div class="filter-group">
+            <label>Intern:</label>
+            <select id="filter-intern"><option value="all">All Interns</option></select>
+        </div>
+        <div class="filter-group">
+            <label>From:</label>
+            <input type="date" id="filter-date-from">
+        </div>
+        <div class="filter-group">
+            <label>To:</label>
+            <input type="date" id="filter-date-to">
+        </div>
+        <button class="apply-btn" onclick="applyFilters()">Apply</button>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main" id="main-content" style="display:none;">
+
+        <!-- DASHBOARD TAB -->
+        <div class="tab-content active" id="tab-dashboard">
+            <div class="section-header"><h2>Performance Overview</h2></div>
+            <div class="team-overview" id="team-overview"></div>
+            <div class="stats-row" id="stats-row"></div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Errors by Chat Type</h3>
+                    <div class="chart-subtitle">Total audits vs errors for each chat category</div>
+                    <canvas id="chart-errorByType"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Errors by Intern</h3>
+                    <div class="chart-subtitle">Click any bar to view that intern's feedback</div>
+                    <canvas id="chart-errorByIntern"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Average Ratings</h3>
+                    <div class="chart-subtitle">Lead rating vs AI rating per intern (out of 5)</div>
+                    <canvas id="chart-ratingByIntern"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Needs Improvement</h3>
+                    <div class="chart-subtitle">How many audits need follow-up action</div>
+                    <canvas id="chart-improvementsPie"></canvas>
+                </div>
+            </div>
+            <div class="table-card">
+                <h3>Individual Performance</h3>
+                <table id="perf-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th><th>Batch</th><th>Audits</th><th>Errors</th><th>Error %</th><th>Lead Rating</th><th>AI Rating</th><th>Status</th><th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ERROR PATTERNS TAB -->
+        <div class="tab-content" id="tab-patterns">
+            <div class="section-header"><h2>Error Patterns</h2></div>
+            <div class="charts-grid">
+                <div class="chart-card" style="grid-column: span 1;">
+                    <h3>Top Error Types</h3>
+                    <div class="chart-subtitle">Horizontal bars: count of each error type. Click "View Examples" for details.</div>
+                    <div id="simple-mistake-bars"></div>
+                </div>
+                <div class="chart-card">
+                    <h3>Error Category Distribution</h3>
+                    <div class="chart-subtitle">Pie chart of error categories</div>
+                    <canvas id="chart-errorPie"></canvas>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Weekly Error Trend</h3>
+                    <div class="chart-subtitle">Total audits and errors each week</div>
+                    <canvas id="chart-weeklyTrend"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Error Rate by Intern Over Time</h3>
+                    <div class="chart-subtitle">Track who is improving week by week (%)</div>
+                    <canvas id="chart-internTrend"></canvas>
+                </div>
+            </div>
+            <div class="table-card">
+                <h3>Repeated Mistakes by Individual</h3>
+                <p style="font-size:12px; color:#999; margin-bottom:14px;">Interns who keep making the same types of mistakes</p>
+                <div id="repeated-mistakes"></div>
+            </div>
+        </div>
+
+        <!-- FEEDBACK SUMMARY TAB -->
+        <div class="tab-content" id="tab-feedback">
+            <div class="section-header">
+                <h2>Individual Feedback Summary</h2>
+                <button class="export-btn" onclick="exportFeedbackSummary()">Export Summary</button>
+            </div>
+            <div class="filter-row">
+                <label>Intern:</label>
+                <select id="feedback-intern-filter" onchange="renderFeedbackSummary()"><option value="all">All Interns</option></select>
+                <label>Date From:</label>
+                <input type="date" id="feedback-date-from" onchange="renderFeedbackSummary()">
+                <label>Date To:</label>
+                <input type="date" id="feedback-date-to" onchange="renderFeedbackSummary()">
+                <label>Error Type:</label>
+                <select id="feedback-error-type" onchange="renderFeedbackSummary()">
+                    <option value="all">All Types</option>
+                </select>
+                <label>Show:</label>
+                <select id="feedback-errors-only" onchange="renderFeedbackSummary()">
+                    <option value="all">All Audits</option>
+                    <option value="errors" selected>Errors Only</option>
+                </select>
+            </div>
+            <div id="feedback-summary-container"></div>
+        </div>
+
+        <!-- TRAINING INSIGHTS TAB -->
+        <div class="tab-content" id="tab-training">
+            <div class="section-header"><h2>Training Insights</h2></div>
+            <div class="training-card">
+                <h3>Top Training Focus Areas</h3>
+                <div id="focus-areas"></div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Team-Wide Skill Gaps</h3>
+                    <div class="chart-subtitle">Higher bars = more frequent issues (focus training here)</div>
+                    <canvas id="chart-teamGaps"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Individual Skill Gaps</h3>
+                    <div class="chart-subtitle">Compare gap areas per intern</div>
+                    <canvas id="chart-individualGaps"></canvas>
+                </div>
+            </div>
+            <div class="table-card">
+                <h3>Training Recommendations</h3>
+                <table id="training-table">
+                    <thead>
+                        <tr><th>Intern</th><th>Batch</th><th>Key Gaps</th><th>Priority</th><th>Recommended Focus</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SCENARIOS TAB -->
+        <div class="tab-content" id="tab-scenarios">
+            <div class="section-header"><h2>Training Scenarios</h2></div>
+            <div class="filter-row">
+                <label>From Intern:</label>
+                <select id="scenario-intern-filter"><option value="all">All Interns</option></select>
+                <label>Count:</label>
+                <select id="scenario-count">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                </select>
+                <button class="generate-btn" onclick="generateScenarios()">Generate</button>
+                <button class="export-btn" onclick="exportScenarios()">Export HTML</button>
+            </div>
+            <div id="scenarios-container"></div>
+        </div>
+
+        <!-- TESTS TAB -->
+        <div class="tab-content" id="tab-tests">
+            <div class="section-header"><h2>Weekly Assessment</h2></div>
+            <div class="filter-row">
+                <label>From Intern:</label>
+                <select id="test-intern-filter"><option value="all">All Interns</option></select>
+                <label>Questions:</label>
+                <select id="test-count">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                </select>
+                <button class="generate-btn" onclick="generateTest()">Generate Test</button>
+                <button class="export-btn" onclick="exportTest()">Export</button>
+                <button class="export-btn" onclick="toggleAllAnswers()">Show/Hide Answers</button>
+            </div>
+            <div id="test-container"></div>
+        </div>
+
+        <!-- ADMIN TAB -->
+        <div class="tab-content" id="tab-admin">
+            <div class="section-header"><h2>Admin Panel</h2></div>
+
+            <!-- User Management -->
+            <div class="admin-section">
+                <h3>User Management (IDs & Access)</h3>
+                <div class="admin-form">
+                    <div class="field"><label>User ID</label><input type="text" id="add-user-id" placeholder="e.g. diksha01"></div>
+                    <div class="field"><label>Name</label><input type="text" id="add-user-name" placeholder="e.g. Diksha"></div>
+                    <div class="field"><label>PIN</label><input type="text" id="add-user-pin" placeholder="4-digit PIN"></div>
+                    <div class="field">
+                        <label>Role</label>
+                        <select id="add-user-role">
+                            <option value="admin">Admin (Full Edit Access)</option>
+                            <option value="viewer">Viewer (Read Only)</option>
+                        </select>
+                    </div>
+                    <button class="admin-btn admin-btn-add" onclick="addUser()">Add User</button>
+                </div>
+                <div class="user-list" id="user-list"></div>
+            </div>
+
+            <!-- Team / Lead Management with inline intern add -->
+            <div class="admin-section">
+                <h3>Team Management (Leads, Batches & Interns)</h3>
+                <div class="admin-form">
+                    <div class="field"><label>Lead Name</label><input type="text" id="add-lead-name" placeholder="e.g. Diksha"></div>
+                    <div class="field"><label>Assigned Batches</label><input type="text" id="add-lead-batches" placeholder="e.g. B-15, B-19"></div>
+                    <div class="field"><label>Team Members (comma separated)</label><input type="text" id="add-lead-interns" placeholder="e.g. Aashutosh K, John D" style="min-width:250px;"></div>
+                    <button class="admin-btn admin-btn-add" onclick="addLead()">Add / Update Lead</button>
+                </div>
+                <div id="team-list"></div>
+            </div>
+
+            <!-- Inline Intern Assignment -->
+            <div class="admin-section">
+                <h3>Assign Intern to Lead/Batch</h3>
+                <div class="admin-form">
+                    <div class="field"><label>Select Lead</label><select id="assign-lead-select"></select></div>
+                    <div class="field"><label>Batch</label><select id="assign-batch-select"></select></div>
+                    <div class="field"><label>Intern Name</label><input type="text" id="assign-intern-name" placeholder="e.g. Aashutosh K"></div>
+                    <button class="admin-btn admin-btn-add" onclick="assignIntern()">Add Intern</button>
+                </div>
+                <div id="intern-assignments"></div>
+            </div>
+
+            <!-- File Upload with parsing -->
+            <div class="admin-section">
+                <h3>Upload QC Sheets & Documents (Team-wise)</h3>
+                <div class="admin-form" style="margin-bottom:16px;">
+                    <div class="field"><label>Upload For Lead</label><select id="upload-lead-select"></select></div>
+                    <div class="field"><label>Batch (for documents)</label><select id="upload-batch-select"></select></div>
+                    <div class="field">
+                        <label>Document Type</label>
+                        <select id="upload-doc-type">
+                            <option value="qc-sheet">QC Sheet (Excel/CSV) - will be PARSED</option>
+                            <option value="qc-doc">QC Document (Word/PDF) - reference only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event)">
+                    <div class="upload-icon">&#128193;</div>
+                    <div class="upload-text">Click to upload or drag & drop files here</div>
+                    <div class="upload-hint">QC Sheet: .xlsx, .csv (will be parsed and merged). QC Doc: .docx, .pdf (stored as reference).</div>
+                    <input type="file" id="file-input" style="display:none" accept=".xlsx,.csv,.docx,.pdf" multiple onchange="handleFileUpload(this.files)">
+                </div>
+                <div class="uploaded-files" id="uploaded-files-list"></div>
+            </div>
+
+            <!-- Data Summary -->
+            <div class="admin-section">
+                <h3>Data Summary</h3>
+                <div id="data-summary"></div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,140 @@
+
+    // ===== TRAINING INSIGHTS =====
+    function renderTraining() {
+        const data = getFilteredData();
+        const errorEntries = data.filter(r => r.improvementsNeeded === 'Yes' && r.summary);
+        const patterns = analyzeMistakes(errorEntries);
+
+        document.getElementById('focus-areas').innerHTML = patterns.slice(0, 6).map(function(p, i) {
+            return '<div class="focus-item"><div class="title">' + (i + 1) + '. ' + p.pattern + '</div>' +
+                '<div class="desc">' + p.count + ' occurrences across ' + p.interns.length + ' intern(s): ' + p.interns.join(', ') + '</div></div>';
+        }).join('');
+
+        const gapLabels = patterns.slice(0, 8).map(p => p.pattern);
+        const gapValues = patterns.slice(0, 8).map(p => p.count);
+
+        destroyChart('teamGaps');
+        charts['teamGaps'] = new Chart(document.getElementById('chart-teamGaps'), {
+            type: 'bar',
+            data: { labels: gapLabels, datasets: [{ label: 'Error Count', data: gapValues, backgroundColor: gapValues.map(function(v, i) { return COLORS[i % COLORS.length] + 'aa'; }) }] },
+            options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#666', font: { size: 11 } } } } }
+        });
+
+        const internNames = [...new Set(data.map(r => r.internName))].sort();
+        const internGapData = {};
+        internNames.forEach(function(name) {
+            const entries = errorEntries.filter(r => r.internName === name);
+            const ip = analyzeMistakes(entries);
+            internGapData[name] = {};
+            gapLabels.forEach(l => internGapData[name][l] = 0);
+            ip.forEach(p => { if (internGapData[name][p.pattern] !== undefined) internGapData[name][p.pattern] = p.count; });
+        });
+
+        const igDatasets = internNames.slice(0, 8).map(function(name, i) {
+            return {
+                label: name,
+                data: gapLabels.map(l => internGapData[name] ? (internGapData[name][l] || 0) : 0),
+                backgroundColor: COLORS[i % COLORS.length] + '88',
+                borderColor: COLORS[i % COLORS.length],
+                borderWidth: 1
+            };
+        });
+
+        destroyChart('individualGaps');
+        charts['individualGaps'] = new Chart(document.getElementById('chart-individualGaps'), {
+            type: 'bar',
+            data: { labels: gapLabels, datasets: igDatasets },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666', font: { size: 10 } } } }, scales: { x: { ticks: { color: '#888', font: { size: 10 }, maxRotation: 45 } }, y: { ticks: { color: '#888' } } } }
+        });
+
+        const tbody = document.querySelector('#training-table tbody');
+        tbody.innerHTML = '';
+        internNames.forEach(function(name) {
+            const entries = data.filter(r => r.internName === name);
+            const errs = entries.filter(r => r.improvementsNeeded === 'Yes');
+            const errorRate = entries.length ? (errs.length / entries.length * 100).toFixed(1) : 0;
+            const ip = analyzeMistakes(errs.filter(r => r.summary));
+            const topGaps = ip.slice(0, 3).map(p => p.pattern).join(', ') || 'None';
+            const priority = errorRate > 40 ? '<span class="badge badge-red">High</span>' : errorRate > 20 ? '<span class="badge badge-yellow">Medium</span>' : '<span class="badge badge-green">Low</span>';
+            const batches = [...new Set(Object.entries(DATA.scanData).filter(function(pair) { return pair[1].some(r => r.internName === name); }).map(function(pair) { return pair[0]; }))].join(', ');
+            tbody.innerHTML += '<tr><td><strong>' + name + '</strong></td><td>' + batches + '</td><td style="font-size:12px;">' + topGaps + '</td><td>' + priority + '</td><td>' + (ip.length > 0 ? ip[0].pattern : 'General') + '</td></tr>';
+        });
+    }
+
+    // ===== SCENARIOS =====
+    function generateScenarios() {
+        const data = getFilteredData();
+        const internFilter = document.getElementById('scenario-intern-filter').value;
+        const count = parseInt(document.getElementById('scenario-count').value);
+        let errorEntries = data.filter(r => r.improvementsNeeded === 'Yes' && r.summary && r.summary.length > 50);
+        if (internFilter !== 'all') errorEntries = errorEntries.filter(r => r.internName === internFilter);
+        const selected = errorEntries.sort(() => Math.random() - 0.5).slice(0, count);
+
+        document.getElementById('scenarios-container').innerHTML = selected.map(function(entry, i) {
+            const summary = entry.summary;
+            const incorrectMatch = summary.match(/However[,.].*?(?=\.|$)/i) || summary.match(/but.*?(?=\.|$)/i);
+            const idealMatch = summary.match(/(should have|could have|ideally).*?(?=\.|$)/gi);
+            const batch = findBatch(entry);
+            return '<div class="scenario-card">' +
+                '<h4>Scenario ' + (i + 1) + ' &mdash; ' + entry.chatType + ' | ' + entry.internName + ' | ' + batch + ' | ' + (entry.scanDate || 'N/A') + '</h4>' +
+                '<p style="font-size:13px; color:#444; margin-bottom:12px; line-height:1.6;">' + summary + '</p>' +
+                '<div class="incorrect"><div class="scenario-label red">What Went Wrong</div>' + (incorrectMatch ? incorrectMatch[0].trim() : 'See summary') + '</div>' +
+                '<div class="ideal"><div class="scenario-label green">Ideal Approach</div>' + (idealMatch ? idealMatch.join('. ').trim() : 'Review the full resolution approach') + '</div>' +
+                '</div>';
+        }).join('');
+    }
+
+    // ===== WEEKLY TEST =====
+    function generateTest() {
+        const data = getFilteredData();
+        const internFilter = document.getElementById('test-intern-filter').value;
+        const count = parseInt(document.getElementById('test-count').value);
+        let errorEntries = data.filter(r => r.improvementsNeeded === 'Yes' && r.summary && r.summary.length > 80);
+        if (internFilter !== 'all') errorEntries = errorEntries.filter(r => r.internName === internFilter);
+        const shuffled = errorEntries.sort(() => Math.random() - 0.5).slice(0, count);
+        const container = document.getElementById('test-container');
+        container.innerHTML = '<h3 style="margin-bottom:16px;">Weekly QC Assessment</h3>';
+
+        shuffled.forEach(function(entry, i) {
+            const summary = entry.summary;
+            const idealActions = summary.match(/(should have|could have|ideally|instead of).*?(?=\.|$)/gi) || [];
+            const correctAnswer = idealActions.length > 0 ? idealActions[0].trim() : 'Review the full scenario';
+            const distractors = [
+                'Ask the member to call back later for assistance',
+                'Forward the query to another department without providing any immediate help',
+                'Share generic troubleshooting steps without checking the specific issue',
+                'Close the conversation after providing partial information'
+            ];
+            const options = [correctAnswer].concat(distractors.sort(() => Math.random() - 0.5).slice(0, 3)).sort(() => Math.random() - 0.5);
+            const correctIndex = options.indexOf(correctAnswer);
+            const letters = ['A', 'B', 'C', 'D'];
+
+            container.innerHTML += '<div class="question-card">' +
+                '<div class="q-num">Q' + (i + 1) + ' <span style="font-size:11px; color:#888;">[' + entry.chatType + ']</span></div>' +
+                '<div class="q-text">' + truncate(summary, 300) + '</div>' +
+                '<div style="font-size:13px; color:#4361ee; margin-bottom:8px; font-weight:600;">What should the agent have done differently?</div>' +
+                '<ol class="options" type="A">' + options.map(o => '<li>' + o + '</li>').join('') + '</ol>' +
+                '<button class="show-answer-btn" onclick="this.nextElementSibling.classList.toggle(\'visible\')">Show Answer</button>' +
+                '<div class="answer-key"><strong>Answer: ' + letters[correctIndex] + '</strong><br><strong>Explanation:</strong> ' + correctAnswer + '</div>' +
+                '</div>';
+        });
+    }
+
+    function toggleAllAnswers() { document.querySelectorAll('.answer-key').forEach(el => el.classList.toggle('visible')); }
+
+    function exportScenarios() { exportHTML('QC_Scenarios', document.getElementById('scenarios-container').innerHTML); }
+    function exportTest() { exportHTML('QC_Weekly_Test', document.getElementById('test-container').innerHTML); }
+
+    function exportHTML(title, content) {
+        const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + title + '</title>' +
+        '<style>body{font-family:Segoe UI,sans-serif;max-width:900px;margin:40px auto;padding:20px;color:#222;}' +
+        'h3{margin:20px 0 10px;} .scenario-card,.question-card{border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:16px;}' +
+        '.incorrect{background:#fff0f0;border-left:3px solid #e53;padding:10px;margin:8px 0;border-radius:4px;}' +
+        '.ideal{background:#f0fff0;border-left:3px solid #3a3;padding:10px;margin:8px 0;border-radius:4px;}' +
+        '.scenario-label{font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:4px;}' +
+        '.q-num{color:#4361ee;font-weight:700;margin-bottom:8px;} .answer-key{background:#f0fff0;padding:10px;border-radius:6px;margin-top:10px;}' +
+        '.options li{margin-bottom:6px;} .badge{padding:2px 8px;border-radius:10px;font-size:11px;}' +
+        '</style></head><body><h1>' + title + '</h1>' + content + '</body></html>';
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = title + '.html'; a.click();
+    }

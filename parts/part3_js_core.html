@@ -1,0 +1,271 @@
+    <script>
+    // ===== STATE =====
+    let DATA = null;
+    let currentBatch = 'all';
+    let currentRole = null;
+    let currentUser = null;
+    let charts = {};
+    let pendingParseData = null; // holds parsed Excel data awaiting confirmation
+
+    // ===== CONFIG (stored in localStorage) =====
+    const CONFIG_KEY = 'qc_dashboard_config';
+    const EXTRA_DATA_KEY = 'qc_extra_data';
+    const DOC_STORE_KEY = 'qc_doc_store';
+
+    function getConfig() {
+        const saved = localStorage.getItem(CONFIG_KEY);
+        if (saved) return JSON.parse(saved);
+        return {
+            users: [
+                { id: 'admin', name: 'Admin', pin: '1234', role: 'admin' },
+                { id: 'diksha01', name: 'Diksha', pin: '1001', role: 'admin' },
+            ],
+            leads: [
+                { name: 'DIKSHA', batches: ['B-15', 'B-16', 'B-17', 'B-18', 'B-19'], interns: {} }
+            ],
+            uploadedFiles: []
+        };
+    }
+
+    function saveConfig(config) { localStorage.setItem(CONFIG_KEY, JSON.stringify(config)); }
+
+    function getExtraData() {
+        const saved = localStorage.getItem(EXTRA_DATA_KEY);
+        if (saved) return JSON.parse(saved);
+        return { scanData: {} };
+    }
+    function saveExtraData(extra) { localStorage.setItem(EXTRA_DATA_KEY, JSON.stringify(extra)); }
+
+    function getDocStore() {
+        const saved = localStorage.getItem(DOC_STORE_KEY);
+        if (saved) return JSON.parse(saved);
+        return {};
+    }
+    function saveDocStore(store) {
+        try { localStorage.setItem(DOC_STORE_KEY, JSON.stringify(store)); }
+        catch(e) { alert('Warning: Document storage is full. The browser localStorage limit has been reached. Try removing old documents.'); }
+    }
+
+    // Merge extra data into DATA
+    function mergeExtraData() {
+        const extra = getExtraData();
+        if (!extra.scanData) return;
+        for (const [batch, records] of Object.entries(extra.scanData)) {
+            if (!DATA.scanData[batch]) DATA.scanData[batch] = [];
+            // Avoid duplicates by checking number+internName+scanDate
+            records.forEach(r => {
+                const isDup = DATA.scanData[batch].some(existing =>
+                    existing.number === r.number && existing.internName === r.internName && existing.scanDate === r.scanDate
+                );
+                if (!isDup) DATA.scanData[batch].push(r);
+            });
+        }
+    }
+
+    // ===== LOGIN =====
+    function attemptLogin() {
+        const id = document.getElementById('login-id').value.trim().toLowerCase();
+        const pin = document.getElementById('login-pin').value.trim();
+        const config = getConfig();
+        const user = config.users.find(u => u.id.toLowerCase() === id && u.pin === pin);
+        if (user) {
+            currentRole = user.role;
+            currentUser = user;
+            showApp();
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+        }
+    }
+
+    function viewerLogin() {
+        currentRole = 'viewer';
+        currentUser = { id: 'guest', name: 'Guest', role: 'viewer' };
+        showApp();
+    }
+
+    function logout() {
+        currentRole = null;
+        currentUser = null;
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('app-header').style.display = 'none';
+        document.getElementById('nav-tabs').style.display = 'none';
+        document.getElementById('filters-bar').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('login-id').value = '';
+        document.getElementById('login-pin').value = '';
+        document.getElementById('login-error').style.display = 'none';
+    }
+
+    function showApp() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-header').style.display = 'flex';
+        document.getElementById('nav-tabs').style.display = 'flex';
+        document.getElementById('filters-bar').style.display = 'flex';
+        document.getElementById('main-content').style.display = 'block';
+        const badge = document.getElementById('user-badge');
+        badge.textContent = currentUser.name + ' (' + currentRole + ')';
+        badge.className = 'user-badge ' + currentRole;
+        document.querySelectorAll('.nav-tab.admin-only').forEach(t => {
+            t.style.display = currentRole === 'admin' ? 'block' : 'none';
+        });
+        initApp();
+    }
+
+    document.getElementById('login-pin').addEventListener('keyup', e => { if (e.key === 'Enter') attemptLogin(); });
+
+    // ===== INIT =====
+    function initApp() {
+        if (!DATA) return;
+        populateLeadFilter();
+        populateBatchPills();
+        populateInternFilter();
+        populateErrorTypeFilter();
+        renderAll();
+        if (currentRole === 'admin') renderAdmin();
+    }
+
+    fetch('data.json')
+        .then(r => r.json())
+        .then(d => {
+            DATA = d;
+            mergeExtraData();
+            if (currentRole) initApp();
+        })
+        .catch(() => {
+            DATA = { scanData: {} };
+            mergeExtraData();
+            if (currentRole) initApp();
+        });
+
+    // ===== TAB SWITCHING =====
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ===== FILTERS =====
+    function populateLeadFilter() {
+        const config = getConfig();
+        const sel = document.getElementById('filter-lead');
+        sel.innerHTML = '<option value="all">All Leads</option>';
+        config.leads.forEach(l => { sel.innerHTML += '<option value="' + l.name + '">' + l.name + '</option>'; });
+    }
+
+    function onLeadChange() { populateBatchPills(); populateInternFilter(); applyFilters(); }
+
+    function populateBatchPills() {
+        const config = getConfig();
+        const leadName = document.getElementById('filter-lead').value;
+        let batches;
+        if (leadName === 'all') {
+            batches = Object.keys(DATA.scanData);
+        } else {
+            const lead = config.leads.find(l => l.name === leadName);
+            batches = lead ? lead.batches.filter(b => DATA.scanData[b]) : [];
+        }
+        const container = document.getElementById('batch-pills');
+        container.innerHTML = '<button class="batch-pill active" data-batch="all" onclick="selectBatch(this)">All</button>';
+        batches.forEach(b => { container.innerHTML += '<button class="batch-pill" data-batch="' + b + '" onclick="selectBatch(this)">' + b + '</button>'; });
+    }
+
+    function selectBatch(btn) {
+        document.querySelectorAll('.batch-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentBatch = btn.dataset.batch;
+    }
+
+    function populateInternFilter() {
+        const data = getAllDataForCurrentLead();
+        const interns = [...new Set(data.map(r => r.internName))].sort();
+        const targets = ['filter-intern', 'scenario-intern-filter', 'test-intern-filter', 'feedback-intern-filter'];
+        targets.forEach(id => {
+            const sel = document.getElementById(id);
+            if (!sel) return;
+            sel.innerHTML = '<option value="all">All Interns</option>';
+            interns.forEach(n => { sel.innerHTML += '<option value="' + n + '">' + n + '</option>'; });
+        });
+    }
+
+    function populateErrorTypeFilter() {
+        const sel = document.getElementById('feedback-error-type');
+        if (!sel) return;
+        const keywords = getMistakeKeywords();
+        sel.innerHTML = '<option value="all">All Types</option>';
+        Object.keys(keywords).forEach(k => { sel.innerHTML += '<option value="' + k + '">' + k + '</option>'; });
+    }
+
+    function getAllDataForCurrentLead() {
+        const config = getConfig();
+        const leadName = document.getElementById('filter-lead').value;
+        if (leadName === 'all') return Object.values(DATA.scanData).flat();
+        const lead = config.leads.find(l => l.name === leadName);
+        if (!lead) return [];
+        return lead.batches.filter(b => DATA.scanData[b]).flatMap(b => DATA.scanData[b]);
+    }
+
+    function getFilteredData() {
+        const config = getConfig();
+        const leadName = document.getElementById('filter-lead').value;
+        const internName = document.getElementById('filter-intern').value;
+        const dateFrom = document.getElementById('filter-date-from').value;
+        const dateTo = document.getElementById('filter-date-to').value;
+        let data;
+        if (leadName === 'all') {
+            data = currentBatch === 'all' ? Object.values(DATA.scanData).flat() : (DATA.scanData[currentBatch] || []);
+        } else {
+            const lead = config.leads.find(l => l.name === leadName);
+            if (!lead) return [];
+            data = currentBatch === 'all' ? lead.batches.filter(b => DATA.scanData[b]).flatMap(b => DATA.scanData[b]) : (DATA.scanData[currentBatch] || []);
+        }
+        if (internName !== 'all') data = data.filter(r => r.internName === internName);
+        if (dateFrom) data = data.filter(r => r.scanDate >= dateFrom);
+        if (dateTo) data = data.filter(r => r.scanDate <= dateTo);
+        return data;
+    }
+
+    function findBatch(entry) {
+        for (const [batch, records] of Object.entries(DATA.scanData)) {
+            if (records.includes(entry)) return batch;
+        }
+        for (const [batch, records] of Object.entries(DATA.scanData)) {
+            for (const r of records) {
+                if (r.internName === entry.internName && r.scanDate === entry.scanDate && r.number === entry.number) return batch;
+            }
+        }
+        return 'Unknown';
+    }
+
+    function applyFilters() { renderAll(); }
+
+    function renderAll() {
+        renderTeamOverview();
+        renderDashboard();
+        renderPatterns();
+        renderFeedbackSummary();
+        renderTraining();
+        generateScenarios();
+        generateTest();
+        updateLeadLabel();
+    }
+
+    function updateLeadLabel() {
+        const lead = document.getElementById('filter-lead').value;
+        document.getElementById('current-lead-label').textContent = lead === 'all' ? 'All Teams' : 'Lead: ' + lead;
+    }
+
+    // ===== HELPERS =====
+    function getStatusBadge(errorRate) {
+        if (errorRate <= 20) return '<span class="badge badge-green">Good</span>';
+        if (errorRate <= 40) return '<span class="badge badge-yellow">Moderate</span>';
+        return '<span class="badge badge-red">High</span>';
+    }
+
+    function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+    const COLORS = ['#4361ee','#e53e3e','#16a34a','#ca8a04','#7c3aed','#ec4899','#0891b2','#ea580c','#4f46e5','#059669'];
+
+    function truncate(str, len) { return str.length > len ? str.substring(0, len) + '...' : str; }

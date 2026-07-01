@@ -1,0 +1,211 @@
+
+    // ===== ADMIN FUNCTIONS =====
+    function renderAdmin() {
+        renderUserList();
+        renderTeamList();
+        renderInternAssignments();
+        renderUploadedFiles();
+        renderDataSummary();
+        populateAdminSelects();
+    }
+
+    function populateAdminSelects() {
+        const config = getConfig();
+        ['assign-lead-select', 'upload-lead-select'].forEach(function(id) {
+            const sel = document.getElementById(id);
+            if (!sel) return;
+            sel.innerHTML = config.leads.map(l => '<option value="' + l.name + '">' + l.name + '</option>').join('');
+        });
+        updateAssignBatchSelect();
+        updateUploadBatchSelect();
+    }
+
+    function updateAssignBatchSelect() {
+        const config = getConfig();
+        const leadName = document.getElementById('assign-lead-select') ? document.getElementById('assign-lead-select').value : '';
+        const lead = config.leads.find(l => l.name === leadName);
+        const sel = document.getElementById('assign-batch-select');
+        if (!sel || !lead) return;
+        sel.innerHTML = lead.batches.map(b => '<option value="' + b + '">' + b + '</option>').join('');
+    }
+
+    function updateUploadBatchSelect() {
+        const config = getConfig();
+        const leadName = document.getElementById('upload-lead-select') ? document.getElementById('upload-lead-select').value : '';
+        const lead = config.leads.find(l => l.name === leadName);
+        const sel = document.getElementById('upload-batch-select');
+        if (!sel) return;
+        if (!lead) { sel.innerHTML = '<option value="">--</option>'; return; }
+        sel.innerHTML = lead.batches.map(b => '<option value="' + b + '">' + b + '</option>').join('');
+    }
+
+    // Listen for lead select changes in admin
+    document.addEventListener('change', function(e) {
+        if (e.target.id === 'assign-lead-select') updateAssignBatchSelect();
+        if (e.target.id === 'upload-lead-select') updateUploadBatchSelect();
+    });
+
+    function addUser() {
+        const id = document.getElementById('add-user-id').value.trim();
+        const name = document.getElementById('add-user-name').value.trim();
+        const pin = document.getElementById('add-user-pin').value.trim();
+        const role = document.getElementById('add-user-role').value;
+        if (!id || !name || !pin) return alert('Please fill all fields');
+        if (pin.length < 4) return alert('PIN must be at least 4 characters');
+        const config = getConfig();
+        const existing = config.users.findIndex(u => u.id.toLowerCase() === id.toLowerCase());
+        if (existing >= 0) config.users[existing] = { id: id, name: name, pin: pin, role: role };
+        else config.users.push({ id: id, name: name, pin: pin, role: role });
+        saveConfig(config);
+        renderUserList();
+        document.getElementById('add-user-id').value = '';
+        document.getElementById('add-user-name').value = '';
+        document.getElementById('add-user-pin').value = '';
+    }
+
+    function removeUser(userId) {
+        if (userId === currentUser.id) return alert("You can't remove yourself!");
+        const config = getConfig();
+        config.users = config.users.filter(u => u.id !== userId);
+        saveConfig(config);
+        renderUserList();
+    }
+
+    function renderUserList() {
+        const config = getConfig();
+        document.getElementById('user-list').innerHTML = config.users.map(function(u) {
+            return '<div class="user-row"><div><strong>' + u.name + '</strong> <span style="color:#888; font-size:12px;">(ID: ' + u.id + ')</span>' +
+                '<span class="role-tag role-' + u.role + '" style="margin-left:8px;">' + (u.role === 'admin' ? 'ADMIN - Full Access' : 'VIEWER - Read Only') + '</span>' +
+                '</div>' +
+                (currentRole === 'admin' ? '<button class="admin-btn admin-btn-remove" onclick="removeUser(\'' + u.id + '\')" style="padding:4px 12px; font-size:11px;">Remove</button>' : '') +
+                '</div>';
+        }).join('');
+    }
+
+    function addLead() {
+        const name = document.getElementById('add-lead-name').value.trim();
+        const batchesStr = document.getElementById('add-lead-batches').value.trim();
+        const internsStr = document.getElementById('add-lead-interns') ? document.getElementById('add-lead-interns').value.trim() : '';
+        if (!name || !batchesStr) return alert('Please fill Lead Name and Batches');
+        const batches = batchesStr.split(',').map(b => b.trim()).filter(Boolean);
+        const internNames = internsStr ? internsStr.split(',').map(n => n.trim()).filter(Boolean) : [];
+        const config = getConfig();
+        const existing = config.leads.findIndex(l => l.name.toLowerCase() === name.toLowerCase());
+        if (existing >= 0) {
+            config.leads[existing].batches = batches;
+            // Merge interns into all batches
+            if (!config.leads[existing].interns) config.leads[existing].interns = {};
+            if (internNames.length > 0) {
+                batches.forEach(function(b) {
+                    if (!config.leads[existing].interns[b]) config.leads[existing].interns[b] = [];
+                    internNames.forEach(function(n) {
+                        if (!config.leads[existing].interns[b].includes(n)) config.leads[existing].interns[b].push(n);
+                    });
+                });
+            }
+        } else {
+            const interns = {};
+            if (internNames.length > 0) {
+                batches.forEach(function(b) { interns[b] = [...internNames]; });
+            }
+            config.leads.push({ name: name.toUpperCase(), batches: batches, interns: interns });
+        }
+        saveConfig(config);
+        renderTeamList();
+        populateLeadFilter();
+        populateAdminSelects();
+        document.getElementById('add-lead-name').value = '';
+        document.getElementById('add-lead-batches').value = '';
+        if (document.getElementById('add-lead-interns')) document.getElementById('add-lead-interns').value = '';
+    }
+
+    function removeLead(name) {
+        const config = getConfig();
+        config.leads = config.leads.filter(l => l.name !== name);
+        saveConfig(config);
+        renderTeamList();
+        populateLeadFilter();
+        populateAdminSelects();
+    }
+
+    function assignIntern() {
+        const leadName = document.getElementById('assign-lead-select').value;
+        const batch = document.getElementById('assign-batch-select').value;
+        const internName = document.getElementById('assign-intern-name').value.trim();
+        if (!leadName || !batch || !internName) return alert('Please fill all fields');
+        const config = getConfig();
+        const lead = config.leads.find(l => l.name === leadName);
+        if (!lead) return alert('Lead not found');
+        if (!lead.interns) lead.interns = {};
+        if (!lead.interns[batch]) lead.interns[batch] = [];
+        if (!lead.interns[batch].includes(internName)) lead.interns[batch].push(internName);
+        saveConfig(config);
+        renderInternAssignments();
+        renderTeamList();
+        document.getElementById('assign-intern-name').value = '';
+    }
+
+    function removeInternAssignment(leadName, batch, internName) {
+        const config = getConfig();
+        const lead = config.leads.find(l => l.name === leadName);
+        if (!lead || !lead.interns || !lead.interns[batch]) return;
+        lead.interns[batch] = lead.interns[batch].filter(n => n !== internName);
+        saveConfig(config);
+        renderInternAssignments();
+        renderTeamList();
+    }
+
+    function renderInternAssignments() {
+        const config = getConfig();
+        const container = document.getElementById('intern-assignments');
+        if (!container) return;
+        let html = '';
+        config.leads.forEach(function(lead) {
+            if (!lead.interns) return;
+            Object.entries(lead.interns).forEach(function(pair) {
+                const batch = pair[0], interns = pair[1];
+                if (interns.length === 0) return;
+                html += '<div style="margin-bottom:12px;">' +
+                    '<div style="font-size:12px;font-weight:600;color:#666;margin-bottom:6px;">' + lead.name + ' &rarr; ' + batch + ' (' + interns.length + ' interns)</div>' +
+                    '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
+                interns.forEach(function(n) {
+                    html += '<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:#e0e7ff;border-radius:16px;font-size:12px;color:#3730a3;">' +
+                        n + ' <button onclick="removeInternAssignment(\'' + lead.name + '\',\'' + batch + '\',\'' + n.replace(/'/g, "\\'") + '\')" style="background:none;border:none;color:#e53e3e;cursor:pointer;font-size:14px;line-height:1;">&times;</button></span>';
+                });
+                html += '</div></div>';
+            });
+        });
+        container.innerHTML = html || '<p style="color:#888;font-size:13px;">No manual intern assignments yet. Interns are auto-detected from uploaded data.</p>';
+    }
+
+    function renderTeamList() {
+        const config = getConfig();
+        document.getElementById('team-list').innerHTML = config.leads.map(function(l) {
+            const records = l.batches.filter(b => DATA.scanData[b]).flatMap(b => DATA.scanData[b]);
+            const autoMembers = [...new Set(records.map(r => r.internName))].sort();
+            const allNames = [...new Set([...autoMembers, ...(l.interns ? Object.values(l.interns).flat() : [])])].sort();
+
+            // Build batch breakdown
+            let batchBreakdown = '';
+            l.batches.forEach(function(b) {
+                const batchRecords = DATA.scanData[b] || [];
+                const batchInterns = [...new Set(batchRecords.map(r => r.internName))];
+                const manualInterns = (l.interns && l.interns[b]) ? l.interns[b] : [];
+                const combinedInterns = [...new Set([...batchInterns, ...manualInterns])];
+                batchBreakdown += '<div style="margin-top:6px;"><span style="font-weight:600;font-size:11px;color:#4361ee;">' + b + '</span>' +
+                    '<span style="font-size:11px;color:#888;margin-left:6px;">(' + combinedInterns.length + ' interns, ' + batchRecords.length + ' records)</span></div>';
+            });
+
+            return '<div class="user-row" style="flex-direction:column; align-items:stretch; margin-bottom:10px;">' +
+                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
+                '<div><strong>' + l.name + '</strong><span style="color:#888; font-size:12px; margin-left:8px;">Batches: ' + l.batches.join(', ') + '</span></div>' +
+                '<button class="admin-btn admin-btn-remove" onclick="removeLead(\'' + l.name + '\')" style="padding:4px 12px; font-size:11px;">Remove</button>' +
+                '</div>' +
+                batchBreakdown +
+                '<div style="font-size:12px; color:#666; margin-top:8px;">' +
+                '<strong>All Team Members (' + allNames.length + '):</strong>' +
+                '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">' +
+                allNames.map(n => '<span style="padding:3px 10px;background:#f0f4ff;border-radius:12px;font-size:11px;color:#4361ee;border:1px solid #e0e7ff;">' + n + '</span>').join('') +
+                '</div></div></div>';
+        }).join('');
+    }

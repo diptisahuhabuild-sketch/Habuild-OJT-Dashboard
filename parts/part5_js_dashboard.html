@@ -1,0 +1,127 @@
+
+    // ===== DASHBOARD =====
+    function renderDashboard() {
+        const data = getFilteredData();
+        const totalAudits = data.length;
+        const errors = data.filter(r => r.improvementsNeeded === 'Yes').length;
+        const errorRate = totalAudits ? ((errors / totalAudits) * 100).toFixed(1) : 0;
+        const avgRating = totalAudits ? (data.reduce((s, r) => s + (r.leadRating || 0), 0) / (data.filter(r => r.leadRating).length || 1)).toFixed(2) : 'N/A';
+        const interns = [...new Set(data.map(r => r.internName))].length;
+        const rateNum = parseFloat(errorRate);
+        const rateClass = rateNum > 40 ? 'red' : rateNum > 20 ? 'yellow' : 'green';
+
+        document.getElementById('stats-row').innerHTML =
+            '<div class="stat-card"><div class="label">Total Audits</div><div class="value">' + totalAudits + '</div><div class="sub">Filtered view</div></div>' +
+            '<div class="stat-card"><div class="label">QC Errors</div><div class="value ' + rateClass + '">' + errors + '</div><div class="sub">' + errorRate + '% error rate</div></div>' +
+            '<div class="stat-card"><div class="label">Avg Lead Rating</div><div class="value">' + avgRating + '</div><div class="sub">out of 5.0</div></div>' +
+            '<div class="stat-card"><div class="label">Interns</div><div class="value">' + interns + '</div><div class="sub">Active agents</div></div>';
+
+        // Error by chat type
+        const typeCounts = {};
+        data.forEach(r => {
+            const t = r.chatType || 'Unknown';
+            if (!typeCounts[t]) typeCounts[t] = { total: 0, errors: 0 };
+            typeCounts[t].total++;
+            if (r.improvementsNeeded === 'Yes') typeCounts[t].errors++;
+        });
+        destroyChart('errorByType');
+        charts['errorByType'] = new Chart(document.getElementById('chart-errorByType'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(typeCounts),
+                datasets: [
+                    { label: 'Total Audits', data: Object.values(typeCounts).map(v => v.total), backgroundColor: 'rgba(67,97,238,0.6)' },
+                    { label: 'Errors Found', data: Object.values(typeCounts).map(v => v.errors), backgroundColor: 'rgba(229,62,62,0.6)' }
+                ]
+            },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666' } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } } }
+        });
+
+        // Error by intern (clickable)
+        const internErrors = {};
+        data.forEach(r => {
+            if (!internErrors[r.internName]) internErrors[r.internName] = { total: 0, errors: 0 };
+            internErrors[r.internName].total++;
+            if (r.improvementsNeeded === 'Yes') internErrors[r.internName].errors++;
+        });
+        const sortedInterns = Object.entries(internErrors).sort((a, b) => b[1].errors - a[1].errors);
+
+        destroyChart('errorByIntern');
+        charts['errorByIntern'] = new Chart(document.getElementById('chart-errorByIntern'), {
+            type: 'bar',
+            data: {
+                labels: sortedInterns.map(function(x){ return x[0]; }),
+                datasets: [
+                    { label: 'Total', data: sortedInterns.map(function(x){ return x[1].total; }), backgroundColor: 'rgba(67,97,238,0.3)' },
+                    { label: 'Errors', data: sortedInterns.map(function(x){
+                        var v = x[1]; var rate = v.errors / v.total;
+                        return v.errors;
+                    }), backgroundColor: sortedInterns.map(function(x){
+                        var v = x[1]; var rate = v.errors / v.total;
+                        return rate > 0.4 ? 'rgba(229,62,62,0.7)' : rate > 0.2 ? 'rgba(202,138,4,0.7)' : 'rgba(22,163,74,0.7)';
+                    }) }
+                ]
+            },
+            options: {
+                responsive: true, indexAxis: 'y',
+                onClick: function(e, elements) {
+                    if (elements.length > 0) {
+                        var idx = elements[0].index;
+                        viewInternFeedback(sortedInterns[idx][0]);
+                    }
+                },
+                plugins: { legend: { labels: { color: '#666' } } },
+                scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } }
+            }
+        });
+
+        // Rating by intern
+        const internRatings = {};
+        data.forEach(r => {
+            if (!internRatings[r.internName]) internRatings[r.internName] = { leadSum: 0, leadCount: 0, aiSum: 0, aiCount: 0 };
+            if (r.leadRating) { internRatings[r.internName].leadSum += r.leadRating; internRatings[r.internName].leadCount++; }
+            if (r.aiRating) { internRatings[r.internName].aiSum += r.aiRating; internRatings[r.internName].aiCount++; }
+        });
+        const ratingInterns = Object.keys(internRatings).sort();
+        destroyChart('ratingByIntern');
+        charts['ratingByIntern'] = new Chart(document.getElementById('chart-ratingByIntern'), {
+            type: 'bar',
+            data: {
+                labels: ratingInterns,
+                datasets: [
+                    { label: 'Lead Rating', data: ratingInterns.map(n => internRatings[n].leadCount ? (internRatings[n].leadSum / internRatings[n].leadCount).toFixed(2) : 0), backgroundColor: 'rgba(67,97,238,0.6)' },
+                    { label: 'AI Rating', data: ratingInterns.map(n => internRatings[n].aiCount ? (internRatings[n].aiSum / internRatings[n].aiCount).toFixed(2) : 0), backgroundColor: 'rgba(124,58,237,0.6)' }
+                ]
+            },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666' } } }, scales: { x: { ticks: { color: '#888', maxRotation: 45 } }, y: { ticks: { color: '#888' }, min: 0, max: 5 } } }
+        });
+
+        // Improvements pie
+        destroyChart('improvementsPie');
+        charts['improvementsPie'] = new Chart(document.getElementById('chart-improvementsPie'), {
+            type: 'doughnut',
+            data: {
+                labels: ['No Issues', 'Needs Improvement'],
+                datasets: [{ data: [totalAudits - errors, errors], backgroundColor: ['rgba(22,163,74,0.7)', 'rgba(229,62,62,0.7)'] }]
+            },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666' } } } }
+        });
+
+        // Performance table
+        const tbody = document.querySelector('#perf-table tbody');
+        tbody.innerHTML = '';
+        sortedInterns.forEach(function(pair) {
+            const name = pair[0], v = pair[1];
+            const ir = internRatings[name] || { leadSum: 0, leadCount: 1, aiSum: 0, aiCount: 1 };
+            const er = ((v.errors / v.total) * 100).toFixed(1);
+            const internBatches = [];
+            for (const [batch, records] of Object.entries(DATA.scanData)) {
+                if (records.some(r => r.internName === name)) internBatches.push(batch);
+            }
+            tbody.innerHTML += '<tr><td><strong>' + name + '</strong></td><td>' + internBatches.join(', ') + '</td><td>' + v.total + '</td><td>' + v.errors + '</td><td>' + er + '%</td>' +
+                '<td>' + (ir.leadCount ? (ir.leadSum / ir.leadCount).toFixed(2) : 'N/A') + '</td>' +
+                '<td>' + (ir.aiCount ? (ir.aiSum / ir.aiCount).toFixed(2) : 'N/A') + '</td>' +
+                '<td>' + getStatusBadge(parseFloat(er)) + '</td>' +
+                '<td><button class="simple-bar-view-btn" onclick="viewInternFeedback(\'' + name.replace(/'/g, "\\'") + '\')">View</button></td></tr>';
+        });
+    }

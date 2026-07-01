@@ -1,0 +1,125 @@
+
+    // ===== FEEDBACK MODAL =====
+    function openFeedbackModal(title, entries) {
+        const modal = document.getElementById('feedback-modal');
+        const content = document.getElementById('feedback-modal-content');
+        let html = '<h2>' + title + '</h2>';
+        html += '<p style="font-size:12px;color:#888;margin-bottom:16px;">' + entries.length + ' record(s) found</p>';
+        entries.forEach(entry => {
+            const batch = findBatch(entry);
+            const borderColor = entry.improvementsNeeded === 'Yes' ? '#e53e3e' : '#16a34a';
+            html += '<div class="feedback-entry" style="border-left-color:' + borderColor + '">';
+            html += '<div class="fe-header"><strong>' + entry.internName + '</strong>';
+            html += '<div class="fe-meta">' + (entry.scanDate || 'N/A') + ' | ' + (entry.chatType || 'N/A') + ' | Batch: ' + batch + ' | #' + (entry.number || 'N/A') + '</div></div>';
+            html += '<div class="fe-summary">' + (entry.summary || 'No summary available') + '</div>';
+            html += '<div class="fe-ratings">';
+            if (entry.leadRating) html += '<span class="fe-rating">Lead: ' + (typeof entry.leadRating === 'number' ? entry.leadRating.toFixed(2) : entry.leadRating) + '</span>';
+            if (entry.aiRating) html += '<span class="fe-rating">AI: ' + (typeof entry.aiRating === 'number' ? entry.aiRating.toFixed(2) : entry.aiRating) + '</span>';
+            if (entry.accuracyRating) html += '<span class="fe-rating">Accuracy: ' + entry.accuracyRating + '</span>';
+            if (entry.empathyRating) html += '<span class="fe-rating">Empathy: ' + entry.empathyRating + '</span>';
+            if (entry.grammarRating) html += '<span class="fe-rating">Grammar: ' + entry.grammarRating + '</span>';
+            if (entry.problemSolvingRating) html += '<span class="fe-rating">Problem Solving: ' + entry.problemSolvingRating + '</span>';
+            html += '</div>';
+            html += '<div class="fe-actions">';
+            html += '<button class="view-doc-btn" onclick="viewInDoc(\'' + batch + '\',\'' + (entry.internName || '').replace(/'/g, "\\'") + '\',\'' + (entry.scanDate || '') + '\',\'' + (entry.number || '') + '\')">&#128196; View in Doc</button>';
+            html += '</div></div>';
+        });
+        content.innerHTML = html;
+        modal.classList.add('open');
+    }
+
+    function closeFeedbackModal() { document.getElementById('feedback-modal').classList.remove('open'); }
+
+    // ===== VIEW IN DOCUMENT MODAL =====
+    function viewInDoc(batch, internName, scanDate, number) {
+        const modal = document.getElementById('doc-modal');
+        const content = document.getElementById('doc-modal-content');
+        const docStore = getDocStore();
+        const docKey = batch;
+        const doc = docStore[docKey];
+
+        if (!doc) {
+            content.innerHTML = '<h2>&#128196; View in Document</h2>' +
+                '<div style="text-align:center;padding:40px;">' +
+                '<div style="font-size:48px;margin-bottom:16px;">&#128203;</div>' +
+                '<p style="color:#888;font-size:14px;">No QC document uploaded for batch <strong>' + batch + '</strong>.</p>' +
+                '<p style="color:#888;font-size:13px;margin-top:8px;">Ask admin to upload the QC document for this batch in the Admin Panel.</p>' +
+                '</div>';
+            modal.classList.add('open');
+            return;
+        }
+
+        // Show document content with highlight for matching entry
+        let html = '<h2>&#128196; QC Document: ' + batch + '</h2>';
+        html += '<p style="font-size:12px;color:#888;margin-bottom:12px;">File: ' + (doc.filename || 'Unknown') + ' | Uploaded: ' + (doc.uploadDate || 'N/A') + '</p>';
+
+        if (doc.type === 'parsed-text') {
+            // Text content from document
+            let docText = doc.content || '';
+            // Try to highlight matching section
+            const searchTerms = [internName, number, scanDate].filter(Boolean);
+            searchTerms.forEach(term => {
+                if (term && docText.includes(term)) {
+                    docText = docText.split(term).join('<mark style="background:#fef3c7;padding:2px 4px;border-radius:3px;">' + term + '</mark>');
+                }
+            });
+            html += '<div style="background:#f8f9fa;border:1px solid #eee;border-radius:8px;padding:16px;max-height:500px;overflow-y:auto;font-size:13px;line-height:1.8;white-space:pre-wrap;">' + docText + '</div>';
+        } else if (doc.type === 'base64') {
+            html += '<p style="font-size:13px;color:#555;margin-bottom:12px;">Document stored as binary. ';
+            html += '<a href="' + doc.dataUrl + '" download="' + (doc.filename || 'document') + '" style="color:#4361ee;font-weight:600;">Download File</a></p>';
+            html += '<div class="preview-info">Looking for: Intern: <strong>' + internName + '</strong> | Date: <strong>' + scanDate + '</strong> | Number: <strong>' + number + '</strong></div>';
+        }
+
+        content.innerHTML = html;
+        modal.classList.add('open');
+
+        // Auto-scroll to highlighted text
+        setTimeout(() => {
+            const mark = content.querySelector('mark');
+            if (mark) mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 200);
+    }
+
+    function closeDocModal() { document.getElementById('doc-modal').classList.remove('open'); }
+    function closePreviewModal() { document.getElementById('preview-modal').classList.remove('open'); }
+
+    // View errors for a specific mistake pattern
+    function viewMistakeExamples(patternLabel) {
+        const data = getFilteredData();
+        const errorEntries = data.filter(r => r.improvementsNeeded === 'Yes' && r.summary);
+        const keywords = getMistakeKeywords();
+        const regex = keywords[patternLabel];
+        if (!regex) return;
+        const matching = errorEntries.filter(r => regex.test(r.summary));
+        openFeedbackModal('Mistake: ' + patternLabel, matching);
+    }
+
+    // View all feedback for a specific intern
+    function viewInternFeedback(internName) {
+        const data = getFilteredData();
+        const entries = data.filter(r => r.internName === internName);
+        openFeedbackModal('Feedback for ' + internName, entries);
+    }
+
+    // ===== TEAM OVERVIEW =====
+    function renderTeamOverview() {
+        const config = getConfig();
+        const container = document.getElementById('team-overview');
+        const leadFilter = document.getElementById('filter-lead').value;
+        if (leadFilter !== 'all') { container.innerHTML = ''; return; }
+        container.innerHTML = config.leads.map(lead => {
+            const records = lead.batches.filter(b => DATA.scanData[b]).flatMap(b => DATA.scanData[b]);
+            const members = [...new Set(records.map(r => r.internName))].length;
+            const errors = records.filter(r => r.improvementsNeeded === 'Yes').length;
+            const errorRate = records.length ? ((errors / records.length) * 100).toFixed(1) : 0;
+            const statusClass = errorRate <= 20 ? 'green' : errorRate <= 40 ? 'yellow' : 'red';
+            return '<div class="team-card" onclick="document.getElementById(\'filter-lead\').value=\'' + lead.name + '\'; onLeadChange();">' +
+                '<div class="lead-name">' + lead.name + '</div>' +
+                '<div class="lead-role">QC Lead &mdash; ' + lead.batches.join(', ') + '</div>' +
+                '<div style="display:flex;gap:24px;">' +
+                '<div><div class="member-count">' + members + '</div><div class="member-label">Members</div></div>' +
+                '<div><div class="member-count">' + records.length + '</div><div class="member-label">Audits</div></div>' +
+                '<div><div class="member-count ' + statusClass + '">' + errorRate + '%</div><div class="member-label">Error Rate</div></div>' +
+                '</div></div>';
+        }).join('');
+    }

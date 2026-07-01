@@ -1,0 +1,135 @@
+
+    // ===== FEEDBACK SUMMARY TAB =====
+    function renderFeedbackSummary() {
+        const data = getFilteredData();
+        const internFilter = document.getElementById('feedback-intern-filter') ? document.getElementById('feedback-intern-filter').value : 'all';
+        const dateFrom = document.getElementById('feedback-date-from') ? document.getElementById('feedback-date-from').value : '';
+        const dateTo = document.getElementById('feedback-date-to') ? document.getElementById('feedback-date-to').value : '';
+        const errorsOnly = document.getElementById('feedback-errors-only') ? document.getElementById('feedback-errors-only').value : 'errors';
+        const errorType = document.getElementById('feedback-error-type') ? document.getElementById('feedback-error-type').value : 'all';
+
+        let filtered = data;
+        if (internFilter !== 'all') filtered = filtered.filter(r => r.internName === internFilter);
+        if (dateFrom) filtered = filtered.filter(r => r.scanDate >= dateFrom);
+        if (dateTo) filtered = filtered.filter(r => r.scanDate <= dateTo);
+        if (errorsOnly === 'errors') filtered = filtered.filter(r => r.improvementsNeeded === 'Yes');
+        if (errorType !== 'all') {
+            const keywords = getMistakeKeywords();
+            const regex = keywords[errorType];
+            if (regex) filtered = filtered.filter(r => r.summary && regex.test(r.summary));
+        }
+
+        // Group by intern
+        const byIntern = {};
+        filtered.forEach(r => {
+            if (!byIntern[r.internName]) byIntern[r.internName] = [];
+            byIntern[r.internName].push(r);
+        });
+
+        const container = document.getElementById('feedback-summary-container');
+        if (!container) return;
+
+        if (Object.keys(byIntern).length === 0) {
+            container.innerHTML = '<p style="color:#888; text-align:center; padding:40px;">No feedback records found for the selected filters.</p>';
+            return;
+        }
+
+        let html = '';
+        Object.entries(byIntern).sort((a, b) => b[1].length - a[1].length).forEach(function(pair) {
+            const name = pair[0], entries = pair[1];
+            const totalForIntern = data.filter(r => r.internName === name).length;
+            const totalErrors = entries.filter(r => r.improvementsNeeded === 'Yes').length;
+            const errorRate = totalForIntern ? ((totalErrors / totalForIntern) * 100).toFixed(1) : 0;
+            const batches = [...new Set(entries.map(r => findBatch(r)))].join(', ');
+            const dates = entries.map(r => r.scanDate).filter(Boolean).sort();
+            const dateRange = dates.length ? dates[0] + ' to ' + dates[dates.length - 1] : 'N/A';
+            const badgeClass = totalErrors > 5 ? 'badge-red' : totalErrors > 2 ? 'badge-yellow' : 'badge-green';
+
+            html += '<div class="feedback-summary-card">';
+            html += '<div class="fb-intern-header">';
+            html += '<h3>' + name + ' <span class="badge ' + badgeClass + '">' + totalErrors + ' errors / ' + totalForIntern + ' audits (' + errorRate + '%)</span></h3>';
+            html += '<div>';
+            html += '<span style="font-size:12px;color:#888;margin-right:12px;">Batch: ' + batches + ' | ' + dateRange + '</span>';
+            html += '<button class="share-btn" onclick="exportInternFeedback(\'' + name.replace(/'/g, "\\'") + '\')">Share / Export</button>';
+            html += '</div></div>';
+            html += '<div style="max-height:400px; overflow-y:auto;">';
+
+            entries.sort((a, b) => (b.scanDate || '').localeCompare(a.scanDate || '')).forEach(function(entry) {
+                const borderColor = entry.improvementsNeeded === 'Yes' ? '#e53e3e' : '#16a34a';
+                const batch = findBatch(entry);
+                html += '<div class="feedback-entry" style="border-left-color:' + borderColor + '">';
+                html += '<div class="fe-header">';
+                html += '<div><span style="font-weight:600;">' + (entry.chatType || 'N/A') + '</span>';
+                html += '<span class="badge ' + (entry.improvementsNeeded === 'Yes' ? 'badge-red' : 'badge-green') + '" style="margin-left:8px;">' + (entry.improvementsNeeded === 'Yes' ? 'Error' : 'OK') + '</span></div>';
+                html += '<div class="fe-meta">' + (entry.scanDate || 'N/A') + ' | #' + (entry.number || 'N/A') + ' | ' + (entry.shift || '') + '</div>';
+                html += '</div>';
+                html += '<div class="fe-summary">' + (entry.summary || 'No summary') + '</div>';
+                html += '<div class="fe-ratings">';
+                if (entry.leadRating) html += '<span class="fe-rating">Lead: ' + (typeof entry.leadRating === 'number' ? entry.leadRating.toFixed(2) : entry.leadRating) + '</span>';
+                if (entry.aiRating) html += '<span class="fe-rating">AI: ' + (typeof entry.aiRating === 'number' ? entry.aiRating.toFixed(2) : entry.aiRating) + '</span>';
+                if (entry.accuracyRating) html += '<span class="fe-rating">Accuracy: ' + entry.accuracyRating + '</span>';
+                if (entry.empathyRating) html += '<span class="fe-rating">Empathy: ' + entry.empathyRating + '</span>';
+                if (entry.grammarRating) html += '<span class="fe-rating">Grammar: ' + entry.grammarRating + '</span>';
+                if (entry.problemSolvingRating) html += '<span class="fe-rating">Problem Solving: ' + entry.problemSolvingRating + '</span>';
+                html += '</div>';
+                html += '<div class="fe-actions">';
+                html += '<button class="view-doc-btn" onclick="viewInDoc(\'' + batch + '\',\'' + name.replace(/'/g, "\\'") + '\',\'' + (entry.scanDate || '') + '\',\'' + (entry.number || '') + '\')">&#128196; View in Doc</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+
+            html += '</div></div>';
+        });
+
+        container.innerHTML = html;
+    }
+
+    function exportInternFeedback(internName) {
+        const data = getFilteredData().filter(r => r.internName === internName);
+        const errors = data.filter(r => r.improvementsNeeded === 'Yes');
+        const batches = [...new Set(data.map(r => findBatch(r)))].join(', ');
+        const today = new Date().toISOString().split('T')[0];
+
+        let html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>QC Feedback - ' + internName + '</title>' +
+        '<style>body{font-family:Segoe UI,sans-serif;max-width:900px;margin:40px auto;padding:20px;color:#222;}' +
+        'h1{margin-bottom:6px;} .meta{color:#888;font-size:13px;margin-bottom:20px;}' +
+        '.entry{border:1px solid #ddd;border-left:4px solid #e53e3e;border-radius:8px;padding:16px;margin-bottom:12px;}' +
+        '.entry.ok{border-left-color:#16a34a;} .header{display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px;color:#888;}' +
+        '.summary{font-size:13px;line-height:1.6;} .ratings{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}' +
+        '.rating{font-size:11px;padding:2px 6px;background:#e0e7ff;border-radius:4px;color:#3730a3;}' +
+        '.badge{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}' +
+        '.badge-red{background:#fef2f2;color:#991b1b;} .badge-green{background:#dcfce7;color:#166534;}' +
+        '</style></head><body>' +
+        '<h1>QC Feedback Report: ' + internName + '</h1>' +
+        '<div class="meta">Batch: ' + batches + ' | Total Audits: ' + data.length + ' | Errors: ' + errors.length + ' | Error Rate: ' + (data.length ? ((errors.length/data.length)*100).toFixed(1) : 0) + '% | Generated: ' + today + '</div>';
+
+        data.sort((a, b) => (b.scanDate || '').localeCompare(a.scanDate || '')).forEach(function(entry) {
+            const isError = entry.improvementsNeeded === 'Yes';
+            html += '<div class="entry ' + (isError ? '' : 'ok') + '">' +
+                '<div class="header"><span>' + (entry.chatType || 'N/A') + ' | <span class="badge ' + (isError ? 'badge-red' : 'badge-green') + '">' + (isError ? 'Error' : 'OK') + '</span></span>' +
+                '<span>' + (entry.scanDate || 'N/A') + ' | #' + (entry.number || 'N/A') + '</span></div>' +
+                '<div class="summary">' + (entry.summary || 'No summary') + '</div>' +
+                '<div class="ratings">';
+            if (entry.leadRating) html += '<span class="rating">Lead: ' + (typeof entry.leadRating === 'number' ? entry.leadRating.toFixed(2) : entry.leadRating) + '</span>';
+            if (entry.aiRating) html += '<span class="rating">AI: ' + (typeof entry.aiRating === 'number' ? entry.aiRating.toFixed(2) : entry.aiRating) + '</span>';
+            html += '</div></div>';
+        });
+
+        html += '</body></html>';
+        const blob = new Blob([html], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'QC_Feedback_' + internName + '_' + today + '.html';
+        a.click();
+    }
+
+    function exportFeedbackSummary() {
+        const internFilter = document.getElementById('feedback-intern-filter') ? document.getElementById('feedback-intern-filter').value : 'all';
+        if (internFilter !== 'all') {
+            exportInternFeedback(internFilter);
+        } else {
+            const data = getFilteredData();
+            const interns = [...new Set(data.map(r => r.internName))].sort();
+            interns.forEach(name => exportInternFeedback(name));
+        }
+    }

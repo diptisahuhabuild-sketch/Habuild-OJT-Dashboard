@@ -1,0 +1,164 @@
+
+    // ===== MISTAKE KEYWORDS =====
+    function getMistakeKeywords() {
+        return {
+            'Incomplete info / Missing steps': /incomplete|missing|did not (share|provide|inform|mention|guide)|should have (also |additionally )?(shared|provided|informed|mentioned|guided|explained)/i,
+            'Incorrect information': /incorrect|wrong|inaccurate|irrelevant|not (correct|accurate|relevant)/i,
+            'Lack of proactive guidance': /proactive|should have proactively|could have (also )?(added|informed|shared|guided)|additionally.*should/i,
+            'Poor context understanding': /did not (understand|identify|recognize)|failed to (understand|identify|recognize)|unable to.*understand|misunderstood|context.*incorrect/i,
+            'Missed follow-up': /follow.?up|resolution.*incomplete|did not (resolve|address)|incomplete.*resolution|not.*complete/i,
+            'Unnecessary actions': /unnecessary|redundant|not.*need|did not need|irrelevant.*information|should not have/i,
+            'Tone / Communication': /tone|polite|rude|warm|empathy|engaging|personal|conversational/i,
+            'Failed to verify': /verify|cross.?check|confirm|check.*before/i,
+            'Wrong link / resource': /wrong.*link|incorrect.*link|shared.*instead|wrong.*resource/i,
+            'Delayed response': /late|delayed|too late|should have.*first|initially.*should/i,
+        };
+    }
+
+    // ===== ERROR PATTERNS (SIMPLIFIED) =====
+    function renderPatterns() {
+        const data = getFilteredData();
+        const errorEntries = data.filter(r => r.improvementsNeeded === 'Yes' && r.summary);
+        const keywords = getMistakeKeywords();
+
+        const counts = {};
+        for (const pattern of Object.keys(keywords)) counts[pattern] = { count: 0, interns: new Set() };
+        errorEntries.forEach(r => {
+            for (const [pattern, regex] of Object.entries(keywords)) {
+                if (regex.test(r.summary)) { counts[pattern].count++; counts[pattern].interns.add(r.internName); }
+            }
+        });
+
+        const sorted = Object.entries(counts)
+            .map(function(pair) { return { pattern: pair[0], count: pair[1].count, interns: [...pair[1].interns] }; })
+            .filter(p => p.count > 0)
+            .sort((a, b) => b.count - a.count);
+
+        const top10 = sorted.slice(0, 10);
+        const maxCount = top10.length > 0 ? top10[0].count : 1;
+
+        // Horizontal bar chart (custom HTML)
+        document.getElementById('simple-mistake-bars').innerHTML = top10.map(p => {
+            const pct = (p.count / maxCount * 100).toFixed(0);
+            const color = p.count > maxCount * 0.6 ? '#e53e3e' : p.count > maxCount * 0.3 ? '#ca8a04' : '#16a34a';
+            return '<div class="simple-bar-row">' +
+                '<div class="simple-bar-label">' + p.pattern + '</div>' +
+                '<div class="simple-bar-track">' +
+                '<div class="simple-bar-fill" style="width:' + pct + '%; background:' + color + ';"><span>' + p.count + '</span></div>' +
+                '</div>' +
+                '<div class="simple-bar-count">' + p.count + ' errors, ' + p.interns.length + ' intern' + (p.interns.length > 1 ? 's' : '') + '</div>' +
+                '<button class="simple-bar-view-btn" onclick="viewMistakeExamples(\'' + p.pattern.replace(/'/g, "\\'") + '\')">View Examples</button>' +
+                '</div>';
+        }).join('') || '<p style="color:#888;">No error patterns found for this filter.</p>';
+
+        // Error category pie chart
+        destroyChart('errorPie');
+        if (top10.length > 0) {
+            charts['errorPie'] = new Chart(document.getElementById('chart-errorPie'), {
+                type: 'pie',
+                data: {
+                    labels: top10.map(p => p.pattern),
+                    datasets: [{
+                        data: top10.map(p => p.count),
+                        backgroundColor: top10.map(function(p, i) { return COLORS[i % COLORS.length] + 'cc'; })
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#666', font: { size: 11 }, boxWidth: 12, padding: 8 } }
+                    }
+                }
+            });
+        }
+
+        // Weekly trend chart
+        const weeklyData = {};
+        data.forEach(r => {
+            if (!r.scanDate) return;
+            const d = new Date(r.scanDate);
+            const weekStart = new Date(d); weekStart.setDate(d.getDate() - d.getDay());
+            const key = weekStart.toISOString().split('T')[0];
+            if (!weeklyData[key]) weeklyData[key] = { total: 0, errors: 0 };
+            weeklyData[key].total++;
+            if (r.improvementsNeeded === 'Yes') weeklyData[key].errors++;
+        });
+        const weeks = Object.keys(weeklyData).sort();
+
+        destroyChart('weeklyTrend');
+        charts['weeklyTrend'] = new Chart(document.getElementById('chart-weeklyTrend'), {
+            type: 'line',
+            data: {
+                labels: weeks.map(w => w.substring(5)),
+                datasets: [
+                    { label: 'Total Audits', data: weeks.map(w => weeklyData[w].total), borderColor: '#4361ee', backgroundColor: 'rgba(67,97,238,0.1)', fill: true, tension: 0.3 },
+                    { label: 'Errors', data: weeks.map(w => weeklyData[w].errors), borderColor: '#e53e3e', backgroundColor: 'rgba(229,62,62,0.1)', fill: true, tension: 0.3 }
+                ]
+            },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666' } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } } }
+        });
+
+        // Intern trend
+        const internWeekly = {};
+        data.forEach(r => {
+            if (!r.scanDate) return;
+            const d = new Date(r.scanDate);
+            const weekStart = new Date(d); weekStart.setDate(d.getDate() - d.getDay());
+            const wk = weekStart.toISOString().split('T')[0];
+            if (!internWeekly[r.internName]) internWeekly[r.internName] = {};
+            if (!internWeekly[r.internName][wk]) internWeekly[r.internName][wk] = { total: 0, errors: 0 };
+            internWeekly[r.internName][wk].total++;
+            if (r.improvementsNeeded === 'Yes') internWeekly[r.internName][wk].errors++;
+        });
+
+        const datasets = Object.keys(internWeekly).map((name, i) => ({
+            label: name,
+            data: weeks.map(w => { const d = internWeekly[name] ? internWeekly[name][w] : null; return d ? ((d.errors / d.total) * 100).toFixed(1) : 0; }),
+            borderColor: COLORS[i % COLORS.length],
+            tension: 0.3, fill: false
+        }));
+
+        destroyChart('internTrend');
+        charts['internTrend'] = new Chart(document.getElementById('chart-internTrend'), {
+            type: 'line',
+            data: { labels: weeks.map(w => w.substring(5)), datasets: datasets },
+            options: { responsive: true, plugins: { legend: { labels: { color: '#666', font: { size: 11 } } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' }, title: { display: true, text: 'Error Rate %', color: '#888' } } } }
+        });
+
+        // Repeated by individual
+        const internMistakes = {};
+        errorEntries.forEach(r => {
+            if (!internMistakes[r.internName]) internMistakes[r.internName] = [];
+            internMistakes[r.internName].push(r);
+        });
+
+        let rmHtml = '';
+        Object.entries(internMistakes).forEach(function(pair) {
+            const name = pair[0], entries = pair[1];
+            if (entries.length < 2) return;
+            const patterns = analyzeMistakes(entries);
+            if (patterns.length === 0) return;
+            rmHtml += '<div class="intern-detail"><h3>' + name + ' <span class="badge badge-red">' + entries.length + ' errors</span>' +
+                ' <button class="simple-bar-view-btn" style="margin-left:8px;" onclick="viewInternFeedback(\'' + name.replace(/'/g, "\\'") + '\')">View All Feedback</button></h3>';
+            rmHtml += '<ul style="padding-left:20px; margin-top:8px;">';
+            patterns.slice(0, 5).forEach(p => { rmHtml += '<li style="margin-bottom:6px; font-size:13px;">' + p.pattern + ' <span style="color:#888;">(' + p.count + 'x)</span></li>'; });
+            rmHtml += '</ul></div>';
+        });
+        document.getElementById('repeated-mistakes').innerHTML = rmHtml || '<p style="color:#888;">No repeated patterns found.</p>';
+    }
+
+    function analyzeMistakes(entries) {
+        const keywords = getMistakeKeywords();
+        const counts = {};
+        for (const pattern of Object.keys(keywords)) counts[pattern] = { count: 0, interns: new Set() };
+        entries.forEach(r => {
+            const text = typeof r === 'string' ? r : (r.summary || '');
+            for (const [pattern, regex] of Object.entries(keywords)) {
+                if (regex.test(text)) { counts[pattern].count++; counts[pattern].interns.add(r.internName || 'Unknown'); }
+            }
+        });
+        return Object.entries(counts)
+            .map(function(pair) { return { pattern: pair[0], count: pair[1].count, interns: [...pair[1].interns] }; })
+            .filter(p => p.count > 0)
+            .sort((a, b) => b.count - a.count);
+    }

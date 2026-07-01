@@ -1,0 +1,453 @@
+
+    // ===== FILE UPLOAD WITH SHEETJS PARSING =====
+    function handleFileDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('dragover');
+        handleFileUpload(e.dataTransfer.files);
+    }
+
+    // Column name fuzzy mapping
+    function fuzzyMapColumns(headers) {
+        const mapping = {};
+        const maps = {
+            scanDate: ['scandate', 'scan date', 'scan_date', 'date scanned', 'audit date', 'auditdate'],
+            chatDate: ['chatdate', 'chat date', 'chat_date', 'conversation date'],
+            internName: ['internname', 'intern name', 'intern_name', 'agent', 'agent name', 'agentname', 'name', 'intern'],
+            number: ['number', 'phone', 'phone number', 'phonenumber', 'mobile', 'chat number', 'chatnumber', 'contact'],
+            chatType: ['chattype', 'chat type', 'chat_type', 'type', 'query type', 'querytype', 'category'],
+            leadRating: ['leadrating', 'lead rating', 'lead_rating', 'lead score', 'leadscore', 'supervisor rating'],
+            aiRating: ['airating', 'ai rating', 'ai_rating', 'ai score', 'aiscore', 'automated rating'],
+            improvementsNeeded: ['improvementsneeded', 'improvements needed', 'improvements_needed', 'needs improvement', 'improvement', 'error', 'has error'],
+            summary: ['summary', 'feedback', 'comments', 'notes', 'observation', 'remark', 'remarks', 'description'],
+            shift: ['shift', 'time shift', 'work shift'],
+            department: ['department', 'dept', 'team', 'division'],
+            accuracyRating: ['accuracyrating', 'accuracy rating', 'accuracy_rating', 'accuracy'],
+            empathyRating: ['empathyrating', 'empathy rating', 'empathy_rating', 'empathy'],
+            grammarRating: ['grammarrating', 'grammar rating', 'grammar_rating', 'grammar', 'language'],
+            problemSolvingRating: ['problemsolvingrating', 'problem solving rating', 'problem_solving_rating', 'problem solving', 'problemsolving'],
+            resolutionRating: ['resolutionrating', 'resolution rating', 'resolution_rating', 'resolution']
+        };
+
+        headers.forEach(function(header, idx) {
+            const normalized = header.toString().toLowerCase().trim();
+            for (const [field, aliases] of Object.entries(maps)) {
+                if (aliases.includes(normalized) || normalized === field.toLowerCase()) {
+                    mapping[idx] = field;
+                    break;
+                }
+            }
+            // Extra fuzzy: check if header contains key terms
+            if (!mapping[idx]) {
+                for (const [field, aliases] of Object.entries(maps)) {
+                    if (aliases.some(a => normalized.includes(a) || a.includes(normalized))) {
+                        mapping[idx] = field;
+                        break;
+                    }
+                }
+            }
+        });
+        return mapping;
+    }
+
+    function parseExcelFile(file, leadName) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+
+                const parsedData = { scanData: {} };
+                let totalRecords = 0;
+
+                workbook.SheetNames.forEach(function(sheetName) {
+                    const worksheet = workbook.Sheets[sheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: null });
+
+                    if (jsonData.length < 2) return; // Need at least header + 1 row
+
+                    const headers = jsonData[0].map(h => h ? h.toString() : '');
+                    const colMap = fuzzyMapColumns(headers);
+
+                    // Use sheet name as batch name (e.g. "B-19", "B-15")
+                    let batchName = sheetName.trim();
+                    // If sheet name doesn't look like a batch, prefix it
+                    if (!batchName.match(/^B-/i)) {
+                        // Check if it starts with a batch-like pattern
+                        const bMatch = batchName.match(/\b(B[-\s]?\d+)\b/i);
+                        if (bMatch) batchName = bMatch[1].replace(/\s/, '-').toUpperCase();
+                    }
+
+                    const records = [];
+                    for (let i = 1; i < jsonData.length; i++) {
+                        const row = jsonData[i];
+                        if (!row || row.every(c => c === null || c === '')) continue;
+
+                        const record = {};
+                        for (const [colIdx, fieldName] of Object.entries(colMap)) {
+                            let val = row[parseInt(colIdx)];
+                            // Parse dates
+                            if ((fieldName === 'scanDate' || fieldName === 'chatDate') && val) {
+                                if (val instanceof Date) {
+                                    val = val.toISOString().split('T')[0];
+                                } else if (typeof val === 'number') {
+                                    // Excel serial date
+                                    const d = XLSX.SSF.parse_date_code(val);
+                                    if (d) val = d.y + '-' + String(d.m).padStart(2, '0') + '-' + String(d.d).padStart(2, '0');
+                                } else {
+                                    val = val.toString();
+                                }
+                            }
+                            // Parse numbers for ratings
+                            if (fieldName.includes('Rating') && val !== null && val !== '') {
+                                val = parseFloat(val);
+                                if (isNaN(val)) val = null;
+                            }
+                            // Convert number field to string
+                            if (fieldName === 'number' && val !== null) val = val.toString();
+                            record[fieldName] = val;
+                        }
+
+                        // Only add if we have at least internName or number
+                        if (record.internName || record.number) {
+                            // Ensure improvementsNeeded is Yes/No
+                            if (record.improvementsNeeded !== undefined && record.improvementsNeeded !== null) {
+                                const v = record.improvementsNeeded.toString().toLowerCase().trim();
+                                record.improvementsNeeded = (v === 'yes' || v === 'true' || v === '1' || v === 'y') ? 'Yes' : 'No';
+                            }
+                            records.push(record);
+                            totalRecords++;
+                        }
+                    }
+
+                    if (records.length > 0) {
+                        parsedData.scanData[batchName] = records;
+                    }
+                });
+
+                if (totalRecords === 0) {
+                    alert('No valid records found in the file. Check that column names match expected fields (internName, scanDate, number, summary, etc.).');
+                    return;
+                }
+
+                // Show preview modal
+                pendingParseData = { data: parsedData, filename: file.name, leadName: leadName, totalRecords: totalRecords };
+                showParsePreview(parsedData, file.name, totalRecords);
+
+            } catch (err) {
+                alert('Error parsing Excel file: ' + err.message);
+                console.error(err);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function parseCSVFile(file, leadName) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const workbook = XLSX.read(e.target.result, { type: 'string', cellDates: true });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: null });
+
+                if (jsonData.length < 2) { alert('CSV file appears empty.'); return; }
+
+                const headers = jsonData[0].map(h => h ? h.toString() : '');
+                const colMap = fuzzyMapColumns(headers);
+
+                // For CSV, use lead's first batch or ask
+                const config = getConfig();
+                const lead = config.leads.find(l => l.name === leadName);
+                const batchSel = document.getElementById('upload-batch-select');
+                const batchName = batchSel ? batchSel.value : (lead && lead.batches.length > 0 ? lead.batches[0] : 'Unknown');
+
+                const records = [];
+                for (let i = 1; i < jsonData.length; i++) {
+                    const row = jsonData[i];
+                    if (!row || row.every(c => c === null || c === '')) continue;
+                    const record = {};
+                    for (const [colIdx, fieldName] of Object.entries(colMap)) {
+                        let val = row[parseInt(colIdx)];
+                        if ((fieldName === 'scanDate' || fieldName === 'chatDate') && val) {
+                            if (val instanceof Date) val = val.toISOString().split('T')[0];
+                            else val = val.toString();
+                        }
+                        if (fieldName.includes('Rating') && val !== null && val !== '') {
+                            val = parseFloat(val); if (isNaN(val)) val = null;
+                        }
+                        if (fieldName === 'number' && val !== null) val = val.toString();
+                        record[fieldName] = val;
+                    }
+                    if (record.internName || record.number) {
+                        if (record.improvementsNeeded !== undefined && record.improvementsNeeded !== null) {
+                            const v = record.improvementsNeeded.toString().toLowerCase().trim();
+                            record.improvementsNeeded = (v === 'yes' || v === 'true' || v === '1' || v === 'y') ? 'Yes' : 'No';
+                        }
+                        records.push(record);
+                    }
+                }
+
+                if (records.length === 0) { alert('No valid records found in CSV.'); return; }
+
+                const parsedData = { scanData: {} };
+                parsedData.scanData[batchName] = records;
+                pendingParseData = { data: parsedData, filename: file.name, leadName: leadName, totalRecords: records.length };
+                showParsePreview(parsedData, file.name, records.length);
+
+            } catch (err) {
+                alert('Error parsing CSV: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function showParsePreview(parsedData, filename, totalRecords) {
+        const modal = document.getElementById('preview-modal');
+        const content = document.getElementById('preview-modal-content');
+
+        let html = '<h2>&#128203; Parsed Data Preview</h2>';
+        html += '<div class="preview-info">File: <strong>' + filename + '</strong> | Total Records: <strong>' + totalRecords + '</strong></div>';
+
+        for (const [batch, records] of Object.entries(parsedData.scanData)) {
+            html += '<h3 style="margin-top:16px;font-size:14px;">Batch: ' + batch + ' (' + records.length + ' records)</h3>';
+            html += '<div class="preview-table"><table><thead><tr>';
+            // Show first 5 rows
+            const previewRows = records.slice(0, 5);
+            const fields = ['internName', 'scanDate', 'number', 'chatType', 'leadRating', 'improvementsNeeded', 'summary'];
+            fields.forEach(f => { html += '<th>' + f + '</th>'; });
+            html += '</tr></thead><tbody>';
+            previewRows.forEach(function(r) {
+                html += '<tr>';
+                fields.forEach(function(f) {
+                    let val = r[f];
+                    if (f === 'summary' && val && val.length > 80) val = val.substring(0, 80) + '...';
+                    html += '<td>' + (val !== null && val !== undefined ? val : '<span style="color:#ccc;">null</span>') + '</td>';
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table></div>';
+            if (records.length > 5) html += '<p style="font-size:12px;color:#888;">... and ' + (records.length - 5) + ' more rows</p>';
+        }
+
+        html += '<div style="margin-top:20px;display:flex;gap:12px;">';
+        html += '<button class="admin-btn admin-btn-confirm" onclick="confirmMerge()">Confirm & Merge Data</button>';
+        html += '<button class="admin-btn admin-btn-remove" onclick="cancelMerge()">Cancel</button>';
+        html += '</div>';
+
+        content.innerHTML = html;
+        modal.classList.add('open');
+    }
+
+    function confirmMerge() {
+        if (!pendingParseData) return;
+        const pd = pendingParseData;
+
+        // Save to localStorage extra data
+        const extra = getExtraData();
+        for (const [batch, records] of Object.entries(pd.data.scanData)) {
+            if (!extra.scanData[batch]) extra.scanData[batch] = [];
+            records.forEach(function(r) {
+                const isDup = extra.scanData[batch].some(existing =>
+                    existing.number === r.number && existing.internName === r.internName && existing.scanDate === r.scanDate
+                );
+                if (!isDup) extra.scanData[batch].push(r);
+            });
+        }
+        saveExtraData(extra);
+
+        // Merge into live DATA
+        for (const [batch, records] of Object.entries(pd.data.scanData)) {
+            if (!DATA.scanData[batch]) DATA.scanData[batch] = [];
+            records.forEach(function(r) {
+                const isDup = DATA.scanData[batch].some(existing =>
+                    existing.number === r.number && existing.internName === r.internName && existing.scanDate === r.scanDate
+                );
+                if (!isDup) DATA.scanData[batch].push(r);
+            });
+        }
+
+        // Auto-detect interns and add to lead's batches
+        const config = getConfig();
+        const lead = config.leads.find(l => l.name === pd.leadName);
+        if (lead) {
+            for (const [batch, records] of Object.entries(pd.data.scanData)) {
+                if (!lead.batches.includes(batch)) lead.batches.push(batch);
+                if (!lead.interns) lead.interns = {};
+                if (!lead.interns[batch]) lead.interns[batch] = [];
+                records.forEach(function(r) {
+                    if (r.internName && !lead.interns[batch].includes(r.internName)) lead.interns[batch].push(r.internName);
+                });
+            }
+            saveConfig(config);
+        }
+
+        // Record upload
+        const cfg = getConfig();
+        if (!cfg.uploadedFiles) cfg.uploadedFiles = [];
+        cfg.uploadedFiles.push({
+            name: pd.filename,
+            type: 'qc-sheet',
+            lead: pd.leadName,
+            uploadDate: new Date().toISOString().split('T')[0],
+            recordCount: pd.totalRecords,
+            batches: Object.keys(pd.data.scanData).join(', ')
+        });
+        saveConfig(cfg);
+
+        pendingParseData = null;
+        closePreviewModal();
+        alert('Data merged successfully! ' + pd.totalRecords + ' records added.');
+
+        // Refresh everything
+        populateBatchPills();
+        populateInternFilter();
+        renderAll();
+        renderAdmin();
+    }
+
+    function cancelMerge() {
+        pendingParseData = null;
+        closePreviewModal();
+    }
+
+    function handleFileUpload(files) {
+        if (!files || files.length === 0) return;
+        const leadName = document.getElementById('upload-lead-select').value;
+        const docType = document.getElementById('upload-doc-type').value;
+
+        Array.from(files).forEach(function(file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            if (docType === 'qc-sheet') {
+                // Parse Excel/CSV with SheetJS
+                if (ext === 'xlsx' || ext === 'xls') {
+                    parseExcelFile(file, leadName);
+                } else if (ext === 'csv') {
+                    parseCSVFile(file, leadName);
+                } else {
+                    alert('For QC Sheet parsing, please upload .xlsx or .csv files.');
+                }
+            } else if (docType === 'qc-doc') {
+                // Store as reference document
+                const batchSel = document.getElementById('upload-batch-select');
+                const batch = batchSel ? batchSel.value : 'Unknown';
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(e.target.result).slice(0, 500000)));
+                    const docStore = getDocStore();
+                    docStore[batch] = {
+                        type: 'base64',
+                        filename: file.name,
+                        dataUrl: 'data:application/octet-stream;base64,' + base64,
+                        uploadDate: new Date().toISOString().split('T')[0],
+                        lead: leadName,
+                        batch: batch
+                    };
+                    saveDocStore(docStore);
+
+                    // Also record in uploaded files
+                    const config = getConfig();
+                    if (!config.uploadedFiles) config.uploadedFiles = [];
+                    config.uploadedFiles.push({
+                        name: file.name,
+                        type: 'qc-doc',
+                        lead: leadName,
+                        batch: batch,
+                        uploadDate: new Date().toISOString().split('T')[0],
+                        size: (file.size / 1024).toFixed(1) + ' KB'
+                    });
+                    saveConfig(config);
+                    renderUploadedFiles();
+                    alert('Document "' + file.name + '" stored for batch ' + batch + '.');
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                // Other file type - just record metadata
+                const config = getConfig();
+                if (!config.uploadedFiles) config.uploadedFiles = [];
+                config.uploadedFiles.push({
+                    name: file.name,
+                    type: 'other',
+                    lead: leadName,
+                    uploadDate: new Date().toISOString().split('T')[0],
+                    size: (file.size / 1024).toFixed(1) + ' KB'
+                });
+                saveConfig(config);
+                renderUploadedFiles();
+            }
+        });
+
+        // Reset file input
+        document.getElementById('file-input').value = '';
+    }
+
+    function removeUploadedFile(index) {
+        const config = getConfig();
+        const file = config.uploadedFiles[index];
+        // If it was a parsed QC sheet, also remove its extra data
+        if (file && file.type === 'qc-sheet' && file.batches) {
+            const batchList = file.batches.split(', ');
+            const extra = getExtraData();
+            batchList.forEach(function(b) { delete extra.scanData[b]; });
+            saveExtraData(extra);
+            // Reload DATA
+            fetch('data.json').then(r => r.json()).then(function(d) {
+                DATA = d;
+                mergeExtraData();
+                renderAll();
+            });
+        }
+        // If it was a doc, remove from doc store
+        if (file && file.type === 'qc-doc' && file.batch) {
+            const docStore = getDocStore();
+            delete docStore[file.batch];
+            saveDocStore(docStore);
+        }
+        config.uploadedFiles.splice(index, 1);
+        saveConfig(config);
+        renderUploadedFiles();
+    }
+
+    function renderUploadedFiles() {
+        const config = getConfig();
+        const container = document.getElementById('uploaded-files-list');
+        if (!container) return;
+        if (!config.uploadedFiles || config.uploadedFiles.length === 0) {
+            container.innerHTML = '<p style="color:#888;font-size:13px;">No files uploaded yet.</p>';
+            return;
+        }
+        container.innerHTML = config.uploadedFiles.map(function(f, i) {
+            const typeLabel = f.type === 'qc-sheet' ? '&#128202; QC Sheet' : f.type === 'qc-doc' ? '&#128196; QC Document' : '&#128206; Other';
+            const extra = f.recordCount ? ' | Records: ' + f.recordCount : '';
+            const batchInfo = f.batches ? ' | Batches: ' + f.batches : (f.batch ? ' | Batch: ' + f.batch : '');
+            const sizeInfo = f.size ? ' | Size: ' + f.size : '';
+            return '<div class="uploaded-file">' +
+                '<div><div class="uf-name">' + typeLabel + ' ' + f.name + '</div>' +
+                '<div class="uf-meta">Lead: ' + f.lead + batchInfo + extra + sizeInfo + ' | Uploaded: ' + f.uploadDate + '</div></div>' +
+                '<button class="admin-btn admin-btn-remove" onclick="removeUploadedFile(' + i + ')" style="padding:4px 12px; font-size:11px;">Remove</button></div>';
+        }).join('');
+    }
+
+    function renderDataSummary() {
+        const batches = Object.keys(DATA.scanData);
+        const extra = getExtraData();
+        const extraBatches = Object.keys(extra.scanData || {});
+
+        let html = '<table><thead><tr><th>Batch</th><th>Total Records</th><th>From Upload</th><th>Interns</th><th>Date Range</th></tr></thead><tbody>';
+        batches.forEach(function(b) {
+            const records = DATA.scanData[b];
+            const extraCount = (extra.scanData && extra.scanData[b]) ? extra.scanData[b].length : 0;
+            const interns = [...new Set(records.map(r => r.internName))].length;
+            const dates = records.map(r => r.scanDate).filter(Boolean).sort();
+            const range = dates.length ? dates[0] + ' to ' + dates[dates.length - 1] : 'N/A';
+            const isExtra = extraBatches.includes(b);
+            html += '<tr><td><strong>' + b + '</strong>' + (isExtra ? ' <span class="badge badge-yellow">+uploaded</span>' : '') + '</td>' +
+                '<td>' + records.length + '</td><td>' + extraCount + '</td><td>' + interns + '</td><td style="font-size:12px;">' + range + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        document.getElementById('data-summary').innerHTML = html;
+    }
+
+    </script>
+</body>
+</html>
