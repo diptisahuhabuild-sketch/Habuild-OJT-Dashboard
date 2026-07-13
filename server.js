@@ -22,6 +22,9 @@ if (fs.existsSync(quizDir)) {
 const PORT = process.env.PORT || 3848;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const CONFIG_FILE = path.join(__dirname, 'server-config.json');
+const DATA_FILE_NAME = 'data.json';
+const CONFIG_FILE_NAME = 'server-config.json';
+const DRIVE_STATE_FOLDER_ID = process.env.DRIVE_STATE_FOLDER_ID || null;
 
 // Ensure data.json exists
 if (!fs.existsSync(DATA_FILE)) {
@@ -34,7 +37,16 @@ function getConfig() {
   try { return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')); }
   catch { return { leads: {}, sheets: {}, docs: {}, thresholds: {}, targets: {}, internPhones: {}, leadPhones: {}, pulseResponses: {}, tasks: {} }; }
 }
-function saveConfig(cfg) { fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2)); }
+function saveConfig(cfg) {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
+  driveUploadFile(CONFIG_FILE_NAME, CONFIG_FILE).catch(e => console.error('[DriveSync] config upload failed:', e.message));
+}
+// Use this instead of a raw fs.writeFileSync(DATA_FILE, ...) anywhere below,
+// so every data write also gets pushed to the Drive backup copy.
+function writeDataFile(data) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  driveUploadFile(DATA_FILE_NAME, DATA_FILE).catch(e => console.error('[DriveSync] data upload failed:', e.message));
+}
 
 // ===== GOOGLE APIs =====
 let google, sheets, docs, drive;
@@ -70,6 +82,71 @@ try {
   }
 } catch (e) {
   console.log('[Google] googleapis not installed or error:', e.message);
+}
+
+// ===== DRIVE-BACKED PERSISTENCE =====
+// Render's free web service disk is wiped on every restart/redeploy.
+// To keep data.json / server-config.json across restarts without a paid
+// persistent disk, we mirror both files into a Google Drive folder that
+// you own (share that folder with the service account email as Editor,
+// then set its folder ID as DRIVE_STATE_FOLDER_ID in Render's environment).
+let driveStateCache = {}; // fileName -> Drive file ID, filled in on first use
+async function driveFindFileId(fileName) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return null;
+  if (driveStateCache[fileName]) return driveStateCache[fileName];
+  try {
+    const q = `'${DRIVE_STATE_FOLDER_ID}' in parents and name = '${fileName}' and trashed = false`;
+    const res = await drive.files.list({ q, fields: 'files(id, name)', spaces: 'drive' });
+    const file = res.data.files && res.data.files[0];
+    if (file) { driveStateCache[fileName] = file.id; return file.id; }
+    return null;
+  } catch (e) {
+    console.error('[DriveSync] lookup failed for', fileName, ':', e.message);
+    return null;
+  }
+}
+async function driveDownloadFile(fileName, localPath) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return false;
+  try {
+    const fileId = await driveFindFileId(fileName);
+    if (!fileId) { console.log(`[DriveSync] No backup found yet for ${fileName}, starting fresh.`); return false; }
+    const res = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'text' });
+    fs.writeFileSync(localPath, typeof res.data === 'string' ? res.data : JSON.stringify(res.data, null, 2));
+    console.log(`[DriveSync] Restored ${fileName} from Drive backup.`);
+    return true;
+  } catch (e) {
+    console.error('[DriveSync] download failed for', fileName, ':', e.message);
+    return false;
+  }
+}
+async function driveUploadFile(fileName, localPath) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return false;
+  try {
+    const media = { mimeType: 'application/json', body: fs.createReadStream(localPath) };
+    const fileId = await driveFindFileId(fileName);
+    if (fileId) {
+      await drive.files.update({ fileId, media });
+    } else {
+      const created = await drive.files.create({
+        resource: { name: fileName, parents: [DRIVE_STATE_FOLDER_ID] },
+        media, fields: 'id'
+      });
+      driveStateCache[fileName] = created.data.id;
+    }
+    return true;
+  } catch (e) {
+    console.error('[DriveSync] upload failed for', fileName, ':', e.message);
+    return false;
+  }
+}
+// Pull the latest backup down before the server starts serving requests.
+async function restoreStateFromDrive() {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) {
+    console.log('[DriveSync] DRIVE_STATE_FOLDER_ID not set — running on local disk only (data will not survive a restart on Render free tier).');
+    return;
+  }
+  await driveDownloadFile(CONFIG_FILE_NAME, CONFIG_FILE);
+  await driveDownloadFile(DATA_FILE_NAME, DATA_FILE);
 }
 
 // ===== TWILIO WHATSAPP =====
@@ -632,7 +709,7 @@ app.post('/api/sync-sheet', async (req, res) => {
   }
   if (!data.leadsConfig) data.leadsConfig = {};
   data.leadsConfig[lead] = [...new Set(Object.keys(result.batches))].sort();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  writeDataFile(data);
 
   // Save sheet URL to config
   const cfg = getConfig();
@@ -828,7 +905,7 @@ app.post('/api/sync-all', async (req, res) => {
           if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
         });
       }
-      fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+      writeDataFile(data);
     }
     results.push({ lead, ...(r.error ? { error: r.error } : { records: r.totalRecords }) });
   }
@@ -967,7 +1044,7 @@ cron.schedule('*/30 * * * *', async () => {
               if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
             });
           }
-          fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+          writeDataFile(data);
         }
       } catch (e) { console.error('[Cron] Sync error for', lead, ':', e.message); }
     }
@@ -995,6 +1072,11 @@ cron.schedule('*/30 * * * *', async () => {
 // ============================
 // START
 // ============================
+(async () => {
+  // Pull the last saved data.json / server-config.json back from Drive
+  // BEFORE we start serving requests or touching local disk further.
+  await restoreStateFromDrive();
+
 app.listen(PORT, async () => {
   console.log(`\n===================================`);
   console.log(`  Habuild OJT Dashboard`);
@@ -1032,7 +1114,7 @@ app.listen(PORT, async () => {
                   if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
                 });
               }
-              fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+              writeDataFile(data);
               console.log(`[Startup] Synced ${lead}: ${r.totalRecords} records`);
             }
           } catch (e) { console.error('[Startup] Sync error for', lead, ':', e.message); }
@@ -1052,3 +1134,5 @@ app.listen(PORT, async () => {
     }, 10000);
   }
 });
+
+})();
