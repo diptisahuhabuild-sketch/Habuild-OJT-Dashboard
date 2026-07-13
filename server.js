@@ -178,8 +178,27 @@ function extractDocId(url) {
 // ===== HELPER: Parse date from various formats =====
 function parseDate(v) {
   if (!v) return null;
-  if (typeof v === 'number') return new Date((v - 25569) * 86400000).toISOString().split('T')[0];
-  const d = new Date(v);
+  if (typeof v === 'number') {
+    if (v <= 0) return null; // blank sheet cells sometimes come through as 0 -> was silently becoming 1899-12-30
+    return new Date((v - 25569) * 86400000).toISOString().split('T')[0];
+  }
+  const s = String(v).trim();
+  if (!s) return null;
+  // Sheets in this org are entered DD/MM/YYYY or DD-MM-YYYY (Indian format).
+  // Plain `new Date(s)` assumes US MM/DD/YYYY and silently swaps day/month
+  // for any date where the day is 12 or less, which is how records ended up
+  // scattered into wrong months (and even years) after sync.
+  const dmy = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if (dmy) {
+    let [, day, month, year] = dmy;
+    day = parseInt(day, 10); month = parseInt(month, 10); year = parseInt(year, 10);
+    if (year < 100) year += 2000;
+    if (month > 12 && day <= 12) { [day, month] = [month, day]; } // sheet actually had MM/DD, swap back
+    if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+    const d = new Date(Date.UTC(year, month - 1, day));
+    return isNaN(d) ? null : d.toISOString().split('T')[0];
+  }
+  const d = new Date(s);
   return isNaN(d) ? null : d.toISOString().split('T')[0];
 }
 function parseNum(v) { const n = parseFloat(v); return isNaN(n) ? null : n; }
