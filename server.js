@@ -22,6 +22,9 @@ if (fs.existsSync(quizDir)) {
 const PORT = process.env.PORT || 3848;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const CONFIG_FILE = path.join(__dirname, 'server-config.json');
+const DATA_FILE_NAME = 'data.json';
+const CONFIG_FILE_NAME = 'server-config.json';
+const DRIVE_STATE_FOLDER_ID = process.env.DRIVE_STATE_FOLDER_ID || null;
 
 // Ensure data.json exists
 if (!fs.existsSync(DATA_FILE)) {
@@ -34,7 +37,16 @@ function getConfig() {
   try { return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')); }
   catch { return { leads: {}, sheets: {}, docs: {}, thresholds: {}, targets: {}, internPhones: {}, leadPhones: {}, pulseResponses: {}, tasks: {} }; }
 }
-function saveConfig(cfg) { fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2)); }
+function saveConfig(cfg) {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(cfg, null, 2));
+  driveUploadFile(CONFIG_FILE_NAME, CONFIG_FILE).catch(e => console.error('[DriveSync] config upload failed:', e.message));
+}
+// Use this instead of a raw fs.writeFileSync(DATA_FILE, ...) anywhere below,
+// so every data write also gets pushed to the Drive backup copy.
+function writeDataFile(data) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  driveUploadFile(DATA_FILE_NAME, DATA_FILE).catch(e => console.error('[DriveSync] data upload failed:', e.message));
+}
 
 // ===== GOOGLE APIs =====
 let google, sheets, docs, drive;
@@ -72,6 +84,71 @@ try {
   console.log('[Google] googleapis not installed or error:', e.message);
 }
 
+// ===== DRIVE-BACKED PERSISTENCE =====
+// Render's free web service disk is wiped on every restart/redeploy.
+// To keep data.json / server-config.json across restarts without a paid
+// persistent disk, we mirror both files into a Google Drive folder that
+// you own (share that folder with the service account email as Editor,
+// then set its folder ID as DRIVE_STATE_FOLDER_ID in Render's environment).
+let driveStateCache = {}; // fileName -> Drive file ID, filled in on first use
+async function driveFindFileId(fileName) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return null;
+  if (driveStateCache[fileName]) return driveStateCache[fileName];
+  try {
+    const q = `'${DRIVE_STATE_FOLDER_ID}' in parents and name = '${fileName}' and trashed = false`;
+    const res = await drive.files.list({ q, fields: 'files(id, name)', spaces: 'drive' });
+    const file = res.data.files && res.data.files[0];
+    if (file) { driveStateCache[fileName] = file.id; return file.id; }
+    return null;
+  } catch (e) {
+    console.error('[DriveSync] lookup failed for', fileName, ':', e.message);
+    return null;
+  }
+}
+async function driveDownloadFile(fileName, localPath) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return false;
+  try {
+    const fileId = await driveFindFileId(fileName);
+    if (!fileId) { console.log(`[DriveSync] No backup found yet for ${fileName}, starting fresh.`); return false; }
+    const res = await drive.files.get({ fileId, alt: 'media' }, { responseType: 'text' });
+    fs.writeFileSync(localPath, typeof res.data === 'string' ? res.data : JSON.stringify(res.data, null, 2));
+    console.log(`[DriveSync] Restored ${fileName} from Drive backup.`);
+    return true;
+  } catch (e) {
+    console.error('[DriveSync] download failed for', fileName, ':', e.message);
+    return false;
+  }
+}
+async function driveUploadFile(fileName, localPath) {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) return false;
+  try {
+    const media = { mimeType: 'application/json', body: fs.createReadStream(localPath) };
+    const fileId = await driveFindFileId(fileName);
+    if (fileId) {
+      await drive.files.update({ fileId, media });
+    } else {
+      const created = await drive.files.create({
+        resource: { name: fileName, parents: [DRIVE_STATE_FOLDER_ID] },
+        media, fields: 'id'
+      });
+      driveStateCache[fileName] = created.data.id;
+    }
+    return true;
+  } catch (e) {
+    console.error('[DriveSync] upload failed for', fileName, ':', e.message);
+    return false;
+  }
+}
+// Pull the latest backup down before the server starts serving requests.
+async function restoreStateFromDrive() {
+  if (!drive || !DRIVE_STATE_FOLDER_ID) {
+    console.log('[DriveSync] DRIVE_STATE_FOLDER_ID not set — running on local disk only (data will not survive a restart on Render free tier).');
+    return;
+  }
+  await driveDownloadFile(CONFIG_FILE_NAME, CONFIG_FILE);
+  await driveDownloadFile(DATA_FILE_NAME, DATA_FILE);
+}
+
 // ===== TWILIO WHATSAPP =====
 let twilioClient;
 try {
@@ -84,6 +161,43 @@ try {
   }
 } catch (e) {
   console.log('[WhatsApp] Twilio not available:', e.message);
+}
+
+// ===== EMAIL (Gmail SMTP via nodemailer) =====
+let mailTransporter;
+try {
+  if (process.env.EMAIL_USER && process.env.EMAIL_APP_PASSWORD) {
+    const nodemailer = require('nodemailer');
+    mailTransporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_APP_PASSWORD }
+    });
+    console.log('[Email] Gmail SMTP initialized');
+  } else {
+    console.log('[Email] No EMAIL_USER/EMAIL_APP_PASSWORD. Email sharing disabled.');
+  }
+} catch (e) {
+  console.log('[Email] nodemailer not available:', e.message);
+}
+async function sendEmail(to, subject, message) {
+  if (!mailTransporter) {
+    console.log('[Email] Would send to', to, ':', subject);
+    return { sent: false, reason: 'Email not configured' };
+  }
+  try {
+    const info = await mailTransporter.sendMail({
+      from: `"OJT Dashboard" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      text: message,
+      html: message.replace(/\n/g, '<br>')
+    });
+    console.log('[Email] Sent to', to, 'id:', info.messageId);
+    return { sent: true, id: info.messageId };
+  } catch (e) {
+    console.error('[Email] Error:', e.message);
+    return { sent: false, error: e.message };
+  }
 }
 
 // ===== HELPER: Extract Sheet ID from URL =====
@@ -101,8 +215,27 @@ function extractDocId(url) {
 // ===== HELPER: Parse date from various formats =====
 function parseDate(v) {
   if (!v) return null;
-  if (typeof v === 'number') return new Date((v - 25569) * 86400000).toISOString().split('T')[0];
-  const d = new Date(v);
+  if (typeof v === 'number') {
+    if (v <= 0) return null; // blank sheet cells sometimes come through as 0 -> was silently becoming 1899-12-30
+    return new Date((v - 25569) * 86400000).toISOString().split('T')[0];
+  }
+  const s = String(v).trim();
+  if (!s) return null;
+  // Sheets in this org are entered DD/MM/YYYY or DD-MM-YYYY (Indian format).
+  // Plain `new Date(s)` assumes US MM/DD/YYYY and silently swaps day/month
+  // for any date where the day is 12 or less, which is how records ended up
+  // scattered into wrong months (and even years) after sync.
+  const dmy = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if (dmy) {
+    let [, day, month, year] = dmy;
+    day = parseInt(day, 10); month = parseInt(month, 10); year = parseInt(year, 10);
+    if (year < 100) year += 2000;
+    if (month > 12 && day <= 12) { [day, month] = [month, day]; } // sheet actually had MM/DD, swap back
+    if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+    const d = new Date(Date.UTC(year, month - 1, day));
+    return isNaN(d) ? null : d.toISOString().split('T')[0];
+  }
+  const d = new Date(s);
   return isNaN(d) ? null : d.toISOString().split('T')[0];
 }
 function parseNum(v) { const n = parseFloat(v); return isNaN(n) ? null : n; }
@@ -269,21 +402,34 @@ async function syncQCDoc(leadName, docUrl) {
 }
 
 // ===== WHATSAPP MESSAGING =====
+function normalizeWhatsAppNumber(to) {
+  if (!to) return to;
+  let n = String(to).trim().replace(/[\s\-()]/g, '');
+  const hadPrefix = n.startsWith('whatsapp:');
+  if (hadPrefix) n = n.slice('whatsapp:'.length);
+  if (!n.startsWith('+')) {
+    if (/^\d{10}$/.test(n)) n = '+91' + n;           // bare 10-digit Indian mobile
+    else if (/^91\d{10}$/.test(n)) n = '+' + n;       // missing leading +
+    else if (/^\d+$/.test(n)) n = '+' + n;            // some other country code, just add +
+  }
+  return 'whatsapp:' + n;
+}
 async function sendWhatsApp(to, message) {
+  const formattedTo = normalizeWhatsAppNumber(to);
   if (!twilioClient) {
-    console.log('[WhatsApp] Would send to', to, ':', message.substring(0, 100) + '...');
+    console.log('[WhatsApp] Would send to', formattedTo, ':', message.substring(0, 100) + '...');
     return { sent: false, reason: 'Twilio not configured' };
   }
   try {
     const result = await twilioClient.messages.create({
       from: process.env.TWILIO_WHATSAPP_FROM,
-      to: to,
+      to: formattedTo,
       body: message
     });
-    console.log('[WhatsApp] Sent to', to, 'SID:', result.sid);
+    console.log('[WhatsApp] Sent to', formattedTo, 'SID:', result.sid);
     return { sent: true, sid: result.sid };
   } catch (e) {
-    console.error('[WhatsApp] Error:', e.message);
+    console.error('[WhatsApp] Error sending to', formattedTo, ':', e.message);
     return { sent: false, error: e.message };
   }
 }
@@ -632,7 +778,7 @@ app.post('/api/sync-sheet', async (req, res) => {
   }
   if (!data.leadsConfig) data.leadsConfig = {};
   data.leadsConfig[lead] = [...new Set(Object.keys(result.batches))].sort();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  writeDataFile(data);
 
   // Save sheet URL to config
   const cfg = getConfig();
@@ -765,8 +911,21 @@ app.post('/api/archive', async (req, res) => {
 app.get('/api/config', (req, res) => res.json({ ...getConfig(), googleEnabled: !!sheets, twilioEnabled: !!twilioClient }));
 
 app.post('/api/config', (req, res) => {
-  const cfg = { ...getConfig(), ...req.body };
-  saveConfig(cfg);
+  const current = getConfig();
+  const incoming = req.body || {};
+  const merged = { ...current };
+  for (const key of Object.keys(incoming)) {
+    const curVal = current[key];
+    const newVal = incoming[key];
+    const bothPlainObjects =
+      curVal && newVal && typeof curVal === 'object' && typeof newVal === 'object' &&
+      !Array.isArray(curVal) && !Array.isArray(newVal);
+    // Merge nested maps (sheets, docs, leads, internPhones, leadPhones, thresholds, etc.)
+    // one level deep instead of replacing the whole object - previously saving one
+    // lead's sheet link would silently delete every other lead's saved link.
+    merged[key] = bothPlainObjects ? { ...curVal, ...newVal } : newVal;
+  }
+  saveConfig(merged);
   res.json({ success: true });
 });
 
@@ -828,7 +987,7 @@ app.post('/api/sync-all', async (req, res) => {
           if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
         });
       }
-      fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+      writeDataFile(data);
     }
     results.push({ lead, ...(r.error ? { error: r.error } : { records: r.totalRecords }) });
   }
@@ -967,7 +1126,7 @@ cron.schedule('*/30 * * * *', async () => {
               if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
             });
           }
-          fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+          writeDataFile(data);
         }
       } catch (e) { console.error('[Cron] Sync error for', lead, ':', e.message); }
     }
@@ -995,6 +1154,11 @@ cron.schedule('*/30 * * * *', async () => {
 // ============================
 // START
 // ============================
+(async () => {
+  // Pull the last saved data.json / server-config.json back from Drive
+  // BEFORE we start serving requests or touching local disk further.
+  await restoreStateFromDrive();
+
 app.listen(PORT, async () => {
   console.log(`\n===================================`);
   console.log(`  Habuild OJT Dashboard`);
@@ -1032,7 +1196,7 @@ app.listen(PORT, async () => {
                   if (!existing.has(key)) { data.scanData[batch].push(r2); existing.add(key); }
                 });
               }
-              fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+              writeDataFile(data);
               console.log(`[Startup] Synced ${lead}: ${r.totalRecords} records`);
             }
           } catch (e) { console.error('[Startup] Sync error for', lead, ':', e.message); }
@@ -1052,3 +1216,5 @@ app.listen(PORT, async () => {
     }, 10000);
   }
 });
+
+})();
