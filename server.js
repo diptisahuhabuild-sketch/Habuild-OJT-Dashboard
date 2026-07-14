@@ -163,6 +163,43 @@ try {
   console.log('[WhatsApp] Twilio not available:', e.message);
 }
 
+// ===== EMAIL (Gmail SMTP via nodemailer) =====
+let mailTransporter;
+try {
+  if (process.env.EMAIL_USER && process.env.EMAIL_APP_PASSWORD) {
+    const nodemailer = require('nodemailer');
+    mailTransporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_APP_PASSWORD }
+    });
+    console.log('[Email] Gmail SMTP initialized');
+  } else {
+    console.log('[Email] No EMAIL_USER/EMAIL_APP_PASSWORD. Email sharing disabled.');
+  }
+} catch (e) {
+  console.log('[Email] nodemailer not available:', e.message);
+}
+async function sendEmail(to, subject, message) {
+  if (!mailTransporter) {
+    console.log('[Email] Would send to', to, ':', subject);
+    return { sent: false, reason: 'Email not configured' };
+  }
+  try {
+    const info = await mailTransporter.sendMail({
+      from: `"OJT Dashboard" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      text: message,
+      html: message.replace(/\n/g, '<br>')
+    });
+    console.log('[Email] Sent to', to, 'id:', info.messageId);
+    return { sent: true, id: info.messageId };
+  } catch (e) {
+    console.error('[Email] Error:', e.message);
+    return { sent: false, error: e.message };
+  }
+}
+
 // ===== HELPER: Extract Sheet ID from URL =====
 function extractSheetId(url) {
   if (!url) return null;
@@ -365,21 +402,34 @@ async function syncQCDoc(leadName, docUrl) {
 }
 
 // ===== WHATSAPP MESSAGING =====
+function normalizeWhatsAppNumber(to) {
+  if (!to) return to;
+  let n = String(to).trim().replace(/[\s\-()]/g, '');
+  const hadPrefix = n.startsWith('whatsapp:');
+  if (hadPrefix) n = n.slice('whatsapp:'.length);
+  if (!n.startsWith('+')) {
+    if (/^\d{10}$/.test(n)) n = '+91' + n;           // bare 10-digit Indian mobile
+    else if (/^91\d{10}$/.test(n)) n = '+' + n;       // missing leading +
+    else if (/^\d+$/.test(n)) n = '+' + n;            // some other country code, just add +
+  }
+  return 'whatsapp:' + n;
+}
 async function sendWhatsApp(to, message) {
+  const formattedTo = normalizeWhatsAppNumber(to);
   if (!twilioClient) {
-    console.log('[WhatsApp] Would send to', to, ':', message.substring(0, 100) + '...');
+    console.log('[WhatsApp] Would send to', formattedTo, ':', message.substring(0, 100) + '...');
     return { sent: false, reason: 'Twilio not configured' };
   }
   try {
     const result = await twilioClient.messages.create({
       from: process.env.TWILIO_WHATSAPP_FROM,
-      to: to,
+      to: formattedTo,
       body: message
     });
-    console.log('[WhatsApp] Sent to', to, 'SID:', result.sid);
+    console.log('[WhatsApp] Sent to', formattedTo, 'SID:', result.sid);
     return { sent: true, sid: result.sid };
   } catch (e) {
-    console.error('[WhatsApp] Error:', e.message);
+    console.error('[WhatsApp] Error sending to', formattedTo, ':', e.message);
     return { sent: false, error: e.message };
   }
 }
@@ -861,8 +911,21 @@ app.post('/api/archive', async (req, res) => {
 app.get('/api/config', (req, res) => res.json({ ...getConfig(), googleEnabled: !!sheets, twilioEnabled: !!twilioClient }));
 
 app.post('/api/config', (req, res) => {
-  const cfg = { ...getConfig(), ...req.body };
-  saveConfig(cfg);
+  const current = getConfig();
+  const incoming = req.body || {};
+  const merged = { ...current };
+  for (const key of Object.keys(incoming)) {
+    const curVal = current[key];
+    const newVal = incoming[key];
+    const bothPlainObjects =
+      curVal && newVal && typeof curVal === 'object' && typeof newVal === 'object' &&
+      !Array.isArray(curVal) && !Array.isArray(newVal);
+    // Merge nested maps (sheets, docs, leads, internPhones, leadPhones, thresholds, etc.)
+    // one level deep instead of replacing the whole object - previously saving one
+    // lead's sheet link would silently delete every other lead's saved link.
+    merged[key] = bothPlainObjects ? { ...curVal, ...newVal } : newVal;
+  }
+  saveConfig(merged);
   res.json({ success: true });
 });
 
