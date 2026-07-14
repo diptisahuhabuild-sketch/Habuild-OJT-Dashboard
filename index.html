@@ -121,7 +121,7 @@ tr:hover{background:#f8fafc}
 <div class="topbar"><h1>QC Analytics Dashboard</h1><div class="topbar-right"><button class="btn btn-sm btn-primary" onclick="doSync()" title="Force fresh data sync" style="font-size:.75rem;padding:.3rem .6rem">Sync Now</button><div class="refresh-indicator"><span class="dot"></span> <span id="lastSyncTime">Live</span></div><span class="user-info" id="userInfo"></span><button class="btn-logout" onclick="doLogout()">Logout</button></div></div>
 <div class="lead-selector-bar"><label for="leadSelect">OJT Lead:</label><select id="leadSelect" onchange="onLeadChange()"></select><label for="internSelect" style="color:#fff;font-weight:600;font-size:.9rem;margin-left:.5rem">Intern:</label><select id="globalInternSelect" onchange="onInternSelectChange()" style="padding:.5rem 2rem .5rem .75rem;font-size:.95rem;border:2px solid rgba(255,255,255,.3);border-radius:8px;background:#fff;color:var(--pri);min-width:180px;cursor:pointer"><option value="">All Interns</option></select><span class="lead-stats" id="leadStats"></span></div>
 <div class="filters-bar"><div class="batch-pills" id="batchPills"></div><div class="filter-sep"></div><input type="text" class="filter-input" id="internFilter" placeholder="Search intern..." oninput="applyFilters()"><div class="filter-sep"></div><input type="date" class="filter-input" id="dateFrom" onchange="applyFilters()" style="width:130px"><span style="color:var(--muted);font-size:.8rem">to</span><input type="date" class="filter-input" id="dateTo" onchange="applyFilters()" style="width:130px"><button class="btn btn-sm" onclick="clearFilters()">Clear</button><button class="btn btn-sm btn-primary" onclick="loadData()" style="margin-left:.5rem" title="Refresh data">&#8635; Refresh</button></div>
-<div class="tab-bar" id="tabBar"><button class="tab-btn active" data-tab="overview">Overview</button><button class="tab-btn" data-tab="errors">Error &amp; Feedback</button><button class="tab-btn" data-tab="comparison">Comparison</button><button class="tab-btn" data-tab="training">Training</button><button class="tab-btn" data-tab="assessment">Assessment</button><button class="tab-btn" data-tab="reports">Reports</button><button class="tab-btn" data-tab="admin">Admin</button></div>
+<div class="tab-bar" id="tabBar"><button class="tab-btn active" data-tab="overview">Overview</button><button class="tab-btn" data-tab="errors">Error &amp; Feedback</button><button class="tab-btn" data-tab="comparison">Comparison</button><button class="tab-btn" data-tab="training">Training</button><button class="tab-btn" data-tab="assessment">Assessment</button><button class="tab-btn" data-tab="eod">EOD Updates</button><button class="tab-btn" data-tab="reports">Reports</button><button class="tab-btn" data-tab="admin">Admin</button></div>
 <div class="content">
 <!-- OVERVIEW -->
 <div class="tab-panel active" id="panel-overview"><div class="stats-row" id="overviewStats"></div><div id="overviewAlerts"></div><div id="teamCards"></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem"><h3 style="margin:0">Individual Performance</h3><div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap"><label style="font-size:.8rem;color:var(--muted)">Show:</label><select class="filter-input" id="internStatusFilter" onchange="applyFilters()" style="font-size:.8rem"><option value="active">Active</option><option value="all">All (incl. Inactive/Exited)</option><option value="inactive">Inactive Only</option><option value="exited">Exited Only</option><option value="transitioned">Transitioned Only</option></select><button class="btn btn-sm btn-primary" onclick="addNewInternPrompt()" data-perm="admin_panel">+ Add Intern</button><button class="btn btn-sm" onclick="exportPerfTable()" data-perm="export_data">Export CSV</button></div></div><div class="table-wrap"><table id="perfTable"><thead><tr><th>Name</th><th>Batch</th><th>Lead</th><th>Audits (Sheet)</th><th>QC Errors (Doc)</th><th>Suggestions (Doc)</th><th>Repeated</th><th>Error %</th><th>Avg Rating</th><th>Status</th><th>Actions</th></tr></thead><tbody id="perfBody"></tbody></table></div></div></div>
@@ -185,6 +185,48 @@ tr:hover{background:#f8fafc}
 </div>
 <div class="card"><h3>Intern Test History</h3><div style="margin-bottom:.5rem"><select class="filter-input" id="testHistoryIntern" style="min-width:200px" onchange="showInternTestHistory()"><option value="">Select Intern</option></select></div><div id="testHistoryResult"></div></div>
 </div>
+<!-- EOD DAILY UPDATES -->
+<div class="tab-panel" id="panel-eod">
+<div class="card">
+  <h3>Submit Daily EOD Update</h3>
+  <p style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">OJT Leads: submit your team's daily update below. It's saved straight to the mastersheet and formatted for WhatsApp sharing.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem">
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Lead</label><select class="filter-input" id="eodLead" style="width:100%"></select></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Date</label><input type="date" class="filter-input" id="eodDate" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Batch</label><input type="text" class="filter-input" id="eodBatch" placeholder="20" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Attendance</label><input type="text" class="filter-input" id="eodAttendance" placeholder="e.g. 8/10" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Team Chat Count</label><input type="number" class="filter-input" id="eodChatCount" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Calling OJT Attendance</label><input type="text" class="filter-input" id="eodCallAttendance" placeholder="e.g. 4/5" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Chats</label><input type="number" class="filter-input" id="eodChats" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Calls</label><input type="number" class="filter-input" id="eodCalls" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Personal Chats Done</label><input type="number" class="filter-input" id="eodPersonalChats" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">Chat Scan</label><input type="number" class="filter-input" id="eodChatScan" style="width:100%"></div>
+    <div><label style="font-size:.75rem;color:var(--muted);display:block">QC Posted</label><input type="number" class="filter-input" id="eodQcPosted" style="width:100%"></div>
+  </div>
+  <div style="margin-top:.6rem"><label style="font-size:.75rem;color:var(--muted);display:block">EOD Summary</label><textarea class="filter-input" id="eodSummary" rows="2" style="width:100%"></textarea></div>
+  <div style="margin-top:.75rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+    <button class="btn btn-primary" onclick="submitEOD()">Save to Mastersheet</button>
+    <button class="btn btn-sm" onclick="shareEODPreview()">Share via WhatsApp</button>
+    <span id="eodSaveStatus" style="font-size:.8rem;color:var(--muted)"></span>
+  </div>
+  <div style="margin-top:.75rem">
+    <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.25rem">Live Preview</label>
+    <pre id="eodPreview" style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:.75rem;font-size:.8rem;white-space:pre-wrap"></pre>
+  </div>
+</div>
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
+    <h3 style="margin:0">Mastersheet — Daily Updates</h3>
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+      <select class="filter-input" id="eodFilterLead" onchange="loadEODTable()"><option value="">All Leads</option></select>
+      <input type="date" class="filter-input" id="eodFilterDate" onchange="loadEODTable()">
+      <button class="btn btn-sm" onclick="document.getElementById('eodFilterLead').value='';document.getElementById('eodFilterDate').value='';loadEODTable()">Clear</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>Lead</th><th>Batch</th><th>Attendance</th><th>Team Chats</th><th>Calls</th><th>QC Posted</th><th></th></tr></thead><tbody id="eodTableBody"></tbody></table></div>
+</div>
+</div>
+
 <!-- REPORTS -->
 <div class="tab-panel" id="panel-reports">
 <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem"><h3 style="margin:0">Automated Reports</h3><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-primary" onclick="generateWeeklyReport()" data-perm="generate_reports">Generate Summary</button><button class="btn" onclick="exportReportPDF()" data-perm="export_data">Export PDF</button><button class="btn" onclick="shareReportWhatsApp('admin')" data-perm="share_whatsapp">Share via WhatsApp</button></div></div>
@@ -222,6 +264,7 @@ tr:hover{background:#f8fafc}
 <div class="admin-section card"><h3>WhatsApp Per-Number Settings</h3><p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Enable/disable automated WhatsApp for each person and set report preferences.</p><div id="waPerNumberSettings" style="max-height:300px;overflow-y:auto"></div><button class="btn btn-sm" onclick="renderWAPerNumber()" style="margin-top:.5rem">Refresh</button></div>
 <div class="admin-section card"><h3>Sentiment Tracker Settings</h3><p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Enable/disable per intern, customize messages per batch.</p><div style="margin-bottom:.5rem"><label style="font-size:.85rem"><input type="checkbox" id="sentimentEnabled" onchange="saveSentimentSettings()"> Enable Sentiment Tracking</label></div><div><label style="font-size:.8rem;color:var(--muted)">Custom Message Template:</label><textarea id="sentimentMessage" rows="2" style="width:100%;padding:.4rem;border:1px solid var(--border);border-radius:6px;font-size:.85rem;margin-top:.25rem" placeholder="Hi {name}, how is your OJT going? Rate 1-5..."></textarea></div><div id="sentimentInternList" style="margin-top:.5rem;max-height:200px;overflow-y:auto"></div><button class="btn btn-sm btn-primary" onclick="saveSentimentSettings()" style="margin-top:.5rem">Save Settings</button></div>
 <div class="admin-section card"><h3>Weekly Admin Digest</h3><p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Auto-generated 5-6 line summary sent every Monday morning.</p><button class="btn btn-primary btn-sm" onclick="generateAdminDigest()">Preview Digest</button><button class="btn btn-sm" onclick="sendAdminDigest()" style="margin-left:.5rem">Send Now</button><div id="digestPreview" style="margin-top:.5rem"></div></div>
+<div class="admin-section card"><h3>AI Dashboard Integration (komal-ai.habuild.in)</h3><p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Team-level analytics auto-fetch hourly in the background. No login token is needed for this right now — leave the field blank unless fetches start failing, in which case paste a fresh token here (Application tab → Local Storage on komal-ai.habuild.in).</p><div class="form-row"><input type="text" id="komalTokenInput" placeholder="AI Dashboard Token (optional)" style="flex:1"><button class="btn btn-sm btn-primary" onclick="saveKomalToken()">Save</button><button class="btn btn-sm" onclick="testKomalFetch()">Fetch Now (Test)</button></div><div id="komalTestStatus" style="font-size:.8rem;color:var(--muted);margin-top:.4rem"></div></div>
 <div class="admin-section card"><h3>Data Summary</h3><div class="table-wrap"><table><thead><tr><th>Batch</th><th>Records</th><th>Interns</th><th>Date Range</th><th>Source</th></tr></thead><tbody id="dataSummaryBody"></tbody></table></div></div>
 </div></div>
 </div></div>
@@ -304,7 +347,7 @@ function toggleBatch(b){if(selectedBatches.has(b))selectedBatches.delete(b);else
 function clearFilters(){selectedBatches.clear();internSearch='';dateFrom='';dateTo='';document.getElementById('internFilter').value='';document.getElementById('dateFrom').value='';document.getElementById('dateTo').value='';buildBatchPills();applyFilters()}
 function applyFilters(){internSearch=document.getElementById('internFilter').value;dateFrom=document.getElementById('dateFrom').value;dateTo=document.getElementById('dateTo').value;const tab=document.querySelector('.tab-btn.active');if(tab)renderTab(tab.dataset.tab)}
 function setupTabs(){document.querySelectorAll('.tab-btn').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('panel-'+btn.dataset.tab).classList.add('active');renderTab(btn.dataset.tab)}})}
-function renderTab(tab){const data=getFilteredData();if(tab==='overview')renderOverview(data);else if(tab==='errors')renderErrors(data);else if(tab==='comparison')renderComparison();else if(tab==='training')renderTraining(data);else if(tab==='assessment')renderAssessment();else if(tab==='reports')renderReports(data);else if(tab==='admin')renderAdmin();applyPermissions()}
+function renderTab(tab){const data=getFilteredData();if(tab==='overview')renderOverview(data);else if(tab==='errors')renderErrors(data);else if(tab==='comparison')renderComparison();else if(tab==='training')renderTraining(data);else if(tab==='assessment')renderAssessment();else if(tab==='eod')renderEOD();else if(tab==='reports')renderReports(data);else if(tab==='admin')renderAdmin();applyPermissions()}
 function renderAssessment(){const interns=[...new Set(FLAT.map(r=>r.internName).filter(Boolean))].sort();document.getElementById('testHistoryIntern').innerHTML='<option value="">Select Intern</option>'+interns.map(n=>'<option value="'+esc(n)+'">'+n+'</option>').join('')}
 
 /* OVERVIEW */
@@ -696,6 +739,103 @@ function reassignInternByName(name){const leads=Object.keys(lsGet('qc_config',{l
 function removeInternByName(name){if(!confirm('Remove '+name+' from the team? This will mark them as exited.')){return}const s=lsGet('qc_intern_status',{});s[name]='exited';lsSet('qc_intern_status',s);const extra=lsGet('qc_extra',{assignments:[]});if(extra.assignments)extra.assignments=extra.assignments.filter(a=>a.intern!==name);lsSet('qc_extra',extra);renderAssignList();applyFilters()}
 
 /* ===== WHATSAPP RECIPIENT PICKER ===== */
+/* ===== KOMAL AI DASHBOARD ===== */
+function saveKomalToken(){const t=document.getElementById('komalTokenInput').value.trim();apiFetch('/api/config',{method:'POST',body:JSON.stringify({komalToken:t})}).then(r=>{document.getElementById('komalTestStatus').textContent=r.success?'Token saved.':'Error saving token'})}
+function testKomalFetch(){document.getElementById('komalTestStatus').textContent='Fetching...';const today=new Date().toISOString().slice(0,10);apiFetch('/api/komal/analytics?start='+today+'&end='+today).then(r=>{if(r.error){document.getElementById('komalTestStatus').textContent='Failed: '+r.error+' — try pasting a fresh token above.'}else{const n=(r.results||r||[]).length||0;document.getElementById('komalTestStatus').textContent='Success — fetched '+n+' record(s) for today.'}})}
+
+/* ===== EOD DAILY UPDATES ===== */
+function eodFormatText(v){
+  const DIV='━━━━━━━━━━━━━━━';
+  return '*Team '+v.lead+'* - Date: '+v.date+'\n\n'+
+    '*Batch: '+(v.batch||'-')+'*\n'+
+    'Attendance: '+(v.attendance||'-')+'\n'+
+    'Team Chat Count: '+(v.teamChatCount||'0')+'\n'+
+    '*Calling OJT* Attendance: '+(v.callingAttendance||'-')+'\n'+
+    'Chats: '+(v.chats||'0')+'\n'+
+    'calls: '+(v.calls||'0')+'\n\n'+
+    DIV+'\n'+
+    '*Personal Chats Done: '+(v.personalChatsDone||'0')+' I Chat Scan: '+(v.chatScan||'0')+' | QC Posted: '+(v.qcPosted||'0')+'\n'+
+    DIV+'\n\n'+
+    '*EOD Summary*\n'+(v.summary||'-');
+}
+function eodReadForm(){
+  return {
+    lead: document.getElementById('eodLead').value,
+    date: document.getElementById('eodDate').value,
+    batch: document.getElementById('eodBatch').value,
+    attendance: document.getElementById('eodAttendance').value,
+    teamChatCount: document.getElementById('eodChatCount').value,
+    callingAttendance: document.getElementById('eodCallAttendance').value,
+    chats: document.getElementById('eodChats').value,
+    calls: document.getElementById('eodCalls').value,
+    personalChatsDone: document.getElementById('eodPersonalChats').value,
+    chatScan: document.getElementById('eodChatScan').value,
+    qcPosted: document.getElementById('eodQcPosted').value,
+    summary: document.getElementById('eodSummary').value
+  };
+}
+function eodUpdatePreview(){document.getElementById('eodPreview').textContent=eodFormatText(eodReadForm())}
+function renderEOD(){
+  const leadSel=document.getElementById('eodLead');
+  const leads=Object.keys(RAW.leadsConfig||{});
+  const isLead=SESSION&&SESSION.role==='lead';
+  leadSel.innerHTML=leads.map(l=>'<option value="'+esc(l)+'">'+esc(l)+'</option>').join('');
+  if(isLead&&leads.includes(SESSION.name)){leadSel.value=SESSION.name;leadSel.disabled=true}else{leadSel.disabled=false}
+  if(!document.getElementById('eodDate').value)document.getElementById('eodDate').value=new Date().toISOString().slice(0,10);
+  const filterLead=document.getElementById('eodFilterLead');
+  filterLead.innerHTML='<option value="">All Leads</option>'+leads.map(l=>'<option value="'+esc(l)+'">'+esc(l)+'</option>').join('');
+  ['eodBatch','eodAttendance','eodChatCount','eodCallAttendance','eodChats','eodCalls','eodPersonalChats','eodChatScan','eodQcPosted','eodSummary'].forEach(id=>{
+    const el=document.getElementById(id);if(el&&!el._eodBound){el.addEventListener('input',eodUpdatePreview);el._eodBound=true}
+  });
+  if(!leadSel._eodBound){leadSel.addEventListener('change',eodUpdatePreview);leadSel._eodBound=true}
+  if(!document.getElementById('eodDate')._eodBound){document.getElementById('eodDate').addEventListener('change',eodUpdatePreview);document.getElementById('eodDate')._eodBound=true}
+  eodUpdatePreview();
+  loadEODTable();
+}
+function submitEOD(){
+  const v=eodReadForm();
+  if(!v.lead||!v.date){alert('Select a lead and date');return}
+  document.getElementById('eodSaveStatus').textContent='Saving...';
+  apiFetch('/api/daily-update',{method:'POST',body:JSON.stringify(v)}).then(r=>{
+    document.getElementById('eodSaveStatus').textContent=r.success?'Saved ✓':'Error saving';
+    loadEODTable();
+  });
+}
+function shareEODPreview(){shareReportWithPicker(eodFormatText(eodReadForm()),'Daily EOD Update')}
+function loadEODTable(){
+  const lead=document.getElementById('eodFilterLead')?.value||'';
+  const date=document.getElementById('eodFilterDate')?.value||'';
+  let url='/api/daily-updates?';
+  if(lead)url+='lead='+encodeURIComponent(lead)+'&';
+  if(date)url+='date='+encodeURIComponent(date);
+  apiFetch(url).then(rows=>{
+    if(!Array.isArray(rows)){document.getElementById('eodTableBody').innerHTML='<tr><td colspan="8">No data</td></tr>';return}
+    const isLead=SESSION&&SESSION.role==='lead';
+    document.getElementById('eodTableBody').innerHTML=rows.map(r=>{
+      const canEdit=!isLead||r.lead===SESSION.name;
+      return '<tr><td>'+r.date+'</td><td>'+esc(r.lead)+'</td><td>'+esc(r.batch||'-')+'</td><td>'+esc(r.attendance||'-')+'</td><td>'+(r.teamChatCount||'0')+'</td><td>'+(r.calls||'0')+'</td><td>'+(r.qcPosted||'0')+'</td><td><button class="btn btn-sm" onclick="shareReportWithPicker('+JSON.stringify(eodFormatText(r)).replace(/"/g,'&quot;')+',\'EOD Update\')">Share</button>'+(canEdit?' <button class="btn btn-sm" onclick="eodLoadForEdit(\''+esc(r.date)+'\',\''+esc(r.lead)+'\')">Edit</button>':'')+'</td></tr>';
+    }).join('')||'<tr><td colspan="8" style="color:var(--muted)">No updates yet.</td></tr>';
+  });
+}
+function eodLoadForEdit(date,lead){
+  apiFetch('/api/daily-updates?date='+encodeURIComponent(date)+'&lead='+encodeURIComponent(lead)).then(rows=>{
+    const r=rows&&rows[0];if(!r)return;
+    document.getElementById('eodLead').value=r.lead;
+    document.getElementById('eodDate').value=r.date;
+    document.getElementById('eodBatch').value=r.batch||'';
+    document.getElementById('eodAttendance').value=r.attendance||'';
+    document.getElementById('eodChatCount').value=r.teamChatCount||'';
+    document.getElementById('eodCallAttendance').value=r.callingAttendance||'';
+    document.getElementById('eodChats').value=r.chats||'';
+    document.getElementById('eodCalls').value=r.calls||'';
+    document.getElementById('eodPersonalChats').value=r.personalChatsDone||'';
+    document.getElementById('eodChatScan').value=r.chatScan||'';
+    document.getElementById('eodQcPosted').value=r.qcPosted||'';
+    document.getElementById('eodSummary').value=r.summary||'';
+    eodUpdatePreview();
+  });
+}
+
 function shareReportWithPicker(reportText,context){const leads=Object.keys(RAW.leadsConfig||{});const stats=getInternStats(FLAT);const interns=[...new Set(FLAT.map(r=>r.internName).filter(Boolean))].sort();const batches=[...new Set(FLAT.map(r=>r.batch).filter(Boolean))].sort();const cfg=lsGet('qc_config',{});
 let h='<h3>Share via WhatsApp</h3><p style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">Select recipients for: '+context+'</p>';
 h+='<div style="margin-bottom:.5rem"><label style="font-size:.85rem;font-weight:600;display:block;margin-bottom:.35rem">Quick Select:</label><div style="display:flex;gap:.35rem;flex-wrap:wrap"><button class="btn btn-sm btn-primary" onclick="selectAllWARecipients(\'all\')">Select All</button><button class="btn btn-sm" onclick="selectAllWARecipients(\'lead\')">All Leads</button><button class="btn btn-sm" onclick="selectAllWARecipients(\'intern\')">All Interns</button><button class="btn btn-sm" onclick="selectAllWARecipients(\'admin\')">Admin Only</button><button class="btn btn-sm" style="color:var(--red)" onclick="clearWARecipients()">Clear All</button></div></div>';

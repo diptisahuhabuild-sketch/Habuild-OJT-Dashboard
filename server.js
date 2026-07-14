@@ -929,6 +929,88 @@ app.post('/api/config', (req, res) => {
   res.json({ success: true });
 });
 
+// ===== DAILY EOD UPDATES (OJT Lead entries -> mastersheet) =====
+// Stored inside data.json under dailyUpdates: { "<date>": { "<lead>": {...} } }
+// so it rides along with the existing Drive-backed persistence automatically.
+app.post('/api/daily-update', (req, res) => {
+  const { lead, date, batch, attendance, teamChatCount, callingAttendance, chats, calls,
+          personalChatsDone, chatScan, qcPosted, summary } = req.body;
+  if (!lead || !date) return res.status(400).json({ error: 'lead and date are required' });
+  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  if (!data.dailyUpdates) data.dailyUpdates = {};
+  if (!data.dailyUpdates[date]) data.dailyUpdates[date] = {};
+  data.dailyUpdates[date][lead] = {
+    lead, date, batch: batch || '', attendance: attendance || '',
+    teamChatCount: teamChatCount || '', callingAttendance: callingAttendance || '',
+    chats: chats || '', calls: calls || '', personalChatsDone: personalChatsDone || '',
+    chatScan: chatScan || '', qcPosted: qcPosted || '', summary: summary || '',
+    submittedAt: new Date().toISOString()
+  };
+  writeDataFile(data);
+  res.json({ success: true, entry: data.dailyUpdates[date][lead] });
+});
+
+app.get('/api/daily-updates', (req, res) => {
+  const { date, lead } = req.query;
+  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  const all = data.dailyUpdates || {};
+  const out = [];
+  for (const [d, byLead] of Object.entries(all)) {
+    if (date && d !== date) continue;
+    for (const [l, entry] of Object.entries(byLead)) {
+      if (lead && l !== lead) continue;
+      out.push(entry);
+    }
+  }
+  out.sort((a, b) => b.date.localeCompare(a.date) || a.lead.localeCompare(b.lead));
+  res.json(out);
+});
+
+app.delete('/api/daily-update', (req, res) => {
+  const { date, lead } = req.body;
+  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  if (data.dailyUpdates?.[date]?.[lead]) {
+    delete data.dailyUpdates[date][lead];
+    writeDataFile(data);
+  }
+  res.json({ success: true });
+});
+
+// ===== KOMAL AI DASHBOARD (komal-ai.habuild.in) — team-level analytics =====
+// Proxied server-side so the browser never needs CORS access, and so we can
+// cache + auto-refresh on a schedule instead of the browser re-fetching it.
+async function fetchKomalAnalytics(startDate, endDate, opts = {}) {
+  const cfg = getConfig();
+  const headers = { 'Content-Type': 'application/json', 'Origin': 'https://komal-ai.habuild.in', 'Referer': 'https://komal-ai.habuild.in/' };
+  if (cfg.komalToken) headers['Authorization'] = 'Bearer ' + cfg.komalToken;
+  const body = JSON.stringify({
+    startDate, endDate,
+    type: opts.type || 'all',
+    shift: opts.shift || null,
+    leaderBoard: opts.leaderBoard || 'rating',
+    department: opts.department || []
+  });
+  const resp = await fetch('https://komal-api.habuild.in/api/v1/dashboard/getAnalytics', { method: 'POST', headers, body });
+  if (!resp.ok) throw new Error('Komal AI dashboard returned ' + resp.status);
+  return resp.json();
+}
+app.get('/api/komal/analytics', async (req, res) => {
+  try {
+    const { start, end, type, shift, leaderBoard } = req.query;
+    const today = new Date().toISOString().slice(0, 10);
+    const result = await fetchKomalAnalytics(start || today, end || today, { type, shift, leaderBoard });
+    // cache into data.json so it's available even if the AI dashboard is briefly down
+    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    if (!data.komalCache) data.komalCache = {};
+    data.komalCache[(start || today) + '_' + (end || today)] = { fetchedAt: new Date().toISOString(), result };
+    writeDataFile(data);
+    res.json(result);
+  } catch (e) {
+    console.error('[KomalAI] fetch failed:', e.message);
+    res.status(502).json({ error: e.message });
+  }
+});
+
 app.post('/api/config/leads', (req, res) => {
   const cfg = getConfig();
   if (!cfg.leads) cfg.leads = {};
@@ -1103,6 +1185,22 @@ cron.schedule('0 */4 * * *', async () => {
 cron.schedule('0 17 * * 5', async () => {
   console.log('[Cron] Sending pulse survey...');
   await sendPulseSurvey();
+});
+
+// Every hour — Auto-fetch Komal AI dashboard analytics (team-level)
+cron.schedule('0 * * * *', async () => {
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    console.log('[Cron] Auto-fetching Komal AI analytics for', today);
+    const result = await fetchKomalAnalytics(today, today);
+    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    if (!data.komalCache) data.komalCache = {};
+    data.komalCache[today + '_' + today] = { fetchedAt: new Date().toISOString(), result };
+    writeDataFile(data);
+    console.log('[Cron] Komal AI analytics cached.');
+  } catch (e) {
+    console.error('[Cron] Komal AI fetch failed:', e.message);
+  }
 });
 
 // Every 30 minutes — Auto-sync sheets + QC batch docs
