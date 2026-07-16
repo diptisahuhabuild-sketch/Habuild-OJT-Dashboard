@@ -856,8 +856,21 @@ function selectAllWARecipients(type){document.querySelectorAll('.waRecipCb').for
 function selectBatchWARecipients(batch){document.querySelectorAll('.waRecipCb[data-type="intern"]').forEach(cb=>{if(cb.dataset.batch===batch)cb.checked=true});updateWASelCount()}
 function clearWARecipients(){document.querySelectorAll('.waRecipCb').forEach(cb=>cb.checked=false);updateWASelCount()}
 function sendToSelectedRecipients(){const selected=[];document.querySelectorAll('.waRecipCb:checked').forEach(cb=>selected.push(cb.value));const customRaw=document.getElementById('waCustomNumber')?.value?.trim();if(customRaw)customRaw.split(',').map(s=>s.trim()).filter(Boolean).forEach(n=>selected.push(n));if(!selected.length){alert('Select at least one recipient');return}
-const msg=window._waReportText||'';let sent=0;
-selected.forEach(r=>{apiFetch('/api/whatsapp/send',{method:'POST',body:JSON.stringify({to:r,message:msg})}).then(()=>{sent++;if(sent===selected.length)alert('Sent to '+sent+' recipients')})});closeModal()}
+const msg=window._waReportText||'';
+Promise.allSettled(selected.map(r=>apiFetch('/api/whatsapp/send',{method:'POST',body:JSON.stringify({to:r,message:msg})}))).then(results=>{
+  // Previously this counted every resolved request as a "sent" message, even
+  // when the server responded with sent:false (Twilio not configured, bad
+  // number, etc.) — so failures were reported to the user as successes.
+  const okCount=results.filter(res=>res.status==='fulfilled'&&res.value&&res.value.sent).length;
+  const failed=results.length-okCount;
+  let text='Sent to '+okCount+' of '+results.length+' recipients';
+  if(failed>0){
+    const firstError=results.map(res=>res.status==='fulfilled'?(res.value&&(res.value.error||res.value.reason)):res.reason).find(Boolean);
+    text+=' — '+failed+' failed'+(firstError?(': '+firstError):'');
+  }
+  alert(text);
+});
+closeModal()}
 
 /* ===== QC DOC VIEWS (errors, suggestions, repeated) ===== */
 function showQCView(viewType){const qcDocData=lsGet('qc_doc_data',{});const el=document.getElementById('qcDocAnalysis');

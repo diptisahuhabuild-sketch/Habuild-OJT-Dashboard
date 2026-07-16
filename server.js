@@ -837,7 +837,12 @@ app.post('/api/whatsapp/weekly-report', async (req, res) => {
   const leadPhones = cfg.leadPhones || {};
   const results = [];
 
-  for (const lead of Object.keys(cfg.leads || {})) {
+  // Honor the specific lead the frontend asked for; only fall back to "all
+  // leads" when none was specified. Previously this was ignored entirely.
+  const { leadName } = req.body || {};
+  const targetLeads = leadName ? [leadName] : Object.keys(cfg.leads || {});
+
+  for (const lead of targetLeads) {
     const report = generateWeeklyReport(lead);
     if (!report) continue;
 
@@ -852,7 +857,17 @@ app.post('/api/whatsapp/weekly-report', async (req, res) => {
       results.push({ lead, to: 'admin', ...r });
     }
   }
-  res.json({ results });
+
+  // Top-level fields so the frontend's r.sent / r.error checks actually work
+  // (it previously only ever saw the nested `results` array and always
+  // rendered "Report sent! 0 messages" regardless of real outcome).
+  const sentCount = results.filter(r => r.sent).length;
+  const failed = results.filter(r => !r.sent);
+  res.json({
+    results,
+    sent: sentCount,
+    error: (sentCount === 0 && failed.length > 0) ? (failed[0].error || failed[0].reason || 'Send failed') : undefined
+  });
 });
 
 // --- Preview Weekly Report ---
