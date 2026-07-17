@@ -294,17 +294,31 @@ async function syncSheet(leadName, sheetUrl) {
         let improvementsNeeded = 'No';
         if (impRaw && String(impRaw).trim().toLowerCase().startsWith('y')) improvementsNeeded = 'Yes';
 
+        // auditor = who actually performed THIS audit (any lead can audit any intern -
+        // this is read from the row itself, not assumed to be the sheet's owning lead).
+        const auditorRaw = find(['auditor']);
+
         records.push({
           scanDate: parseDate(find(['scan date', 'date'])),
           chatDate: parseDate(find(['chat date', 'date of conversation'])),
           internName: internName.trim(),
+          auditor: auditorRaw ? String(auditorRaw).trim() : leadName,
           number: String(find(['number', 'member contact number', 'whatsaap number']) || ''),
           chatType: find(['chat type', 'query type', 'categories']),
+          chatCount: parseNum(find(['chat count'])),
+          auditCount: parseNum(find(['audit count'])),
+          qcFound: parseNum(find(['qc found'])),
+          errorPct: parseNum(String(find(['error %', 'error percent']) || '').replace('%', '')),
+          complexQuery: parseNum(find(['complex quer'])),
+          weakChat: parseNum(find(['weak chat'])),
+          impatientChat: parseNum(find(['impatient cha'])),
+          arst: find(['arst']),
+          breakTime: find(['break']),
           leadRating: parseNum(find(["lead's rating", 'lead rating', 'average rating', 'avg. rating'])),
           aiRating: parseNum(find(['ai rating', 'ai- avg rating', 'dashboard rating'])),
           improvementsNeeded,
-          summary: find(['summary of chat', 'feedback /description', 'feedback', 'remark', 'any additional observations']),
-          lead: leadName,
+          summary: find(['overall feedback', 'summary of chat', 'feedback /description', 'feedback', 'remark', 'any additional observations']),
+          lead: leadName, // the OJT lead whose team this intern belongs to (sheet owner)
           accuracyRating: parseNum(find(['accuracy rating', 'accuracy'])),
           empathyRating: parseNum(find(['empathy rating', 'empathy'])),
           grammarRating: parseNum(find(['grammar and spelling', 'grammer'])),
@@ -1009,6 +1023,23 @@ app.get('/api/komal/analytics', async (req, res) => {
     console.error('[KomalAI] fetch failed:', e.message);
     res.status(502).json({ error: e.message });
   }
+});
+
+app.post('/api/config/batch-doc-link', (req, res) => {
+  const { key, url } = req.body;
+  if (!key || !url) return res.status(400).json({ error: 'key and url required' });
+  const cfg = getConfig();
+  if (!cfg.batchDocLinks) cfg.batchDocLinks = {};
+  cfg.batchDocLinks[key] = url;
+  saveConfig(cfg);
+  res.json({ success: true });
+});
+app.delete('/api/config/batch-doc-link', (req, res) => {
+  const { key } = req.body;
+  const cfg = getConfig();
+  if (cfg.batchDocLinks) delete cfg.batchDocLinks[key];
+  saveConfig(cfg);
+  res.json({ success: true });
 });
 
 app.post('/api/config/leads', (req, res) => {

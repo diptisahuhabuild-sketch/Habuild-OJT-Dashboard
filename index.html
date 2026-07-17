@@ -673,14 +673,14 @@ let h='';for(const[d,v]of Object.entries(dt).sort((a,b)=>b[0].localeCompare(a[0]
 function removeDateTarget(d){const dt=lsGet('qc_date_targets',{});delete dt[d];lsSet('qc_date_targets',dt);renderDateTargets()}
 
 /* QC DOC BATCH-WISE LINKING */
-function renderDocBatchLinks(){const links=lsGet('qc_doc_batch_links',{});const el=document.getElementById('docBatchLinks');if(!el)return;
+async function renderDocBatchLinks(){const serverCfg=await apiFetch('/api/config');const links=serverCfg.batchDocLinks||{};lsSet('qc_doc_batch_links',links);const el=document.getElementById('docBatchLinks');if(!el)return;
 const batches=Object.keys(RAW.scanData||{}).sort();if(!Object.keys(links).length){el.innerHTML='<p style="color:var(--muted);font-size:.8rem">No batch-wise doc links configured.</p>';return}
 let h='<div class="table-wrap"><table><thead><tr><th>Batch</th><th>Shift</th><th>Doc URL</th><th></th></tr></thead><tbody>';
 for(const[key,url]of Object.entries(links)){const[batch,shift]=key.split('|');h+='<tr><td>'+batch+'</td><td>'+shift+'</td><td style="font-size:.75rem;max-width:200px;overflow:hidden;text-overflow:ellipsis">'+url+'</td><td><button class="btn btn-sm" style="color:var(--red)" onclick="removeDocBatchLink(\''+key+'\')">&#10005;</button></td></tr>'}
 h+='</tbody></table></div>';el.innerHTML=h}
 function addDocBatchLink(){const batch=prompt('Batch name (e.g. B-19):');if(!batch)return;const shift=prompt('Shift (morning/evening):');if(!shift)return;const url=prompt('Google Doc URL:');if(!url)return;
-const links=lsGet('qc_doc_batch_links',{});links[batch+'|'+shift]=url;lsSet('qc_doc_batch_links',links);apiFetch('/api/config',{method:'POST',body:JSON.stringify({batchDocLinks:links})});renderDocBatchLinks()}
-function removeDocBatchLink(key){const links=lsGet('qc_doc_batch_links',{});delete links[key];lsSet('qc_doc_batch_links',links);renderDocBatchLinks()}
+const key=batch+'|'+shift;apiFetch('/api/config/batch-doc-link',{method:'POST',body:JSON.stringify({key,url})}).then(()=>renderDocBatchLinks())}
+function removeDocBatchLink(key){apiFetch('/api/config/batch-doc-link',{method:'DELETE',body:JSON.stringify({key})}).then(()=>renderDocBatchLinks())}
 
 /* WHATSAPP PER-NUMBER SETTINGS */
 function renderWAPerNumber(){const el=document.getElementById('waPerNumberSettings');if(!el)return;const settings=lsGet('qc_wa_per_number',{});const interns=[...new Set(FLAT.map(r=>r.internName).filter(Boolean))].sort();const leads=Object.keys(RAW.leadsConfig||{});const allPeople=[...leads.map(l=>({name:l,type:'lead'})),...interns.map(n=>({name:n,type:'intern'}))];
