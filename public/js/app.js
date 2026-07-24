@@ -34,6 +34,36 @@ document.addEventListener('DOMContentLoaded', () => {
     return clean;
   }
 
+  function namesMatch(regName, targetName) {
+    if (!regName || !targetName) return false;
+    
+    const cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+    const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+    
+    if (cleanReg === cleanTarget) return true;
+    
+    const regTokens = cleanReg.split(' ').filter(t => t.length > 2);
+    const targetTokens = cleanTarget.split(' ').filter(t => t.length > 2);
+    
+    if (regTokens.length === 0 || targetTokens.length === 0) return false;
+    
+    const allRegTokensInTarget = regTokens.every(t => targetTokens.includes(t));
+    if (allRegTokensInTarget) return true;
+
+    const allTargetTokensInReg = targetTokens.every(t => regTokens.includes(t));
+    if (allTargetTokensInReg) return true;
+
+    if (regTokens.length >= 2) {
+      const first = regTokens[0];
+      const last = regTokens[regTokens.length - 1];
+      if (targetTokens.includes(first) && targetTokens.includes(last)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
   // Master Column Label Maps
   const INTERN_COL_LABELS = {
     intern: 'Intern',
@@ -938,7 +968,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanLead = reg.lead ? reg.lead.toUpperCase().trim() : '';
 
       // 1. Availability
-      const attendObj = state.data && state.data.attendanceData && state.data.attendanceData[cleanName];
+      let attendObj = null;
+      if (state.data && state.data.attendanceData) {
+        const matchKey = Object.keys(state.data.attendanceData).find(k => namesMatch(cleanName, k));
+        if (matchKey) {
+          attendObj = state.data.attendanceData[matchKey];
+        }
+      }
+      
       let avail = "No Data";
       if (attendObj) {
         let count = 0;
@@ -959,7 +996,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // 2. Chat Count
-      const commsObj = state.data && state.data.commsChatData && state.data.commsChatData[cleanName];
+      let commsObj = null;
+      if (state.data && state.data.commsChatData) {
+        const matchKey = Object.keys(state.data.commsChatData).find(k => namesMatch(cleanName, k));
+        if (matchKey) {
+          commsObj = state.data.commsChatData[matchKey];
+        }
+      }
+      
       let chatCount = "No Data";
       if (commsObj) {
         let sum = 0;
@@ -994,7 +1038,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.values(state.data.scanData).forEach(records => {
           if (!Array.isArray(records)) return;
           records.forEach(rec => {
-            if (rec.internName && rec.internName.toLowerCase().trim() === cleanName) {
+            if (rec.internName && namesMatch(cleanName, rec.internName)) {
               const d = rec.chatDate || rec.scanDate;
               if (!datesList.includes(d)) return;
 
@@ -1018,7 +1062,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let hasMistakes = false;
       if (state.data && state.data.qcDocData) {
         state.data.qcDocData.forEach(rec => {
-          if (rec.internName && rec.internName.toLowerCase().trim() === cleanName) {
+          if (rec.internName && namesMatch(cleanName, rec.internName)) {
             const d = rec.chatDate;
             if (!datesList.includes(d)) return;
             hasMistakes = true;
@@ -1041,7 +1085,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // 8. Komal AI metrics
-      const komalMetric = (state.komalMetrics && state.komalMetrics.agentMetrics && state.komalMetrics.agentMetrics[cleanName]) || null;
+      let komalMetric = null;
+      if (state.komalMetrics && state.komalMetrics.agentMetrics) {
+        const matchKey = Object.keys(state.komalMetrics.agentMetrics).find(k => namesMatch(cleanName, k));
+        if (matchKey) {
+          komalMetric = state.komalMetrics.agentMetrics[matchKey];
+        }
+      }
+      
       let simpleQ = "No Data";
       let complexQ = "No Data";
       let aiRtg = "No Data";
