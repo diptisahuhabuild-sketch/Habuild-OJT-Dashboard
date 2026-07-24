@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habuild OJT Dashboard - Performance Analytics & Daily Operations</title>
+  <meta name="description"
+    content="Habuild OJT Dashboard - Quality Control, Komal AI Metrics, Intern & Lead Scorecards, QC Docs Verbatim Viewer & WhatsApp EOD Reporting">
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Chart.js for Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/css/main.css?v=2">
+</head>
+
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="topbar">
+    <div class="brand-container">
+      <div class="logo-badge" style="background:none;box-shadow:none;width:44px;height:44px;">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAAlABoDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAYIBwkF/8QAJxAAAQMEAgICAwADAAAAAAAAAQIDBQQGBxEAEhMhCFEiMUEVQmH/xAAWAQEBAQAAAAAAAAAAAAAAAAAEBQD/xAAmEQABBAEDAgcBAAAAAAAAAAABAAIDEQQSITFx0RMUQVFhkeHw/9oADAMBAAIRAxEAPwDpNlbJMHiLH01kS40POUMMx5VNMp7OOrUoIbbSPtS1JSN+tn2QOIeLc93bc9/DGmUcUP2LO1kQZyLQZRuvaq6VK0ocBWhKejqFLTtvROtnev2vZnvW9rljLhxpc/xsq5e3JLzUQqF3PH0wq2Qr8Xm0rWFIPpK079pOv6OY9jO7mMLZWt6svOwr5kZu7yi14+WnryoJd2hpewWpKEM9erSSlK1qPvSd736LoscOjNi3df37UfIzSydtOpvrse3SqKuvhyNMM3Hmut+QVBTXBK3o+65XzIulurU0bcFAlLn+PMaR/tsMb6krI8nfllbH3w80JhIBNp2LlDKaXAVRpSnl+1cW3V8ppV/MkbTSFt23jBqXKatxwNUyhX1AcdAQR76J0f6dD/nMFpcSWfSRUblc4LhKh/KtyMQdl23KVb9NSRcf4nFoqn1JKnC68G+xG9AKSR69cpXMnxhncv8AyDhrwlZembsEQdNQzselZD8gulqnahpgjqQWVLcbUr3shsj1sHnt/KnCl+5Zte0o/Fc7HQMrbk8zXt1FR2SlhnwOslTQSk/mgOhSR6H4/v8AW3Rzsbobq5G/sP4qTPhySGR+jgmthZvsOPlStjDE193xmukubGmJ8fQVFi2bNNJPxk1WJppKsKB2Ql4hSl+D32SAASrSuwOudHxvQ3rfFXF2OLdxNYkTYNrsqRQxTPTyLO3H3Cezjqz/AFa1lSifs/XGvhMmfx3bcDhUcDE8qw2dzuUcOHDhk9HDhw5ll//Z" alt="Habuild Logo" id="brandLogo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
+      </div>
+      <div>
+        <h1 class="brand-title">Habuild OJT Dashboard</h1>
+        <p class="brand-subtitle">End-to-End Performance Analytics & Training Operations</p>
+      </div>
+    </div>
+
+    <!-- Flowchart Step Navigation -->
+    <nav class="flowchart-nav" id="flowchartNav">
+      <button class="flow-step active" data-tab="tabOverview" id="navOverview">
+        <span class="step-num">1</span> Overview
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabInternScorecard" id="navInternScorecard">
+        <span class="step-num">2</span> Intern Scorecard
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabLeadScorecard" id="navLeadScorecard">
+        <span class="step-num">3</span> OJT Lead Scorecard
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabQCDocs" id="navQCDocs">
+        <span class="step-num">4</span> QC Docs
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabEODUpdates" id="navEODUpdates">
+        <span class="step-num">5</span> Daily EOD
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabReports" id="navReports">
+        <span class="step-num">6</span> Reports & Sharing
+      </button>
+      <span class="flow-arrow">→</span>
+      <button class="flow-step" data-tab="tabAdmin" id="navAdmin">
+        <span class="step-num">7</span> Admin
+      </button>
+    </nav>
+
+    <div class="topbar-actions">
+      <!-- Role Badge & Switcher -->
+      <div class="role-badge-container">
+        <span class="role-badge role-admin" id="currentRoleBadge">👑 Admin Access</span>
+        <button class="btn btn-outline btn-xs" id="btnSwitchRole" title="Switch Access Role">Switch Role</button>
+      </div>
+
+      <div class="sync-status" id="syncStatus">
+        <span class="pulse-dot"></span>
+        <span id="syncText">Live Sync Active</span>
+      </div>
+
+      <button class="btn btn-outline btn-sm" id="btnSyncNow" title="Trigger Google & Komal AI Sync">
+        <span class="btn-icon">🔄</span> Sync Now
+      </button>
+    </div>
+  </header>
+
+  <!-- WhatsApp Sandbox Reminder Banner -->
+  <div class="sandbox-banner" id="sandboxBanner">
+    <div class="sandbox-content">
+      <span class="sandbox-icon">💬</span>
+      <span><strong>WhatsApp Sandbox Notice:</strong> Recipients using Twilio WhatsApp Sandbox must opt-in by sending
+        <code>join &lt;sandbox-code&gt;</code> to <strong>+1 415 523 8886</strong> once to receive automated
+        reports.</span>
+    </div>
+    <button class="banner-close" id="btnCloseBanner">&times;</button>
+  </div>
+
+  <!-- Main Container -->
+  <main class="dashboard-container">
+
+    <!-- Global Active Batch & Date Filter Bar -->
+    <section class="control-bar card">
+      <div class="control-group">
+        <label for="globalBatchSelect" class="control-label">Active Batch</label>
+        <select id="globalBatchSelect" class="form-select font-semibold">
+          <option value="B-20" selected>Batch 20 (Current Active)</option>
+          <option value="B-19">Batch 19</option>
+          <option value="B-18">Batch 18</option>
+          <option value="B-17">Batch 17</option>
+          <option value="B-16">Batch 16</option>
+          <option value="B-15">Batch 15</option>
+          <option value="B-12">Batch 12</option>
+          <option value="ALL">All Batches</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="globalLeadSelect" class="control-label">Lead Filter</label>
+        <select id="globalLeadSelect" class="form-select">
+          <option value="ALL" selected>All Leads</option>
+          <option value="DIKSHA">Diksha</option>
+          <option value="SONALI">Sonali</option>
+          <option value="RASHI">Rashi</option>
+          <option value="PRIYANSHU">Priyanshu</option>
+          <option value="SAMIKSHA">Samiksha</option>
+          <option value="NILESH">Nilesh</option>
+          <option value="NAMRATA">Namrata</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="globalShiftSelect" class="control-label">Shift Filter</label>
+        <select id="globalShiftSelect" class="form-select">
+          <option value="ALL" selected>All Shifts</option>
+          <option value="AM">Morning (AM)</option>
+          <option value="PM">Evening (PM)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="globalDateFilter" class="control-label">Date Filter</label>
+        <select id="globalDateFilter" class="form-select">
+          <option value="ALL" selected>All Time</option>
+          <option value="TODAY">Today</option>
+          <option value="WEEK">Current Week</option>
+          <option value="MONTH">Current Month</option>
+          <option value="CUSTOM">Custom Range...</option>
+        </select>
+      </div>
+
+      <div class="control-group custom-date-group hidden" id="customDateRangeGroup">
+        <label class="control-label">From - To</label>
+        <div class="flex-row gap-xs">
+          <input type="date" id="startDateInput" class="form-input form-input-sm">
+          <input type="date" id="endDateInput" class="form-input form-input-sm">
+        </div>
+      </div>
+
+      <div class="control-group flex-grow search-group">
+        <label for="globalSearchInput" class="control-label">Search Intern / Lead</label>
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="globalSearchInput" class="form-input" placeholder="Type intern or lead name...">
+        </div>
+      </div>
+
+      <div class="control-group" style="display: flex; align-items: flex-end;">
+        <button class="btn btn-primary" style="height: 38px; min-width: 140px; margin-right: 0.5rem;" id="btnApplyFilters">🔍 Apply Filters</button>
+        <button class="btn btn-primary" style="height: 38px; min-width: 170px;" onclick="window.viewBatchQCDoc()">📂 View Batch QC Doc</button>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: OVERVIEW -->
+    <!-- ========================================================================= -->
+    <section id="tabOverview" class="tab-content active">
+
+      <!-- Executive KPI Summary Cards -->
+      <section class="kpi-grid">
+        <div class="kpi-card accent-blue">
+          <div class="kpi-header">
+            <span class="kpi-title">Average AI Rating</span>
+            <span class="kpi-icon">🤖</span>
+          </div>
+          <div class="kpi-value" id="kpiAvgAIRating">4.21 / 5.0</div>
+          <div class="kpi-footer">Komal AI Duration Avg</div>
+        </div>
+
+        <div class="kpi-card accent-green">
+          <div class="kpi-header">
+            <span class="kpi-title">Avg Team Productivity</span>
+            <span class="kpi-icon">⚡</span>
+          </div>
+          <div class="kpi-value" id="kpiAvgProductivity">108.5</div>
+          <div class="kpi-footer">Chats per available day</div>
+        </div>
+
+        <div class="kpi-card accent-amber">
+          <div class="kpi-header">
+            <span class="kpi-title">Total Batch Chats</span>
+            <span class="kpi-icon">💬</span>
+          </div>
+          <div class="kpi-value" id="kpiTotalChatCount">6,412</div>
+          <div class="kpi-footer" id="kpiChatCountSub">Active batch chats</div>
+        </div>
+
+        <div class="kpi-card accent-purple">
+          <div class="kpi-header">
+            <span class="kpi-title">Active OJT Interns</span>
+            <span class="kpi-icon">👥</span>
+          </div>
+          <div class="kpi-value" id="kpiTotalInterns">11</div>
+          <div class="kpi-footer">Currently tracked</div>
+        </div>
+      </section>
+
+      <!-- Overview Charts Section (Category Wise & Top Error Overview at Top) -->
+      <div class="grid-2 margin-top-md">
+        <!-- Donut Chart: Query Categorization -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Query Categorization (Batch Attempted)</h3>
+              <p class="card-subtitle">Komal AI Query Distribution (Simple, Complex, Regular, Weak, Impatient)</p>
+            </div>
+          </div>
+          <div class="chart-wrapper donut-chart-wrapper">
+            <canvas id="chartQueryCategories"></canvas>
+          </div>
+        </div>
+
+        <!-- Horizontal Bar Chart: QC Error Overview -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-teal">QC REVIEW</span>
+              <h3 class="card-title text-teal-dark margin-top-xs">QC Error Overview</h3>
+              <p class="card-subtitle">Flagged review comments across batch classified by recurring theme</p>
+            </div>
+            <span class="badge badge-amber font-bold text-sm" id="totalQCErrorsBadge">Total QC Errors: 664</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chartErrorOverview"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly Productivity & Quality Trend Table (Exact Layout matching User Image) -->
+      <div class="card table-card margin-top-md">
+        <div class="card-header">
+          <div>
+            <span class="badge badge-teal" id="trendBatchBadge">BATCH 20 • PRODUCTIVITY & QUALITY TABLE</span>
+            <h2 class="card-title text-xl text-teal-dark margin-top-xs">Weekly Productivity & Quality Trend</h2>
+          </div>
+          <div class="table-actions">
+            <button class="btn btn-outline btn-sm admin-only" id="btnEditWeeklyTargets">
+              ✏️ Edit SOP Targets & Dates
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="trend-table" id="weeklyTrendTable">
+            <thead>
+              <tr>
+                <th>WEEK</th>
+                <th>AVG TEAM PRODUCTIVITY</th>
+                <th>EXPECTED PRODUCTIVITY (SOP)</th>
+                <th>SQUAD PRODUCTIVITY</th>
+                <th>EXPECTED ERROR RATE</th>
+                <th>AVG CARRIED ERROR RATE</th>
+                <th>TREND</th>
+              </tr>
+            </thead>
+            <tbody id="weeklyTrendTbody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: INTERN SCORECARD -->
+    <!-- ========================================================================= -->
+    <section id="tabInternScorecard" class="tab-content">
+
+      <div class="card table-card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Intern OJT Scorecard</h2>
+            <p class="card-subtitle">Individual intern performance metrics, error rates, and Komal AI metrics</p>
+          </div>
+          <div class="table-actions">
+            <!-- Source Toggle -->
+            <label class="toggle-switch" title="Toggle Komal AI derived metrics vs Manual sheet metrics">
+              <input type="checkbox" id="toggleKomalAICols" checked>
+              <span class="slider"></span>
+              <span class="toggle-label font-medium">Include Komal AI Metrics</span>
+            </label>
+
+            <!-- Auditor Filter -->
+            <select id="auditorFilter" class="form-select form-select-sm">
+              <option value="ALL">All Auditors</option>
+            </select>
+
+            <!-- Customize Columns Button -->
+            <button class="btn btn-outline btn-sm" id="btnCustomizeInternCols">
+              ⚙️ Customize Columns
+            </button>
+
+            <!-- Add Intern Button -->
+            <button class="btn btn-primary btn-sm" onclick="window.openModal('internModal')">
+              ➕ Add Intern
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table scorecard-table" id="internScorecardTable">
+            <thead>
+              <tr id="internScorecardTheadTr">
+                <!-- Rendered dynamically based on column customization -->
+              </tr>
+            </thead>
+            <tbody id="internScorecardTbody">
+              <!-- Rendered rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Key Highlights & Focus Areas Section (Moved under Intern Scorecard) -->
+      <section class="highlights-card card margin-top-md" id="keyHighlightsSection">
+        <div class="card-header">
+          <div>
+            <span class="badge badge-teal">EXECUTIVE SUMMARY</span>
+            <h2 class="card-title text-xl text-teal-dark margin-top-xs">Key Highlights & Focus Areas</h2>
+            <p class="card-subtitle">AI & OJT Audit derived observations for active date range</p>
+          </div>
+          <span class="text-xs text-muted" id="highlightsDateRangeBadge">📅 Current Active Range</span>
+        </div>
+        <div class="callout-box callout-positive" id="highlightPositive">
+          <strong>Positive:</strong> Anjali and Lubdha maintained a good quality rate by 8.33%. Aditya & Babasaheb
+          showed visible improvement compared to last week in both quality and quantity. 13 out of 19 interns maintain
+          error rates below or around 15%. Shivam showed very good performance in taking a high number of calls.
+        </div>
+        <div class="callout-box callout-concerns" id="highlightConcerns">
+          <strong>Concerns:</strong> Smit kept his error rate higher amongst all interns over the past few weeks.
+          Shivam, Papiha, Samiksha, and Prachi did not meet quality expectations. Paridhi has frequent leaves. This week
+          Prachi & Nitesh did not maintain good attendance. Formal communication will be conducted with Papiha, Smit,
+          Palak & Jaya.
+        </div>
+        <div class="callout-box callout-note" id="highlightNote">
+          <strong>Note:</strong> Productivity was slightly lower last week due to no OT period. For Lubdha and Samiksha,
+          call duties were temporarily paused due to medical issues (call audits omitted accordingly).
+        </div>
+      </section>
+
+      <!-- Squad Transition Observation Table (Moved under Intern Scorecard) -->
+      <div class="card table-card margin-top-md">
+        <div class="card-header">
+          <div>
+            <span class="badge badge-teal">AI DASHBOARD LOGS</span>
+            <h2 class="card-title text-xl text-teal-dark margin-top-xs">Squad Transition Observation</h2>
+            <p class="card-subtitle">Weekly chat volume progression & growth metrics derived from Komal AI & OJT logs
+            </p>
+          </div>
+          <div class="table-actions">
+            <button class="btn btn-outline btn-sm" id="btnExportSquadTransition">
+              📥 Download CSV / Excel
+            </button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table trend-table" id="squadTransitionTable">
+            <thead>
+              <tr>
+                <th>INTERN</th>
+                <th>NOW IN</th>
+                <th>SHIFT</th>
+                <th>ATTEND</th>
+                <th>1- W CHATS</th>
+                <th>2- W CHATS</th>
+                <th>3- W CHATS</th>
+                <th>4- W CHATS</th>
+                <th>1- W AVG</th>
+                <th>2- W AVG</th>
+                <th>3- W AVG</th>
+                <th>4- W AVG</th>
+                <th>W1 → W2 Growth</th>
+                <th>W2 → W3 Growth</th>
+                <th>W3 → W4 Growth</th>
+              </tr>
+            </thead>
+            <tbody id="squadTransitionTbody">
+              <!-- Dynamically populated from data -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: OJT LEAD SCORECARD -->
+    <!-- ========================================================================= -->
+    <section id="tabLeadScorecard" class="tab-content">
+
+      <div class="card table-card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">OJT Lead Scorecard & Team Comparison</h2>
+            <p class="card-subtitle">Performance ranking based on Audit Numbers (40%), QC Count (40%), and Team Chat
+              Volume (20%)</p>
+          </div>
+          <div class="table-actions">
+            <button class="btn btn-outline btn-sm" id="btnCustomizeLeadCols">
+              ⚙️ Customize Columns
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table scorecard-table" id="leadScorecardTable">
+            <thead>
+              <tr id="leadScorecardTheadTr">
+                <!-- Rendered dynamically -->
+              </tr>
+            </thead>
+            <tbody id="leadScorecardTbody">
+              <!-- Rendered rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Lead-vs-Lead Comparison Chart -->
+      <div class="card chart-card margin-top-md">
+        <div class="card-header">
+          <h3 class="card-title">Normalized Performance Weightage (Lead vs Lead)</h3>
+          <p class="card-subtitle">Adjusted for audit numbers & QC count (40% Audit, 40% QC, 20% Chat volume)</p>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="chartLeadComparison"></canvas>
+        </div>
+      </div>
+
+      <!-- Lead's Own EOD Update & Daily Input (Integrated below Lead Scorecard) -->
+      <div class="card margin-top-md" id="leadOwnUpdateSection">
+        <div class="card-header">
+          <div>
+            <span class="badge badge-teal">LEAD DAILY INPUT</span>
+            <h2 class="card-title text-xl text-teal-dark margin-top-xs">OJT Lead Daily EOD Update & Report Share</h2>
+            <p class="card-subtitle">Fill daily performance metrics. Supports multiple simultaneous batches.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- EOD Form -->
+          <form id="eodForm" class="eod-form">
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label class="control-label">OJT Lead Name</label>
+                <input type="text" id="eodLeadName" class="form-input" value="SONALI" required>
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Date</label>
+                <input type="date" id="eodDate" class="form-input" required>
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Batches Handled (Text Input)</label>
+                <input type="text" id="eodBatchText" class="form-input" value="B-20, B-19"
+                  placeholder="e.g. B-20, B-19 (multiple batches allowed)">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label class="control-label">Team Attendance</label>
+                <input type="text" id="eodAttendance" class="form-input" value="6/6" placeholder="e.g. 6/6">
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Team Chat Count</label>
+                <input type="number" id="eodTeamChatCount" class="form-input" value="643">
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Calling OJT Attendance</label>
+                <input type="text" id="eodCallingAttendance" class="form-input" value="2/2">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label class="control-label">Calling Chats</label>
+                <input type="number" id="eodChats" class="form-input" value="120">
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Calling Calls</label>
+                <input type="number" id="eodCalls" class="form-input" value="45">
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">Personal Chats Done</label>
+                <input type="number" id="eodPersonalChats" class="form-input" value="85">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label class="control-label">Chat Scan</label>
+                <input type="number" id="eodChatScan" class="form-input" value="34">
+              </div>
+              <div class="form-group flex-1">
+                <label class="control-label">QC Posted</label>
+                <input type="number" id="eodQCPosted" class="form-input" value="6">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">EOD Summary</label>
+              <textarea id="eodSummary" class="form-textarea" rows="3"
+                placeholder="Summary of today's key achievements, issues resolved, or focus areas..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Refresher / Training Sessions Held Today</label>
+              <input type="text" id="eodRefresherLog" class="form-input"
+                placeholder="e.g. Pause handling & Hinglish response alignment session">
+            </div>
+
+            <div class="form-actions margin-top-sm">
+              <button type="button" class="btn btn-primary" id="btnSaveEOD">
+                💾 Save EOD Update
+              </button>
+              <button type="button" class="btn btn-success" id="btnShareEODWhatsApp">
+                💬 1-Click Share via WhatsApp
+              </button>
+            </div>
+          </form>
+
+          <!-- WhatsApp Formatted Preview Window -->
+          <div>
+            <h4 class="card-title text-md margin-bottom-sm">WhatsApp Formatted Preview</h4>
+            <div class="whatsapp-preview-box" id="whatsappPreviewBox">
+              <!-- Formatted preview -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: QC DOCS VERBATIM VIEWER -->
+    <!-- ========================================================================= -->
+    <section id="tabQCDocs" class="tab-content">
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">QC Feedback Documents (Verbatim Original Text)</h2>
+            <p class="card-subtitle">Linked per batch + shift. Displays original Google Docs audit text exactly as
+              written.</p>
+          </div>
+          <div class="table-actions">
+            <select id="qcBatchShiftSelect" class="form-select form-select-sm">
+              <option value="B-20|morning">Batch 20 - Morning Shift</option>
+              <option value="B-20|evening">Batch 20 - Evening Shift</option>
+              <option value="B-19|morning">Batch 19 - Morning Shift</option>
+              <option value="B-19|evening">Batch 19 - Evening Shift</option>
+              <option value="B-18|morning">Batch 18 - Morning Shift</option>
+              <option value="B-17|morning">Batch 17 - Morning Shift</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Filter bar for QC doc text -->
+        <div class="qc-filter-bar">
+          <div class="control-group">
+            <label class="control-label">Filter Intern Heading</label>
+            <select id="qcInternSelect" class="form-select form-select-sm">
+              <option value="ALL">All Intern Headings</option>
+            </select>
+          </div>
+          <div class="control-group search-group flex-grow">
+            <label class="control-label">Scan Text / Date Pattern</label>
+            <input type="text" id="qcTextSearch" class="form-input form-input-sm"
+              placeholder="Scan for dates (e.g. 24/01) or keywords...">
+          </div>
+        </div>
+
+        <!-- Verbatim Text View Window -->
+        <div class="qc-verbatim-container" id="qcVerbatimContent">
+          <div class="qc-empty-note">Select a Batch & Shift doc to load verbatim text notes...</div>
+        </div>
+      </div>
+
+      <!-- QC Team Audit Feedback Overview Table (Restored & Placed in QC Docs Tab) -->
+      <div class="card table-card margin-top-md">
+        <div class="card-header">
+          <div>
+            <span class="badge badge-teal">QC AUDIT FEEDBACK</span>
+            <h2 class="card-title text-xl text-teal-dark margin-top-xs">QC Team Audit Feedback Overview</h2>
+            <p class="card-subtitle">Detailed review metrics parsed date-wise & batch-wise (User Format Image 3)</p>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="qcAuditFeedbackTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Agent Name</th>
+                <th>Squad Name</th>
+                <th>Shift</th>
+                <th>Reviewer Name</th>
+                <th>Chat Date</th>
+                <th>Total Chat Count</th>
+                <th>Total Impatient Chat</th>
+                <th>Total Weak Chat</th>
+                <th>Total Chats Scanned</th>
+                <th>Complex Qs</th>
+                <th>Regular Qs</th>
+                <th>QCs Found</th>
+                <th>Error Rate</th>
+                <th>QC Score</th>
+                <th>AI Rating</th>
+                <th>Overall Feedback</th>
+                <th>Original Doc</th>
+              </tr>
+            </thead>
+            <tbody id="qcAuditFeedbackTbody">
+              <!-- Dynamically populated from data -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: DAILY EOD UPDATES -->
+    <!-- ========================================================================= -->
+    <section id="tabEODUpdates" class="tab-content">
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Daily EOD Logs & History</h2>
+          <p class="card-subtitle">View past saved daily EOD updates and lead dispatches.</p>
+        </div>
+        <div class="table-container" id="eodHistoryContainer">
+          <table class="data-table" id="eodHistoryTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Lead Name</th>
+                <th>Batch</th>
+                <th>Attendance</th>
+                <th>Chats</th>
+                <th>Calls</th>
+                <th>QCs Posted</th>
+                <th>Summary</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="eodHistoryTbody">
+              <!-- Rendered EOD logs -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 6: REPORTS & SHARING -->
+    <!-- ========================================================================= -->
+    <section id="tabReports" class="tab-content">
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Automated Reporting & Multi-Recipient Dispatch</h2>
+            <p class="card-subtitle">Select recipients via batch or custom numbers, preview, and dispatch reports.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Recipient Selector Box -->
+          <div class="recipient-box card">
+            <h4 class="card-title text-md">Recipient Selector</h4>
+
+            <div class="recipient-actions flex-row gap-xs margin-top-xs">
+              <button class="btn btn-xs btn-outline" id="btnSelectAllRecipients">Select All</button>
+              <button class="btn btn-xs btn-outline" id="btnClearAllRecipients">Clear All</button>
+              <button class="btn btn-xs btn-outline" id="btnQuickSelectB20">Batch 20 Only</button>
+            </div>
+
+            <div class="recipient-list margin-top-sm" id="recipientListContainer">
+              <!-- Dynamically rendered checkbox list of interns/leads -->
+            </div>
+
+            <div class="form-group margin-top-sm">
+              <label class="control-label">Add Custom Phone / Email</label>
+              <input type="text" id="customRecipientInput" class="form-input form-input-sm"
+                placeholder="Enter comma-separated phone or email...">
+            </div>
+
+            <div class="recipient-counter margin-top-xs" id="recipientCounter">
+              <strong>0 recipients selected</strong>
+            </div>
+          </div>
+
+          <!-- Dispatch Controls -->
+          <div class="card">
+            <h4 class="card-title text-md">Dispatch Channel & Schedule</h4>
+
+            <div class="notify-form margin-top-sm">
+              <div class="form-group">
+                <label class="control-label">Report Type</label>
+                <select id="dispatchReportType" class="form-select">
+                  <option value="EOD_SUMMARY">Daily Team Lead EOD Summary</option>
+                  <option value="INTERN_SCORECARD">Intern Performance Scorecard</option>
+                  <option value="CRITICAL_ALERT">Flagged Quality Error Alert</option>
+                </select>
+              </div>
+
+              <div class="form-actions margin-top-md">
+                <button class="btn btn-primary" id="btnDispatchWhatsApp">
+                  💬 Send Bulk WhatsApp
+                </button>
+                <button class="btn btn-outline" id="btnDispatchEmail">
+                  ✉️ Send Bulk Email
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 7: ADMIN PANEL -->
+    <!-- ========================================================================= -->
+    <section id="tabAdmin" class="tab-content">
+
+      <div class="grid-2">
+
+        <!-- Panel 1: OJT Leads & Intern Roster Management -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">1. OJT Leads & Interns Roster</h3>
+              <p class="card-subtitle text-xs text-muted">Add new OJT intern below to auto-fetch & sync Komal AI + sheet data</p>
+            </div>
+            <button class="btn btn-sm btn-primary" id="btnAddIntern" onclick="window.openModal('internModal')">➕ Modal Form</button>
+          </div>
+
+          <!-- Direct Inline Add Intern Form (Free text inputs - No dropdowns) -->
+          <div class="inline-add-intern-box margin-bottom-sm padding-sm border-rounded background-slate">
+            <h4 class="text-sm font-bold text-teal-dark margin-bottom-xs">➕ Add New OJT Intern (Single Form)</h4>
+            <div class="form-row gap-xs margin-bottom-xs">
+              <div class="form-group flex-2">
+                <input type="text" id="inlineInternName" class="form-input form-input-sm" placeholder="Intern Full Name (e.g. Rahul Sharma)">
+              </div>
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternBatch" class="form-input form-input-sm" placeholder="Batch (e.g. B-20, B-21)">
+              </div>
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternShift" class="form-input form-input-sm" placeholder="Shift (e.g. AM / PM / Night)">
+              </div>
+            </div>
+            <div class="form-row gap-xs margin-bottom-xs">
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternProcess" class="form-input form-input-sm" placeholder="Process (e.g. Success Squad / Calling)">
+              </div>
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternDesignation" class="form-input form-input-sm" placeholder="Designation (e.g. OJT Intern / Calling OJT)">
+              </div>
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternLead" class="form-input form-input-sm" placeholder="Assigned Lead (e.g. SONALI)">
+              </div>
+            </div>
+            <div class="form-row gap-xs margin-bottom-xs">
+              <div class="form-group flex-1">
+                <input type="text" id="inlineInternPhone" class="form-input form-input-sm" placeholder="Phone Number">
+              </div>
+              <div class="form-group flex-1">
+                <input type="email" id="inlineInternEmail" class="form-input form-input-sm" placeholder="Email Address">
+              </div>
+              <div class="form-group flex-1">
+                <button class="btn btn-sm btn-teal width-full" id="btnSaveInlineIntern" onclick="window.handleSaveInlineIntern()">💾 Add Single Intern</button>
+              </div>
+            </div>
+
+            <!-- Bulk Copy-Paste Multi-Intern Importer -->
+            <div class="margin-top-sm border-top padding-top-xs">
+              <h4 class="text-sm font-bold text-purple margin-bottom-xs">📋 Bulk Copy-Paste Multi-Intern Importer</h4>
+              <p class="text-xs text-muted margin-bottom-xs">Paste multiple lines directly from Excel, CSV, or WhatsApp text lists (Name, Batch, Shift, Process, Designation, Lead, Phone, Email):</p>
+              <textarea id="bulkInternsTextarea" class="form-textarea form-input-sm width-full" rows="3" placeholder="Example lines:&#10;Rahul Sharma, B-20, AM, Success Squad, OJT Intern, SONALI, 919876543210, rahul@habuild.in&#10;Priya Patel, B-19, PM, Calling Team, Calling OJT, RASHI, 919876543211, priya@habuild.in"></textarea>
+              <button class="btn btn-sm btn-purple width-full margin-top-xs" id="btnProcessBulkInterns" onclick="window.handleSaveBulkInterns()">📋 Process & Save Bulk Interns</button>
+            </div>
+          </div>
+
+          <div class="table-container max-h-350">
+            <table class="data-table" id="adminInternsTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Batch</th>
+                  <th>Shift</th>
+                  <th>Process</th>
+                  <th>Designation</th>
+                  <th>Assigned Lead</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminInternsTbody">
+                <!-- Rendered intern items -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel 2: Google Sheets Links (Per Lead) -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">2. Google Sheets Links (Per Lead)</h3>
+          </div>
+          <div class="admin-links-list" id="sheetsLinksContainer">
+            <!-- Sheet links per lead -->
+          </div>
+        </div>
+
+        <!-- Panel 4: Backend Connection Status & Live Testing -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">4. Backend Connection Status</h3>
+          </div>
+          <div class="backend-status-list">
+            <div class="status-item">
+              <div>
+                <strong>Google Sheets / Drive API</strong>
+                <p class="text-xs text-muted" id="statusGoogleText">Checking initialization...</p>
+              </div>
+              <button class="btn btn-xs btn-outline" id="btnTestGoogle">Test Connection</button>
+            </div>
+
+            <div class="status-item">
+              <div>
+                <strong>WhatsApp Service (Twilio)</strong>
+                <p class="text-xs text-muted" id="statusWhatsAppText">Checking status...</p>
+              </div>
+              <button class="btn btn-xs btn-outline" id="btnTestWhatsApp">Test Send</button>
+            </div>
+
+            <div class="status-item">
+              <div>
+                <strong>Email Service (Nodemailer / SMTP)</strong>
+                <p class="text-xs text-muted" id="statusEmailText">Checking status...</p>
+              </div>
+              <button class="btn btn-xs btn-outline" id="btnTestEmail">Test Send</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS -->
+  <!-- ========================================================================= -->
+
+  <!-- Role Switcher & PIN Modal -->
+  <div class="modal-backdrop" id="roleModal">
+    <div class="modal-window max-w-400">
+      <div class="modal-header">
+        <h3 class="modal-title">Select Access Role</h3>
+        <button class="modal-close" id="roleModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="control-label">Select Role</label>
+          <select id="roleSelect" class="form-select">
+            <option value="Admin">Admin (Full Access)</option>
+            <option value="Lead">OJT Lead (Full View + Delegation)</option>
+            <option value="Viewer">Viewer (Read-Only Access)</option>
+          </select>
+        </div>
+        <div class="form-group" id="pinGroup">
+          <label class="control-label">Enter Security PIN (Admin/Lead)</label>
+          <input type="password" id="rolePinInput" class="form-input" placeholder="Enter PIN (Default: 1234)">
+          <p class="text-xs text-muted margin-top-xs">Default Admin PIN: <code>1234</code> | Lead PIN: <code>5678</code>
+          </p>
+        </div>
+        <button class="btn btn-primary width-full margin-top-md" id="btnConfirmRole">Login / Switch Role</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customize Columns Modal -->
+  <div class="modal-backdrop" id="customizeColsModal">
+    <div class="modal-window max-w-500">
+      <div class="modal-header">
+        <h3 class="modal-title">Customize Scorecard Columns</h3>
+        <button class="modal-close" id="colsModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm text-muted margin-bottom-sm">Select parameters to display on the scorecard table:</p>
+        <div class="checkbox-grid" id="colsCheckboxContainer">
+          <!-- Dynamically populated column checkboxes -->
+        </div>
+        <button class="btn btn-primary width-full margin-top-md" id="btnSaveColsConfig">Apply Columns</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Weekly Target SOP Modal -->
+  <div class="modal-backdrop" id="editTargetsModal">
+    <div class="modal-window max-w-600">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Weekly SOP Targets & Dates</h3>
+        <button class="modal-close" id="targetsModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="control-label">Target Batch</label>
+          <input type="text" id="targetBatchInput" class="form-input" value="B-20" readonly>
+        </div>
+        <div class="targets-grid" id="targetsInputsContainer">
+          <!-- Rendered weekly target inputs -->
+        </div>
+        <button class="btn btn-primary width-full margin-top-md" id="btnSaveTargets">Save SOP Targets</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Intern Modal -->
+  <div class="modal-backdrop" id="internModal">
+    <div class="modal-window max-w-500">
+      <div class="modal-header">
+        <h3 class="modal-title" id="internModalTitle">Add OJT Intern</h3>
+        <button class="modal-close" id="internModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="control-label">Intern Full Name</label>
+          <input type="text" id="internNameInput" class="form-input" placeholder="e.g. Dipti Sahu">
+        </div>
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="control-label">Batch</label>
+            <input type="text" id="internBatchInput" class="form-input" placeholder="e.g. B-20, B-21">
+          </div>
+          <div class="form-group flex-1">
+            <label class="control-label">Shift</label>
+            <input type="text" id="internShiftInput" class="form-input" placeholder="e.g. AM / PM">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Designation / Role</label>
+          <input type="text" id="internDesignationInput" class="form-input" value="OJT Intern"
+            placeholder="e.g. OJT Intern / Calling OJT">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Assigned OJT Lead</label>
+          <input type="text" id="internLeadInput" class="form-input" placeholder="e.g. SONALI / RASHI">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Phone Number (Komal AI / WhatsApp Match)</label>
+          <input type="text" id="internPhoneInput" class="form-input" placeholder="917558475797">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Email Address</label>
+          <input type="email" id="internEmailInput" class="form-input" placeholder="intern@habuild.in">
+        </div>
+        <button class="btn btn-primary width-full margin-top-md" id="btnSaveIntern">Save Intern Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Dispatch Preview Modal -->
+  <div class="modal-backdrop" id="dispatchPreviewModal">
+    <div class="modal-window max-w-600">
+      <div class="modal-header">
+        <h3 class="modal-title" id="dispatchPreviewTitle">Message / Email Preview</h3>
+        <button class="modal-close" id="previewModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-xs text-muted margin-bottom-sm">Review the exact formatted message before sending to selected
+          recipients:</p>
+        <div class="whatsapp-preview-box" id="dispatchPreviewContent">
+          <!-- Live rendered preview -->
+        </div>
+        <div class="flex-row gap-sm margin-top-md">
+          <button class="btn btn-outline flex-1" id="btnCancelPreview">Cancel</button>
+          <button class="btn btn-success flex-1" id="btnConfirmSendDispatch">Confirm & Dispatch Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- View Full Intern Details Modal -->
+  <!-- View QC Doc Modal -->
+  <div class="modal-backdrop" id="qcDocModal">
+    <div class="modal-window max-w-600" style="max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 1.5rem;">
+      <div class="modal-header" style="flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 0;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <button class="btn btn-outline btn-sm" onclick="window.closeModal('qcDocModal')" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+            ← Go Back
+          </button>
+          <h3 class="modal-title" id="qcDocModalTitle" style="margin: 0; color: #0f172a; font-size: 1.25rem; font-weight: 700;">📄 QC Errors & Feedback</h3>
+        </div>
+        <button class="modal-close" onclick="window.closeModal('qcDocModal')" style="font-size: 1.5rem; color: #64748b; background: none; border: none; cursor: pointer;">&times;</button>
+      </div>
+      <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 1.25rem 0;">
+        <div id="qcDocCardsContainer" style="display: flex; flex-direction: column; gap: 1rem; padding-right: 0.5rem;">
+          <!-- Dynamically populated QC cards -->
+        </div>
+      </div>
+      <div class="modal-footer" style="flex-shrink: 0; border-top: 1px solid #e2e8f0; padding-top: 1rem; display: flex; justify-content: flex-end; margin-top: 0;">
+        <button class="btn btn-primary" onclick="window.closeModal('qcDocModal')" style="min-width: 150px; background-color: var(--primary);">
+          ← Go Back to Scorecard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="internDetailsModal">
+    <div class="modal-window max-w-600">
+      <div class="modal-header">
+        <h3 class="modal-title" id="internDetailsTitle">👤 OJT Intern Profile & Details</h3>
+        <button class="modal-close" onclick="window.closeModal('internDetailsModal')">&times;</button>
+      </div>
+      <div class="modal-body" id="internDetailsBody">
+        <!-- Dynamically rendered full intern profile -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Zoom Lightbox Modal -->
+  <div class="modal-backdrop" id="imageZoomModal" onclick="window.closeModal('imageZoomModal')">
+    <div style="position: relative; max-width: 90%; max-height: 90%; display: flex; align-items: center; justify-content: center;" onclick="event.stopPropagation()">
+      <img id="zoomedImage" src="" alt="Proof Screenshot" style="max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); object-fit: contain; background: #fff; padding: 0.5rem; cursor: zoom-out;" onclick="window.closeModal('imageZoomModal')">
+      <button class="modal-close" onclick="window.closeModal('imageZoomModal')" style="position: absolute; top: -1rem; right: -1rem; background: rgba(15, 23, 42, 0.7); color: #fff; border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);">&times;</button>
+    </div>
+  </div>
+
+  <!-- Client JavaScript Application -->
+  <script src="/js/app.js?v=2"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="48" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <defs>
+    <linearGradient id="habuildGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <!-- Person 1 (Tall Left Figure) -->
+  <circle cx="38" cy="28" r="6" fill="url(#habuildGrad)"/>
+  <path d="M 28 42 H 48 M 38 42 V 72 M 38 72 L 28 82 M 38 72 L 48 82" stroke="url(#habuildGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Person 2 (Right Figure) -->
+  <circle cx="64" cy="34" r="5" fill="url(#habuildGrad)"/>
+  <path d="M 54 48 H 72 M 64 48 V 74 M 64 74 L 56 82 M 64 74 L 72 82" stroke="url(#habuildGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

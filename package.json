@@ -1,0 +1,21 @@
+{
+  "name": "habuild-ojt-dashboard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Habuild OJT Quality Control & Performance Analytics Dashboard",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "googleapis": "^134.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.10.1",
+    "twilio": "^5.0.0",
+    "xlsx": "^0.18.5"
+  }
+}

@@ -1,0 +1,5036 @@
+{
+  "masterId": "1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE",
+  "masterUrl": "https://docs.google.com/spreadsheets/d/1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE/edit",
+  "leads": {
+    "DIKSHA": [
+      "B-18",
+      "B-17",
+      "B-19",
+      "B-16",
+      "B-15"
+    ],
+    "SONALI": [
+      "B-19"
+    ],
+    "RASHI": [
+      "B-19"
+    ],
+    "PRIYANSHU": [
+      "B-11",
+      "B-12",
+      "B-14",
+      "B-19",
+      "B-18",
+      "B-17",
+      "B-16",
+      "B-15"
+    ],
+    "SAMIKSHA": [
+      "B-15",
+      "B-16",
+      "B-18",
+      "B-19",
+      "B-17",
+      "B-14",
+      "B-10",
+      "B-11",
+      "B-12",
+      "B-13"
+    ],
+    "NILESH": [
+      "B-17",
+      "B-18",
+      "B-19",
+      "B-16"
+    ]
+  },
+  "sheets": {
+    "masterId": "1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE",
+    "masterUrl": "https://docs.google.com/spreadsheets/d/1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE/edit?gid=614565302#gid=614565302",
+    "NAMRATA": "https://docs.google.com/spreadsheets/d/1nxWgL1j5IIcauKgJ4L3VT7dy5a45UdA-d8dXDTZ4CNI/edit",
+    "DIKSHA": "https://docs.google.com/spreadsheets/d/1qYLnsUmtpvsYk8omILTIUAdB9v2v7QYORRNIrzQd2jM/edit",
+    "SONALI": "https://docs.google.com/spreadsheets/d/1ptvAUcspvyKCPnmG5kZ1gieubgP-LaCKx_b9akXbg_k/edit",
+    "RASHI": "https://docs.google.com/spreadsheets/d/1klIuLpBRtM8UcFye4sRyv1HDenkpxrnTzt8ghbhFgOU/edit",
+    "PRIYANSHU": "https://docs.google.com/spreadsheets/d/1fWcf3zs_aKoHGd9VgauxeQmJwfMxdO3dZR9NK_kgK5k/edit",
+    "SAMIKSHA": "https://docs.google.com/spreadsheets/d/1Wb3e1vjrPLA7GvHh5-ckC6S-C01tE7tJO_qfJQtAObg/edit",
+    "NILESH": "https://docs.google.com/spreadsheets/d/1kqtQSaLzmNdpqew6XtDAjg0tocwo4Frl_-HQH8BPpHE/edit",
+    "REPORTING": "https://docs.google.com/spreadsheets/d/1zIWboejoQlUVGFlewYK0Ugtj7nUe8rR7cl29VOCJaB4/edit"
+  },
+  "docs": {
+    "DIKSHA": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    },
+    "SONALI": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    },
+    "RASHI": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    },
+    "PRIYANSHU": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    },
+    "SAMIKSHA": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    },
+    "NILESH": {
+      "url": "https://docs.google.com/document/d/1rSH29NlmlYZxNoOi9AtfCVzSh9E4LywZw7VeFe3kaHs/edit",
+      "title": "QC Batch 17 ",
+      "sections": {},
+      "images": []
+    }
+  },
+  "thresholds": {},
+  "targets": {},
+  "internPhones": {
+    "diksha": "917057636936",
+    "Admin": "917558475797"
+  },
+  "leadPhones": {},
+  "pulseResponses": {},
+  "tasks": {},
+  "internsRegistry": [
+    {
+      "name": "Geetika",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8595227628",
+      "email": "geetikachopra.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prachi Kamble",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7304954184",
+      "email": "prachikamble.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Mosin sheikh",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "9011272753",
+      "email": "mosinsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Anjali Balbudhe",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "6265382353",
+      "email": "anjalibalbudhe.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Palak jain",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9518346017",
+      "email": "palakjain.habuid@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Jaya Dongare",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9373837779",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Smit pendor",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "8767536379",
+      "email": "smitpendor.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Papiha Ghube",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "9370286958",
+      "email": "papihaghube.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Babasaheb Kothavale",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "8956131953",
+      "email": "babasahebkothavale.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nitesh Hiwase",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8855869549",
+      "email": "niteshhiwase.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shivam lolge",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7097002007",
+      "email": "shivamlolge.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tina Kute",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "9307712638",
+      "email": "tinakute.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "samiksha Kshirsagar",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917387946241",
+      "email": "samikshakshirsagar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Lubdha Bhasme",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8637705694",
+      "email": "lubdhabhasme.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Pretty Patil",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9158448461",
+      "email": "prettypatil.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Mahak Lokhande",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "7588263574",
+      "email": "mahaklokhande.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prachi Somyani",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9156019242",
+      "email": "prachiisomyani.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Pareedhi Sarwan",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9096521384",
+      "email": "pareedhisarwan.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Syed khizar ali",
+      "batch": "Batch 20",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7350167455",
+      "email": "khizaralisayyed.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aditya Jaiswal",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9325417346",
+      "email": "adityajaiswal.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "kunal fukatkar",
+      "batch": "Batch 20",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "7057502334",
+      "email": "kunalfukatkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vishal Kawale",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "918010181392",
+      "email": "vishalkawle.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Priyanshu shashtrakar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917558390024",
+      "email": "Priyanshushastrakar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nilesh Nandanwar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917620589481",
+      "email": "nileshnandanwar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Samiksha Randai",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "919284786693",
+      "email": "samiksharandai.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sonali Landge",
+      "batch": "OJT Lead",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "918308593734",
+      "email": "sonalilandge.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Rashi Vazirani",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "8208225342",
+      "email": "rashivazirani.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "DAMINI ATHAWALE",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9765967689",
+      "email": "daminiathawale.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Alisha Dupare",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "8830894281",
+      "email": "alishadupare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shivam Durbule",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Sessions team",
+      "designation": "Sessions Intern",
+      "lead": "Sanovar",
+      "phone": "9834907453",
+      "email": "shivamdurbule.habuild.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tanushree Pawar",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9373281079",
+      "email": "tanupawar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Fuzail Sheikh",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "9356626979",
+      "email": "fuzailsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Samyak Kamble",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "7249270693",
+      "email": "samyakkamble.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aman Gondane",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "8956426817",
+      "email": "aman.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sohail Sheikh",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7057276100",
+      "email": "sohailsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "kalpik ramteke",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9309868713",
+      "email": "kalpikramteke.habuild@gmail.comn",
+      "type": "chat"
+    },
+    {
+      "name": "Ankush Bhagwat",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "7499483099",
+      "email": "bhagwatankush.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sakshi Dumre",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "8087145862",
+      "email": "sakshidumre.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Suyash Chandurkar",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "8600123931",
+      "email": "suyashchandurkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Hishita Sangtani",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "9028881513",
+      "email": "hishitasangtani.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sheikh Raheman Shekh Jabir",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "7666885001",
+      "email": "rahemanshekh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Pranali Bhardwaj",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9284759394",
+      "email": "pranalibhardwaj.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Suraksha Khaparde",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "7038045709",
+      "email": "surakshakhaparde.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shabbar sheikh",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "7840979930",
+      "email": "shabbarsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kshitij Gotefode",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9423439449",
+      "email": "kshitijgotefode.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sakshi Kuril",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8766991454",
+      "email": "sakshikuril.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aanchal Tiwari",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8485840225",
+      "email": "aanchaltiwari.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nayan Dhakne",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8554983874",
+      "email": "nayandhakne.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Rushikesh Deshpande",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7499458114",
+      "email": "rushikeshdeshpande.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Roshan Nagrale",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "8805638653",
+      "email": "roshannagarale.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ahmed Raza",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "9226406057",
+      "email": "ahmedraza.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kapil Dilip Madke",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "9763217162",
+      "email": "kapilmadke.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aditya mallik",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "917620117966",
+      "email": "adityamallik.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Riya Majumdar",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "8767027586",
+      "email": "riyamajumdar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tanu Patle",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "7066627525",
+      "email": "tanupatle.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Krunali Moon",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9322167978",
+      "email": "krunalimoon.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Hansika Bhagat",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "8010095070",
+      "email": "hansikabhagat.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kartik Pentamwar",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "7709166005",
+      "email": "kartikpentamwar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Rohit Meshram",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "7507407267",
+      "email": "rohitmeshram.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prajwal nikhade",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "6266642631",
+      "email": "prajwalnikhade.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prerana Gawande",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "7709373166",
+      "email": "preranagawande.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Punam Dhore",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "7083017361",
+      "email": "punamdhore.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Raahil Sheikh",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7709913269",
+      "email": "rahilsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "mohjeet salwatkar",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "8149762684",
+      "email": "mohjeetsalwatkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aditi Lute",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9370747483",
+      "email": "aditilute.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Pranay Lokhare",
+      "batch": "Batch 18",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9834376482",
+      "email": "pranaylohakare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sakshi Bhagwat",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "9545197638",
+      "email": "sakshibhagwathabuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shabir Sheikh",
+      "batch": "Batch 18",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "8329346137",
+      "email": "shabirshaikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kanak Thakur",
+      "batch": "Batch 18",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9322691136",
+      "email": "chintad880@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Smita Barik",
+      "batch": "Batch 18",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9527407102",
+      "email": "smitab109@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Saloni Singh",
+      "batch": "Batch 18",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "8767987791",
+      "email": "salonisingh75748@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Danish Khan",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "9326484333",
+      "email": "danishkhan.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aman Khadgi",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9518903410",
+      "email": "amankhadgi.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sagar Kumbhare",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "8087200195",
+      "email": "sagarkumbhare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Jeffin M John",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "9518779536",
+      "email": "jeffinmjohn.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kshitij Thool",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "9075137594",
+      "email": "kshitijthool.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "KARTIK THAKUR",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "9657354613",
+      "email": "kartikthakur.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vaibhav Patil",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "7517363642",
+      "email": "vaibhavpatil.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Damini Bawne",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "7385085906",
+      "email": "bawnedamini@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aryan Jaiswal",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "9096509485",
+      "email": "aryanjaiswal.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sumeet Sahare",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7038966983",
+      "email": "sumeetsahare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sana Tanzila M S Hussain",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "9309559859",
+      "email": "sanatanzila.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Gayatri Deoghare",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7875660229",
+      "email": "gayatrideoghare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Bushera khan",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Damini",
+      "phone": "8799839605",
+      "email": "Bushrakhan.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ishika Mandawkar",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "9172111235",
+      "email": "ishikamandawkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Piyush Nikhare",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7378841480",
+      "email": "piyushnikhare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sayali Meshram",
+      "batch": "Batch 17",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "91 9604810511",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "saylimeshram.habuild@gmail.com",
+      "batch": "B-20",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "SAYALI VAIDYA",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9767903426",
+      "email": "sayalivaidya.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Akshay Kumar",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Session team",
+      "designation": "-",
+      "lead": "-",
+      "phone": "",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Shashank Tiwari",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Session team",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9822300086",
+      "email": "shashanktiwari.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Preeti Banjare",
+      "batch": "Batch 17",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "8319707151",
+      "email": "preetibanjare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Anjum sheikh",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8421962727",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Govind S. Singhaniya",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9822438057/8956696861",
+      "email": "govindsinghaniya.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Dhanashri laxmikant zade",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9359869997",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Prajwal Fulchand Pakhale",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9022868297",
+      "email": "-",
+      "type": "chat"
+    },
+    {
+      "name": "Aditya Bharat Bhendare",
+      "batch": "Batch 17",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9067042672",
+      "email": "-",
+      "type": "chat"
+    },
+    {
+      "name": "Nikhilesh Solanki",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9022961193",
+      "email": "nikhileshsolanki.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prakhar buradkar",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8329760853",
+      "email": "prakharburadkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shahid Yasini",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8329407130",
+      "email": "shahidyasini.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "CHARUL TURKAR",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7219639704",
+      "email": "charulturkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ashwin nair",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7249391359",
+      "email": "ashwinnair.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Darshana Kshirsagar",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Adarsh",
+      "phone": "7972870203",
+      "email": "darshanakshirsagar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vaibhav",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Adarsh",
+      "phone": "917898379511",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Shiwani  S Kanampalliwar",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "8668486035",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Farheen Wahab Qureshi",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9765625048",
+      "email": "farheenqureshi.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Gayatri Menon",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "918080837214",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Aniket Khobragade",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Session Team",
+      "designation": "-",
+      "lead": "-",
+      "phone": "919156075072",
+      "email": "aniket04khobragade@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Suchita padwe",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Session Team",
+      "designation": "-",
+      "lead": "-",
+      "phone": "917888227184",
+      "email": "suchitapadwe128@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tanya Masih",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Session Team",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9685271140",
+      "email": "tanyamasih123@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Anirudhha",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "meetup & operation",
+      "designation": "-",
+      "lead": "-",
+      "phone": "919372572405",
+      "email": "aniruddhsingh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Pratik Gabhane",
+      "batch": "Batch 16",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Adarsh",
+      "phone": "9370975431",
+      "email": "pratikgabhane.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sanskruti Jain",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "8767850137",
+      "email": "sanskritijain.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Simran Dilip sontakkey",
+      "batch": "Batch 16",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9921482719",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Pawan Katole",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9168075483",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Rahul G. Borkar",
+      "batch": "B-20",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Batch 16",
+      "batch": "-",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "8983202789",
+      "phone": "",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Minal Bhoge",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9860056894",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Reshma Sambre",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9359266124",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Zubin Jha",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9373171007",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Radhika Vijaysingh Rathod",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "7219233496",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Hrishika Thakur",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9325327785",
+      "email": "hrishikat630@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nupur Bawariya",
+      "batch": "Batch 16",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9075471696",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Damini Goul",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8975234859",
+      "email": "daminigoul.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aditi Shiv",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7249568354",
+      "email": "aditishiv.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Irfan Khan",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "918269444560",
+      "email": "irfanshaikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Kunal Ramteke",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8208254827",
+      "email": "kunalramteke.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ritika Karande",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7387212311",
+      "email": "ritikakarande.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vaishnavi Wakde",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7709681725",
+      "email": "vaishnaviwakde.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vishal Kawle",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "918010181392",
+      "email": "vishalkawle.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Lakshmi Mahato",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7028148486",
+      "email": "lakshmimahato.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Mansi Mawale",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9834187176",
+      "email": "mansimawle.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Harsh Dhawane",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7028821867",
+      "email": "harshdhawane.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shekhar Thakur",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9075617974",
+      "email": "shekharthakur.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ashutosh Karnewar",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7972736249",
+      "email": "aashutoshkarnewar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Premkumar Hajare",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8007876683",
+      "email": "premhajare1.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Himanshu Narnawre",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9595315009",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Mukul Bawane",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8657575663",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Arpit Awale",
+      "batch": "Batch 15",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9021242729",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Zinat Sayyed",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Product & Ops",
+      "designation": "Product & Ops",
+      "lead": "Sumaiya",
+      "phone": "9834075716",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Ayushi Shrivas",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919410913556",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Avinash Prasad",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918856896460",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Vivek",
+      "batch": "Batch 15",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918329083397",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Sneha Jiwane",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "9145740586",
+      "email": "snehajiwane.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Mohammad Raafay",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9373231978",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Anisha Tambat",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "8080739852",
+      "email": "anishatambat.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sagar Sawarkar",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "8237938057",
+      "email": "sagarsawarkar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Swati Jivtode",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9370731563",
+      "email": "swatijivtode.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shrushti Kathrotiya",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "9579234481",
+      "email": "shrushtikathrotiya.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nikhil Bajpai",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "919112019830/7028044467",
+      "email": "nikhilbajpai.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ayush Chadde",
+      "batch": "Batch 14",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "919067931665",
+      "email": "ayushchadde.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Chetan Gharat",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9763392734",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Shaikh Irfan",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "8269444560",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Adarsh Dwivedi",
+      "batch": "Batch 14",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9545743490",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "vijyalakshmi",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918766592926",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "ritikesh bawankule",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "917030089318",
+      "email": "ritikeshbawankule.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "harsh mule",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "919834838229",
+      "email": "harshmule.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "kirti sambhare",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "919022505662",
+      "email": "kirtimavinkurve.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "disksha",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "917057636936",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "ashwini upadhyay",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "917058301712",
+      "email": "ashwiniupadhye.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "khusbhu kakoriya",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "919763001443",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "sneha meshram",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "917058157338",
+      "email": "snehameshram.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "sangharsh",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "919766254768",
+      "email": "sangharshgedam.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "ghanshyam kadwe",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918087781295",
+      "email": "ghanshyamkadwe.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "yogita wankhede",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917447201604",
+      "email": "yogitawankhede.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "vishakha",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "918975173020",
+      "email": "vishakhadeshmukh591@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "surbhi",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "919561290021",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "abhishek ambadwar",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Email",
+      "designation": "OJT Intern",
+      "lead": "Alisha",
+      "phone": "919322382448",
+      "email": "abhishekambadwar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vishal Shamdasani",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Beetu",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918830559768",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "krunal bagde",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "917385897890",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "sakshat",
+      "batch": "Batch 13",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "919307867990",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "aditya singh",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Beetu",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "919373140905",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "sakshi vasnik",
+      "batch": "Batch 13",
+      "shift": "-",
+      "process": "-",
+      "designation": "OJT Intern",
+      "lead": "-",
+      "phone": "918956959276",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "shivani",
+      "batch": "Batch 13",
+      "shift": "-",
+      "process": "-",
+      "designation": "OJT Intern",
+      "lead": "-",
+      "phone": "919022165876",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "khushi",
+      "batch": "Batch 13",
+      "shift": "-",
+      "process": "-",
+      "designation": "OJT Intern",
+      "lead": "-",
+      "phone": "919322125673",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "shweta bunkar",
+      "batch": "Batch 13",
+      "shift": "-",
+      "process": "-",
+      "designation": "OJT Intern",
+      "lead": "-",
+      "phone": "919322641654",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "minal shendre",
+      "batch": "Batch 13",
+      "shift": "-",
+      "process": "-",
+      "designation": "OJT Intern",
+      "lead": "-",
+      "phone": "919370574656",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "ayush patle",
+      "batch": "Batch 13",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "918999580409",
+      "email": "Not found",
+      "type": "chat"
+    },
+    {
+      "name": "Yuktta varade",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "919179708118",
+      "email": "yuktavarade.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Akanksha sanjay shende",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "917498794862",
+      "email": "akankshashende.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Harshal Uttam Dhole",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "919561510822",
+      "email": "harshaldhole.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "alfaiz",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "917249578126",
+      "email": "alfaizsheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Abhiskhek raut",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "918928181248",
+      "email": "abhishekraut.habuild1@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Shruti Singh",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrata",
+      "phone": "918380052913",
+      "email": "shrutisingh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tejas khedekar",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "917588348023",
+      "email": "tejaskhedekar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Minal Vijay Shelke",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918999887013",
+      "email": "minalshelke.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Anshuman Sawaiya",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "918623926279",
+      "email": "anshumansawaiya.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "adarsh chaudhary",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "918010177062",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Shweta Dhamgaye",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "917066276423",
+      "email": "shwetadhamgaye.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sonu Balwant Sarode",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "918080815147",
+      "email": "sonusarode.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Tasbiha Tawaf Ansari",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918080935448",
+      "email": "tasbihaansari.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aditya Sakhare",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Jayshree",
+      "phone": "917410171146",
+      "email": "adityasakhare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Damini Belsare",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918552969316",
+      "email": "daminibelsare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Vedant Tiwari",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918329766350",
+      "email": "vedanttiwari.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Aniket Gajbhiye",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "918080752449",
+      "email": "aniketg.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ajay Bhagwani",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "918208374199",
+      "email": "ajaybhagwani.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Sonali Shivdas Landge",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "918308593734",
+      "email": "sonalilandge.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ketki Motghare",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "917058176445",
+      "email": "ketkimotghare.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Komal Rai",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918356683765",
+      "email": "komalraii.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Dimpal Maske",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "919309319063",
+      "email": "dimpalmaske.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Saloni Vinod Kamble",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "919518749735",
+      "email": "salonikamble.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Abhishek Manoj Kamble",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "919579443695",
+      "email": "abhishekkamble.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Chetna Arvind Dehankar",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Voice process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "919370202357",
+      "email": "chetnadehankar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Asmita Ramnath Kolhe",
+      "batch": "Batch 12",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "917387215504",
+      "email": "\"asmitakolhe.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "\"",
+      "batch": "B-20",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Akash Shamkuwar",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "919763314283",
+      "email": "akashshamkuwar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Rasika Balmukund Shete",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshlata",
+      "phone": "918956844838",
+      "email": "\"rasikashete.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Ashish Saxena",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "918999531344",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Pradarshi pramod patil",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917559409713",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Aditya Gahlod",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918698764274",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Monika Janbandhu",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "918080952207",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Kshitij Gawande",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919146395594",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "SAURABH CHOPADE",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917498351297",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Minal salunke",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919823353147",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "Dhruv Chopkar",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917887538688",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "sanovar sheikh",
+      "batch": "Batch 12",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrta",
+      "phone": "917020414361",
+      "email": "Not Found",
+      "type": "chat"
+    },
+    {
+      "name": "parag bariye",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "919822202584",
+      "email": "paragbariye.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "aman singh gujar",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "919420167661",
+      "email": "amangujar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "samiksha darode",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "919096574117",
+      "email": "samikshadarode.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "vaishnavi prasad",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "919579956356",
+      "email": "vaishnavitantwa.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Neha Kumari",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "917033016164",
+      "email": "nehakurmai.habuild@gmail",
+      "type": "chat"
+    },
+    {
+      "name": "chaitnya sonak",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "918805986252",
+      "email": "chaitusonak.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "karishma",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "917058389836",
+      "email": "karishmabagale.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "yashwani shreewas",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "918446406687",
+      "email": "yashwanirao.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "ekta chelani",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "919326296688",
+      "email": "ektachelani.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "shailesh meshram",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "918669276632",
+      "email": "shaileshmeshram.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "siddhant",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "917262035811",
+      "email": "siddhantraut.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "aryan upadhyay",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "918208340662",
+      "email": "aryanupadhyay.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "pranay meshram",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "919168407115",
+      "email": "pranaymeshramm.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "ishnak manohare",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Voice",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917083642084",
+      "email": "ishank.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "pranay mawale",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "918983041053",
+      "email": "pranaymawale.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "prajwal domne",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Disha",
+      "phone": "919322657678",
+      "email": "prajwaldhomne.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Adnan sheikh",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "919588631931",
+      "email": "adnansheikh.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "prince hirekhan",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Pooja",
+      "phone": "917028334732",
+      "email": "princehirekhan.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "muskan",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "919284320766",
+      "email": "muskanthakur.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "ashwin dongre",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "918208047873",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "cepher",
+      "batch": "Batch 11",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "918983511770",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "damini",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919158854088",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "devesh wasnik",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918668267697",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Dipanshu chaudhary",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917273021959",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "hrutuja dhoble",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919075291221",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "ishika rawat",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918767740959",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "krutika",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Namrta",
+      "phone": "918275183322",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "madhura",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "917498482835",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "mansi mandhane",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919518530133",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "shubhanshu singh",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919939006804",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "vaibhav jawade",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "918308299418",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Mohan ji",
+      "batch": "Batch 11",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "919172337119",
+      "email": "",
+      "type": "chat"
+    },
+    {
+      "name": "Samarpan Ajay Gorlewar",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "7719840895",
+      "email": "samarpang.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Nilesh",
+      "batch": "Batch 10",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7620589481",
+      "email": "nileshnandanwar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Trupti Korke",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7757008349",
+      "email": "truptikorke.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Priyal Meshram",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "7620995887",
+      "email": "priyalmeshram.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Prashik Gujar",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "9325373253",
+      "email": "prashikgujar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Jyoti Mohadikar",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "8329739520",
+      "email": "jyotimohadikar.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Mayuri Dhanraj Kokarde",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "9699115692",
+      "email": "mayurikokarde.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Spandhan Kotangle",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "9518591182",
+      "email": "spandhankotangle.habuild@gmail.com",
+      "type": "chat"
+    },
+    {
+      "name": "Priyanka",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Intern",
+      "lead": "SONALI",
+      "phone": "9359521910",
+      "email": "priyankanaik.habuild@gmail.com",
+      "type": "chat"
+    }
+  ],
+  "weeklyTargets": {
+    "B-20": {
+      "1": {
+        "expectedProductivity": "Observation",
+        "squadProductivity": "200",
+        "expectedErrorRate": "15%"
+      },
+      "2": {
+        "expectedProductivity": "70-80+",
+        "squadProductivity": "260+",
+        "expectedErrorRate": "Below 12-15%"
+      },
+      "3": {
+        "expectedProductivity": "90-100+",
+        "squadProductivity": "340+",
+        "expectedErrorRate": "Below 9-10%"
+      },
+      "4": {
+        "expectedProductivity": "120-150+",
+        "squadProductivity": "350+",
+        "expectedErrorRate": "Below 7-8%"
+      },
+      "5": {
+        "expectedProductivity": "160-170+",
+        "squadProductivity": "390+",
+        "expectedErrorRate": "Below 5-6%"
+      },
+      "6": {
+        "expectedProductivity": "200+",
+        "squadProductivity": "380-400+",
+        "expectedErrorRate": "Below 5%"
+      },
+      "startDate": "2026-05-25",
+      "wf": {
+        "expectedProductivity": "Near to squad level",
+        "squadProductivity": "300+",
+        "expectedErrorRate": "Below 4-5%"
+      }
+    }
+  },
+  "assignments": {
+    "Geetika": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Prachi Kamble": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Mosin sheikh": {
+      "lead": "samiksha",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Anjali Balbudhe": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Palak jain": {
+      "lead": "priyanshu",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Jaya Dongare": {
+      "lead": "sonali",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "Smit pendor": {
+      "lead": "rashi",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Papiha Ghube": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Babasaheb Kothavale": {
+      "lead": "nilesh",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Nitesh Hiwase": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Shivam lolge": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Tina Kute": {
+      "lead": "samiksha",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "samiksha Kshirsagar": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Lubdha Bhasme": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Pretty Patil": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Mahak Lokhande": {
+      "lead": "rashi",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Prachi Somyani": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Pareedhi Sarwan": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Syed khizar ali": {
+      "lead": "priyanshu",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Aditya Jaiswal": {
+      "lead": "rashi",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "kunal fukatkar": {
+      "lead": "sonali",
+      "batch": "Batch 20",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Vishal Kawale": {
+      "lead": "samiksha",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.002Z"
+    },
+    "Priyanshu shashtrakar": {
+      "lead": "dipti",
+      "batch": "OJT Lead",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Nilesh Nandanwar": {
+      "lead": "dipti",
+      "batch": "OJT Lead",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Samiksha Randai": {
+      "lead": "dipti",
+      "batch": "OJT Lead",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Sonali Landge": {
+      "lead": "dipti",
+      "batch": "OJT Lead",
+      "assignedAt": "2026-07-21T12:37:46.506Z"
+    },
+    "Rashi Vazirani": {
+      "lead": "namrata",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "DAMINI ATHAWALE": {
+      "lead": "diksha",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Alisha Dupare": {
+      "lead": "samiksha",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Shivam Durbule": {
+      "lead": "sanovar",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Tanushree Pawar": {
+      "lead": "rashi",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Fuzail Sheikh": {
+      "lead": "sonali",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Samyak Kamble": {
+      "lead": "nilesh",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Aman Gondane": {
+      "lead": "diksha",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Sohail Sheikh": {
+      "lead": "priyanshu",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "kalpik ramteke": {
+      "lead": "rashi",
+      "batch": "Batch 19",
+      "assignedAt": "2026-07-23T06:54:02.946Z"
+    },
+    "Ankush Bhagwat": {
+      "lead": "diksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Sakshi Dumre": {
+      "lead": "diksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Suyash Chandurkar": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Hishita Sangtani": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Sheikh Raheman Shekh Jabir": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Pranali Bhardwaj": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Suraksha Khaparde": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Shabbar sheikh": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Kshitij Gotefode": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Sakshi Kuril": {
+      "lead": "priyanshu",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Aanchal Tiwari": {
+      "lead": "priyanshu",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Nayan Dhakne": {
+      "lead": "priyanshu",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Rushikesh Deshpande": {
+      "lead": "samiksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Roshan Nagrale": {
+      "lead": "samiksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Ahmed Raza": {
+      "lead": "samiksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Kapil Dilip Madke": {
+      "lead": "nilesh",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Aditya mallik": {
+      "lead": "nilesh",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Riya Majumdar": {
+      "lead": "nilesh",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Tanu Patle": {
+      "lead": "nilesh",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Krunali Moon": {
+      "lead": "diksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Hansika Bhagat": {
+      "lead": "diksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Kartik Pentamwar": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Rohit Meshram": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Prajwal nikhade": {
+      "lead": "namrata",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Prerana Gawande": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Punam Dhore": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Raahil Sheikh": {
+      "lead": "samiksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "mohjeet salwatkar": {
+      "lead": "diksha",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Aditi Lute": {
+      "lead": "rashi",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.043Z"
+    },
+    "Pranay Lokhare": {
+      "lead": "priyanshu",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Sakshi Bhagwat": {
+      "lead": "namrata",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Shabir Sheikh": {
+      "lead": "sonali",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Kanak Thakur": {
+      "lead": "-",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Smita Barik": {
+      "lead": "-",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Saloni Singh": {
+      "lead": "-",
+      "batch": "Batch 18",
+      "assignedAt": "2026-07-23T06:55:08.044Z"
+    },
+    "Danish Khan": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Aman Khadgi": {
+      "lead": "priyanshu",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Sagar Kumbhare": {
+      "lead": "nilesh",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Jeffin M John": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Kshitij Thool": {
+      "lead": "namrata",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "KARTIK THAKUR": {
+      "lead": "namrata",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Vaibhav Patil": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Damini Bawne": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Aryan Jaiswal": {
+      "lead": "nilesh",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Sumeet Sahare": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Sana Tanzila M S Hussain": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Gayatri Deoghare": {
+      "lead": "priyanshu",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Bushera khan": {
+      "lead": "damini",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Ishika Mandawkar": {
+      "lead": "nilesh",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Piyush Nikhare": {
+      "lead": "samiksha",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Sayali Meshram": {
+      "lead": "samiksha",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "saylimeshram.habuild@gmail.com": {
+      "lead": "sonali",
+      "batch": "B-20",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "SAYALI VAIDYA": {
+      "lead": "diksha",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Akshay Kumar": {
+      "lead": "-",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.607Z"
+    },
+    "Shashank Tiwari": {
+      "lead": "diksha",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Preeti Banjare": {
+      "lead": "-",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Anjum sheikh": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Govind S. Singhaniya": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Dhanashri laxmikant zade": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Prajwal Fulchand Pakhale": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Aditya Bharat Bhendare": {
+      "lead": "sonali",
+      "batch": "Batch 17",
+      "assignedAt": "2026-07-23T06:55:23.608Z"
+    },
+    "Nikhilesh Solanki": {
+      "lead": "priyanshu",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Prakhar buradkar": {
+      "lead": "priyanshu",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Shahid Yasini": {
+      "lead": "priyanshu",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "CHARUL TURKAR": {
+      "lead": "samiksha",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Ashwin nair": {
+      "lead": "samiksha",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Darshana Kshirsagar": {
+      "lead": "adarsh",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Vaibhav": {
+      "lead": "adarsh",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Shiwani  S Kanampalliwar": {
+      "lead": "namrata",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Farheen Wahab Qureshi": {
+      "lead": "diksha",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Gayatri Menon": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.310Z"
+    },
+    "Aniket Khobragade": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Suchita padwe": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Tanya Masih": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Anirudhha": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Pratik Gabhane": {
+      "lead": "adarsh",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Sanskruti Jain": {
+      "lead": "namrata",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Simran Dilip sontakkey": {
+      "lead": "diksha",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Pawan Katole": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Rahul G. Borkar": {
+      "lead": "sonali",
+      "batch": "B-20",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Batch 16": {
+      "lead": "8983202789",
+      "batch": "-",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Minal Bhoge": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Reshma Sambre": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Zubin Jha": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Radhika Vijaysingh Rathod": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Hrishika Thakur": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Nupur Bawariya": {
+      "lead": "-",
+      "batch": "Batch 16",
+      "assignedAt": "2026-07-23T06:55:38.311Z"
+    },
+    "Damini Goul": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.002Z"
+    },
+    "Aditi Shiv": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.002Z"
+    },
+    "Irfan Khan": {
+      "lead": "priyanshu",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.002Z"
+    },
+    "Kunal Ramteke": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Ritika Karande": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Vaishnavi Wakde": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Vishal Kawle": {
+      "lead": "samiksha",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Lakshmi Mahato": {
+      "lead": "priyanshu",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Mansi Mawale": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Harsh Dhawane": {
+      "lead": "priyanshu",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Shekhar Thakur": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Ashutosh Karnewar": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Premkumar Hajare": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Himanshu Narnawre": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Mukul Bawane": {
+      "lead": "priyanshu",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Arpit Awale": {
+      "lead": "priyanshu",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Zinat Sayyed": {
+      "lead": "sumaiya",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Ayushi Shrivas": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Avinash Prasad": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.003Z"
+    },
+    "Vivek": {
+      "lead": "sonali",
+      "batch": "Batch 15",
+      "assignedAt": "2026-07-23T06:56:45.004Z"
+    },
+    "Sneha Jiwane": {
+      "lead": "samiksha",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Mohammad Raafay": {
+      "lead": "sonali",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Anisha Tambat": {
+      "lead": "priyanshu",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Sagar Sawarkar": {
+      "lead": "samiksha",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Swati Jivtode": {
+      "lead": "priyanshu",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Shrushti Kathrotiya": {
+      "lead": "priyanshu",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.096Z"
+    },
+    "Nikhil Bajpai": {
+      "lead": "priyanshu",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "Ayush Chadde": {
+      "lead": "samiksha",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "Chetan Gharat": {
+      "lead": "sonali",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "Shaikh Irfan": {
+      "lead": "sonali",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "Adarsh Dwivedi": {
+      "lead": "sonali",
+      "batch": "Batch 14",
+      "assignedAt": "2026-07-23T06:57:00.097Z"
+    },
+    "vijyalakshmi": {
+      "lead": "sonali",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "ritikesh bawankule": {
+      "lead": "harshlata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "harsh mule": {
+      "lead": "harshlata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "kirti sambhare": {
+      "lead": "pooja",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "disksha": {
+      "lead": "harshlata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "ashwini upadhyay": {
+      "lead": "pooja",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "khusbhu kakoriya": {
+      "lead": "harshlata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "sneha meshram": {
+      "lead": "namrata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "sangharsh": {
+      "lead": "disha",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "ghanshyam kadwe": {
+      "lead": "sonali",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "yogita wankhede": {
+      "lead": "sonali",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "vishakha": {
+      "lead": "priyanshu",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "surbhi": {
+      "lead": "dhanshree",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "abhishek ambadwar": {
+      "lead": "alisha",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "Vishal Shamdasani": {
+      "lead": "sonali",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "krunal bagde": {
+      "lead": "namrata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "sakshat": {
+      "lead": "disha",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "aditya singh": {
+      "lead": "namrata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "sakshi vasnik": {
+      "lead": "-",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "shivani": {
+      "lead": "-",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "khushi": {
+      "lead": "-",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "shweta bunkar": {
+      "lead": "-",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "minal shendre": {
+      "lead": "-",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "ayush patle": {
+      "lead": "namrata",
+      "batch": "Batch 13",
+      "assignedAt": "2026-07-23T06:57:18.705Z"
+    },
+    "Yuktta varade": {
+      "lead": "dhanshree",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.414Z"
+    },
+    "Akanksha sanjay shende": {
+      "lead": "samiksha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.414Z"
+    },
+    "Harshal Uttam Dhole": {
+      "lead": "disha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.414Z"
+    },
+    "alfaiz": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Abhiskhek raut": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Shruti Singh": {
+      "lead": "namrata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Tejas khedekar": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Minal Vijay Shelke": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Anshuman Sawaiya": {
+      "lead": "ganesh",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "adarsh chaudhary": {
+      "lead": "ganesh",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Shweta Dhamgaye": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Sonu Balwant Sarode": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Tasbiha Tawaf Ansari": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Aditya Sakhare": {
+      "lead": "jayshree",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Damini Belsare": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Vedant Tiwari": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Aniket Gajbhiye": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.415Z"
+    },
+    "Ajay Bhagwani": {
+      "lead": "pooja",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Sonali Shivdas Landge": {
+      "lead": "disha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Ketki Motghare": {
+      "lead": "priyanshu",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Komal Rai": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Dimpal Maske": {
+      "lead": "priyanshu",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Saloni Vinod Kamble": {
+      "lead": "dhanshree",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Abhishek Manoj Kamble": {
+      "lead": "samiksha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Chetna Arvind Dehankar": {
+      "lead": "samiksha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Asmita Ramnath Kolhe": {
+      "lead": "samiksha",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "\"": {
+      "lead": "sonali",
+      "batch": "B-20",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Akash Shamkuwar": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Rasika Balmukund Shete": {
+      "lead": "harshlata",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Ashish Saxena": {
+      "lead": "dhanshree",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Pradarshi pramod patil": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.416Z"
+    },
+    "Aditya Gahlod": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "Monika Janbandhu": {
+      "lead": "ganesh",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "Kshitij Gawande": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "SAURABH CHOPADE": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "Minal salunke": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "Dhruv Chopkar": {
+      "lead": "sonali",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "sanovar sheikh": {
+      "lead": "namrta",
+      "batch": "Batch 12",
+      "assignedAt": "2026-07-23T06:57:32.417Z"
+    },
+    "parag bariye": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "aman singh gujar": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "samiksha darode": {
+      "lead": "harshalata",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "vaishnavi prasad": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "Neha Kumari": {
+      "lead": "harshalata",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "chaitnya sonak": {
+      "lead": "harshalata",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "karishma": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "yashwani shreewas": {
+      "lead": "ganesh",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "ekta chelani": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "shailesh meshram": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.432Z"
+    },
+    "siddhant": {
+      "lead": "harshalata",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "aryan upadhyay": {
+      "lead": "samiksha",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "pranay meshram": {
+      "lead": "priyanshu",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "ishnak manohare": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "pranay mawale": {
+      "lead": "disha",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "prajwal domne": {
+      "lead": "disha",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "Adnan sheikh": {
+      "lead": "harshalata",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "prince hirekhan": {
+      "lead": "pooja",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "muskan": {
+      "lead": "dhanshree",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "ashwin dongre": {
+      "lead": "dhanshree",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "cepher": {
+      "lead": "samiksha",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "damini": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "devesh wasnik": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "Dipanshu chaudhary": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "hrutuja dhoble": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "ishika rawat": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "krutika": {
+      "lead": "namrta",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.433Z"
+    },
+    "madhura": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.434Z"
+    },
+    "mansi mandhane": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.434Z"
+    },
+    "shubhanshu singh": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.434Z"
+    },
+    "vaibhav jawade": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.434Z"
+    },
+    "Mohan ji": {
+      "lead": "sonali",
+      "batch": "Batch 11",
+      "assignedAt": "2026-07-23T06:57:53.434Z"
+    },
+    "Samarpan Ajay Gorlewar": {
+      "lead": "dhanshree",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Nilesh": {
+      "lead": "sonali",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Trupti Korke": {
+      "lead": "sonali",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Priyal Meshram": {
+      "lead": "sonali",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Prashik Gujar": {
+      "lead": "ganesh",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Jyoti Mohadikar": {
+      "lead": "harshalata",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.610Z"
+    },
+    "Mayuri Dhanraj Kokarde": {
+      "lead": "harshalata",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.611Z"
+    },
+    "Spandhan Kotangle": {
+      "lead": "harshalata",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.611Z"
+    },
+    "Priyanka": {
+      "lead": "sonali",
+      "batch": "Batch 10",
+      "assignedAt": "2026-07-23T06:58:08.611Z"
+    }
+  },
+  "batchDocLinks": {
+    "B-20|morning": "https://docs.google.com/document/d/1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE/edit",
+    "B-20|evening": "https://docs.google.com/document/d/1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE/edit",
+    "B-19|morning": "https://docs.google.com/document/d/1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc/edit",
+    "B-19|evening": "https://docs.google.com/document/d/1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc/edit",
+    "B-18|morning": "https://docs.google.com/document/d/1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY/edit",
+    "B-18|evening": "https://docs.google.com/document/d/1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY/edit",
+    "B-17|morning": "https://docs.google.com/document/d/1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30/edit",
+    "B-17|evening": "https://docs.google.com/document/d/1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30/edit",
+    "B-16|morning": "https://docs.google.com/document/d/1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs/edit",
+    "B-16|evening": "https://docs.google.com/document/d/1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs/edit",
+    "B-15|morning": "https://docs.google.com/document/d/1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM/edit",
+    "B-15|evening": "https://docs.google.com/document/d/1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM/edit"
+  },
+  "qcDocData": {
+    "B-20": {
+      "morning": {
+        "interns": {},
+        "images": [],
+        "title": "Batch 20 QC DOC",
+        "syncedAt": "2026-07-19T09:42:18.963Z"
+      },
+      "evening": {
+        "interns": {},
+        "images": [],
+        "title": "Batch 20 QC DOC",
+        "syncedAt": "2026-07-19T09:43:43.972Z"
+      }
+    },
+    "B-19": {
+      "morning": {
+        "interns": {},
+        "images": [],
+        "title": "QC Doc Batch 19",
+        "syncedAt": "2026-07-19T08:19:54.612Z"
+      },
+      "evening": {
+        "interns": {},
+        "images": [],
+        "title": "QC Doc Batch 19",
+        "syncedAt": "2026-07-19T08:19:57.199Z"
+      }
+    },
+    "B-18": {
+      "morning": {
+        "interns": {},
+        "images": [],
+        "title": "Batch 18 QC DOC",
+        "syncedAt": "2026-07-19T08:19:59.495Z"
+      },
+      "evening": {
+        "interns": {},
+        "images": [],
+        "title": "Batch 18 QC DOC",
+        "syncedAt": "2026-07-19T08:20:01.335Z"
+      }
+    },
+    "B-17": {
+      "morning": {
+        "interns": {},
+        "images": [
+          {
+            "id": "kix.gv928x4qdql5",
+            "uri": "/qc-images/kix.gv928x4qdql5.png",
+            "near": null
+          },
+          {
+            "id": "kix.jp6z8x6xcani",
+            "uri": "/qc-images/kix.jp6z8x6xcani.png",
+            "near": null
+          },
+          {
+            "id": "kix.zdzlh5qf30q1",
+            "uri": "/qc-images/kix.zdzlh5qf30q1.png",
+            "near": null
+          },
+          {
+            "id": "kix.bn8th5n9tdxx",
+            "uri": "/qc-images/kix.bn8th5n9tdxx.png",
+            "near": null
+          },
+          {
+            "id": "kix.lyslvkx90752",
+            "uri": "/qc-images/kix.lyslvkx90752.png",
+            "near": null
+          },
+          {
+            "id": "kix.vbnnr5yyun7h",
+            "uri": "/qc-images/kix.vbnnr5yyun7h.png",
+            "near": null
+          },
+          {
+            "id": "kix.q2wmbmze22x",
+            "uri": "/qc-images/kix.q2wmbmze22x.png",
+            "near": null
+          },
+          {
+            "id": "kix.w2r53b10270n",
+            "uri": "/qc-images/kix.w2r53b10270n.png",
+            "near": null
+          },
+          {
+            "id": "kix.docep86oyl0y",
+            "uri": "/qc-images/kix.docep86oyl0y.png",
+            "near": null
+          },
+          {
+            "id": "kix.ye960zg7h1oq",
+            "uri": "/qc-images/kix.ye960zg7h1oq.png",
+            "near": null
+          },
+          {
+            "id": "kix.hchsdp5x1hpp",
+            "uri": "/qc-images/kix.hchsdp5x1hpp.png",
+            "near": null
+          },
+          {
+            "id": "kix.blpurvvjq6x7",
+            "uri": "/qc-images/kix.blpurvvjq6x7.png",
+            "near": null
+          },
+          {
+            "id": "kix.aqx3eap2bez7",
+            "uri": "/qc-images/kix.aqx3eap2bez7.png",
+            "near": null
+          },
+          {
+            "id": "kix.6cvdlvvxai0u",
+            "uri": "/qc-images/kix.6cvdlvvxai0u.png",
+            "near": null
+          },
+          {
+            "id": "kix.hg06qumijkdy",
+            "uri": "/qc-images/kix.hg06qumijkdy.png",
+            "near": null
+          },
+          {
+            "id": "kix.vu8yannaxvzu",
+            "uri": "/qc-images/kix.vu8yannaxvzu.png",
+            "near": null
+          },
+          {
+            "id": "kix.tjzegv3a5rrs",
+            "uri": "/qc-images/kix.tjzegv3a5rrs.png",
+            "near": null
+          },
+          {
+            "id": "kix.xvcgut6yve10",
+            "uri": "/qc-images/kix.xvcgut6yve10.png",
+            "near": null
+          },
+          {
+            "id": "kix.r9dknbl9blr9",
+            "uri": "/qc-images/kix.r9dknbl9blr9.png",
+            "near": null
+          },
+          {
+            "id": "kix.v0926pds4775",
+            "uri": "/qc-images/kix.v0926pds4775.png",
+            "near": null
+          },
+          {
+            "id": "kix.uqrm35yrjqpw",
+            "uri": "/qc-images/kix.uqrm35yrjqpw.png",
+            "near": null
+          },
+          {
+            "id": "kix.9odlj7xf3new",
+            "uri": "/qc-images/kix.9odlj7xf3new.png",
+            "near": null
+          },
+          {
+            "id": "kix.y95njsb0bpua",
+            "uri": "/qc-images/kix.y95njsb0bpua.png",
+            "near": null
+          },
+          {
+            "id": "kix.m3oy5j43mttj",
+            "uri": "/qc-images/kix.m3oy5j43mttj.png",
+            "near": null
+          },
+          {
+            "id": "kix.82h4oy1nkjyl",
+            "uri": "/qc-images/kix.82h4oy1nkjyl.png",
+            "near": null
+          },
+          {
+            "id": "kix.jkm0mgvz67dr",
+            "uri": "/qc-images/kix.jkm0mgvz67dr.png",
+            "near": null
+          },
+          {
+            "id": "kix.m5kdxw9rkldv",
+            "uri": "/qc-images/kix.m5kdxw9rkldv.png",
+            "near": null
+          },
+          {
+            "id": "kix.46vjj0ojjaxh",
+            "uri": "/qc-images/kix.46vjj0ojjaxh.png",
+            "near": null
+          },
+          {
+            "id": "kix.68qgvlpbq3nl",
+            "uri": "/qc-images/kix.68qgvlpbq3nl.png",
+            "near": null
+          },
+          {
+            "id": "kix.77rrk4mu6imv",
+            "uri": "/qc-images/kix.77rrk4mu6imv.png",
+            "near": null
+          },
+          {
+            "id": "kix.3cjywlbbi0sg",
+            "uri": "/qc-images/kix.3cjywlbbi0sg.png",
+            "near": null
+          },
+          {
+            "id": "kix.mvkfd6npjip4",
+            "uri": "/qc-images/kix.mvkfd6npjip4.png",
+            "near": null
+          },
+          {
+            "id": "kix.vraycvocxlko",
+            "uri": "/qc-images/kix.vraycvocxlko.png",
+            "near": null
+          },
+          {
+            "id": "kix.q21o3c769n6n",
+            "uri": "/qc-images/kix.q21o3c769n6n.png",
+            "near": null
+          },
+          {
+            "id": "kix.gd9weaczgk2s",
+            "uri": "/qc-images/kix.gd9weaczgk2s.png",
+            "near": null
+          },
+          {
+            "id": "kix.jjpykbqiwryj",
+            "uri": "/qc-images/kix.jjpykbqiwryj.png",
+            "near": null
+          },
+          {
+            "id": "kix.mibvvmv34aub",
+            "uri": "/qc-images/kix.mibvvmv34aub.png",
+            "near": null
+          },
+          {
+            "id": "kix.qeubtviby93g",
+            "uri": "/qc-images/kix.qeubtviby93g.png",
+            "near": null
+          },
+          {
+            "id": "kix.5q3nqhjvm2jm",
+            "uri": "/qc-images/kix.5q3nqhjvm2jm.png",
+            "near": null
+          },
+          {
+            "id": "kix.2npvm313gd2i",
+            "uri": "/qc-images/kix.2npvm313gd2i.png",
+            "near": null
+          },
+          {
+            "id": "kix.c4x4y2wtd1f8",
+            "uri": "/qc-images/kix.c4x4y2wtd1f8.png",
+            "near": null
+          },
+          {
+            "id": "kix.5myn0d3awgmq",
+            "uri": "/qc-images/kix.5myn0d3awgmq.png",
+            "near": null
+          },
+          {
+            "id": "kix.kp5ztctcew6a",
+            "uri": "/qc-images/kix.kp5ztctcew6a.png",
+            "near": null
+          },
+          {
+            "id": "kix.31u6mnovznru",
+            "uri": "/qc-images/kix.31u6mnovznru.png",
+            "near": null
+          },
+          {
+            "id": "kix.lxsy1m9egr7v",
+            "uri": "/qc-images/kix.lxsy1m9egr7v.png",
+            "near": null
+          },
+          {
+            "id": "kix.67kx6ly61kdm",
+            "uri": "/qc-images/kix.67kx6ly61kdm.png",
+            "near": null
+          },
+          {
+            "id": "kix.wriakixaqlao",
+            "uri": "/qc-images/kix.wriakixaqlao.png",
+            "near": null
+          },
+          {
+            "id": "kix.dqt5vpwd2e0f",
+            "uri": "/qc-images/kix.dqt5vpwd2e0f.png",
+            "near": null
+          },
+          {
+            "id": "kix.ueoy7frly08g",
+            "uri": "/qc-images/kix.ueoy7frly08g.png",
+            "near": null
+          },
+          {
+            "id": "kix.iua17jd2kl2r",
+            "uri": "/qc-images/kix.iua17jd2kl2r.png",
+            "near": null
+          },
+          {
+            "id": "kix.u08gu7vnki12",
+            "uri": "/qc-images/kix.u08gu7vnki12.png",
+            "near": null
+          },
+          {
+            "id": "kix.jn9plc5ihu6o",
+            "uri": "/qc-images/kix.jn9plc5ihu6o.png",
+            "near": null
+          },
+          {
+            "id": "kix.8tuxm0dsoafs",
+            "uri": "/qc-images/kix.8tuxm0dsoafs.png",
+            "near": null
+          },
+          {
+            "id": "kix.bln32u2ys41i",
+            "uri": "/qc-images/kix.bln32u2ys41i.png",
+            "near": null
+          },
+          {
+            "id": "kix.azwru1mb07lh",
+            "uri": "/qc-images/kix.azwru1mb07lh.png",
+            "near": null
+          },
+          {
+            "id": "kix.yc2ogal3igdl",
+            "uri": "/qc-images/kix.yc2ogal3igdl.png",
+            "near": null
+          },
+          {
+            "id": "kix.6b6f15tlu20k",
+            "uri": "/qc-images/kix.6b6f15tlu20k.png",
+            "near": null
+          },
+          {
+            "id": "kix.65cmhui542bb",
+            "uri": "/qc-images/kix.65cmhui542bb.png",
+            "near": null
+          },
+          {
+            "id": "kix.a0w4vjng1fe2",
+            "uri": "/qc-images/kix.a0w4vjng1fe2.png",
+            "near": null
+          },
+          {
+            "id": "kix.rad9zanc1yzy",
+            "uri": "/qc-images/kix.rad9zanc1yzy.png",
+            "near": null
+          },
+          {
+            "id": "kix.fapomf20elv1",
+            "uri": "/qc-images/kix.fapomf20elv1.png",
+            "near": null
+          },
+          {
+            "id": "kix.erfos4npiyof",
+            "uri": "/qc-images/kix.erfos4npiyof.png",
+            "near": null
+          },
+          {
+            "id": "kix.4qfkm83357ed",
+            "uri": "/qc-images/kix.4qfkm83357ed.png",
+            "near": null
+          },
+          {
+            "id": "kix.1db2pdo4j09w",
+            "uri": "/qc-images/kix.1db2pdo4j09w.png",
+            "near": null
+          },
+          {
+            "id": "kix.5k1yezcd53bn",
+            "uri": "/qc-images/kix.5k1yezcd53bn.png",
+            "near": null
+          },
+          {
+            "id": "kix.flkfgzv2qwjc",
+            "uri": "/qc-images/kix.flkfgzv2qwjc.png",
+            "near": null
+          },
+          {
+            "id": "kix.sepq7njcju2o",
+            "uri": "/qc-images/kix.sepq7njcju2o.png",
+            "near": null
+          },
+          {
+            "id": "kix.3z6fnjtheinr",
+            "uri": "/qc-images/kix.3z6fnjtheinr.png",
+            "near": null
+          },
+          {
+            "id": "kix.zigl0rgefv7d",
+            "uri": "/qc-images/kix.zigl0rgefv7d.png",
+            "near": null
+          },
+          {
+            "id": "kix.iolxxsk87mqv",
+            "uri": "/qc-images/kix.iolxxsk87mqv.png",
+            "near": null
+          }
+        ],
+        "title": "Batch 17 QC DOC",
+        "syncedAt": "2026-07-19T08:22:28.367Z"
+      },
+      "evening": {
+        "interns": {},
+        "images": [
+          {
+            "id": "kix.gv928x4qdql5",
+            "uri": "/qc-images/kix.gv928x4qdql5.png",
+            "near": null
+          },
+          {
+            "id": "kix.jp6z8x6xcani",
+            "uri": "/qc-images/kix.jp6z8x6xcani.png",
+            "near": null
+          },
+          {
+            "id": "kix.zdzlh5qf30q1",
+            "uri": "/qc-images/kix.zdzlh5qf30q1.png",
+            "near": null
+          },
+          {
+            "id": "kix.bn8th5n9tdxx",
+            "uri": "/qc-images/kix.bn8th5n9tdxx.png",
+            "near": null
+          },
+          {
+            "id": "kix.lyslvkx90752",
+            "uri": "/qc-images/kix.lyslvkx90752.png",
+            "near": null
+          },
+          {
+            "id": "kix.vbnnr5yyun7h",
+            "uri": "/qc-images/kix.vbnnr5yyun7h.png",
+            "near": null
+          },
+          {
+            "id": "kix.q2wmbmze22x",
+            "uri": "/qc-images/kix.q2wmbmze22x.png",
+            "near": null
+          },
+          {
+            "id": "kix.w2r53b10270n",
+            "uri": "/qc-images/kix.w2r53b10270n.png",
+            "near": null
+          },
+          {
+            "id": "kix.docep86oyl0y",
+            "uri": "/qc-images/kix.docep86oyl0y.png",
+            "near": null
+          },
+          {
+            "id": "kix.ye960zg7h1oq",
+            "uri": "/qc-images/kix.ye960zg7h1oq.png",
+            "near": null
+          },
+          {
+            "id": "kix.hchsdp5x1hpp",
+            "uri": "/qc-images/kix.hchsdp5x1hpp.png",
+            "near": null
+          },
+          {
+            "id": "kix.blpurvvjq6x7",
+            "uri": "/qc-images/kix.blpurvvjq6x7.png",
+            "near": null
+          },
+          {
+            "id": "kix.aqx3eap2bez7",
+            "uri": "/qc-images/kix.aqx3eap2bez7.png",
+            "near": null
+          },
+          {
+            "id": "kix.6cvdlvvxai0u",
+            "uri": "/qc-images/kix.6cvdlvvxai0u.png",
+            "near": null
+          },
+          {
+            "id": "kix.hg06qumijkdy",
+            "uri": "/qc-images/kix.hg06qumijkdy.png",
+            "near": null
+          },
+          {
+            "id": "kix.vu8yannaxvzu",
+            "uri": "/qc-images/kix.vu8yannaxvzu.png",
+            "near": null
+          },
+          {
+            "id": "kix.tjzegv3a5rrs",
+            "uri": "/qc-images/kix.tjzegv3a5rrs.png",
+            "near": null
+          },
+          {
+            "id": "kix.xvcgut6yve10",
+            "uri": "/qc-images/kix.xvcgut6yve10.png",
+            "near": null
+          },
+          {
+            "id": "kix.r9dknbl9blr9",
+            "uri": "/qc-images/kix.r9dknbl9blr9.png",
+            "near": null
+          },
+          {
+            "id": "kix.v0926pds4775",
+            "uri": "/qc-images/kix.v0926pds4775.png",
+            "near": null
+          },
+          {
+            "id": "kix.uqrm35yrjqpw",
+            "uri": "/qc-images/kix.uqrm35yrjqpw.png",
+            "near": null
+          },
+          {
+            "id": "kix.9odlj7xf3new",
+            "uri": "/qc-images/kix.9odlj7xf3new.png",
+            "near": null
+          },
+          {
+            "id": "kix.y95njsb0bpua",
+            "uri": "/qc-images/kix.y95njsb0bpua.png",
+            "near": null
+          },
+          {
+            "id": "kix.m3oy5j43mttj",
+            "uri": "/qc-images/kix.m3oy5j43mttj.png",
+            "near": null
+          },
+          {
+            "id": "kix.82h4oy1nkjyl",
+            "uri": "/qc-images/kix.82h4oy1nkjyl.png",
+            "near": null
+          },
+          {
+            "id": "kix.jkm0mgvz67dr",
+            "uri": "/qc-images/kix.jkm0mgvz67dr.png",
+            "near": null
+          },
+          {
+            "id": "kix.m5kdxw9rkldv",
+            "uri": "/qc-images/kix.m5kdxw9rkldv.png",
+            "near": null
+          },
+          {
+            "id": "kix.46vjj0ojjaxh",
+            "uri": "/qc-images/kix.46vjj0ojjaxh.png",
+            "near": null
+          },
+          {
+            "id": "kix.68qgvlpbq3nl",
+            "uri": "/qc-images/kix.68qgvlpbq3nl.png",
+            "near": null
+          },
+          {
+            "id": "kix.77rrk4mu6imv",
+            "uri": "/qc-images/kix.77rrk4mu6imv.png",
+            "near": null
+          },
+          {
+            "id": "kix.3cjywlbbi0sg",
+            "uri": "/qc-images/kix.3cjywlbbi0sg.png",
+            "near": null
+          },
+          {
+            "id": "kix.mvkfd6npjip4",
+            "uri": "/qc-images/kix.mvkfd6npjip4.png",
+            "near": null
+          },
+          {
+            "id": "kix.vraycvocxlko",
+            "uri": "/qc-images/kix.vraycvocxlko.png",
+            "near": null
+          },
+          {
+            "id": "kix.q21o3c769n6n",
+            "uri": "/qc-images/kix.q21o3c769n6n.png",
+            "near": null
+          },
+          {
+            "id": "kix.gd9weaczgk2s",
+            "uri": "/qc-images/kix.gd9weaczgk2s.png",
+            "near": null
+          },
+          {
+            "id": "kix.jjpykbqiwryj",
+            "uri": "/qc-images/kix.jjpykbqiwryj.png",
+            "near": null
+          },
+          {
+            "id": "kix.mibvvmv34aub",
+            "uri": "/qc-images/kix.mibvvmv34aub.png",
+            "near": null
+          },
+          {
+            "id": "kix.qeubtviby93g",
+            "uri": "/qc-images/kix.qeubtviby93g.png",
+            "near": null
+          },
+          {
+            "id": "kix.5q3nqhjvm2jm",
+            "uri": "/qc-images/kix.5q3nqhjvm2jm.png",
+            "near": null
+          },
+          {
+            "id": "kix.2npvm313gd2i",
+            "uri": "/qc-images/kix.2npvm313gd2i.png",
+            "near": null
+          },
+          {
+            "id": "kix.c4x4y2wtd1f8",
+            "uri": "/qc-images/kix.c4x4y2wtd1f8.png",
+            "near": null
+          },
+          {
+            "id": "kix.5myn0d3awgmq",
+            "uri": "/qc-images/kix.5myn0d3awgmq.png",
+            "near": null
+          },
+          {
+            "id": "kix.kp5ztctcew6a",
+            "uri": "/qc-images/kix.kp5ztctcew6a.png",
+            "near": null
+          },
+          {
+            "id": "kix.31u6mnovznru",
+            "uri": "/qc-images/kix.31u6mnovznru.png",
+            "near": null
+          },
+          {
+            "id": "kix.lxsy1m9egr7v",
+            "uri": "/qc-images/kix.lxsy1m9egr7v.png",
+            "near": null
+          },
+          {
+            "id": "kix.67kx6ly61kdm",
+            "uri": "/qc-images/kix.67kx6ly61kdm.png",
+            "near": null
+          },
+          {
+            "id": "kix.wriakixaqlao",
+            "uri": "/qc-images/kix.wriakixaqlao.png",
+            "near": null
+          },
+          {
+            "id": "kix.dqt5vpwd2e0f",
+            "uri": "/qc-images/kix.dqt5vpwd2e0f.png",
+            "near": null
+          },
+          {
+            "id": "kix.ueoy7frly08g",
+            "uri": "/qc-images/kix.ueoy7frly08g.png",
+            "near": null
+          },
+          {
+            "id": "kix.iua17jd2kl2r",
+            "uri": "/qc-images/kix.iua17jd2kl2r.png",
+            "near": null
+          },
+          {
+            "id": "kix.u08gu7vnki12",
+            "uri": "/qc-images/kix.u08gu7vnki12.png",
+            "near": null
+          },
+          {
+            "id": "kix.jn9plc5ihu6o",
+            "uri": "/qc-images/kix.jn9plc5ihu6o.png",
+            "near": null
+          },
+          {
+            "id": "kix.8tuxm0dsoafs",
+            "uri": "/qc-images/kix.8tuxm0dsoafs.png",
+            "near": null
+          },
+          {
+            "id": "kix.bln32u2ys41i",
+            "uri": "/qc-images/kix.bln32u2ys41i.png",
+            "near": null
+          },
+          {
+            "id": "kix.azwru1mb07lh",
+            "uri": "/qc-images/kix.azwru1mb07lh.png",
+            "near": null
+          },
+          {
+            "id": "kix.yc2ogal3igdl",
+            "uri": "/qc-images/kix.yc2ogal3igdl.png",
+            "near": null
+          },
+          {
+            "id": "kix.6b6f15tlu20k",
+            "uri": "/qc-images/kix.6b6f15tlu20k.png",
+            "near": null
+          },
+          {
+            "id": "kix.65cmhui542bb",
+            "uri": "/qc-images/kix.65cmhui542bb.png",
+            "near": null
+          },
+          {
+            "id": "kix.a0w4vjng1fe2",
+            "uri": "/qc-images/kix.a0w4vjng1fe2.png",
+            "near": null
+          },
+          {
+            "id": "kix.rad9zanc1yzy",
+            "uri": "/qc-images/kix.rad9zanc1yzy.png",
+            "near": null
+          },
+          {
+            "id": "kix.fapomf20elv1",
+            "uri": "/qc-images/kix.fapomf20elv1.png",
+            "near": null
+          },
+          {
+            "id": "kix.erfos4npiyof",
+            "uri": "/qc-images/kix.erfos4npiyof.png",
+            "near": null
+          },
+          {
+            "id": "kix.4qfkm83357ed",
+            "uri": "/qc-images/kix.4qfkm83357ed.png",
+            "near": null
+          },
+          {
+            "id": "kix.1db2pdo4j09w",
+            "uri": "/qc-images/kix.1db2pdo4j09w.png",
+            "near": null
+          },
+          {
+            "id": "kix.5k1yezcd53bn",
+            "uri": "/qc-images/kix.5k1yezcd53bn.png",
+            "near": null
+          },
+          {
+            "id": "kix.flkfgzv2qwjc",
+            "uri": "/qc-images/kix.flkfgzv2qwjc.png",
+            "near": null
+          },
+          {
+            "id": "kix.sepq7njcju2o",
+            "uri": "/qc-images/kix.sepq7njcju2o.png",
+            "near": null
+          },
+          {
+            "id": "kix.3z6fnjtheinr",
+            "uri": "/qc-images/kix.3z6fnjtheinr.png",
+            "near": null
+          },
+          {
+            "id": "kix.zigl0rgefv7d",
+            "uri": "/qc-images/kix.zigl0rgefv7d.png",
+            "near": null
+          },
+          {
+            "id": "kix.iolxxsk87mqv",
+            "uri": "/qc-images/kix.iolxxsk87mqv.png",
+            "near": null
+          }
+        ],
+        "title": "Batch 17 QC DOC",
+        "syncedAt": "2026-07-19T08:22:31.196Z"
+      }
+    }
+  }
+}
