@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const state = {
     currentRole: 'Admin', // 'Admin', 'Lead', 'Viewer'
     activeTab: 'tabOverview',
-    activeBatch: 'B-20',
+    activeBatch: 'ALL',
     activeLead: 'ALL',
     activeShift: 'ALL',
-    dateFilter: 'ALL',
+    dateFilter: 'YESTERDAY',
     startDate: '',
     endDate: '',
     searchQuery: '',
@@ -667,6 +667,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Helper to resolve start/end date strings from activeFilter
+  function getDateRangeFromFilter(activeFilter) {
+    let startStr = null;
+    let endStr = null;
+    const now = new Date();
+
+    if (activeFilter === 'CUSTOM') {
+      startStr = state.customStartDate || null;
+      endStr = state.customEndDate || null;
+    } else if (activeFilter === 'TODAY') {
+      startStr = now.toISOString().split('T')[0];
+      endStr = startStr;
+    } else if (activeFilter === 'YESTERDAY') {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      startStr = yesterday.toISOString().split('T')[0];
+      endStr = startStr;
+    } else if (activeFilter === 'WEEK') {
+      const day = now.getDay();
+      const diffToMonday = day === 0 ? -6 : 1 - day;
+      const start = new Date(now);
+      start.setDate(now.getDate() + diffToMonday);
+      const end = new Date(start);
+      end.setDate(start.getDate() + 6);
+      startStr = start.toISOString().split('T')[0];
+      endStr = end.toISOString().split('T')[0];
+    } else if (activeFilter === 'MONTH') {
+      startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+      endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+    }
+    return { startStr, endStr };
+  }
+
   // Render Error Overview Horizontal Bar Chart (Parsed Directly from Batch-wise Google Docs)
   function renderErrorOverviewChart() {
     const ctx = document.getElementById('chartErrorOverview');
@@ -724,32 +757,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. Date Filter
-    const activeFilter = state.dateFilter || 'WEEK';
-    let startStr = null;
-    let endStr = null;
-
-    if (activeFilter === 'CUSTOM') {
-      startStr = state.customStartDate;
-      endStr = state.customEndDate;
-    } else {
-      const now = new Date();
-      if (activeFilter === 'TODAY') {
-        startStr = now.toISOString().split('T')[0];
-        endStr = startStr;
-      } else if (activeFilter === 'WEEK') {
-        const day = now.getDay();
-        const diffToMonday = day === 0 ? -6 : 1 - day;
-        const start = new Date(now);
-        start.setDate(now.getDate() + diffToMonday);
-        const end = new Date(start);
-        end.setDate(start.getDate() + 6);
-        startStr = start.toISOString().split('T')[0];
-        endStr = end.toISOString().split('T')[0];
-      } else if (activeFilter === 'MONTH') {
-        startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-        endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-      }
-    }
+    const activeFilter = state.dateFilter || 'YESTERDAY';
+    const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     if (startStr && endStr) {
       filtered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
@@ -875,32 +884,8 @@ document.addEventListener('DOMContentLoaded', () => {
     theadTr.innerHTML = cols.map(c => `<th>${INTERN_COL_LABELS[c] || c}</th>`).join('');
 
     // Compute date boundaries for current period
-    const activeFilter = state.dateFilter || 'WEEK';
-    let startStr = null;
-    let endStr = null;
-
-    if (activeFilter === 'CUSTOM') {
-      startStr = state.customStartDate;
-      endStr = state.customEndDate;
-    } else {
-      const now = new Date();
-      if (activeFilter === 'TODAY') {
-        startStr = now.toISOString().split('T')[0];
-        endStr = startStr;
-      } else if (activeFilter === 'WEEK') {
-        const day = now.getDay();
-        const diffToMonday = day === 0 ? -6 : 1 - day;
-        const start = new Date(now);
-        start.setDate(now.getDate() + diffToMonday);
-        const end = new Date(start);
-        end.setDate(start.getDate() + 6);
-        startStr = start.toISOString().split('T')[0];
-        endStr = end.toISOString().split('T')[0];
-      } else if (activeFilter === 'MONTH') {
-        startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-        endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-      }
-    }
+    const activeFilter = state.dateFilter || 'YESTERDAY';
+    const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     const datesInRange = [];
     if (startStr && endStr) {
@@ -1422,32 +1407,8 @@ document.addEventListener('DOMContentLoaded', () => {
     theadTr.innerHTML = state.leadCustomCols.map(c => `<th>${LEAD_COL_LABELS[c] || c}</th>`).join('');
 
     // Compute date boundaries
-    const activeFilter = state.dateFilter || 'WEEK';
-    let startStr = null;
-    let endStr = null;
-
-    if (activeFilter === 'CUSTOM') {
-      startStr = state.customStartDate;
-      endStr = state.customEndDate;
-    } else {
-      const now = new Date();
-      if (activeFilter === 'TODAY') {
-        startStr = now.toISOString().split('T')[0];
-        endStr = startStr;
-      } else if (activeFilter === 'WEEK') {
-        const day = now.getDay();
-        const diffToMonday = day === 0 ? -6 : 1 - day;
-        const start = new Date(now);
-        start.setDate(now.getDate() + diffToMonday);
-        const end = new Date(start);
-        end.setDate(start.getDate() + 6);
-        startStr = start.toISOString().split('T')[0];
-        endStr = end.toISOString().split('T')[0];
-      } else if (activeFilter === 'MONTH') {
-        startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-        endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-      }
-    }
+    const activeFilter = state.dateFilter || 'YESTERDAY';
+    const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     const leadsList = ['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA'];
     const leadMap = new Map();
@@ -2242,32 +2203,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Apply date range filter
-    const activeFilter = state.dateFilter || 'WEEK';
-    let startStr = null;
-    let endStr = null;
-
-    if (activeFilter === 'CUSTOM') {
-      startStr = state.customStartDate;
-      endStr = state.customEndDate;
-    } else {
-      const now = new Date();
-      if (activeFilter === 'TODAY') {
-        startStr = now.toISOString().split('T')[0];
-        endStr = startStr;
-      } else if (activeFilter === 'WEEK') {
-        const day = now.getDay();
-        const diffToMonday = day === 0 ? -6 : 1 - day;
-        const start = new Date(now);
-        start.setDate(now.getDate() + diffToMonday);
-        const end = new Date(start);
-        end.setDate(start.getDate() + 6);
-        startStr = start.toISOString().split('T')[0];
-        endStr = end.toISOString().split('T')[0];
-      } else if (activeFilter === 'MONTH') {
-        startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-        endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-      }
-    }
+    const activeFilter = state.dateFilter || 'YESTERDAY';
+    const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     if (startStr && endStr) {
       filtered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
