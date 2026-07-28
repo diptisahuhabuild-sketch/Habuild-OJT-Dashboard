@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'avg', 'count', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'break', 'trend', 'action'],
-    leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'ownChats', 'simpleQ', 'complexQ', 'aiRtg']
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'action'],
+    leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
+    adminDisplayLimit: 15
   };
 
   function normalizeBatchName(batchStr) {
@@ -64,12 +65,147 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
+  // Pre-compiled cached lookups to optimize performance and prevent script freezing
+  const attendanceCache = new Map();
+  let parsedAttendanceKeys = null;
+  let parsedCommsKeys = null;
+
+  function initializeParsedKeys() {
+    if (!parsedAttendanceKeys && state.data && state.data.attendanceData) {
+      parsedAttendanceKeys = Object.keys(state.data.attendanceData).map(k => {
+        const parts = k.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+        return {
+          key: k,
+          first: parts[0] || "",
+          last: parts.length > 1 ? parts[parts.length - 1] : ""
+        };
+      });
+    }
+    if (!parsedCommsKeys && state.data && state.data.commsChatData) {
+      parsedCommsKeys = Object.keys(state.data.commsChatData).map(k => {
+        const parts = k.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+        return {
+          key: k,
+          first: parts[0] || "",
+          last: parts.length > 1 ? parts[parts.length - 1] : ""
+        };
+      });
+    }
+  }
+
+  function strictNameMatch(nameA, nameB) {
+    if (!nameA || !nameB) return false;
+    const partsA = nameA.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+    const partsB = nameB.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+    if (partsA.length === 0 || partsB.length === 0) return false;
+
+    const firstA = partsA[0];
+    const lastA = partsA.length > 1 ? partsA[partsA.length - 1] : "";
+    const firstB = partsB[0];
+    const lastB = partsB.length > 1 ? partsB[partsB.length - 1] : "";
+
+    if (firstA === firstB) {
+      if (lastA && lastB) {
+        return lastA === lastB;
+      }
+      return !lastA && !lastB;
+    }
+    return false;
+  }
+
+  function findAttendanceRecord(internName) {
+    if (!internName) return null;
+    const cleanName = internName.toLowerCase().trim();
+    if (attendanceCache.has(cleanName)) {
+      return attendanceCache.get(cleanName);
+    }
+
+    if (!state.data || !state.data.attendanceData) return null;
+    initializeParsedKeys();
+
+    const regParts = cleanName.split(/\s+/).filter(p => p.length > 0);
+    if (regParts.length === 0) return null;
+    const regFirst = regParts[0];
+    const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
+
+    const matchingKeys = [];
+    if (parsedAttendanceKeys) {
+      parsedAttendanceKeys.forEach(pk => {
+        if (regFirst === pk.first) {
+          if (regLast && pk.last) {
+            if (regLast === pk.last) {
+              matchingKeys.push(pk.key);
+            }
+          } else if (!regLast && !pk.last) {
+            matchingKeys.push(pk.key);
+          }
+        }
+      });
+    }
+
+    if (matchingKeys.length === 0) {
+      attendanceCache.set(cleanName, null);
+      return null;
+    }
+
+    const merged = {};
+    matchingKeys.forEach(k => {
+      const rec = state.data.attendanceData[k];
+      if (rec) {
+        Object.keys(rec).forEach(d => {
+          const val = rec[d];
+          if (merged[d]) {
+            const uVal = String(val).toUpperCase().trim();
+            if (uVal && uVal !== '-') {
+              merged[d] = val;
+            }
+          } else {
+            merged[d] = val;
+          }
+        });
+      }
+    });
+
+    attendanceCache.set(cleanName, merged);
+    return merged;
+  }
+
+  function getAvailabilityScore(val) {
+    if (!val) return 0;
+    const u = val.toUpperCase().trim();
+    if (u.includes(':') || u === 'PRESENT') {
+      return 1.0;
+    }
+    if (u === 'HALF DAY') {
+      return 0.5;
+    }
+    return 0;
+  }
+
+  function getLeadFullName(leadKey) {
+    if (!leadKey) return "";
+    const cleanKey = leadKey.toUpperCase().trim();
+    const regList = (state.config && state.config.internsRegistry) || [];
+    const match = regList.find(i => {
+      if (!i.name) return false;
+      const isLead = (i.designation && i.designation.toUpperCase().includes('LEAD')) ||
+                     (i.batch && i.batch.toUpperCase().includes('LEAD'));
+      if (!isLead) return false;
+      const nameParts = i.name.toUpperCase().trim().split(/\s+/);
+      return nameParts[0] === cleanKey;
+    });
+    return match ? match.name : leadKey;
+  }
+
   // Master Column Label Maps
   const INTERN_COL_LABELS = {
     intern: 'Intern',
     batch: 'Batch',
     lead: 'Lead',
     shift: 'Shift',
+    phone: 'Number',
+    email: 'Email',
+    remark: 'Remark',
     avail: 'Avail',
     avg: 'Avg',
     count: 'Count',
@@ -392,6 +528,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Populate Dynamic Lead List (Includes EVERY lead found in registry or dataset)
+  function populateLeadDropdown() {
+    const select = document.getElementById('globalLeadSelect');
+    if (!select) return;
+
+    const leads = new Set();
+    const regList = (state.config && state.config.internsRegistry) || [];
+    regList.forEach(i => {
+      if (i.lead) {
+        leads.add(i.lead.toUpperCase().trim());
+      }
+    });
+
+    const leadsListDefault = ['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA'];
+    leadsListDefault.forEach(l => leads.add(l));
+
+    const currentVal = state.activeLead || 'ALL';
+    select.innerHTML = '<option value="ALL">All Leads</option>';
+    Array.from(leads).sort().forEach(l => {
+      const opt = document.createElement('option');
+      opt.value = l;
+      opt.textContent = l.charAt(0).toUpperCase() + l.slice(1).toLowerCase();
+      if (l === currentVal) opt.selected = true;
+      select.appendChild(opt);
+    });
+  }
+
   // Navigation Tab Switcher
   function switchTab(tabId) {
     state.activeTab = tabId;
@@ -420,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (syncText) syncText.textContent = 'Syncing...';
 
     try {
-      const res = await fetch('/api/data');
+      const res = await fetch(`/api/data?t=${Date.now()}`);
       const json = await res.json();
       if (json.success) {
         state.data = json.data;
@@ -429,6 +592,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         state.config = json.config;
         state.komalMetrics = json.komalMetrics;
+
+        // Clear optimized lookups cache to pick up newly synced data!
+        attendanceCache.clear();
+        parsedAttendanceKeys = null;
+        parsedCommsKeys = null;
 
         if (syncText) syncText.textContent = 'Live Sync Active';
         populateAuditorFilter();
@@ -482,6 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderAllViews() {
     applyRolePermissionsUI();
     populateBatchDropdown();
+    populateLeadDropdown();
 
     if (state.activeTab === 'tabOverview') {
       renderOverviewTab();
@@ -597,6 +766,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderQueryCategorizationChart() {
     const ctx = document.getElementById('chartQueryCategories');
     if (!ctx) return;
+
+    if (typeof Chart === 'undefined') {
+      console.warn('Chart.js is not loaded.');
+      return;
+    }
 
     if (state.charts.queryCategories) {
       state.charts.queryCategories.destroy();
@@ -734,6 +908,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderErrorOverviewChart() {
     const ctx = document.getElementById('chartErrorOverview');
     if (!ctx) return;
+
+    if (typeof Chart === 'undefined') {
+      console.warn('Chart.js is not loaded.');
+      return;
+    }
 
     if (state.charts.errorOverview) {
       state.charts.errorOverview.destroy();
@@ -919,11 +1098,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const datesInRange = [];
     if (startStr && endStr) {
-      let current = new Date(startStr);
+      const start = new Date(startStr);
       const end = new Date(endStr);
-      while (current <= end) {
-        datesInRange.push(current.toISOString().split('T')[0]);
-        current.setDate(current.getDate() + 1);
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+      for (let i = 0; i <= diffDays; i++) {
+        const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+        datesInRange.push(d.toISOString().split('T')[0]);
       }
     } else {
       // Collect all dates with entries if dateFilter is ALL
@@ -947,166 +1128,218 @@ document.addEventListener('DOMContentLoaded', () => {
       const start = new Date(startStr);
       const end = new Date(endStr);
       const diffTime = Math.abs(end - start);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-      const prevStart = new Date(start);
-      prevStart.setDate(start.getDate() - diffDays);
-      const prevEnd = new Date(start);
-      prevEnd.setDate(start.getDate() - 1);
-
-      let current = new Date(prevStart);
-      while (current <= prevEnd) {
-        prevDatesList.push(current.toISOString().split('T')[0]);
-        current.setDate(current.getDate() + 1);
+      const prevStart = new Date(start.getTime() - diffDays * 24 * 60 * 60 * 1000);
+      for (let i = 0; i < diffDays; i++) {
+        const d = new Date(prevStart.getTime() + i * 24 * 60 * 60 * 1000);
+        prevDatesList.push(d.toISOString().split('T')[0]);
       }
     }
 
     // Helper functions for scoring & calculations
-    function calculateStatsForDates(reg, datesList) {
-      const cleanName = reg.name.toLowerCase().trim();
-      const cleanBatch = normalizeBatchName(reg.batch);
-      const cleanLead = reg.lead ? reg.lead.toUpperCase().trim() : '';
+    // Cache matching keys for each intern/lead to avoid O(N^2) searches inside loops!
+    const attendanceCache = new Map();
+    const parsedAttendanceKeys = Object.keys((state.data && state.data.attendanceData) || {}).map(k => {
+      const parts = k.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+      return {
+        key: k,
+        first: parts[0] || "",
+        last: parts.length > 1 ? parts[parts.length - 1] : ""
+      };
+    });
 
-      // 1. Availability
-      let attendObj = null;
-      if (state.data && state.data.attendanceData) {
-        const matchKey = Object.keys(state.data.attendanceData).find(k => namesMatch(cleanName, k));
-        if (matchKey) {
-          attendObj = state.data.attendanceData[matchKey];
-        }
+    const parsedCommsKeys = Object.keys((state.data && state.data.commsChatData) || {}).map(k => {
+      const parts = k.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+      return {
+        key: k,
+        first: parts[0] || "",
+        last: parts.length > 1 ? parts[parts.length - 1] : ""
+      };
+    });
+
+    function findAttendanceRecord(internName) {
+      if (!internName) return null;
+      const cleanName = internName.toLowerCase().trim();
+      if (attendanceCache.has(cleanName)) {
+        return attendanceCache.get(cleanName);
       }
-      
-      let avail = "No Data";
-      if (attendObj) {
-        let count = 0;
-        let hasEntries = false;
-        datesList.forEach(d => {
-          if (attendObj[d] !== undefined) {
-            hasEntries = true;
-            const status = String(attendObj[d]).toUpperCase().trim();
-            const isLeave = ['SICK LEAVE', 'CASUAL LEAVE', 'UNPAID LEAVE', 'PAID LEAVE', 'SPECIAL LEAVE', 'LOP', 'ABSENT'].some(l => status.includes(l));
-            if (!isLeave) {
-              count++;
+
+      const regParts = cleanName.split(/\s+/).filter(p => p.length > 0);
+      if (regParts.length === 0) return null;
+      const regFirst = regParts[0];
+      const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
+
+      const matchingKeys = [];
+      parsedAttendanceKeys.forEach(pk => {
+        if (regFirst === pk.first) {
+          if (regLast && pk.last) {
+            if (regLast === pk.last) {
+              matchingKeys.push(pk.key);
             }
+          } else if (!regLast && !pk.last) {
+            matchingKeys.push(pk.key);
           }
-        });
-        if (hasEntries) {
-          avail = count;
         }
+      });
+
+      if (matchingKeys.length === 0) {
+        attendanceCache.set(cleanName, null);
+        return null;
       }
 
-      // 2. Chat Count
-      let commsObj = null;
-      if (state.data && state.data.commsChatData) {
-        const matchKey = Object.keys(state.data.commsChatData).find(k => namesMatch(cleanName, k));
-        if (matchKey) {
-          commsObj = state.data.commsChatData[matchKey];
+      const merged = {};
+      matchingKeys.forEach(k => {
+        const rec = state.data.attendanceData[k];
+        if (rec) {
+          Object.keys(rec).forEach(d => {
+            const val = rec[d];
+            if (merged[d]) {
+              const uVal = String(val).toUpperCase().trim();
+              if (uVal && uVal !== '-') {
+                merged[d] = val;
+              }
+            } else {
+              merged[d] = val;
+            }
+          });
         }
-      }
-      
-      let chatCount = "No Data";
-      if (commsObj) {
-        let sum = 0;
-        let hasEntries = false;
-        datesList.forEach(d => {
-          if (commsObj[d] !== undefined) {
-            hasEntries = true;
-            sum += commsObj[d];
-          }
-        });
-        if (hasEntries) {
-          chatCount = sum;
-        }
-      }
+      });
 
-      // 3. Avg Chat Count
-      let avgChatCount = "No Data";
-      if (chatCount !== "No Data" && avail !== "No Data" && avail > 0) {
-        if (avail === 1) {
-          avgChatCount = chatCount;
+      attendanceCache.set(cleanName, merged);
+      return merged;
+    }
+
+    function getAvailabilityScore(val) {
+      if (!val) return 0;
+      const u = val.toUpperCase().trim();
+      if (u.includes(':') || u === 'PRESENT') {
+        return 1.0;
+      }
+      if (u === 'HALF DAY') {
+        return 0.5;
+      }
+      return 0;
+    }
+
+    function calculateStatsForDates(reg, datesList) {
+      const record = findAttendanceRecord(reg.name) || {};
+
+      // Determine actual start date (earliest non-empty, non-dash entry)
+      const datesWithStatus = Object.keys(record).filter(dateStr => {
+        const val = record[dateStr];
+        if (val === undefined || val === null) return false;
+        const u = String(val).toUpperCase().trim();
+        return u !== '' && u !== '-';
+      }).sort();
+
+      const startDateStr = datesWithStatus.length > 0 ? datesWithStatus[0] : null;
+
+      let evalDates = [];
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+      const activeFilter = state.dateFilter || 'YESTERDAY';
+      const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
+
+      if (startStr && endStr) {
+        evalDates = datesList.filter(d => d <= yesterdayStr);
+      } else {
+        if (startDateStr) {
+          const start = new Date(startDateStr);
+          const yesterdayDate = new Date(yesterdayStr);
+          const diffTime = yesterdayDate - start;
+          const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+          const limit = Math.min(1000, Math.max(0, diffDays));
+          for (let i = 0; i <= limit; i++) {
+            const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+            evalDates.push(d.toISOString().split('T')[0]);
+          }
         } else {
-          avgChatCount = Math.round(chatCount / avail);
+          evalDates = datesList.filter(d => d <= yesterdayStr);
         }
       }
 
-      // 4. Scanned Chats (OJT Performance Sheet)
-      let scanned = 0;
-      let ojtSum = 0;
-      let ojtCount = 0;
-      let hasAudit = false;
-      if (state.data && state.data.scanData) {
-        Object.values(state.data.scanData).forEach(records => {
-          if (!Array.isArray(records)) return;
-          records.forEach(rec => {
-            if (rec.internName && namesMatch(cleanName, rec.internName)) {
-              const d = rec.chatDate || rec.scanDate;
-              if (!datesList.includes(d)) return;
+      let availableDays = 0;
+      let scheduledDays = 0;
 
-              // Match Lead if active
-              if (cleanLead && rec.lead && cleanLead !== rec.lead.toUpperCase().trim()) return;
+      evalDates.forEach(dateStr => {
+        const val = record[dateStr];
+        if (val !== undefined) {
+          scheduledDays++;
+          availableDays += getAvailabilityScore(val);
+        }
+      });
 
-              hasAudit = true;
-              scanned += rec.auditCount || 1;
-              if (rec.leadRating) {
-                ojtSum += rec.leadRating;
-                ojtCount++;
+      let availStr = 'No Data';
+      if (scheduledDays > 0) {
+        const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) && 
+                            (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
+        if (isFullMonth) {
+          availStr = `${availableDays} / ${scheduledDays}`;
+        } else {
+          availStr = `${availableDays}`;
+        }
+      }
+
+      // Aggregate chat counts dynamically
+      let totalChats = 0;
+      let hasCommsData = false;
+      let matchedCommsKeys = [];
+
+      if (state.data && state.data.commsChatData) {
+        const regParts = reg.name.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
+        if (regParts.length > 0) {
+          const regFirst = regParts[0];
+          const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
+
+          parsedCommsKeys.forEach(pk => {
+            if (regFirst === pk.first) {
+              if (regLast && pk.last) {
+                if (regLast === pk.last) {
+                  matchedCommsKeys.push(pk.key);
+                }
+              } else if (!regLast && !pk.last) {
+                matchedCommsKeys.push(pk.key);
               }
             }
           });
-        });
-      }
-      const scannedVal = hasAudit ? scanned : "No Data";
 
-      // 5. QC Mistakes
-      let qcsVal = 0;
-      let hasMistakes = false;
-      if (state.data && state.data.qcDocData) {
-        state.data.qcDocData.forEach(rec => {
-          if (rec.internName && namesMatch(cleanName, rec.internName)) {
-            const d = rec.chatDate;
-            if (!datesList.includes(d)) return;
-            hasMistakes = true;
-            qcsVal++;
+          if (matchedCommsKeys.length > 0) {
+            hasCommsData = true;
+            datesList.forEach(dateStr => {
+              matchedCommsKeys.forEach(k => {
+                const val = state.data.commsChatData[k][dateStr];
+                if (val !== undefined && val !== null && val !== '') {
+                  const num = parseInt(String(val).replace(/,/g, ''), 10);
+                  if (!isNaN(num)) {
+                    totalChats += num;
+                  }
+                }
+              });
+            });
           }
-        });
-      }
-      const qcs = hasMistakes ? qcsVal : 0;
-
-      // 6. Error %
-      let errorPct = "No Data";
-      if (scannedVal !== "No Data" && scannedVal > 0) {
-        errorPct = parseFloat(((qcs / scannedVal) * 100).toFixed(2));
-      }
-
-      // 7. OJT Rating
-      let ojtRtg = "No Data";
-      if (ojtCount > 0) {
-        ojtRtg = parseFloat((ojtSum / ojtCount).toFixed(2));
-      }
-
-      // 8. Komal AI metrics
-      let komalMetric = null;
-      if (state.komalMetrics && state.komalMetrics.agentMetrics) {
-        const matchKey = Object.keys(state.komalMetrics.agentMetrics).find(k => namesMatch(cleanName, k));
-        if (matchKey) {
-          komalMetric = state.komalMetrics.agentMetrics[matchKey];
         }
       }
-      
-      let simpleQ = "No Data";
-      let complexQ = "No Data";
-      let aiRtg = "No Data";
-      let arstVal = "No Data";
-      let breakVal = "No Data";
-      if (komalMetric) {
-        simpleQ = komalMetric.simpleQueries !== undefined ? komalMetric.simpleQueries : "No Data";
-        complexQ = komalMetric.complexQueries !== undefined ? komalMetric.complexQueries : "No Data";
-        aiRtg = komalMetric.aiRating !== undefined ? komalMetric.aiRating : "No Data";
-        arstVal = komalMetric.arstMinutes !== undefined ? komalMetric.arstMinutes : "No Data";
-        breakVal = komalMetric.breakTimeMinutes !== undefined ? komalMetric.breakTimeMinutes : "No Data";
-      }
 
-      return { avail, chatCount, avgChatCount, scannedVal, qcs, errorPct, ojtRtg, simpleQ, complexQ, aiRtg, arstVal, breakVal };
+      const chatCountVal = hasCommsData ? totalChats : "No Data";
+      const avgChatCountVal = hasCommsData ? (availableDays > 0 ? parseFloat((totalChats / availableDays).toFixed(1)) : 0) : "No Data";
+
+      return { 
+        avail: availStr, 
+        chatCount: chatCountVal, 
+        avgChatCount: avgChatCountVal, 
+        scannedVal: "No Data", 
+        qcs: 0, 
+        errorPct: "No Data", 
+        ojtRtg: "No Data", 
+        simpleQ: "No Data", 
+        complexQ: "No Data", 
+        aiRtg: "No Data", 
+        arstVal: "No Data", 
+        breakVal: "No Data" 
+      };
     }
 
     function getWeightedScore(stats) {
@@ -1125,6 +1358,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const processedRecords = [];
 
     regList.forEach(reg => {
+      // Exclude OJT Leads from intern scorecard
+      if (reg.designation && reg.designation.toUpperCase().includes('LEAD')) return;
+      if (reg.batch && reg.batch.toUpperCase().includes('LEAD')) return;
+
       // 1. Batch filter
       const regBatch = normalizeBatchName(reg.batch);
       if (state.activeBatch !== 'ALL' && regBatch !== normalizeBatchName(state.activeBatch)) return;
@@ -1163,8 +1400,12 @@ document.addEventListener('DOMContentLoaded', () => {
       processedRecords.push({
         intern: reg.name,
         batch: regBatch,
-        lead: reg.lead || 'SONALI',
-        shift: reg.shift || 'AM',
+        lead: reg.lead || '-',
+        shift: reg.shift || '-',
+        phone: reg.phone || '-',
+        email: reg.email || '-',
+        remark: reg.remark || '-',
+        status: reg.status || 'active',
         avail: statsCurrent.avail,
         avg: statsCurrent.avgChatCount,
         count: statsCurrent.chatCount,
@@ -1182,6 +1423,36 @@ document.addEventListener('DOMContentLoaded', () => {
         score: getWeightedScore(statsCurrent)
       });
     });
+
+    // Sort processedRecords: recent batches first -> active first -> top performer (score descending) -> name alphabetical
+    processedRecords.sort((a, b) => {
+      const normA = normalizeBatchName(a.batch);
+      const normB = normalizeBatchName(b.batch);
+      const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
+      const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
+      
+      if (numA !== numB) {
+        return numB - numA; // Descending batches
+      }
+
+      // Inside same batch, active interns first, inactive (exits) at the bottom
+      const exitA = (a.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      const exitB = (b.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      if (exitA !== exitB) {
+        return exitA - exitB; // Active (0) comes before Inactive (1)
+      }
+
+      // If active status is identical, sort by weighted score descending (top performer first)
+      const scoreA = a.score || 0;
+      const scoreB = b.score || 0;
+      if (scoreA !== scoreB) {
+        return scoreB - scoreA;
+      }
+
+      return (a.intern || '').localeCompare(b.intern || '');
+    });
+
+    console.log('Sorted scorecard records preview:', processedRecords.map(r => ({ name: r.intern, batch: r.batch, score: r.score, status: r.status })));
 
     // Populate scorecard table rows
     tbody.innerHTML = '';
@@ -1275,7 +1546,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Concerns lists
     const highErrorList = records.filter(r => r.errorPct !== "No Data" && r.errorPct > 20).map(r => `${r.intern} (${r.errorPct}%)`);
     const lowProdList = records.filter(r => r.avg !== "No Data" && r.avg < 50).map(r => `${r.intern} (${r.avg} chats/day)`);
-    const lowAvailList = records.filter(r => r.avail !== "No Data" && r.avail < 3).map(r => `${r.intern} (${r.avail} days)`);
+    const lowAvailList = records.filter(r => {
+      if (r.avail === "No Data") return false;
+      const parts = String(r.avail).split('/');
+      const days = parseFloat(parts[0] || '0');
+      return days < 3;
+    }).map(r => `${r.intern} (${r.avail} days)`);
 
     // Render positive highlights
     let posHtml = `<strong>Positive:</strong> `;
@@ -1461,18 +1737,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeFilter = state.dateFilter || 'YESTERDAY';
     const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
-    const leadsList = ['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA'];
+    const datesInRange = [];
+    if (startStr && endStr) {
+      const start = new Date(startStr);
+      const end = new Date(endStr);
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+      for (let i = 0; i <= diffDays; i++) {
+        const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+        datesInRange.push(d.toISOString().split('T')[0]);
+      }
+    } else {
+      const uniqueDates = new Set();
+      if (state.data && state.data.attendanceData) {
+        Object.values(state.data.attendanceData).forEach(obj => {
+          Object.keys(obj).forEach(d => uniqueDates.add(d));
+        });
+      }
+      if (state.data && state.data.commsChatData) {
+        Object.values(state.data.commsChatData).forEach(obj => {
+          Object.keys(obj).forEach(d => uniqueDates.add(d));
+        });
+      }
+      datesInRange.push(...Array.from(uniqueDates));
+    }
+
+    const regList = (state.config && state.config.internsRegistry) || [];
+    const leadsSet = new Set(['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA']);
+    regList.forEach(i => {
+      if (i.lead) {
+        leadsSet.add(i.lead.toUpperCase().trim());
+      }
+    });
+    const leadsList = Array.from(leadsSet);
+
     const leadMap = new Map();
     leadsList.forEach(l => {
       leadMap.set(l, {
         lead: l,
         shift: l === 'PRIYANSHU' || l === 'SAMIKSHA' || l === 'NILESH' ? 'PM' : 'AM',
-        attend: '6/6',
+        attend: 'No Data',
         assignedInterns: 0,
         teamChats: 0,
         audits: 0,
         qcPosted: 0,
-        ownChats: 0,
         simpleQ: 0,
         complexQ: 0,
         aiRtg: 0,
@@ -1481,12 +1789,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const regList = (state.config && state.config.internsRegistry) || [];
     regList.forEach(i => {
+      // Exclude OJT Leads themselves from assigned interns count if they are in registry
+      if (i.designation && i.designation.toUpperCase().includes('LEAD')) return;
+      if (i.batch && i.batch.toUpperCase().includes('LEAD')) return;
+
       if (i.lead) {
         const leadKey = i.lead.toUpperCase().trim();
         if (leadMap.has(leadKey)) {
-          leadMap.get(leadKey).assignedInterns++;
+          const leadObj = leadMap.get(leadKey);
+          leadObj.assignedInterns++;
+
+          // Aggregate chat counts dynamically for this intern from master spreadsheet data (commsChatData)
+          if (state.data && state.data.commsChatData) {
+            const cleanName = i.name.toLowerCase().trim();
+            Object.keys(state.data.commsChatData).forEach(nameKey => {
+              if (namesMatch(cleanName, nameKey)) {
+                const dateObj = state.data.commsChatData[nameKey];
+                datesInRange.forEach(d => {
+                  const val = dateObj[d];
+                  if (val !== undefined && val !== null && val !== '') {
+                    const num = parseInt(String(val).replace(/,/g, ''), 10);
+                    if (!isNaN(num)) {
+                      leadObj.teamChats += num;
+                    }
+                  }
+                });
+              }
+            });
+          }
         }
       }
     });
@@ -1500,25 +1831,77 @@ document.addEventListener('DOMContentLoaded', () => {
             const d = r.chatDate || r.scanDate;
             if (!d || d < startStr || d > endStr) return;
           }
-          if (r.lead) {
-            const leadKey = r.lead.toUpperCase().trim();
-            if (leadMap.has(leadKey)) {
-              const leadObj = leadMap.get(leadKey);
-              leadObj.audits += r.auditCount || 1;
-              leadObj.teamChats += r.chatCount || 0;
-              leadObj.simpleQ += r.weakChat || 0;
-              leadObj.complexQ += r.complexQuery || 0;
-              if (r.leadRating) {
-                leadObj.totalAiRatingSum += r.leadRating;
-                leadObj.ratingCount++;
+          
+          let matchedLead = null;
+          if (r.auditor) {
+            const auditorLower = r.auditor.toLowerCase().trim();
+            const matchedKey = leadsList.find(l => {
+              // Get lead's registry full name
+              const leadFullName = getLeadFullName(l);
+              const leadParts = leadFullName.toLowerCase().split(/\s+/);
+              const leadFirst = leadParts[0] || l.toLowerCase();
+              const leadLast = leadParts.length > 1 ? leadParts[leadParts.length - 1] : "";
+              
+              if (auditorLower === leadFirst) return true;
+              
+              const partsAud = auditorLower.split(/\s+/);
+              const audFirst = partsAud[0];
+              const audLast = partsAud.length > 1 ? partsAud[partsAud.length - 1] : "";
+              if (audFirst === leadFirst) {
+                if (leadLast && audLast) return leadLast === audLast;
+                return !leadLast && !audLast;
               }
+              return false;
+            });
+            if (matchedKey) {
+              matchedLead = matchedKey;
+            }
+          }
+          if (!matchedLead && r.lead) {
+            const leadLower = r.lead.toLowerCase().trim();
+            const matchedKey = leadsList.find(l => {
+              const leadFullName = getLeadFullName(l);
+              const leadParts = leadFullName.toLowerCase().split(/\s+/);
+              const leadFirst = leadParts[0] || l.toLowerCase();
+              const leadLast = leadParts.length > 1 ? leadParts[leadParts.length - 1] : "";
+              
+              if (leadLower === leadFirst) return true;
+              
+              const partsAud = leadLower.split(/\s+/);
+              const audFirst = partsAud[0];
+              const audLast = partsAud.length > 1 ? partsAud[partsAud.length - 1] : "";
+              if (audFirst === leadFirst) {
+                if (leadLast && audLast) return leadLast === audLast;
+                return !leadLast && !audLast;
+              }
+              return false;
+            });
+            if (matchedKey) {
+              matchedLead = matchedKey;
+            }
+          }
+
+          if (matchedLead) {
+            const leadObj = leadMap.get(matchedLead);
+            
+            // Only count audit if summary/feedback is present and not empty
+            const hasSummary = r.summary && r.summary.trim().length > 0 && r.summary.trim() !== '-' && r.summary.trim().toLowerCase() !== 'no';
+            if (hasSummary) {
+              leadObj.audits += 1;
+            }
+            
+            leadObj.simpleQ += r.weakChat || 0;
+            leadObj.complexQ += r.complexQuery || 0;
+            if (r.leadRating) {
+              leadObj.totalAiRatingSum += r.leadRating;
+              leadObj.ratingCount++;
             }
           }
         });
       });
     }
 
-    // Aggregate QCs posted from doc records
+    // Aggregate QCs posted from doc records with robust name matching
     if (state.data && state.data.qcDocData) {
       state.data.qcDocData.forEach(r => {
         if (startStr && endStr) {
@@ -1526,7 +1909,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (r.internName) {
           const internClean = r.internName.toLowerCase().trim();
-          const registryIntern = regList.find(i => i.name && i.name.toLowerCase().trim() === internClean);
+          const registryIntern = regList.find(i => i.name && namesMatch(internClean, i.name));
           if (registryIntern && registryIntern.lead) {
             const leadKey = registryIntern.lead.toUpperCase().trim();
             if (leadMap.has(leadKey)) {
@@ -1538,17 +1921,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const leadRecords = Array.from(leadMap.values()).map(l => {
-      l.aiRtg = l.ratingCount > 0 ? parseFloat((l.totalAiRatingSum / l.ratingCount).toFixed(2)) : 4.25;
+      l.aiRtg = l.ratingCount > 0 ? parseFloat((l.totalAiRatingSum / l.ratingCount).toFixed(2)) : "No Data";
       
-      // Dynamic fallback based on actual audits to keep visual aesthetics high
-      if (l.teamChats === 0) l.teamChats = l.assignedInterns * 550 || 1200;
-      if (l.audits === 0) l.audits = Math.round(l.teamChats * 0.08) || 90;
-      if (l.qcPosted === 0) l.qcPosted = Math.round(l.audits * 0.15) || 12;
+      // Calculate attendance dynamically
+      const leadFullName = getLeadFullName(l.lead);
+      const record = findAttendanceRecord(leadFullName);
+      let availStr = 'No Data';
+      if (record) {
+        let availableDays = 0;
+        let scheduledDays = 0;
+        
+        let evalDates = [];
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+        
+        if (startStr && endStr) {
+          evalDates = datesInRange.filter(d => d <= yesterdayStr);
+        } else {
+          const datesWithStatus = Object.keys(record).filter(dateStr => {
+            const val = record[dateStr];
+            if (val === undefined || val === null) return false;
+            const u = String(val).toUpperCase().trim();
+            return u !== '' && u !== '-';
+          }).sort();
+          
+          if (datesWithStatus.length > 0) {
+            const startDateStr = datesWithStatus[0];
+            const start = new Date(startDateStr);
+            const yesterdayDate = new Date(yesterdayStr);
+            const diffTime = yesterdayDate - start;
+            const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+            const limit = Math.min(1000, Math.max(0, diffDays));
+            for (let i = 0; i <= limit; i++) {
+              const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+              evalDates.push(d.toISOString().split('T')[0]);
+            }
+          }
+        }
+        
+        evalDates.forEach(dateStr => {
+          const val = record[dateStr];
+          if (val !== undefined) {
+            scheduledDays++;
+            availableDays += getAvailabilityScore(val);
+          }
+        });
+        
+        if (scheduledDays > 0) {
+          const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) && 
+                              (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
+          if (isFullMonth) {
+            availStr = `${availableDays} / ${scheduledDays}`;
+          } else {
+            availStr = `${availableDays}`;
+          }
+        }
+      }
+      l.attend = availStr;
+
       return l;
     });
 
     tbody.innerHTML = '';
     leadRecords.forEach(row => {
+      if (state.activeLead && state.activeLead !== 'ALL' && row.lead.toUpperCase().trim() !== state.activeLead.toUpperCase().trim()) {
+        return;
+      }
       if (state.searchQuery && !row.lead.toLowerCase().includes(state.searchQuery)) {
         return;
       }
@@ -1560,7 +1999,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLeadComparisonChart(leadRecords);
   }
 
-  // Render Lead Comparison Chart (Weighted Score: 40% Audits + 40% QC Count + 20% Own Chats)
+  // Render Lead Comparison Chart (Weighted Score: 50% Audits + 50% QC Count)
   function renderLeadComparisonChart(leadRecords) {
     const ctx = document.getElementById('chartLeadComparison');
     if (!ctx) return;
@@ -1570,10 +2009,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const weightedScores = leadRecords.map(r => {
-      const auditScore = (r.audits / 200) * 40;
-      const qcScore = (r.qcPosted / 40) * 40;
-      const ownChatScore = (r.ownChats / 50) * 20;
-      return Math.min(100, Math.round(auditScore + qcScore + ownChatScore + 50));
+      const auditScore = (r.audits / 200) * 50;
+      const qcScore = (r.qcPosted / 40) * 50;
+      return Math.min(100, Math.round(auditScore + qcScore + 50));
     });
 
     state.charts.leadComparison = new Chart(ctx, {
@@ -1582,7 +2020,7 @@ document.addEventListener('DOMContentLoaded', () => {
         labels: leadRecords.map(r => r.lead),
         datasets: [
           {
-            label: 'Weighted Lead Score (40% Audits, 40% QC, 20% Chats)',
+            label: 'Weighted Lead Score (50% Audits, 50% QC)',
             data: weightedScores,
             backgroundColor: '#0d9488'
           },
@@ -1804,16 +2242,40 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderAdminPanel() {
     renderAdminInternsTable();
     renderSheetsLinksPanel();
+    window.switchAdminDetailTab(state.currentAdminDetailTab || 'INDIVIDUAL');
   }
 
   function renderAdminInternsTable() {
     const tbody = document.getElementById('adminInternsTbody');
+    const loadMoreContainer = document.getElementById('adminInternsLoadMoreContainer');
     if (!tbody) return;
 
     const interns = (state.config && state.config.internsRegistry) || [];
 
+    // Sort by batch descending (B-20, B-19, etc.) and active first (exits at bottom of their batch)
+    const sortedInterns = [...interns].sort((a, b) => {
+      const normA = normalizeBatchName(a.batch);
+      const normB = normalizeBatchName(b.batch);
+      const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
+      const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
+      
+      if (numA !== numB) {
+        return numB - numA; // Descending batches
+      }
+
+      const exitA = (a.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      const exitB = (b.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      if (exitA !== exitB) {
+        return exitA - exitB; // Active (0) comes before Inactive (1)
+      }
+
+      return (a.name || '').localeCompare(b.name || '');
+    });
+
     tbody.innerHTML = '';
-    interns.forEach((item, i) => {
+    const displayed = sortedInterns.slice(0, state.adminDisplayLimit);
+
+    displayed.forEach((item, i) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td class="font-bold">${item.name}</td>
@@ -1821,71 +2283,275 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${item.shift}</td>
         <td><span class="badge badge-teal">${item.process || 'Success Squad'}</span></td>
         <td>${item.designation || 'OJT Intern'}</td>
-        <td>${item.lead || 'SONALI'}</td>
-        <td>${item.phone || '-'}</td>
-        <td>${item.email || '-'}</td>
+        <td>${item.lead || '-'}</td>
         <td>
           <button class="btn btn-xs btn-outline margin-right-xs" onclick="window.viewMoreInternDetails('${encodeURIComponent(item.name)}')">👁️ View More</button>
           <button class="btn btn-xs btn-outline margin-right-xs" onclick="window.editIntern('${encodeURIComponent(item.name)}')">✏️ Edit</button>
-          <button class="btn btn-xs btn-outline color-red" onclick="removeIntern('${encodeURIComponent(item.name)}')">🗑️ Remove</button>
+          <button class="btn btn-xs btn-outline color-red" onclick="window.removeIntern('${encodeURIComponent(item.name)}')">🗑️ Remove</button>
         </td>
       `;
       tbody.appendChild(tr);
     });
+
+    // Handle "Load More" rendering
+    if (loadMoreContainer) {
+      if (sortedInterns.length > state.adminDisplayLimit) {
+        const remaining = sortedInterns.length - state.adminDisplayLimit;
+        loadMoreContainer.innerHTML = `
+          <button class="btn btn-sm btn-outline btn-purple" id="btnAdminLoadMore">
+            🔄 Load More (${remaining} remaining)
+          </button>
+        `;
+        document.getElementById('btnAdminLoadMore').onclick = () => {
+          state.adminDisplayLimit += 25;
+          renderAdminInternsTable();
+        };
+      } else {
+        loadMoreContainer.innerHTML = `
+          <span style="font-size: 0.78rem; color: #94a3b8; font-weight: 500;">
+            Showing all ${sortedInterns.length} registered interns
+          </span>
+        `;
+      }
+    }
   }
+
+  // Selected intern state for Admin detail view
+  let selectedInternName = '';
 
   window.viewMoreInternDetails = function(encodedName) {
     const name = decodeURIComponent(encodedName);
-    const registry = (state.config && state.config.internsRegistry) || [];
-    const found = registry.find(i => i.name && i.name.toLowerCase().trim() === name.toLowerCase().trim()) || { name };
-    
-    const komalKey = name.toLowerCase().trim();
-    const komalMetric = (state.komalMetrics && state.komalMetrics.agentMetrics && state.komalMetrics.agentMetrics[komalKey]) || {};
+    selectedInternName = name;
 
-    const title = document.getElementById('internDetailsTitle');
-    const body = document.getElementById('internDetailsBody');
-    if (title) title.textContent = `👤 OJT Intern Profile: ${found.name}`;
+    const panel = document.getElementById('adminDetailPanel');
+    if (panel) {
+      panel.style.display = 'block';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-    if (body) {
-      body.innerHTML = `
-        <div class="profile-card background-slate padding-sm border-rounded margin-bottom-sm">
-          <div class="flex-row justify-between align-center margin-bottom-xs">
-            <h3 class="text-lg font-bold text-teal-dark">${found.name}</h3>
-            <span class="badge badge-teal">${found.batch || 'B-20'} • ${found.shift || 'AM'} Shift</span>
-          </div>
-          <div class="grid-2 gap-xs text-sm">
-            <div><strong>Process:</strong> ${found.process || 'Success Squad'}</div>
-            <div><strong>Designation:</strong> ${found.designation || 'OJT Intern'}</div>
-            <div><strong>Assigned Lead:</strong> ${found.lead || 'SONALI'}</div>
-            <div><strong>Phone Number:</strong> ${found.phone || '919876543210'}</div>
-            <div><strong>Email Address:</strong> ${found.email || `${name.toLowerCase().replace(/\s+/g, '')}@habuild.in`}</div>
-          </div>
+    // Default to INDIVIDUAL details containing number, email, remark, etc.
+    window.switchAdminDetailTab('INDIVIDUAL');
+  };
+
+  window.switchAdminDetailTab = function(tabType) {
+    state.currentAdminDetailTab = tabType || 'INDIVIDUAL';
+
+    // Update active button classes
+    const tabs = ['Individual', 'Batch', 'Team'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`tabBtn${t}`);
+      if (btn) {
+        if (t.toUpperCase() === state.currentAdminDetailTab) {
+          btn.classList.add('btn-primary');
+          btn.classList.remove('btn-outline');
+        } else {
+          btn.classList.add('btn-outline');
+          btn.classList.remove('btn-primary');
+        }
+      }
+    });
+
+    // Show/hide Batch dropdown selector if BATCH tab is selected
+    const batchGroup = document.getElementById('detailBatchSelectGroup');
+    if (batchGroup) {
+      batchGroup.style.display = state.currentAdminDetailTab === 'BATCH' ? 'flex' : 'none';
+      if (state.currentAdminDetailTab === 'BATCH') {
+        const select = document.getElementById('detailBatchFilter');
+        if (select) {
+          const batches = new Set(['ALL']);
+          const interns = (state.config && state.config.internsRegistry) || [];
+          interns.forEach(i => { if (i.batch) batches.add(normalizeBatchName(i.batch)); });
+          
+          const currentFilter = state.detailBatchFilterVal || 'ALL';
+          select.innerHTML = Array.from(batches).sort((a,b) => {
+            if (a === 'ALL') return -1;
+            if (b === 'ALL') return 1;
+            const numA = parseInt((a.match(/\d+/) || [0])[0], 10);
+            const numB = parseInt((b.match(/\d+/) || [0])[0], 10);
+            return numB - numA;
+          }).map(b => `<option value="${b}" ${b === currentFilter ? 'selected' : ''}>${b === 'ALL' ? 'All Batches' : b}</option>`).join('');
+          
+          state.detailBatchFilterVal = select.value;
+        }
+      }
+    }
+
+    window.renderAdminDetailContent();
+  };
+
+  window.renderAdminDetailContent = function() {
+    const contentBox = document.getElementById('adminDetailPanelContent');
+    if (!contentBox) return;
+
+    const interns = (state.config && state.config.internsRegistry) || [];
+
+    // Sort interns registry by: batch descending -> active first -> name alphabetical
+    const sortedInterns = [...interns].sort((a, b) => {
+      const normA = normalizeBatchName(a.batch);
+      const normB = normalizeBatchName(b.batch);
+      const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
+      const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
+      
+      if (numA !== numB) {
+        return numB - numA;
+      }
+
+      const exitA = (a.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      const exitB = (b.status || 'active').toLowerCase() === 'inactive' ? 1 : 0;
+      if (exitA !== exitB) {
+        return exitA - exitB;
+      }
+
+      return (a.name || '').localeCompare(b.name || '');
+    });
+
+    if (state.currentAdminDetailTab === 'INDIVIDUAL') {
+      const found = interns.find(i => i.name && i.name.toLowerCase().trim() === selectedInternName.toLowerCase().trim()) || interns[0];
+      if (!found) {
+        contentBox.innerHTML = `<div class="text-muted text-center padding-sm">No intern selected. Click "👁️ View More" below on any intern roster row.</div>`;
+        return;
+      }
+
+      // Populate searchable individual options html
+      const sortedAlphabetical = [...interns].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      const optionsHtml = sortedAlphabetical.map(i => `<option value="${encodeURIComponent(i.name)}" ${i.name === found.name ? 'selected' : ''}>${i.name} (${normalizeBatchName(i.batch)})</option>`).join('');
+
+      contentBox.innerHTML = `
+        <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; background-color: var(--bg-control); padding: 0.5rem 0.75rem; border-radius: 8px; border: 1px solid var(--border); width: fit-content; flex-wrap: wrap;">
+          <span class="text-xs font-bold text-muted">🔍 Search / Select Trainee:</span>
+          <select id="adminIndividualSelect" class="form-select form-select-sm" style="max-width: 250px; padding: 0.2rem 0.5rem;" onchange="window.viewMoreInternDetails(this.value)">
+            ${optionsHtml}
+          </select>
+          <button class="btn btn-xs btn-primary font-semibold" onclick="window.openModal('internModal')" style="border-radius: 4px; padding: 0.2rem 0.5rem;">➕ Add Intern</button>
         </div>
-
-        <h4 class="text-sm font-bold text-purple margin-bottom-xs">🤖 Komal AI & OJT Analytics Summary</h4>
-        <div class="grid-3 gap-xs margin-bottom-sm text-center">
-          <div class="kpi-card accent-blue padding-xs">
-            <span class="text-xs text-muted">Simple Queries</span>
-            <div class="text-md font-bold">${komalMetric.simpleQueries || 280}</div>
-          </div>
-          <div class="kpi-card accent-purple padding-xs">
-            <span class="text-xs text-muted">Complex Queries</span>
-            <div class="text-md font-bold">${komalMetric.complexQueries || 250}</div>
-          </div>
-          <div class="kpi-card accent-green padding-xs">
-            <span class="text-xs text-muted">AI Quality Rating</span>
-            <div class="text-md font-bold color-green">${komalMetric.aiRating || 4.25} / 5.0</div>
-          </div>
+        <div class="table-container">
+          <table class="data-table" style="width: 100%;">
+            <thead>
+              <tr style="background: var(--teal-header-gradient); color: #fff;">
+                <th>Intern Name</th>
+                <th>Batch</th>
+                <th>Shift</th>
+                <th>Assigned Lead</th>
+                <th>Process</th>
+                <th>Designation</th>
+                <th>Number</th>
+                <th>Email Address</th>
+                <th>Remark / Concern</th>
+                <th>Active Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-bold">${found.name}</td>
+                <td><span class="badge badge-teal">${found.batch || '-'}</span></td>
+                <td>${found.shift || '-'}</td>
+                <td>${found.lead || '-'}</td>
+                <td>${found.process || '-'}</td>
+                <td>${found.designation || '-'}</td>
+                <td>${found.phone || '-'}</td>
+                <td>${found.email || '-'}</td>
+                <td>${found.remark || '-'}</td>
+                <td><span class="badge ${found.status === 'inactive' ? 'role-admin' : 'badge-teal'}">${found.status === 'inactive' ? 'Exit (Inactive)' : 'Active'}</span></td>
+                <td>
+                  <button class="btn btn-xs btn-outline margin-right-xs" onclick="window.editIntern('${encodeURIComponent(found.name)}')">✏️ Edit</button>
+                  <button class="btn btn-xs btn-outline color-red" onclick="window.removeIntern('${encodeURIComponent(found.name)}')">🗑️ Remove</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      `;
+    } else if (state.currentAdminDetailTab === 'BATCH') {
+      const filterSelect = document.getElementById('detailBatchFilter');
+      if (filterSelect) {
+        state.detailBatchFilterVal = filterSelect.value;
+      }
+      const activeFilter = state.detailBatchFilterVal || 'ALL';
 
-        <div class="grid-2 gap-xs text-sm">
-          <div><strong>Average Response Time (ARST):</strong> ${komalMetric.arstMinutes ? komalMetric.arstMinutes + ' Min' : '1.8 Min'}</div>
-          <div><strong>Daily Break Time:</strong> ${komalMetric.breakTimeMinutes ? (komalMetric.breakTimeMinutes / 60).toFixed(2) + ' hours' : '10 hours'}</div>
+      const filteredList = sortedInterns.filter(i => {
+        if (activeFilter === 'ALL') return true;
+        return normalizeBatchName(i.batch) === activeFilter;
+      });
+
+      if (filteredList.length === 0) {
+        contentBox.innerHTML = `<div class="text-muted text-center padding-sm">No records found for batch ${activeFilter}.</div>`;
+        return;
+      }
+
+      contentBox.innerHTML = `
+        <div class="table-container" style="max-height: 380px; overflow-y: auto;">
+          <table class="data-table" style="width: 100%;">
+            <thead style="position: sticky; top: 0; z-index: 10; background: var(--teal-header-gradient); color: #fff;">
+              <tr>
+                <th>Intern Name</th>
+                <th>Batch</th>
+                <th>Shift</th>
+                <th>Assigned Lead</th>
+                <th>Process</th>
+                <th>Designation</th>
+                <th>Number</th>
+                <th>Email Address</th>
+                <th>Remark / Concern</th>
+                <th>Active Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredList.map(i => `
+                <tr>
+                  <td class="font-bold">${i.name}</td>
+                  <td><span class="badge badge-teal">${i.batch || '-'}</span></td>
+                  <td>${i.shift || '-'}</td>
+                  <td>${i.lead || '-'}</td>
+                  <td>${i.process || '-'}</td>
+                  <td>${i.designation || '-'}</td>
+                  <td>${i.phone || '-'}</td>
+                  <td>${i.email || '-'}</td>
+                  <td>${i.remark || '-'}</td>
+                  <td><span class="badge ${i.status === 'inactive' ? 'role-admin' : 'badge-teal'}">${i.status === 'inactive' ? 'Exit (Inactive)' : 'Active'}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    } else if (state.currentAdminDetailTab === 'TEAM') {
+      const leadGroups = {};
+      sortedInterns.forEach(i => {
+        const lead = i.lead || 'No Lead Assigned';
+        if (!leadGroups[lead]) leadGroups[lead] = [];
+        leadGroups[lead].push(i);
+      });
+
+      contentBox.innerHTML = `
+        <div class="table-container" style="max-height: 380px; overflow-y: auto;">
+          <table class="data-table" style="width: 100%;">
+            <thead style="position: sticky; top: 0; z-index: 10; background: var(--teal-header-gradient); color: #fff;">
+              <tr>
+                <th>OJT Lead</th>
+                <th>Active Interns Count</th>
+                <th>Total Assigned Interns</th>
+                <th>Trainee Details (Horizontal List)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.entries(leadGroups).map(([leadName, list]) => {
+                const activeCount = list.filter(i => i.status !== 'inactive').length;
+                const listDisp = list.map(i => `${i.name} (${normalizeBatchName(i.batch)})`).join(', ');
+                return `
+                  <tr>
+                    <td class="font-bold">${leadName.toUpperCase()}</td>
+                    <td class="font-semibold color-green">${activeCount}</td>
+                    <td>${list.length}</td>
+                    <td style="white-space: normal; max-width: 600px; font-size: 0.8rem; line-height: 1.4;">${listDisp}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
         </div>
       `;
     }
-
-    window.openModal('internDetailsModal');
   };
 
   window.editIntern = function(encodedName) {
@@ -2250,7 +2916,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let filtered = records;
     if (filterInternName) {
-      filtered = records.filter(r => r.internName && r.internName.toLowerCase().trim() === filterInternName.toLowerCase().trim());
+      filtered = records.filter(r => r.internName && namesMatch(filterInternName, r.internName));
     }
 
     // Apply date range filter
@@ -2267,7 +2933,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Object.entries(state.data.scanData).forEach(([tab, rows]) => {
         if (!Array.isArray(rows)) return;
         rows.forEach(row => {
-          if (row.internName && row.internName.toLowerCase().trim() === filterInternName.toLowerCase().trim()) {
+          if (row.internName && namesMatch(filterInternName, row.internName)) {
             if (startStr && endStr) {
               const d = row.chatDate || row.scanDate;
               if (!d || d < startStr || d > endStr) return;

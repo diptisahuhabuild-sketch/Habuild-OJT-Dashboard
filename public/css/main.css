@@ -818,3 +818,18 @@ body.modal-open {
 .admin-links-list { display: flex; flex-direction: column; gap: 0.5rem; }
 .backend-status-list { display: flex; flex-direction: column; gap: 0.75rem; }
 .status-item { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem; background-color: var(--bg-control); border-radius: 6px; }
+
+/* Sticky Header Scorecard Container */
+#internScorecardContainer {
+  max-height: 520px;
+  overflow-y: auto;
+  position: relative;
+}
+
+#internScorecardContainer thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--teal-header-gradient);
+  box-shadow: 0 1px 0 var(--border);
+}

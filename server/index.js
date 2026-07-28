@@ -39,21 +39,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'public', 'index.html'));
 });
 
-// Initial boot sync
-googleService.syncDriveState().then(() => {
-  console.log('[ServerInit] Initial Google Drive sync complete');
-  return googleSyncService.fetchAndSyncGoogleSheetsData();
-}).then(() => {
-  console.log('[ServerInit] Initial Google Sheets fetch complete');
-  return googleDocSyncService.syncAndParseAllDocs();
-}).then(() => {
-  console.log('[ServerInit] Initial Google Docs QC fetch complete');
-  return komalService.syncKomalAIData();
-}).then(() => {
-  console.log('[ServerInit] Initial Komal AI sync complete');
-}).catch(err => {
-  console.warn('[ServerInit] Sync boot note:', err.message);
-});
+// Initial boot sync skipped to keep server fast and avoid Google API rate limits
+console.log('[ServerInit] Boot completed. Ready to serve dashboard. Continuous sync scheduled in the background.');
 
 // Scheduled Continuous Sync (Every 10 Minutes)
 cron.schedule('*/10 * * * *', async () => {

@@ -105,25 +105,6 @@ async function syncKomalAIData(sessionToken = null) {
           aiRating: agentRes.aiRating || 4.2,
           lastUpdated: new Date().toISOString()
         };
-      } else if (!agentDataMap[key]) {
-        // Generate fallback baseline metric derived from registered OJT data
-        const hash = key.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        const simpleQ = 180 + (hash % 150);
-        const complexQ = 120 + (hash % 160);
-        const breakHours = (5 + (hash % 8)).toFixed(2);
-        const arstMin = (1.2 + (hash % 15) / 10).toFixed(2);
-        const aiRtg = (4.0 + (hash % 5) / 10).toFixed(2);
-
-        agentDataMap[key] = {
-          name: intern.name,
-          batch: intern.batch,
-          simpleQueries: simpleQ,
-          complexQueries: complexQ,
-          breakTimeMinutes: parseFloat(breakHours) * 60,
-          arstMinutes: parseFloat(arstMin),
-          aiRating: parseFloat(aiRtg),
-          lastUpdated: new Date().toISOString()
-        };
       }
     }
 

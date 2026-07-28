@@ -18,7 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="/css/main.css?v=2">
+  <link rel="stylesheet" href="/css/main.css?v=10">
 </head>
 
 <body>
@@ -318,7 +318,7 @@
           </div>
         </div>
 
-        <div class="table-container">
+        <div class="table-container" id="internScorecardContainer">
           <table class="data-table scorecard-table" id="internScorecardTable">
             <thead>
               <tr id="internScorecardTheadTr">
@@ -747,86 +747,42 @@
     <!-- ========================================================================= -->
     <section id="tabAdmin" class="tab-content">
 
-      <div class="grid-2">
-
-        <!-- Panel 1: OJT Leads & Intern Roster Management -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">1. OJT Leads & Interns Roster</h3>
-              <p class="card-subtitle text-xs text-muted">Add new OJT intern below to auto-fetch & sync Komal AI + sheet data</p>
-            </div>
-            <button class="btn btn-sm btn-primary" id="btnAddIntern" onclick="window.openModal('internModal')">➕ Modal Form</button>
+      <!-- OJT Intern Details Panel (Horizontal Layout with Tabs: Batch / Individual / Team) -->
+      <div class="card margin-bottom-md" id="adminDetailPanel">
+        <div class="card-header" style="display: flex; flex-direction: column; align-items: stretch; gap: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title" id="adminDetailPanelTitle" style="color: var(--teal-accent); font-size: 1.15rem;">👤 Intern & Team Operational Details</h3>
           </div>
-
-          <!-- Direct Inline Add Intern Form (Free text inputs - No dropdowns) -->
-          <div class="inline-add-intern-box margin-bottom-sm padding-sm border-rounded background-slate">
-            <h4 class="text-sm font-bold text-teal-dark margin-bottom-xs">➕ Add New OJT Intern (Single Form)</h4>
-            <div class="form-row gap-xs margin-bottom-xs">
-              <div class="form-group flex-2">
-                <input type="text" id="inlineInternName" class="form-input form-input-sm" placeholder="Intern Full Name (e.g. Rahul Sharma)">
-              </div>
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternBatch" class="form-input form-input-sm" placeholder="Batch (e.g. B-20, B-21)">
-              </div>
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternShift" class="form-input form-input-sm" placeholder="Shift (e.g. AM / PM / Night)">
-              </div>
-            </div>
-            <div class="form-row gap-xs margin-bottom-xs">
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternProcess" class="form-input form-input-sm" placeholder="Process (e.g. Success Squad / Calling)">
-              </div>
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternDesignation" class="form-input form-input-sm" placeholder="Designation (e.g. OJT Intern / Calling OJT)">
-              </div>
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternLead" class="form-input form-input-sm" placeholder="Assigned Lead (e.g. SONALI)">
-              </div>
-            </div>
-            <div class="form-row gap-xs margin-bottom-xs">
-              <div class="form-group flex-1">
-                <input type="text" id="inlineInternPhone" class="form-input form-input-sm" placeholder="Phone Number">
-              </div>
-              <div class="form-group flex-1">
-                <input type="email" id="inlineInternEmail" class="form-input form-input-sm" placeholder="Email Address">
-              </div>
-              <div class="form-group flex-1">
-                <button class="btn btn-sm btn-teal width-full" id="btnSaveInlineIntern" onclick="window.handleSaveInlineIntern()">💾 Add Single Intern</button>
-              </div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <!-- Horizontal view selector buttons -->
+            <div style="display: flex; gap: 0.35rem; background-color: var(--bg-control); padding: 0.2rem; border-radius: 20px; width: fit-content;" id="adminDetailTabs">
+              <button class="btn btn-xs btn-outline" id="tabBtnIndividual" style="border-radius: 15px;" onclick="window.switchAdminDetailTab('INDIVIDUAL')">👤 Individual details</button>
+              <button class="btn btn-xs btn-outline" id="tabBtnBatch" style="border-radius: 15px;" onclick="window.switchAdminDetailTab('BATCH')">📦 Batch details</button>
+              <button class="btn btn-xs btn-outline" id="tabBtnTeam" style="border-radius: 15px;" onclick="window.switchAdminDetailTab('TEAM')">👥 Team Details</button>
             </div>
 
-            <!-- Bulk Copy-Paste Multi-Intern Importer -->
-            <div class="margin-top-sm border-top padding-top-xs">
-              <h4 class="text-sm font-bold text-purple margin-bottom-xs">📋 Bulk Copy-Paste Multi-Intern Importer</h4>
-              <p class="text-xs text-muted margin-bottom-xs">Paste multiple lines directly from Excel, CSV, or WhatsApp text lists (Name, Batch, Shift, Process, Designation, Lead, Phone, Email):</p>
-              <textarea id="bulkInternsTextarea" class="form-textarea form-input-sm width-full" rows="3" placeholder="Example lines:&#10;Rahul Sharma, B-20, AM, Success Squad, OJT Intern, SONALI, 919876543210, rahul@habuild.in&#10;Priya Patel, B-19, PM, Calling Team, Calling OJT, RASHI, 919876543211, priya@habuild.in"></textarea>
-              <button class="btn btn-sm btn-purple width-full margin-top-xs" id="btnProcessBulkInterns" onclick="window.handleSaveBulkInterns()">📋 Process & Save Bulk Interns</button>
+            <!-- Dynamic Batch selector inside detail view -->
+            <div id="detailBatchSelectGroup" style="display: none; align-items: center; gap: 0.5rem;">
+              <span class="text-xs font-bold text-muted">Filter Batch:</span>
+              <select id="detailBatchFilter" class="form-select form-select-sm" style="padding: 0.2rem 0.5rem;" onchange="window.renderAdminDetailContent()"></select>
             </div>
-          </div>
-
-          <div class="table-container max-h-350">
-            <table class="data-table" id="adminInternsTable">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Batch</th>
-                  <th>Shift</th>
-                  <th>Process</th>
-                  <th>Designation</th>
-                  <th>Assigned Lead</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="adminInternsTbody">
-                <!-- Rendered intern items -->
-              </tbody>
-            </table>
           </div>
         </div>
+        
+        <!-- Horizontal details content -->
+        <div id="adminDetailPanelContent" style="padding: 0.5rem 0; overflow-x: auto;">
+          <!-- Content rendered dynamically -->
+        </div>
+      </div>
 
-        <!-- Panel 2: Google Sheets Links (Per Lead) -->
-        <div class="card">
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+
+
+        <div class="grid-2">
+          <!-- Panel 2: Google Sheets Links (Per Lead) -->
+          <div class="card">
           <div class="card-header">
             <h3 class="card-title">2. Google Sheets Links (Per Lead)</h3>
           </div>
@@ -866,8 +822,8 @@
             </div>
           </div>
         </div>
-
       </div>
+    </div>
 
     </section>
 
@@ -1052,7 +1008,7 @@
   </div>
 
   <!-- Client JavaScript Application -->
-  <script src="/js/app.js?v=2"></script>
+  <script src="/js/app.js?v=10"></script>
 </body>
 
 </html>

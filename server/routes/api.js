@@ -81,15 +81,23 @@ router.get('/health', (req, res) => {
 router.get('/data', (req, res) => {
   const data = getData();
   const config = getConfig();
-  const komalCache = komalService.getCachedMetrics();
-  const qcDocData = googleDocSyncService.getCachedQCMistakes();
+
+  // Step 1: Return lightweight data objects to avoid heavy 38MB payload downloads over localtunnel
+  const lightweightData = {
+    lastSyncedAt: data.lastSyncedAt,
+    syncStatus: data.syncStatus,
+    scanData: {},
+    attendanceData: data.attendanceData || {},
+    commsChatData: {},
+    milestones: {}
+  };
 
   res.json({
     success: true,
-    data,
+    data: lightweightData,
     config,
-    komalMetrics: komalCache,
-    qcDocData,
+    komalMetrics: {},
+    qcDocData: [],
     serverTime: new Date().toISOString()
   });
 });

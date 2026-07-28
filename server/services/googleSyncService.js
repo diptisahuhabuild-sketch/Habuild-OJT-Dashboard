@@ -63,6 +63,123 @@ function getConfig() {
 }
 
 /**
+ * Syncs the Interns Registry dynamically from the Admin Panel spreadsheet
+ */
+async function syncInternsRegistryFromGoogleSheet() {
+  const sheets = googleService.getSheets();
+  if (!sheets) return;
+
+  const spreadsheetId = '1mTMYp54L6FkV-qHaH5EBJYM4Pkr41ogxQ_f5OAtnlwY';
+  console.log('[GoogleSyncService] Fetching Interns Registry from Admin spreadsheet...');
+
+  try {
+    const meta = await sheets.spreadsheets.get({ spreadsheetId });
+    const tabName = meta.data.sheets[0].properties.title;
+    const res = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `'${tabName}'!A1:L1000`
+    });
+
+    const rows = res.data.values || [];
+    if (rows.length < 3) return;
+
+    // Locate header row containing 'your name' or 'name'
+    let headerRowIdx = -1;
+    for (let r = 0; r < rows.length; r++) {
+      const rLower = (rows[r] || []).map(c => String(c || '').toLowerCase().trim());
+      if (rLower.includes('your name') || rLower.includes('name')) {
+        headerRowIdx = r;
+        break;
+      }
+    }
+
+    if (headerRowIdx === -1) {
+      console.warn('[GoogleSyncService] Could not find header row in Admin spreadsheet');
+      return;
+    }
+
+    const headers = rows[headerRowIdx].map(h => String(h || '').trim().toLowerCase());
+    const nameIdx = headers.findIndex(h => h.includes('name'));
+    const batchIdx = headers.findIndex(h => h.includes('batch'));
+    const shiftIdx = headers.findIndex(h => h.includes('shift'));
+    const processIdx = headers.findIndex(h => h.includes('process'));
+    const designationIdx = headers.findIndex(h => h.includes('designation'));
+    const leadIdx = headers.findIndex(h => h.includes('lead'));
+    const phoneIdx = headers.findIndex(h => h.includes('number') || h.includes('phone'));
+    const emailIdx = headers.findIndex(h => h.includes('email'));
+    const remarkIdx = headers.findIndex(h => h.includes('remark') || h.includes('exit') || h.includes('concern'));
+
+    if (nameIdx === -1) {
+      console.warn('[GoogleSyncService] "Name" column not found in Admin spreadsheet');
+      return;
+    }
+
+    const registry = [];
+    for (let r = headerRowIdx + 1; r < rows.length; r++) {
+      const row = rows[r];
+      if (!row || row.length === 0 || !row[nameIdx]) continue;
+
+      const name = String(row[nameIdx]).trim();
+      const lowerName = name.toLowerCase();
+      // Skip helper headings or totals
+      if (lowerName === 'your name' || lowerName.startsWith('date') || lowerName.startsWith('total') || lowerName.startsWith('available')) {
+        continue;
+      }
+
+      const batch = batchIdx >= 0 && row[batchIdx] ? String(row[batchIdx]).trim() : '';
+      const shift = shiftIdx >= 0 && row[shiftIdx] ? String(row[shiftIdx]).trim() : '';
+      const processName = processIdx >= 0 && row[processIdx] ? String(row[processIdx]).trim() : 'Success Squad';
+      const designation = designationIdx >= 0 && row[designationIdx] ? String(row[designationIdx]).trim() : 'OJT Intern';
+      const lead = leadIdx >= 0 && row[leadIdx] ? String(row[leadIdx]).trim() : '';
+      const phone = phoneIdx >= 0 && row[phoneIdx] ? String(row[phoneIdx]).trim() : '';
+      const email = emailIdx >= 0 && row[emailIdx] ? String(row[emailIdx]).trim() : '';
+      const remark = remarkIdx >= 0 && row[remarkIdx] ? String(row[remarkIdx]).trim() : '';
+
+      registry.push({
+        name,
+        batch,
+        shift,
+        process: processName,
+        designation,
+        lead,
+        phone,
+        email,
+        remark,
+        status: [name, batch, shift, processName, designation, lead, remark]
+          .some(val => String(val || '').toLowerCase().includes('exit')) ? 'inactive' : 'active'
+      });
+    }
+
+    const config = getConfig();
+    
+    // Preserve any existing leads (designation OJT Lead or T&D lead) from previous registry
+    const existingLeads = (config.internsRegistry || []).filter(i => 
+      (i.designation && i.designation.toLowerCase().includes('lead')) || 
+      (i.batch && i.batch.toLowerCase().includes('lead'))
+    );
+    
+    // Add any leads that are not already in the newly fetched registry
+    existingLeads.forEach(el => {
+      const exists = registry.some(i => i.name.toLowerCase().trim() === el.name.toLowerCase().trim());
+      if (!exists) {
+        registry.push(el);
+      }
+    });
+
+    config.internsRegistry = registry;
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+    console.log(`[GoogleSyncService] Successfully synced ${registry.length} interns registry (including preserved leads) from Admin spreadsheet`);
+
+    await googleService.driveUploadFile('server-config.json', CONFIG_FILE).catch(e => {
+      console.warn('[GoogleSyncService] Backup registry to Drive failed:', e.message);
+    });
+
+  } catch (err) {
+    console.error('[GoogleSyncService] Error syncing Admin registry:', err.message);
+  }
+}
+
+/**
  * Parses raw sheet rows into structured batch scan records using dynamic header indexing
  */
 function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, headers, mergedData, internBatchMap) {
@@ -177,9 +294,19 @@ async function fetchAndSyncGoogleSheetsData() {
     return currentData;
   }
 
+  // 0. Update config registry from Admin spreadsheet dynamically
+  try {
+    await syncInternsRegistryFromGoogleSheet();
+  } catch (err) {
+    console.warn('[GoogleSyncService] Dynamic registry sync note:', err.message);
+  }
+
+  // Reload config to get the newly synced registry!
+  const updatedConfig = getConfig();
+
   // Load intern batch registry for fast lookup
   const internBatchMap = new Map();
-  const regList = config.internsRegistry || [];
+  const regList = updatedConfig.internsRegistry || [];
   regList.forEach(i => {
     if (i.name && i.batch) {
       internBatchMap.set(i.name.toLowerCase().trim(), normalizeBatchName(i.batch));
@@ -251,11 +378,34 @@ async function fetchAndSyncGoogleSheetsData() {
           const headers = rawHeaders.map(h => h.toLowerCase());
 
           // Verify if it contains trainee/intern name column
-          const internIdx = headers.findIndex(h => h.includes('intern name') || h.includes('name') || h.includes('trainee') || h.includes('executive name') || h.includes('agent name'));
+          const internIdx = headers.findIndex(h => 
+            h.includes('intern') || 
+            h.includes('name') || 
+            h.includes('trainee') || 
+            h.includes('executive') || 
+            h.includes('agent')
+          );
           if (internIdx < 0) continue;
 
+          let resolvedLead = sheetObj.lead;
+          if (resolvedLead === 'AuditPerformance') {
+            const lowerTab = tabName.toLowerCase();
+            if (lowerTab.includes('samiksha')) resolvedLead = 'SAMIKSHA';
+            else if (lowerTab.includes('nilesh')) resolvedLead = 'NILESH';
+            else if (lowerTab.includes('sonali')) resolvedLead = 'SONALI';
+            else if (lowerTab.includes('diksha')) resolvedLead = 'DIKSHA';
+            else if (lowerTab.includes('rashi')) resolvedLead = 'RASHI';
+            else if (lowerTab.includes('priyanshu')) resolvedLead = 'PRIYANSHU';
+            else if (lowerTab.includes('namrata')) resolvedLead = 'NAMRATA';
+            else if (lowerTab.includes('damini')) resolvedLead = 'DAMINI';
+            else if (lowerTab.includes('disha')) resolvedLead = 'DISHA';
+            else if (lowerTab.includes('pooja')) resolvedLead = 'POOJA';
+            else if (lowerTab.includes('jayshree')) resolvedLead = 'JAYSHREE';
+            else if (lowerTab.includes('harsh')) resolvedLead = 'HARSH';
+          }
+
           // Parse and merge rows into mergedScanData
-          parseSheetRowsIntoMergedData(tabName, rows, sheetObj.lead, internIdx, headers, mergedScanData, internBatchMap);
+          parseSheetRowsIntoMergedData(tabName, rows, resolvedLead, internIdx, headers, mergedScanData, internBatchMap);
         } catch (tabErr) {
           console.warn(`[GoogleSyncService] Failed to read tab "${tabName}" in "${sheetObj.lead}":`, tabErr.message);
         }
@@ -273,7 +423,16 @@ async function fetchAndSyncGoogleSheetsData() {
       const attendMeta = await sheets.spreadsheets.get({ spreadsheetId: attendId });
       const attendTabs = attendMeta.data.sheets.map(s => s.properties.title);
       
-      const activeAttendTabs = attendTabs.filter(t => t.includes('2026') || t.includes('Dec') || t.includes('Status'));
+      const activeAttendTabs = attendTabs.filter(t => {
+        const cleanTab = t.toLowerCase().trim();
+        if (cleanTab.includes('time') || cleanTab.includes('leave') || cleanTab.includes('late') || cleanTab.includes('lop') || cleanTab.includes('tracker') || cleanTab.includes('upload') || cleanTab.includes('import') || cleanTab.includes('change') || cleanTab.includes('department') || cleanTab.includes('sheet') || cleanTab.includes('check') || cleanTab.includes('ot') || cleanTab.includes('mastersheet')) {
+          return false;
+        }
+        const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+        const hasMonth = months.some(m => cleanTab.includes(m));
+        const isDetailedStatus = cleanTab.includes('detailed') && cleanTab.includes('status');
+        return hasMonth || isDetailedStatus;
+      });
       
       for (const tab of activeAttendTabs) {
         console.log(`[GoogleSyncService] Reading HR Attendance tab "${tab}"...`);
@@ -281,7 +440,7 @@ async function fetchAndSyncGoogleSheetsData() {
         
         const res = await sheets.spreadsheets.values.get({
           spreadsheetId: attendId,
-          range: `'${tab}'!A1:AF300`
+          range: `'${tab}'!A1:AJ400`
         });
         const rows = res.data.values || [];
         if (rows.length === 0) continue;
@@ -294,7 +453,12 @@ async function fetchAndSyncGoogleSheetsData() {
           const dateCells = row.filter(c => parseDDMMYYYYDate(c));
           if (dateCells.length > 5) {
             dateHeaderRow = r;
-            dates = row.map(c => parseDDMMYYYYDate(c));
+            let lastSeenDate = null;
+            dates = row.map(c => {
+              const parsed = parseDDMMYYYYDate(c);
+              if (parsed) lastSeenDate = parsed;
+              return lastSeenDate;
+            });
             break;
           }
         }
@@ -303,22 +467,49 @@ async function fetchAndSyncGoogleSheetsData() {
         
         for (let r = dateHeaderRow + 1; r < rows.length; r++) {
           const row = rows[r];
-          if (!row || row.length === 0 || !row[0]) continue;
+          if (!row || row.length === 0) continue;
           
-          const rawName = String(row[0]).trim();
-          if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad') || rawName.toLowerCase().startsWith('employee name')) {
-            continue;
+          let rawName = '';
+          let nameColIdx = -1;
+          for (let colIdx = 0; colIdx <= 3; colIdx++) {
+            const val = String(row[colIdx] || '').trim();
+            if (!val) continue;
+            
+            const valLower = val.toLowerCase();
+            // Exclude non-name markers
+            if (valLower.includes('date') || valLower.includes('total') || valLower.includes('available') || 
+                valLower.includes('squad') || valLower.includes('employee') || valLower.includes('escalation') || 
+                valLower.includes('in time') || valLower.includes('out time') || valLower.includes('sorted') ||
+                valLower.match(/^\d{2}:\d{2}$/) || valLower.match(/^\d+$/) || valLower === '-') {
+              continue;
+            }
+            
+            rawName = val;
+            nameColIdx = colIdx;
+            break;
           }
+          
+          if (!rawName || nameColIdx === -1) continue;
           
           const cleanName = rawName.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
           if (!parsedAttendance[cleanName]) {
             parsedAttendance[cleanName] = {};
           }
           
-          for (let col = 1; col < row.length; col++) {
+          for (let col = nameColIdx + 1; col < row.length; col++) {
             const dateStr = dates[col];
             if (dateStr) {
-              parsedAttendance[cleanName][dateStr] = String(row[col] || '').trim();
+              const val = String(row[col] || '').trim();
+              if (parsedAttendance[cleanName][dateStr]) {
+                const prev = parsedAttendance[cleanName][dateStr];
+                if (val && val !== '-') {
+                  if (prev === '-' || !prev) {
+                    parsedAttendance[cleanName][dateStr] = val;
+                  }
+                }
+              } else {
+                parsedAttendance[cleanName][dateStr] = val;
+              }
             }
           }
         }
@@ -329,18 +520,22 @@ async function fetchAndSyncGoogleSheetsData() {
       console.error('[GoogleSyncService] Attendance sync error:', attendErr.message);
     }
 
-    // 3. Fetch Comms Chat counts (Success Squad morning/evening)
+    // 3. Fetch Comms Chat counts (Success Squad morning/evening, Gifting, Payments, etc.)
     const commsId = '1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE';
     const parsedComms = {};
     try {
-      const commsTabs = [' Success Squad MORNING ', 'Success Squad Evening'];
+      console.log(`[GoogleSyncService] Fetching metadata for Master spreadsheet...`);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const commsMeta = await sheets.spreadsheets.get({ spreadsheetId: commsId });
+      const commsTabs = commsMeta.data.sheets.map(s => s.properties.title);
+      
       for (const tab of commsTabs) {
-        console.log(`[GoogleSyncService] Reading Comms Chat Count tab "${tab}"...`);
+        console.log(`[GoogleSyncService] Inspecting Master tab "${tab}" for chat counts...`);
         await new Promise(resolve => setTimeout(resolve, 1500));
         
         const res = await sheets.spreadsheets.values.get({
           spreadsheetId: commsId,
-          range: `'${tab}'!A1:AF300`
+          range: `'${tab}'!A1:ZZ500`
         });
         const rows = res.data.values || [];
         if (rows.length === 0) continue;
@@ -360,12 +555,13 @@ async function fetchAndSyncGoogleSheetsData() {
         
         if (dateHeaderRow === null) continue;
         
+        console.log(`[GoogleSyncService] Parsing chat counts from Master tab "${tab}" (Found ${dates.filter(Boolean).length} dates)`);
         for (let r = dateHeaderRow + 1; r < rows.length; r++) {
           const row = rows[r];
           if (!row || row.length === 0 || !row[0]) continue;
           
           const rawName = String(row[0]).trim();
-          if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad')) {
+          if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad') || rawName.toLowerCase().startsWith('day')) {
             continue;
           }
           
@@ -379,7 +575,8 @@ async function fetchAndSyncGoogleSheetsData() {
             if (dateStr) {
               const val = String(row[col] || '').trim();
               const chats = parseInt(val.replace(/,/g, ''), 10) || 0;
-              parsedComms[cleanName][dateStr] = chats;
+              // If multiple tabs define the same date for the same intern name, add them up
+              parsedComms[cleanName][dateStr] = (parsedComms[cleanName][dateStr] || 0) + chats;
             }
           }
         }
