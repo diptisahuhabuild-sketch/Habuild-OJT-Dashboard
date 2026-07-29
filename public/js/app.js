@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (cleanReg === cleanTarget) return true;
     
+    // Explicit Alias mappings for known misspellings in the sheets
+    if (cleanReg.includes('pareedhi') && cleanTarget.includes('paridhi')) return true;
+    if (cleanReg.includes('paridhi') && cleanTarget.includes('pareedhi')) return true;
+    
     const regTokens = cleanReg.split(' ').filter(t => t.length > 2);
     const targetTokens = cleanTarget.split(' ').filter(t => t.length > 2);
     
@@ -1310,17 +1314,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
 
           parsedCommsKeys.forEach(pk => {
-            const sheetName = pk.key;
-            if (sheetName.includes(regFirst)) {
-              if (regLast) {
-                if (sheetName.includes(regLast)) {
-                  matchedCommsKeys.push(pk.key);
-                }
-              } else {
-                // If registry only has a first name, assume it's a match if the first name matches
-                // and there are no conflicting other intern names (this is a simple heuristic).
-                matchedCommsKeys.push(pk.key);
-              }
+            if (namesMatch(reg.name, pk.key)) {
+              matchedCommsKeys.push(pk.key);
             }
           });
 
