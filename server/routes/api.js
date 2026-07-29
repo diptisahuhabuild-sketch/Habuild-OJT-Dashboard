@@ -88,7 +88,7 @@ router.get('/data', (req, res) => {
     syncStatus: data.syncStatus,
     scanData: {},
     attendanceData: data.attendanceData || {},
-    commsChatData: {},
+    commsChatData: data.commsChatData || {},
     milestones: {}
   };
 

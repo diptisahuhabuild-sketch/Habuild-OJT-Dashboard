@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const googleService = require('./googleService');
 
+let sheetCacheMeta = {};
+
+
 const rootDir = path.resolve(__dirname, '../../');
 const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
@@ -67,9 +70,23 @@ function getConfig() {
  */
 async function syncInternsRegistryFromGoogleSheet() {
   const sheets = googleService.getSheets();
+  const drive = googleService.getDrive();
   if (!sheets) return;
 
   const spreadsheetId = '1mTMYp54L6FkV-qHaH5EBJYM4Pkr41ogxQ_f5OAtnlwY';
+  
+  if (drive) {
+    try {
+      const meta = await drive.files.get({ fileId: spreadsheetId, fields: 'modifiedTime' });
+      if (meta && meta.data.modifiedTime) {
+        if (sheetCacheMeta[spreadsheetId] === meta.data.modifiedTime) {
+          console.log(`[GoogleSyncService] Skipping Admin Registry "${spreadsheetId}" - Not modified since last sync.`);
+          return;
+        }
+        sheetCacheMeta[spreadsheetId] = meta.data.modifiedTime;
+      }
+    } catch (e) { }
+  }
   console.log('[GoogleSyncService] Fetching Interns Registry from Admin spreadsheet...');
 
   try {
@@ -262,6 +279,7 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
  */
 async function fetchAndSyncGoogleSheetsData() {
   const sheets = googleService.getSheets();
+  const drive = googleService.getDrive();
   const config = getConfig();
 
   console.log('[GoogleSyncService] Starting continuous multi-spreadsheet Google Sheets data sync...');
@@ -347,6 +365,29 @@ async function fetchAndSyncGoogleSheetsData() {
     for (const sheetObj of spreadsheetIds) {
       console.log(`[GoogleSyncService] Fetching metadata for spreadsheet "${sheetObj.lead}" (${sheetObj.id})...`);
       
+      let skipLead = false;
+      if (drive) {
+        try {
+          const meta = await drive.files.get({ fileId: sheetObj.id, fields: 'modifiedTime' });
+          if (meta && meta.data.modifiedTime) {
+            if (sheetCacheMeta[sheetObj.id] === meta.data.modifiedTime) {
+              console.log(`[GoogleSyncService] Skipping QC spreadsheet "${sheetObj.lead}" - Not modified.`);
+              skipLead = true;
+              
+              Object.keys(currentData.scanData || {}).forEach(batch => {
+                const leadRecords = currentData.scanData[batch].filter(record => record.lead === sheetObj.lead);
+                if (leadRecords.length > 0) {
+                  if (!mergedScanData[batch]) mergedScanData[batch] = [];
+                  mergedScanData[batch].push(...leadRecords);
+                }
+              });
+              continue;
+            }
+            sheetCacheMeta[sheetObj.id] = meta.data.modifiedTime;
+          }
+        } catch(e) {}
+      }
+
       // Delay 1500ms to avoid quota limits
       await new Promise(resolve => setTimeout(resolve, 1500));
       
@@ -419,6 +460,23 @@ async function fetchAndSyncGoogleSheetsData() {
     const parsedAttendance = {};
     try {
       console.log(`[GoogleSyncService] Fetching metadata for HR Attendance spreadsheet...`);
+      let skipAttend = false;
+      if (drive) {
+        try {
+          const meta = await drive.files.get({ fileId: attendId, fields: 'modifiedTime' });
+          if (meta && meta.data.modifiedTime) {
+            if (sheetCacheMeta[attendId] === meta.data.modifiedTime) {
+              console.log(`[GoogleSyncService] Skipping HR Attendance - Not modified.`);
+              skipAttend = true;
+              Object.assign(parsedAttendance, currentData.attendanceData || {});
+            } else {
+              sheetCacheMeta[attendId] = meta.data.modifiedTime;
+            }
+          }
+        } catch(e) {}
+      }
+      
+      if (!skipAttend) {
       await new Promise(resolve => setTimeout(resolve, 1500));
       const attendMeta = await sheets.spreadsheets.get({ spreadsheetId: attendId });
       const attendTabs = attendMeta.data.sheets.map(s => s.properties.title);
@@ -514,7 +572,8 @@ async function fetchAndSyncGoogleSheetsData() {
           }
         }
       }
-      currentData.attendanceData = parsedAttendance;
+      }
+    currentData.attendanceData = parsedAttendance;
       console.log(`[GoogleSyncService] Synced attendance for ${Object.keys(parsedAttendance).length} interns`);
     } catch (attendErr) {
       console.error('[GoogleSyncService] Attendance sync error:', attendErr.message);
@@ -525,6 +584,23 @@ async function fetchAndSyncGoogleSheetsData() {
     const parsedComms = {};
     try {
       console.log(`[GoogleSyncService] Fetching metadata for Master spreadsheet...`);
+      let skipComms = false;
+      if (drive) {
+        try {
+          const meta = await drive.files.get({ fileId: commsId, fields: 'modifiedTime' });
+          if (meta && meta.data.modifiedTime) {
+            if (sheetCacheMeta[commsId] === meta.data.modifiedTime) {
+              console.log(`[GoogleSyncService] Skipping Master spreadsheet - Not modified.`);
+              skipComms = true;
+              Object.assign(parsedComms, currentData.commsChatData || {});
+            } else {
+              sheetCacheMeta[commsId] = meta.data.modifiedTime;
+            }
+          }
+        } catch(e) {}
+      }
+      
+      if (!skipComms) {
       await new Promise(resolve => setTimeout(resolve, 1500));
       const commsMeta = await sheets.spreadsheets.get({ spreadsheetId: commsId });
       const commsTabs = commsMeta.data.sheets.map(s => s.properties.title);
@@ -560,7 +636,10 @@ async function fetchAndSyncGoogleSheetsData() {
           const row = rows[r];
           if (!row || row.length === 0 || !row[0]) continue;
           
-          const rawName = String(row[0]).trim();
+          let rawName = String(row[0]).trim();
+          // Remove anything in parentheses like "Prachi (Evening)" -> "Prachi"
+          rawName = rawName.replace(/\(.*?\)/g, '').trim();
+          
           if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad') || rawName.toLowerCase().startsWith('day')) {
             continue;
           }
@@ -570,6 +649,10 @@ async function fetchAndSyncGoogleSheetsData() {
             parsedComms[cleanName] = {};
           }
           
+          if (cleanName === 'aditya jaiswal') {
+             console.log(`[DEBUG] Found Aditya in tab "${tab}" row ${r+1}, length: ${row.length}`);
+          }
+          
           for (let col = 1; col < row.length; col++) {
             const dateStr = dates[col];
             if (dateStr) {
@@ -577,11 +660,16 @@ async function fetchAndSyncGoogleSheetsData() {
               const chats = parseInt(val.replace(/,/g, ''), 10) || 0;
               // If multiple tabs define the same date for the same intern name, add them up
               parsedComms[cleanName][dateStr] = (parsedComms[cleanName][dateStr] || 0) + chats;
+              
+              if (cleanName === 'aditya jaiswal' && chats > 0) {
+                 console.log(`[DEBUG] Aditya col ${col}, date ${dateStr}, chats ${chats}`);
+              }
             }
           }
         }
       }
-      currentData.commsChatData = parsedComms;
+      }
+    currentData.commsChatData = parsedComms;
       console.log(`[GoogleSyncService] Synced comms chat count for ${Object.keys(parsedComms).length} interns`);
     } catch (commsErr) {
       console.error('[GoogleSyncService] Comms chat count sync error:', commsErr.message);

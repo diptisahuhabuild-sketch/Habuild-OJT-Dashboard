@@ -4,6 +4,7 @@ const axios = require('axios');
 const googleService = require('./googleService');
 
 const rootDir = path.resolve(__dirname, '../../');
+const QC_DOC_CACHE_FILE = path.join(rootDir, 'qc-doc-cache-meta.json');
 const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
 const CACHE_FILE = path.join(rootDir, 'qc-doc-cache.json');
@@ -269,7 +270,7 @@ async function syncAndParseAllDocs() {
   try {
     const res = await drive.files.list({
       q: "mimeType = 'application/vnd.google-apps.document' and trashed = false",
-      fields: "files(id, name)",
+      fields: "files(id, name, modifiedTime)",
       pageSize: 100
     });
     
@@ -284,7 +285,7 @@ async function syncAndParseAllDocs() {
       else if (name.includes('batch 16') || name.includes('b-16') || name.includes('b16')) batch = 'B-16';
       else if (name.includes('batch 15') || name.includes('b-15') || name.includes('b-15') || name.includes("vishal's")) batch = 'B-15';
       
-      driveDocs.push({ id: f.id, name: f.name, batch });
+      driveDocs.push({ id: f.id, name: f.name, batch, modifiedTime: f.modifiedTime });
     });
     console.log(`[DocSync] Discovered ${driveDocs.length} shared Google Docs to parse.`);
   } catch (err) {
@@ -292,12 +293,30 @@ async function syncAndParseAllDocs() {
   }
 
   // Parse all discovered documents
+  let qcDocCacheMeta = {};
+  if (fs.existsSync(QC_DOC_CACHE_FILE)) {
+    try {
+      qcDocCacheMeta = JSON.parse(fs.readFileSync(QC_DOC_CACHE_FILE, 'utf8'));
+    } catch(e) {}
+  }
+  
   for (const doc of driveDocs) {
+    if (doc.modifiedTime && qcDocCacheMeta[doc.id] && qcDocCacheMeta[doc.id].modifiedTime === doc.modifiedTime) {
+       console.log(`[DocSync] Skipping Doc "${doc.name}" - Not modified since last sync.`);
+       if (qcDocCacheMeta[doc.id].data) {
+         allRecords = allRecords.concat(qcDocCacheMeta[doc.id].data);
+       }
+       continue;
+    }
     console.log(`[DocSync] Parsing Doc "${doc.name}" for batch ${doc.batch}...`);
     const records = await parseDoc(docs, doc.id, doc.batch, nameResolver);
     allRecords = allRecords.concat(records);
     console.log(`[DocSync] Parsed ${records.length} records from Doc "${doc.name}"`);
+    if (doc.modifiedTime) {
+      qcDocCacheMeta[doc.id] = { modifiedTime: doc.modifiedTime, data: records };
+    }
   }
+  fs.writeFileSync(QC_DOC_CACHE_FILE, JSON.stringify(qcDocCacheMeta, null, 2));
 
   try {
     fs.writeFileSync(CACHE_FILE, JSON.stringify(allRecords, null, 2));

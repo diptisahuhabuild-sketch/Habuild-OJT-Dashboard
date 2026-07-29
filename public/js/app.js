@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'action'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'action'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -262,6 +262,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function init() {
     setupEventListeners();
+    
+    // Enforce initial default states on DOM elements to override browser input caching
+    const batchSelect = document.getElementById('globalBatchSelect');
+    if (batchSelect) batchSelect.value = state.activeBatch;
+    
+    const leadSelect = document.getElementById('globalLeadSelect');
+    if (leadSelect) leadSelect.value = state.activeLead;
+    
+    const shiftSelect = document.getElementById('globalShiftSelect');
+    if (shiftSelect) shiftSelect.value = state.activeShift;
+    
+    const dateFilterSelect = document.getElementById('globalDateFilter');
+    if (dateFilterSelect) dateFilterSelect.value = state.dateFilter;
+    
     fetchDashboardData();
   }
 
@@ -1227,6 +1241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Determine actual start date (earliest non-empty, non-dash entry)
       const datesWithStatus = Object.keys(record).filter(dateStr => {
+        if (dateStr < '2024-01-01') return false;
         const val = record[dateStr];
         if (val === undefined || val === null) return false;
         const u = String(val).toUpperCase().trim();
@@ -1295,12 +1310,15 @@ document.addEventListener('DOMContentLoaded', () => {
           const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
 
           parsedCommsKeys.forEach(pk => {
-            if (regFirst === pk.first) {
-              if (regLast && pk.last) {
-                if (regLast === pk.last) {
+            const sheetName = pk.key;
+            if (sheetName.includes(regFirst)) {
+              if (regLast) {
+                if (sheetName.includes(regLast)) {
                   matchedCommsKeys.push(pk.key);
                 }
-              } else if (!regLast && !pk.last) {
+              } else {
+                // If registry only has a first name, assume it's a match if the first name matches
+                // and there are no conflicting other intern names (this is a simple heuristic).
                 matchedCommsKeys.push(pk.key);
               }
             }
