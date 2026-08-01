@@ -115,72 +115,164 @@ function parseDDMMYYYYDate(str) {
  */
 async function parseDoc(docs, docId, batchName, nameResolver) {
   try {
-    const docRes = await docs.documents.get({ documentId: docId });
-    const doc = docRes.data;
-    const inlineObjects = doc.inlineObjects || {};
-    const bodyContent = doc.body.content || [];
-
-    const images = [];
-    const rawParagraphs = [];
-
-    bodyContent.forEach((el, index) => {
-      if (el.paragraph) {
-        const txt = el.paragraph.elements.map(e => e.textRun ? e.textRun.content : '').join('').trim();
-        
-        // Collect images
-        el.paragraph.elements.forEach(e => {
-          if (e.inlineObjectElement) {
-            const objId = e.inlineObjectElement.inlineObjectId;
-            const obj = inlineObjects[objId];
-            const embeddedObj = obj && obj.inlineObjectProperties && obj.inlineObjectProperties.embeddedObject;
-            const srcUrl = embeddedObj && embeddedObj.imageProperties && embeddedObj.imageProperties.contentUri;
-            if (srcUrl) {
-              images.push({ url: srcUrl, index });
-            }
-          }
-        });
-
-        if (txt) {
-          rawParagraphs.push({ text: txt, index });
-        }
-      }
+    const docRes = await docs.documents.get({ 
+      documentId: docId,
+      includeTabsContent: true 
     });
-
-    let currentDate = null;
+    const doc = docRes.data;
     const parsedRecords = [];
-
-    // Sort nameResolver keys by length descending to match full names first
     const searchKeys = Array.from(nameResolver.keys()).sort((a, b) => b.length - a.length);
 
-    rawParagraphs.forEach(p => {
-      // Check if paragraph is just a date
-      const dateMatch = p.text.match(/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/);
-      if (dateMatch) {
-        const parsed = parseDDMMYYYYDate(p.text);
-        if (parsed) {
-          currentDate = parsed;
-          return;
+    // Default root properties
+    const rootInlineObjects = doc.inlineObjects || {};
+    let tabsToProcess = [];
+    
+    let leadName = 'OJT Lead'; // Default fallback
+    
+    if (doc.tabs && doc.tabs.length > 0) {
+      // First tab title usually contains the Lead's name based on organizational format
+      if (doc.tabs[0].tabProperties && doc.tabs[0].tabProperties.title) {
+        leadName = doc.tabs[0].tabProperties.title.trim();
+      }
+    }
+
+    function flattenTabs(tabsArray, result = []) {
+      if (!tabsArray) return result;
+      for (const t of tabsArray) {
+        let tabInlineObjects = rootInlineObjects;
+        if (t.documentTab && t.documentTab.inlineObjects) {
+          tabInlineObjects = { ...rootInlineObjects, ...t.documentTab.inlineObjects };
+        }
+        
+        result.push({
+          title: t.tabProperties.title,
+          content: t.documentTab && t.documentTab.body ? t.documentTab.body.content : [],
+          inlineObjects: tabInlineObjects
+        });
+        if (t.childTabs) {
+          flattenTabs(t.childTabs, result);
         }
       }
+      return result;
+    }
 
-      // Check if paragraph contains a phone number
-      const phoneMatches = p.text.match(/\b\d{10,13}\b/g) || [];
-      if (phoneMatches.length > 0) {
-        const lowerText = p.text.toLowerCase();
+    if (doc.tabs && doc.tabs.length > 0) {
+      tabsToProcess = flattenTabs(doc.tabs);
+    } else if (doc.body && doc.body.content) {
+      tabsToProcess.push({
+        title: 'Unassigned',
+        content: doc.body.content,
+        inlineObjects: rootInlineObjects
+      });
+    }
+
+    tabsToProcess.forEach(tabData => {
+      const rawParagraphs = [];
+      const images = [];
+
+      let index = 0;
+      tabData.content.forEach(el => {
+        if (el.paragraph) {
+          index++;
+          let txt = '';
+          el.paragraph.elements.forEach(e => {
+            if (e.textRun && e.textRun.content) {
+              txt += e.textRun.content;
+            }
+            if (e.inlineObjectElement) {
+              const objId = e.inlineObjectElement.inlineObjectId;
+              const obj = tabData.inlineObjects[objId];
+              const embeddedObj = obj && obj.inlineObjectProperties && obj.inlineObjectProperties.embeddedObject;
+              const srcUrl = embeddedObj && embeddedObj.imageProperties && embeddedObj.imageProperties.contentUri;
+              if (srcUrl) {
+                images.push({ url: srcUrl, index });
+              }
+            }
+          });
+
+          if (txt.trim()) {
+            rawParagraphs.push({ text: txt.trim(), index });
+          }
+        }
+      });
+
+      let currentDate = null;
+      let pendingPhone = null;
+      let pendingIndex = -1;
+      let foundSuggestion = false;
+      let suggestionText = '';
+
+      for (let i = 0; i < rawParagraphs.length; i++) {
+        const p = rawParagraphs[i];
+
+        // 1. Check if date
+        const dateMatch = p.text.match(/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/);
+        if (dateMatch) {
+          const parsed = parseDDMMYYYYDate(p.text);
+          if (parsed) currentDate = parsed;
+          continue;
+        }
+
+        // 2. Check if phone number
+        const phoneMatches = p.text.match(/\b\d{10,13}\b/g) || [];
+        if (phoneMatches.length > 0) {
+          // If we had a previous pending phone but no feedback followed, save it as is.
+          if (pendingPhone) {
+            saveParsedRecord();
+          }
+          pendingPhone = phoneMatches[0].trim();
+          pendingIndex = p.index;
+          suggestionText = p.text.replace(pendingPhone, '').trim();
+          foundSuggestion = suggestionText.length > 10;
+          continue;
+        }
+
+        // 3. If we have a pending phone and need feedback text
+        if (pendingPhone && !foundSuggestion) {
+          suggestionText += (suggestionText ? ' ' : '') + p.text;
+          // Keep reading paragraphs until we hit the next phone number or date
+          // For simplicity, we assume the next non-date, non-phone paragraph is the full feedback
+          saveParsedRecord();
+        }
+      }
+      
+      // Flush any trailing record
+      if (pendingPhone) {
+        saveParsedRecord();
+      }
+
+      function saveParsedRecord() {
         let matchedIntern = 'Unassigned';
         
+        // Strategy A: Check if Tab Title matches an intern name perfectly
+        const cleanTabTitle = tabData.title.toLowerCase().trim();
         for (const nameKey of searchKeys) {
-          if (lowerText.includes(nameKey)) {
+          if (cleanTabTitle.includes(nameKey)) {
             matchedIntern = nameResolver.get(nameKey);
             break;
           }
         }
-
-        // Fallback checks for common spelling variations
+        
+        // Strategy B: Scan the feedback text for intern mentions
         if (matchedIntern === 'Unassigned') {
-          if (lowerText.includes('sayali')) {
-            matchedIntern = 'Sayali';
+          const lowerText = suggestionText.toLowerCase();
+          for (const nameKey of searchKeys) {
+            if (lowerText.includes(nameKey)) {
+              matchedIntern = nameResolver.get(nameKey);
+              break;
+            }
           }
+        }
+
+        // Fallback checks
+        if (matchedIntern === 'Unassigned' && suggestionText.toLowerCase().includes('sayali')) {
+          matchedIntern = 'Sayali';
+        }
+
+        // Apply Tab Owner Default if still Unassigned (and not a generic lead title)
+        if (matchedIntern === 'Unassigned' && !cleanTabTitle.includes('team') && cleanTabTitle !== leadName.toLowerCase()) {
+           // We assign it to the tab title exactly if we couldn't match it in registry
+           matchedIntern = tabData.title.trim();
         }
 
         let resolvedBatch = batchName;
@@ -188,37 +280,40 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
         if (BATCH_OVERRIDES[cleanName]) {
           resolvedBatch = BATCH_OVERRIDES[cleanName];
         }
+        
+        // Grab nearby images
+        const nearbyImages = images.filter(img => Math.abs(img.index - pendingIndex) <= 15);
+        let screenshotFallback = null;
+        if (nearbyImages.length > 0) {
+          // Sort by proximity
+          nearbyImages.sort((a, b) => Math.abs(a.index - pendingIndex) - Math.abs(b.index - pendingIndex));
+          screenshotFallback = nearbyImages[0].url;
+        }
 
-        phoneMatches.forEach(num => {
-          parsedRecords.push({
-            internName: matchedIntern,
-            chatDate: currentDate || new Date().toISOString().split('T')[0],
-            number: num.trim(),
-            summary: p.text,
-            index: p.index,
-            batch: resolvedBatch,
-            auditor: 'OJT Lead'
-          });
+        parsedRecords.push({
+          internName: matchedIntern,
+          chatDate: currentDate || new Date().toISOString().split('T')[0],
+          number: pendingPhone,
+          summary: suggestionText || pendingPhone,
+          index: pendingIndex,
+          batch: resolvedBatch,
+          auditor: leadName,
+          screenshotTempUrl: screenshotFallback
         });
+        
+        pendingPhone = null;
+        pendingIndex = -1;
+        suggestionText = '';
+        foundSuggestion = false;
       }
     });
 
-    // Map closest images to records and download locally in rate-limit safe chunks of 5
+    // Download closest images locally in chunks
     const chunkSize = 5;
     for (let i = 0; i < parsedRecords.length; i += chunkSize) {
       const chunk = parsedRecords.slice(i, i + chunkSize);
       await Promise.all(chunk.map(async (rec) => {
-        if (images.length === 0) return;
-        let closestImg = images[0];
-        let minDistance = Math.abs(rec.index - closestImg.index);
-        for (let k = 1; k < images.length; k++) {
-          const dist = Math.abs(rec.index - images[k].index);
-          if (dist < minDistance) {
-            minDistance = dist;
-            closestImg = images[k];
-          }
-        }
-        if (minDistance <= 10) {
+        if (rec.screenshotTempUrl) {
           const imgName = `${rec.number || rec.index}.png`;
           const localRelPath = `/qc-images/${rec.batch}/${imgName}`;
           const localAbsPath = path.join(rootDir, 'public', 'qc-images', rec.batch, imgName);
@@ -232,15 +327,16 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
             rec.screenshot = localRelPath;
           } else {
             try {
-              const response = await axios.get(closestImg.url, { responseType: 'arraybuffer', timeout: 10000 });
+              const response = await axios.get(rec.screenshotTempUrl, { responseType: 'arraybuffer', timeout: 10000 });
               fs.writeFileSync(localAbsPath, Buffer.from(response.data));
-              rec.screenshot = localRelPath; // Save static local path
+              rec.screenshot = localRelPath;
             } catch (err) {
               console.warn(`[DocSync] Failed to download image for ${rec.internName} (${rec.number}):`, err.message);
-              rec.screenshot = closestImg.url; // Expired fallback
+              rec.screenshot = rec.screenshotTempUrl;
             }
           }
         }
+        delete rec.screenshotTempUrl;
       }));
     }
 
@@ -251,8 +347,35 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
   }
 }
 
+function getBatchDocMap() {
+  const CONFIG_FILE = path.join(__dirname, '../../server-config.json');
+  try {
+    const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    const map = {};
+    if (config.batchDocLinks) {
+      for (const [key, link] of Object.entries(config.batchDocLinks)) {
+        const batch = key.split('|')[0];
+        const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
+        if (match && match[1]) {
+          map[batch] = match[1];
+        }
+      }
+    }
+    return map;
+  } catch(e) {
+    return {
+      'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
+      'B-19': '1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc',
+      'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
+      'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
+      'B-16': '1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs',
+      'B-15': '1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM'
+    };
+  }
+}
+
 /**
- * Dynamically queries Google Drive for all shared Google Docs, auto-detects batches, and parses them
+ * Parses all specific Google Docs in the BATCH_DOC_MAP
  */
 async function syncAndParseAllDocs() {
   const docs = googleService.getDocs();
@@ -265,31 +388,28 @@ async function syncAndParseAllDocs() {
   const nameResolver = buildInternNameResolver();
   let allRecords = [];
 
-  console.log('[DocSync] Searching Google Drive for shared QC Google Docs...');
+  console.log('[DocSync] Fetching specific QC Google Docs...');
   let driveDocs = [];
+  const batchDocMap = getBatchDocMap();
   try {
-    const res = await drive.files.list({
-      q: "mimeType = 'application/vnd.google-apps.document' and trashed = false",
-      fields: "files(id, name, modifiedTime)",
-      pageSize: 100
+    const fetchPromises = Object.entries(batchDocMap).map(async ([batch, id]) => {
+      try {
+        const res = await drive.files.get({
+          fileId: id,
+          fields: 'id, name, modifiedTime'
+        });
+        if (res.data) {
+          driveDocs.push({ id: res.data.id, name: res.data.name, batch, modifiedTime: res.data.modifiedTime });
+        }
+      } catch (err) {
+        console.warn(`[DocSync] Could not fetch Drive metadata for ${batch} doc (${id}):`, err.message);
+      }
     });
     
-    const files = res.data.files || [];
-    files.forEach(f => {
-      let batch = 'B-20'; // default fallback
-      const name = f.name.toLowerCase();
-      if (name.includes('batch 20') || name.includes('b-20') || name.includes('b20')) batch = 'B-20';
-      else if (name.includes('batch 19') || name.includes('b-19') || name.includes('b19')) batch = 'B-19';
-      else if (name.includes('batch 18') || name.includes('b-18') || name.includes('b18')) batch = 'B-18';
-      else if (name.includes('batch 17') || name.includes('b-17') || name.includes('b17')) batch = 'B-17';
-      else if (name.includes('batch 16') || name.includes('b-16') || name.includes('b16')) batch = 'B-16';
-      else if (name.includes('batch 15') || name.includes('b-15') || name.includes('b-15') || name.includes("vishal's")) batch = 'B-15';
-      
-      driveDocs.push({ id: f.id, name: f.name, batch, modifiedTime: f.modifiedTime });
-    });
+    await Promise.all(fetchPromises);
     console.log(`[DocSync] Discovered ${driveDocs.length} shared Google Docs to parse.`);
   } catch (err) {
-    console.error('[DocSync] Error discovering docs from Drive:', err.message);
+    console.error('[DocSync] Error fetching docs from Drive:', err.message);
   }
 
   // Parse all discovered documents

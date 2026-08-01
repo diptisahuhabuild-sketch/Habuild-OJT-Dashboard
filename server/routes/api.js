@@ -102,19 +102,47 @@ router.get('/data', (req, res) => {
   });
 });
 
-const BATCH_DOC_MAP = {
-  'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
-  'B-19': '1FxNFq6zMx-BtVPuthjGEntc6qHPjmQeMeB1Vj4K18B0',
-  'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
-  'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
-  'B-16': '1j2r2gU_L-2GIDm0zB_LfUbSS3e1i_frz3w-GzH4kzc4',
-  'B-15': '11DLvt-pt9ligWDE6mP6BdtT23XWuYJ2UYwiValnJIQw'
-};
+// Dedicated QC Docs Endpoint (Lazy Loaded by UI)
+router.get('/qc-docs', (req, res) => {
+  const qcDocData = googleDocSyncService.getCachedQCMistakes();
+  res.json({
+    success: true,
+    data: qcDocData
+  });
+});
+
+function getBatchDocMap() {
+  try {
+    const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    const map = {};
+    if (config.batchDocLinks) {
+      for (const [key, link] of Object.entries(config.batchDocLinks)) {
+        const batch = key.split('|')[0];
+        const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
+        if (match && match[1]) {
+          map[batch] = match[1];
+        }
+      }
+    }
+    return map;
+  } catch(e) {
+    return {
+      'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
+      'B-19': '1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc',
+      'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
+      'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
+      'B-16': '1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs',
+      'B-15': '1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM'
+    };
+  }
+}
+
 
 // Real-time QC Google Doc image parser endpoint
 router.get('/qc-images', async (req, res) => {
   const batch = req.query.batch || 'B-19';
-  const docId = BATCH_DOC_MAP[batch.toUpperCase().trim()] || BATCH_DOC_MAP['B-19'];
+  const batchMap = getBatchDocMap();
+  const docId = batchMap[batch.toUpperCase().trim()] || batchMap['B-19'];
   const docs = googleService.getDocs();
 
   if (!docs) {
