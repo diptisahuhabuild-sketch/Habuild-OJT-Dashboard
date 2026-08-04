@@ -2911,10 +2911,22 @@ document.addEventListener('DOMContentLoaded', () => {
         internBatchMap.set(i.name.toLowerCase().trim(), normalizeBatchName(i.batch));
       }
     });
+    // Lazy load QC docs from server to avoid initial payload bloat
+    if (!state.data) state.data = {};
+    if (!state.data.qcDocData || state.data.qcDocData.length === 0) {
+      try {
+        const res = await fetch('/api/qc-docs');
+        const json = await res.json();
+        if (json.success && json.data) {
+          state.data.qcDocData = json.data;
+        }
+      } catch (err) {
+        console.error('Failed to fetch QC docs lazily:', err);
+      }
+    }
 
-    const rawDocRecords = (state.data && state.data.qcDocData) || [];
+    const rawDocRecords = state.data.qcDocData || [];
     const records = [];
-
     rawDocRecords.forEach(rec => {
       if (!rec.internName) return;
 
