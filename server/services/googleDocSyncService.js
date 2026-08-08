@@ -18,8 +18,6 @@ const defaultInternNames = [
 ];
 
 const BATCH_OVERRIDES = {
-  'ketki motghare': 'B-12',
-  'ketki': 'B-12',
   'charul': 'B-15',
   'sana': 'B-17',
   'vaishnavi': 'B-15',

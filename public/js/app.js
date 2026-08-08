@@ -1396,16 +1396,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // Calculate Current & Previous stats
       const statsCurrent = calculateStatsForDates(reg, datesInRange);
       let statsPrev = null;
-      let trend = "▬ Stable";
+      let trend = "-";
       
       if (prevDatesList.length > 0) {
         statsPrev = calculateStatsForDates(reg, prevDatesList);
         const scoreCurrent = getWeightedScore(statsCurrent);
         const scorePrev = getWeightedScore(statsPrev);
-        if (scoreCurrent > scorePrev + 1.5) {
+        if (scoreCurrent === 0 && scorePrev === 0) {
+          trend = "-";
+        } else if (scoreCurrent > scorePrev + 1.5) {
           trend = "▲ Improving";
         } else if (scoreCurrent < scorePrev - 1.5) {
           trend = "▼ Declining";
+        } else {
+          trend = "▬ Stable";
         }
       }
       
@@ -1417,8 +1421,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const b20 = state.data.b20Reporting;
         
         // 1. Daily Data Override
-        if (b20.daily && b20.daily[cleanName]) {
-          const dailyLog = b20.daily[cleanName];
+        const dailyKeys = Object.keys(b20.daily || {});
+        let dMatch = dailyKeys.find(k => k === cleanName);
+        if (!dMatch) {
+          dMatch = dailyKeys.find(k => strictNameMatch(k, cleanName) || k.includes(cleanName.split(' ')[0]));
+        }
+
+        if (dMatch && b20.daily[dMatch]) {
+          const dailyLog = b20.daily[dMatch];
           // Determine date to pick (today, yesterday, or most recent)
           // If activeFilter is a specific range, we could pick the most recent day in that range.
           // For simplicity and per user request, pick the most recent day available.
@@ -1443,8 +1453,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 2. Weekly Data Override
-        if (b20.weekly && b20.weekly[cleanName]) {
-          const wLog = b20.weekly[cleanName];
+        const weeklyKeys = Object.keys(b20.weekly || {});
+        let wMatch = weeklyKeys.find(k => k === cleanName);
+        if (!wMatch) {
+           wMatch = weeklyKeys.find(k => {
+             const cleanK = k.replace(/\(.*\)/g, '').trim();
+             return strictNameMatch(cleanK, cleanName) || cleanK.includes(cleanName.split(' ')[0]);
+           });
+        }
+
+        if (wMatch && b20.weekly[wMatch]) {
+          const wLog = b20.weekly[wMatch];
           let weekData = null;
           if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
             weekData = wLog.average;
@@ -1458,7 +1477,11 @@ document.addEventListener('DOMContentLoaded', () => {
             statsCurrent.errorPct = weekData.errorPct;
             statsCurrent.ojtRtg = weekData.ojtRtg;
             trend = weekData.trend;
+          } else {
+            trend = "-";
           }
+        } else {
+          trend = "-";
         }
       }
 
@@ -1543,8 +1566,15 @@ document.addEventListener('DOMContentLoaded', () => {
           return `<td class="${colorClass} font-semibold">${num.toFixed(2)}</td>`;
         }
         if (col === 'trend') {
-          const trendClass = val.includes('▼') ? 'color-red' : (val.includes('▲') ? 'color-green' : 'color-amber');
-          return `<td class="${trendClass} font-bold">${val}</td>`;
+          if (!val || val === '-' || val === "No Data") return `<td class="text-center font-bold text-gray-400">-</td>`;
+          if (val.includes('↓') || val.includes('▼') || val.toLowerCase().includes('declining') || val.toLowerCase().includes('bad')) {
+            return `<td class="color-red font-bold text-center text-lg" title="Bad">↓</td>`;
+          } else if (val.includes('↑') || val.includes('▲') || val.toLowerCase().includes('improving') || val.toLowerCase().includes('good')) {
+            return `<td class="color-green font-bold text-center text-lg" title="Good">↑</td>`;
+          } else if (val.includes('↕') || val.includes('▬') || val.toLowerCase().includes('stable')) {
+            return `<td class="text-blue-500 font-bold text-center text-lg" title="Stable">↕</td>`;
+          }
+          return `<td class="font-bold text-center">${val}</td>`;
         }
         if (col === 'action') {
           return `<td><button class="btn btn-xs btn-primary font-semibold" onclick="window.viewInternQCDoc('${encodeURIComponent(row.intern)}')">📄 QC Doc</button></td>`;

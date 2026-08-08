@@ -133,6 +133,15 @@ async function syncInternsRegistryFromGoogleSheet() {
       }
 
       const batch = batchIdx >= 0 && row[batchIdx] ? String(row[batchIdx]).trim() : '';
+      
+      // Feature: Ignore old batches prior to 15
+      let batchNum = 0;
+      const bMatch = batch.match(/\d+/);
+      if (bMatch) batchNum = parseInt(bMatch[0], 10);
+      if (batchNum > 0 && batchNum < 15) {
+        continue;
+      }
+
       const shift = shiftIdx >= 0 && row[shiftIdx] ? String(row[shiftIdx]).trim() : '';
       const processName = processIdx >= 0 && row[processIdx] ? String(row[processIdx]).trim() : 'Success Squad';
       const designation = designationIdx >= 0 && row[designationIdx] ? String(row[designationIdx]).trim() : 'OJT Intern';
@@ -755,16 +764,17 @@ async function syncBatch20ReportingData() {
       }
     }
 
-    // 2. Fetch Weekly
-    const weeklyRes = await sheets.spreadsheets.values.get({
+    // 2. Fetch Weekly (from both sheets since some B20 interns are in ALL team sheet)
+    const weeklyRes = await sheets.spreadsheets.values.batchGet({
       spreadsheetId,
-      range: ' Batch-20 Weekly score card!A1:N1000'
+      ranges: [' Batch-20 Weekly score card!A1:N1000', "ALL team's weekly scorecard!A1:N1000"]
     });
-    const rows = weeklyRes.data.values;
-    let currentIntern = null;
     
-    if (rows) {
-      for (let r = 0; r < rows.length; r++) {
+    let currentIntern = null;
+    if (weeklyRes.data.valueRanges) {
+      for (const rangeData of weeklyRes.data.valueRanges) {
+        const rows = rangeData.values || [];
+        for (let r = 0; r < rows.length; r++) {
         const row = rows[r];
         if (!row || row.length === 0) continue;
         const col0 = (row[0] || '').trim();
@@ -789,9 +799,12 @@ async function syncBatch20ReportingData() {
                scanned, qcs, errorPct, ojtRtg, trend,
                valid: scanned > 0 || qcs > 0 || ojtRtg > 0
              });
+          } else if (weekLabel.toLowerCase().replace(/\s+/g, ' ').includes('ojt all')) {
+             currentData.weekly[currentIntern].allTimeTrend = row[13] || '-';
           }
         }
       }
+    }
     }
     
     Object.keys(currentData.weekly).forEach(key => {
@@ -813,7 +826,7 @@ async function syncBatch20ReportingData() {
            qcs: totalQCs,
            errorPct: totalScanned > 0 ? (totalQCs / totalScanned) * 100 : 0,
            ojtRtg: totalOjtRtg / validWeeks.length,
-           trend: recent ? recent.trend : '-'
+           trend: intern.allTimeTrend || (recent ? recent.trend : '-')
          };
        }
        intern.recent = recent;
