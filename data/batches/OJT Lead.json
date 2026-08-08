@@ -1,0 +1,66 @@
+{
+  "interns": [
+    {
+      "name": "Priyanshu shashtrakar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917558390024",
+      "email": "Priyanshushastrakar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Nilesh Nandanwar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917620589481",
+      "email": "nileshnandanwar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Samiksha Randai",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "919284786693",
+      "email": "samiksharandai.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Sonali Landge",
+      "batch": "OJT Lead",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "918308593734",
+      "email": "sonalilandge.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Rashi Vazirani",
+      "batch": "OJT Lead",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "918208225342",
+      "email": "rashivazirani.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    }
+  ],
+  "qcDocs": [],
+  "sheets": []
+}

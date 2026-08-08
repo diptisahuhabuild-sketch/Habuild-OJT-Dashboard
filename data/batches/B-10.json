@@ -1,0 +1,114 @@
+{
+  "interns": [
+    {
+      "name": "Samarpan Ajay Gorlewar",
+      "batch": "Batch 10",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "7719840895",
+      "email": "samarpang.habuild@gmail.com",
+      "remark": "Exit on 5th October 2025 - resign",
+      "status": "inactive"
+    },
+    {
+      "name": "Nilesh",
+      "batch": "Batch 10",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Dhanshree",
+      "phone": "7620589481",
+      "email": "nileshnandanwar.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Trupti Korke",
+      "batch": "Batch 10",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7757008349",
+      "email": "truptikorke.habuild@gmail.com",
+      "remark": "Exit due to college study",
+      "status": "inactive"
+    },
+    {
+      "name": "Priyal Meshram",
+      "batch": "Batch 10",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "7620995887",
+      "email": "priyalmeshram.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Prashik Gujar",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Ganesh",
+      "phone": "9325373253",
+      "email": "prashikgujar.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Jyoti Mohadikar",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "8329739520",
+      "email": "jyotimohadikar.habuild@gmail.com",
+      "remark": "Exit",
+      "status": "inactive"
+    },
+    {
+      "name": "Mayuri Dhanraj Kokarde",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "9699115692",
+      "email": "mayurikokarde.habuild@gmail.com",
+      "remark": "Exit",
+      "status": "inactive"
+    },
+    {
+      "name": "Spandhan Kotangle",
+      "batch": "Batch 10",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Harshalata",
+      "phone": "9518591182",
+      "email": "spandhankotangle.habuild@gmail.com",
+      "remark": "Resign",
+      "status": "active"
+    },
+    {
+      "name": "Priyanka",
+      "batch": "Batch 10",
+      "shift": "-",
+      "process": "-",
+      "designation": "-",
+      "lead": "-",
+      "phone": "9359521910",
+      "email": "priyankanaik.habuild@gmail.com",
+      "remark": "quit the job between the training",
+      "status": "active"
+    }
+  ],
+  "qcDocs": [],
+  "sheets": []
+}

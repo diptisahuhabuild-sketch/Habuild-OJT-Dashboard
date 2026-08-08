@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'action'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'aiRtg', 'arst', 'frt', 'break', 'trend', 'action'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     complexQ: 'Complex Q',
     aiRtg: 'AI Rtg',
     arst: 'ARST',
+    frt: 'FRT',
     break: 'Break',
     trend: 'Trend',
     action: 'Action'
@@ -1099,9 +1100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('internScorecardTbody');
     if (!theadTr || !tbody) return;
 
-    // Filter active columns
     const cols = state.internCustomCols.filter(col => {
-      if (!state.includeKomalAI && ['simpleQ', 'complexQ', 'aiRtg', 'arst', 'break'].includes(col)) {
+      if (!state.includeKomalAI && ['simpleQ', 'complexQ', 'aiRtg', 'arst', 'frt', 'break'].includes(col)) {
         return false;
       }
       return true;
@@ -1408,12 +1408,65 @@ document.addEventListener('DOMContentLoaded', () => {
           trend = "▼ Declining";
         }
       }
+      
+      let frtVal = "No Data";
+
+      // Override with Static Reporting Data for Batch 20
+      if (regBatch === 'B-20' && state.data && state.data.b20Reporting) {
+        const cleanName = reg.name.toLowerCase().trim();
+        const b20 = state.data.b20Reporting;
+        
+        // 1. Daily Data Override
+        if (b20.daily && b20.daily[cleanName]) {
+          const dailyLog = b20.daily[cleanName];
+          // Determine date to pick (today, yesterday, or most recent)
+          // If activeFilter is a specific range, we could pick the most recent day in that range.
+          // For simplicity and per user request, pick the most recent day available.
+          const availableDates = Object.keys(dailyLog).sort();
+          let targetDate = null;
+          
+          if (state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY') {
+             const { startStr } = getDateRangeFromFilter(state.dateFilter);
+             if (dailyLog[startStr]) targetDate = startStr;
+          }
+          if (!targetDate && availableDates.length > 0) {
+             targetDate = availableDates[availableDates.length - 1];
+          }
+          
+          if (targetDate) {
+            const dLog = dailyLog[targetDate];
+            if (dLog.aiRtg && dLog.aiRtg !== '-') statsCurrent.aiRtg = dLog.aiRtg;
+            if (dLog.arst && dLog.arst !== '-') statsCurrent.arstVal = dLog.arst;
+            if (dLog.breakVal && dLog.breakVal !== '-') statsCurrent.breakVal = dLog.breakVal;
+            if (dLog.frt && dLog.frt !== '-') frtVal = dLog.frt;
+          }
+        }
+        
+        // 2. Weekly Data Override
+        if (b20.weekly && b20.weekly[cleanName]) {
+          const wLog = b20.weekly[cleanName];
+          let weekData = null;
+          if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
+            weekData = wLog.average;
+          } else {
+            weekData = wLog.recent;
+          }
+          
+          if (weekData) {
+            statsCurrent.scannedVal = weekData.scanned;
+            statsCurrent.qcs = weekData.qcs;
+            statsCurrent.errorPct = weekData.errorPct;
+            statsCurrent.ojtRtg = weekData.ojtRtg;
+            trend = weekData.trend;
+          }
+        }
+      }
 
       // Format final values for display
       processedRecords.push({
         intern: reg.name,
         batch: regBatch,
-        lead: reg.lead || '-',
+        lead: reg.ojtLead || reg.lead || '-',
         shift: reg.shift || '-',
         phone: reg.phone || '-',
         email: reg.email || '-',
@@ -1429,8 +1482,9 @@ document.addEventListener('DOMContentLoaded', () => {
         simpleQ: statsCurrent.simpleQ,
         complexQ: statsCurrent.complexQ,
         aiRtg: statsCurrent.aiRtg,
-        arst: statsCurrent.arstVal !== "No Data" ? `${statsCurrent.arstVal} Min` : "No Data",
-        break: statsCurrent.breakVal !== "No Data" ? `${(statsCurrent.breakVal / 60).toFixed(2)} hours` : "No Data",
+        arst: statsCurrent.arstVal !== "No Data" && !String(statsCurrent.arstVal).toLowerCase().includes('min') ? `${statsCurrent.arstVal} Min` : statsCurrent.arstVal,
+        frt: frtVal,
+        break: statsCurrent.breakVal !== "No Data" && !isNaN(statsCurrent.breakVal) ? `${(statsCurrent.breakVal / 60).toFixed(2)} hours` : statsCurrent.breakVal,
         trend,
         rawStats: statsCurrent,
         score: getWeightedScore(statsCurrent)

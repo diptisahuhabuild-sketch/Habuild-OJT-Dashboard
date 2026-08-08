@@ -33,64 +33,52 @@ const BATCH_OVERRIDES = {
   'ishika': 'B-15'
 };
 
-/**
- * Dynamically builds a helper map of intern names from registry and sheets.
- * Maps lowercase substrings (first names and full names) to original properly-cased full names.
- */
 function buildInternNameResolver() {
-  const nameMap = new Map(); // lowercase -> original full name
-  const rawNames = new Set(defaultInternNames);
+  const batchNameMap = new Map(); // batchKey -> Map<lowercase -> original full name>
+  const batchesDir = path.join(rootDir, 'data', 'batches');
 
-  // Read config registry
   try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-      if (Array.isArray(config.internsRegistry)) {
-        config.internsRegistry.forEach(i => {
-          if (i.name) rawNames.add(i.name.trim());
-        });
-      }
-    }
-  } catch (e) {
-    console.error('[DocSync] Config read error:', e.message);
-  }
+    if (fs.existsSync(batchesDir)) {
+      const files = fs.readdirSync(batchesDir);
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const batchKey = file.replace('.json', '');
+        const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
+        
+        const nameMap = new Map();
+        const rawNames = new Set();
+        
+        if (batchData.interns && Array.isArray(batchData.interns)) {
+          batchData.interns.forEach(i => {
+            if (i.name) rawNames.add(i.name.trim());
+          });
+        }
+        
+        // Add hardcoded fallback names for legacy data or edge cases
+        defaultInternNames.forEach(name => rawNames.add(name));
 
-  // Read sheet data scan logs
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      const db = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-      if (db && db.scanData) {
-        Object.values(db.scanData).forEach(rows => {
-          if (Array.isArray(rows)) {
-            rows.forEach(r => {
-              if (r.internName) rawNames.add(r.internName.trim());
-            });
+        rawNames.forEach(name => {
+          const clean = name.toLowerCase().trim();
+          if (!clean || clean === 'intern name' || clean === 'wati id' || clean === 'batch 19' || clean === 'calling morning') return;
+          
+          nameMap.set(clean, name);
+
+          const first = clean.split(/\s+/)[0];
+          if (first && first.length > 2) {
+            if (!nameMap.has(first)) {
+              nameMap.set(first, name);
+            }
           }
         });
+        
+        batchNameMap.set(batchKey, nameMap);
       }
     }
   } catch (e) {
-    console.error('[DocSync] Data.json read error:', e.message);
+    console.error('[DocSync] Batches dir read error:', e.message);
   }
 
-  // Populate resolver maps
-  rawNames.forEach(name => {
-    const clean = name.toLowerCase().trim();
-    if (!clean || clean === 'intern name' || clean === 'wati id' || clean === 'batch 19' || clean === 'calling morning') return;
-    
-    // Map full name
-    nameMap.set(clean, name);
-
-    // Map first name (if not already mapped or ambiguous)
-    const first = clean.split(/\s+/)[0];
-    if (first && first.length > 2) {
-      if (!nameMap.has(first)) {
-        nameMap.set(first, name);
-      }
-    }
-  });
-
-  return nameMap;
+  return batchNameMap;
 }
 
 function parseDDMMYYYYDate(str) {
@@ -121,7 +109,8 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
     });
     const doc = docRes.data;
     const parsedRecords = [];
-    const searchKeys = Array.from(nameResolver.keys()).sort((a, b) => b.length - a.length);
+    const batchResolver = nameResolver.get(batchName) || new Map();
+    const searchKeys = Array.from(batchResolver.keys()).sort((a, b) => b.length - a.length);
 
     // Default root properties
     const rootInlineObjects = doc.inlineObjects || {};
@@ -248,7 +237,7 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
         const cleanTabTitle = tabData.title.toLowerCase().trim();
         for (const nameKey of searchKeys) {
           if (cleanTabTitle.includes(nameKey)) {
-            matchedIntern = nameResolver.get(nameKey);
+            matchedIntern = batchResolver.get(nameKey);
             break;
           }
         }
@@ -258,7 +247,7 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
           const lowerText = suggestionText.toLowerCase();
           for (const nameKey of searchKeys) {
             if (lowerText.includes(nameKey)) {
-              matchedIntern = nameResolver.get(nameKey);
+              matchedIntern = batchResolver.get(nameKey);
               break;
             }
           }
@@ -348,30 +337,33 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
 }
 
 function getBatchDocMap() {
-  const CONFIG_FILE = path.join(__dirname, '../../server-config.json');
+  const batchesDir = path.join(__dirname, '../../data/batches');
+  const map = {};
+  
   try {
-    const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    const map = {};
-    if (config.batchDocLinks) {
-      for (const [key, link] of Object.entries(config.batchDocLinks)) {
-        const batch = key.split('|')[0];
-        const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (match && match[1]) {
-          map[batch] = match[1];
+    if (fs.existsSync(batchesDir)) {
+      const files = fs.readdirSync(batchesDir);
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
+        const batchKey = file.replace('.json', '');
+        
+        if (batchData.qcDocs && Array.isArray(batchData.qcDocs)) {
+          // We can map multiple docs to one batch in the future, 
+          // but for now, just map the first one and extract the ID
+          if (batchData.qcDocs.length > 0) {
+            const match = batchData.qcDocs[0].match(/\/d\/([a-zA-Z0-9-_]+)/);
+            if (match && match[1]) {
+              map[batchKey] = match[1];
+            }
+          }
         }
       }
     }
-    return map;
   } catch(e) {
-    return {
-      'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
-      'B-19': '1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc',
-      'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
-      'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
-      'B-16': '1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs',
-      'B-15': '1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM'
-    };
+    console.error('[DocSync] Error parsing modular batches:', e);
   }
+  return map;
 }
 
 /**

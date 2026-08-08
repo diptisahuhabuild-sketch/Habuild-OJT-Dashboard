@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { getConfig } = require('../utils/configResolver');
 const http = require('http');
 const https = require('https');
 
@@ -23,17 +24,6 @@ try {
   }
 } catch (e) {
   console.warn('[KomalService] Cache file read note:', e.message);
-}
-
-function getConfig() {
-  try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    }
-  } catch (e) {
-    console.error('[KomalService] Error reading config:', e.message);
-  }
-  return { internsRegistry: [] };
 }
 
 /**

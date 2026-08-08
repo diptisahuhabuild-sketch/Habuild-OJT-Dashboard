@@ -1,0 +1,116 @@
+{
+  "interns": [
+    {
+      "name": "DAMINI ATHAWALE",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "9765967689",
+      "email": "daminiathawale.habuild@gmail.com",
+      "remark": "Exited on 14th May 2026 - given Personal reason",
+      "status": "inactive"
+    },
+    {
+      "name": "Alisha Dupare",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Samiksha",
+      "phone": "8830894281",
+      "email": "alishadupare.habuild@gmail.com",
+      "remark": "Exited on 8th May 2026 - given Personal reason",
+      "status": "inactive"
+    },
+    {
+      "name": "Shivam Durbule",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Sessions team",
+      "designation": "Sessions Intern",
+      "lead": "Sanovar",
+      "phone": "9834907453",
+      "email": "shivamdurbule.habuild.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Tanushree Pawar",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9373281079",
+      "email": "tanupawar.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Fuzail Sheikh",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Sonali",
+      "phone": "9356626979",
+      "email": "fuzailsheikh.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Samyak Kamble",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Nilesh",
+      "phone": "7249270693",
+      "email": "samyakkamble.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Aman Gondane",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Diksha",
+      "phone": "8956426817",
+      "email": "aman.habuild@gmail.com",
+      "remark": "-",
+      "status": "active"
+    },
+    {
+      "name": "Sohail Sheikh",
+      "batch": "Batch 19",
+      "shift": "PM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Priyanshu",
+      "phone": "7057276100",
+      "email": "sohailsheikh.habuild@gmail.com",
+      "remark": "Exited on 16th May 2026 - given Personal reason",
+      "status": "inactive"
+    },
+    {
+      "name": "kalpik ramteke",
+      "batch": "Batch 19",
+      "shift": "AM",
+      "process": "Chat process",
+      "designation": "OJT Intern",
+      "lead": "Rashi",
+      "phone": "9309868713",
+      "email": "kalpikramteke.habuild@gmail.comn",
+      "remark": "-",
+      "status": "active"
+    }
+  ],
+  "qcDocs": [
+    "https://docs.google.com/document/d/1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc/edit"
+  ],
+  "sheets": []
+}

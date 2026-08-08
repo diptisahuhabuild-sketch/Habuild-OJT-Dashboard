@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { getConfig } = require('../utils/configResolver');
 const googleService = require('./googleService');
 
 let sheetCacheMeta = {};
@@ -51,19 +52,7 @@ function normalizeBatchName(batchStr) {
   return clean;
 }
 
-/**
- * Reads server configuration
- */
-function getConfig() {
-  try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    }
-  } catch (e) {
-    console.error('[GoogleSyncService] Error reading config:', e.message);
-  }
-  return { sheets: {}, docs: {}, leads: {}, thresholds: { passRate: 85 } };
-}
+// Removed getConfig since it's now imported from configResolver
 
 /**
  * Syncs the Interns Registry dynamically from the Admin Panel spreadsheet
@@ -167,29 +156,34 @@ async function syncInternsRegistryFromGoogleSheet() {
       });
     }
 
-    const config = getConfig();
-    
-    // Preserve any existing leads (designation OJT Lead or T&D lead) from previous registry
-    const existingLeads = (config.internsRegistry || []).filter(i => 
-      (i.designation && i.designation.toLowerCase().includes('lead')) || 
-      (i.batch && i.batch.toLowerCase().includes('lead'))
-    );
-    
-    // Add any leads that are not already in the newly fetched registry
-    existingLeads.forEach(el => {
-      const exists = registry.some(i => i.name.toLowerCase().trim() === el.name.toLowerCase().trim());
-      if (!exists) {
-        registry.push(el);
+    // Group by Batch
+    const batches = {};
+    registry.forEach(intern => {
+      let batchName = intern.batch || 'UNASSIGNED';
+      if (batchName.toLowerCase().startsWith('batch ')) {
+        batchName = 'B-' + batchName.split(' ')[1];
       }
+      if (!batches[batchName]) batches[batchName] = [];
+      batches[batchName].push(intern);
     });
 
-    config.internsRegistry = registry;
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
-    console.log(`[GoogleSyncService] Successfully synced ${registry.length} interns registry (including preserved leads) from Admin spreadsheet`);
+    // Write to data/batches/*.json
+    const batchesDir = path.join(rootDir, 'data', 'batches');
+    if (!fs.existsSync(batchesDir)) fs.mkdirSync(batchesDir, { recursive: true });
 
-    await googleService.driveUploadFile('server-config.json', CONFIG_FILE).catch(e => {
-      console.warn('[GoogleSyncService] Backup registry to Drive failed:', e.message);
-    });
+    for (const [batchName, interns] of Object.entries(batches)) {
+      const batchFile = path.join(batchesDir, `${batchName}.json`);
+      let batchData = { interns: [], qcDocs: [], sheets: [] };
+      if (fs.existsSync(batchFile)) {
+        try {
+          batchData = JSON.parse(fs.readFileSync(batchFile, 'utf8'));
+        } catch (e) {}
+      }
+      batchData.interns = interns;
+      fs.writeFileSync(batchFile, JSON.stringify(batchData, null, 2));
+    }
+
+    console.log(`[GoogleSyncService] Successfully synced ${registry.length} interns registry to modular batch files.`);
 
   } catch (err) {
     console.error('[GoogleSyncService] Error syncing Admin registry:', err.message);
@@ -677,6 +671,7 @@ async function fetchAndSyncGoogleSheetsData() {
 
     currentData.lastSyncedAt = new Date().toISOString();
     currentData.syncStatus = 'SUCCESS';
+    await syncBatch20ReportingData();
     saveDataToDisk(currentData);
     console.log('[GoogleSyncService] All data sync operations completed successfully!');
 
@@ -703,8 +698,140 @@ function saveDataToDisk(data) {
   }
 }
 
+/**
+ * Syncs the specific "Batch-20 Weekly score card" and "Daily OJT Status"
+ * specifically for Batch 20 as requested by the user, skipping dynamic computation.
+ */
+async function syncBatch20ReportingData() {
+  const currentData = { daily: {}, weekly: {} };
+  try {
+    const spreadsheetId = '1zIWboejoQlUVGFlewYK0Ugtj7nUe8rR7cl29VOCJaB4';
+    console.log(`[GoogleSyncService] Fetching Batch 20 Reporting Data...`);
+    const sheets = googleService.getSheets();
+    if (!sheets) throw new Error("Google Sheets API not initialized");
+
+    // 1. Fetch Daily
+    const dailyRes = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: 'Daily OJT Status!A1:ZZ1000'
+    });
+    const dailyRows = dailyRes.data.values;
+    
+    if (dailyRows && dailyRows.length > 2) {
+      const datesRow = dailyRows[0];
+      const dayBlocks = [];
+      for (let i = 0; i < datesRow.length; i++) {
+        let dateStr = datesRow[i];
+        if (dateStr && typeof dateStr === 'string' && dateStr.includes('Summary_Day')) {
+          let match = dateStr.match(/(\d{1,2})(st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i);
+          if (match) {
+            const monthMap = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+            let month = monthMap[match[3].toLowerCase()];
+            let d = new Date(2026, month, parseInt(match[1], 10));
+            d.setHours(d.getHours() + 5); 
+            let parsedDate = d.toISOString().split('T')[0];
+            dayBlocks.push({ date: parsedDate, startIndex: i });
+          }
+        }
+      }
+      
+      for (let r = 2; r < dailyRows.length; r++) {
+        const row = dailyRows[r];
+        if (!row || row.length === 0) continue;
+        for (const block of dayBlocks) {
+          const idx = block.startIndex;
+          const intern = row[idx];
+          if (intern && intern.trim()) {
+            const cleanName = intern.toLowerCase().trim();
+            if (!currentData.daily[cleanName]) currentData.daily[cleanName] = {};
+            currentData.daily[cleanName][block.date] = {
+              aiRtg: row[idx+6] || "No Data",
+              arst: row[idx+7] || "No Data",
+              frt: row[idx+8] || "No Data",
+              breakVal: row[idx+9] || "No Data"
+            };
+          }
+        }
+      }
+    }
+
+    // 2. Fetch Weekly
+    const weeklyRes = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: ' Batch-20 Weekly score card!A1:N1000'
+    });
+    const rows = weeklyRes.data.values;
+    let currentIntern = null;
+    
+    if (rows) {
+      for (let r = 0; r < rows.length; r++) {
+        const row = rows[r];
+        if (!row || row.length === 0) continue;
+        const col0 = (row[0] || '').trim();
+        if (col0.toLowerCase() === 'intern' || col0.toLowerCase().startsWith('batch')) continue;
+        
+        if (col0 !== '') {
+          currentIntern = col0.toLowerCase();
+          currentData.weekly[currentIntern] = { weeks: [] };
+        }
+        
+        if (currentIntern && currentData.weekly[currentIntern]) {
+          const weekLabel = (row[3] || '').trim();
+          if (weekLabel.toLowerCase().startsWith('week')) {
+             const scanned = parseInt((row[7] || '0').replace(/,/g, ''), 10) || 0;
+             const qcs = parseInt((row[8] || '0').replace(/,/g, ''), 10) || 0;
+             const errorPctStr = row[9] || '0%';
+             let errorPct = parseFloat(errorPctStr.replace('%', '')) || 0;
+             const ojtRtg = parseFloat(row[10]) || 0;
+             const trend = row[13] || '-';
+             currentData.weekly[currentIntern].weeks.push({
+               week: weekLabel,
+               scanned, qcs, errorPct, ojtRtg, trend,
+               valid: scanned > 0 || qcs > 0 || ojtRtg > 0
+             });
+          }
+        }
+      }
+    }
+    
+    Object.keys(currentData.weekly).forEach(key => {
+       const intern = currentData.weekly[key];
+       const validWeeks = intern.weeks.filter(w => w.valid);
+       let recent = validWeeks.length > 0 ? validWeeks[validWeeks.length - 1] : null;
+       
+       let totalScanned = 0, totalQCs = 0, totalOjtRtg = 0;
+       validWeeks.forEach(w => {
+         totalScanned += w.scanned;
+         totalQCs += w.qcs;
+         totalOjtRtg += w.ojtRtg;
+       });
+       
+       let avg = null;
+       if (validWeeks.length > 0) {
+         avg = {
+           scanned: totalScanned,
+           qcs: totalQCs,
+           errorPct: totalScanned > 0 ? (totalQCs / totalScanned) * 100 : 0,
+           ojtRtg: totalOjtRtg / validWeeks.length,
+           trend: recent ? recent.trend : '-'
+         };
+       }
+       intern.recent = recent;
+       intern.average = avg;
+    });
+
+    const outPath = path.join(rootDir, 'data/batches/b20-reporting.json');
+    fs.writeFileSync(outPath, JSON.stringify(currentData, null, 2));
+    console.log(`[GoogleSyncService] Successfully synced B20 Reporting Data to ${outPath}`);
+
+  } catch (err) {
+    console.error('[GoogleSyncService] Batch 20 Reporting sync error:', err.message);
+  }
+}
+
 module.exports = {
   fetchAndSyncGoogleSheetsData,
+  syncBatch20ReportingData,
   parseDDMMYYYYDate,
   saveDataToDisk
 };

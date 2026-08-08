@@ -1,0 +1,30 @@
+{
+  "interns": [
+    {
+      "name": "Dipti Sahu",
+      "batch": "T&D lead",
+      "shift": "9-5",
+      "process": "Success Squad",
+      "designation": "T&D lead",
+      "lead": "Komal",
+      "phone": "917558475797",
+      "email": "diptisahu.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Charudatta Bhumbar",
+      "batch": "T&D lead",
+      "shift": "9-5",
+      "process": "Success Squad",
+      "designation": "T&D lead",
+      "lead": "Dipti",
+      "phone": "917385993467",
+      "email": "charudattabhumar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    }
+  ],
+  "qcDocs": [],
+  "sheets": []
+}

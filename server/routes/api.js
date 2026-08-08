@@ -7,6 +7,7 @@ const googleSyncService = require('../services/googleSyncService');
 const googleDocSyncService = require('../services/googleDocSyncService');
 const komalService = require('../services/komalService');
 const notificationService = require('../services/notificationService');
+const { getConfig } = require('../utils/configResolver');
 
 const rootDir = path.resolve(__dirname, '../../');
 const DATA_FILE = path.join(rootDir, 'data.json');
@@ -23,16 +24,7 @@ function getData() {
   return { scanData: {}, milestones: {}, eodUpdates: [], lastSyncedAt: null };
 }
 
-function getConfig() {
-  try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    }
-  } catch (e) {
-    console.error('[API Router] Error reading server-config.json:', e.message);
-  }
-  return { leads: {}, sheets: {}, docs: {}, thresholds: {}, leadPhones: {}, internsRegistry: [] };
-}
+// Removed getConfig since it's now imported from configResolver
 
 /**
  * Deep merge utility to prevent overwriting nested config objects
@@ -89,8 +81,16 @@ router.get('/data', (req, res) => {
     scanData: {},
     attendanceData: data.attendanceData || {},
     commsChatData: data.commsChatData || {},
-    milestones: {}
+    milestones: {},
+    b20Reporting: {}
   };
+
+  try {
+    const b20Path = path.join(rootDir, 'data/batches/b20-reporting.json');
+    if (fs.existsSync(b20Path)) {
+      lightweightData.b20Reporting = JSON.parse(fs.readFileSync(b20Path, 'utf8'));
+    }
+  } catch(e) {}
 
   res.json({
     success: true,
@@ -109,6 +109,24 @@ router.get('/qc-docs', (req, res) => {
     success: true,
     data: qcDocData
   });
+});
+
+// Real-Time Webhook Endpoint for Google Apps Script triggers
+router.post('/webhook-sync', async (req, res) => {
+  console.log('[API Router] Webhook triggered! Initiating background sync...');
+  
+  // Respond immediately so Google Apps Script doesn't timeout
+  res.json({ success: true, message: 'Sync triggered successfully.' });
+  
+  // Trigger background updates
+  try {
+    await googleSyncService.syncInternsRegistryFromGoogleSheet();
+    await googleSyncService.syncAllSheets();
+    await googleDocSyncService.syncAndParseAllDocs();
+    console.log('[API Router] Webhook background sync completed.');
+  } catch (err) {
+    console.error('[API Router] Webhook sync error:', err.message);
+  }
 });
 
 function getBatchDocMap() {
