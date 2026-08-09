@@ -1,0 +1,6471 @@
+{
+  "daily": {},
+  "weekly": {
+    "sohail sheikh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "1",
+          "avgChat": 40,
+          "chats": 40,
+          "scanned": 42,
+          "qcs": 5,
+          "errorPct": 11.9,
+          "ojtRtg": 3.3,
+          "aiRtg": 4.38,
+          "arst": "2.31 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 68,
+          "chats": 408,
+          "scanned": 254,
+          "qcs": 29,
+          "errorPct": 11.42,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.39,
+          "arst": "2.79 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "3",
+          "avgChat": 64,
+          "chats": 192,
+          "scanned": 167,
+          "qcs": 12,
+          "errorPct": 7.19,
+          "ojtRtg": 3.28,
+          "aiRtg": 4.56,
+          "arst": "1.45 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "4",
+          "avgChat": 88,
+          "chats": 353,
+          "scanned": 205,
+          "qcs": 12,
+          "errorPct": 5.85,
+          "ojtRtg": 3.18,
+          "aiRtg": 4.49,
+          "arst": "1.46 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "5",
+          "avgChat": 97,
+          "chats": 486,
+          "scanned": 200,
+          "qcs": 12,
+          "errorPct": 6,
+          "ojtRtg": 3.22,
+          "aiRtg": 4.35,
+          "arst": "1.29 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "1",
+          "avgChat": 40,
+          "chats": 40,
+          "scanned": 42,
+          "qcs": 5,
+          "errorPct": 11.9,
+          "ojtRtg": 3.3,
+          "aiRtg": 4.38,
+          "arst": "2.31 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 68,
+          "chats": 408,
+          "scanned": 254,
+          "qcs": 29,
+          "errorPct": 11.42,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.39,
+          "arst": "2.79 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 68,
+        "chats": 408,
+        "scanned": 254,
+        "qcs": 29,
+        "errorPct": 11.42,
+        "ojtRtg": 3.17,
+        "aiRtg": 4.39,
+        "arst": "2.79 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 1164,
+        "qcs": 104,
+        "errorPct": 8.93,
+        "ojtRtg": 3.23,
+        "aiRtg": 4.42,
+        "trend": "↓"
+      }
+    },
+    "tanushree": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 48,
+          "chats": 145,
+          "scanned": 112,
+          "qcs": 11,
+          "errorPct": 9.82,
+          "ojtRtg": 3.05,
+          "aiRtg": 4.42,
+          "arst": "2.38 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 68,
+          "chats": 273,
+          "scanned": 125,
+          "qcs": 10,
+          "errorPct": 8,
+          "ojtRtg": 3.19,
+          "aiRtg": 4.44,
+          "arst": "2.49 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "4",
+          "avgChat": 97,
+          "chats": 387,
+          "scanned": 160,
+          "qcs": 16,
+          "errorPct": 10,
+          "ojtRtg": 3.21,
+          "aiRtg": 4.55,
+          "arst": "1.39 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "6",
+          "avgChat": 112,
+          "chats": 674,
+          "scanned": 191,
+          "qcs": 5,
+          "errorPct": 2.62,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.55,
+          "arst": "1.07 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "4",
+          "avgChat": 133,
+          "chats": 531,
+          "scanned": 149,
+          "qcs": 5,
+          "errorPct": 3.36,
+          "ojtRtg": 3.13,
+          "aiRtg": 4.54,
+          "arst": "1.03 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "4",
+          "avgChat": 165,
+          "chats": 660,
+          "scanned": 150,
+          "qcs": 4,
+          "errorPct": 2.67,
+          "ojtRtg": 3.19,
+          "aiRtg": 4.57,
+          "arst": "0.93 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "3",
+          "avgChat": 154,
+          "chats": 461,
+          "scanned": 40,
+          "qcs": 14,
+          "errorPct": 35,
+          "ojtRtg": 2.53,
+          "aiRtg": 4.12,
+          "arst": "1.02 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "5",
+          "avgChat": 117,
+          "chats": 589,
+          "scanned": 73,
+          "qcs": 7,
+          "errorPct": 9.59,
+          "ojtRtg": 2.95,
+          "aiRtg": 4.27,
+          "arst": "1.16 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "5",
+          "avgChat": 188,
+          "chats": 941,
+          "scanned": 36,
+          "qcs": 16,
+          "errorPct": 44.44,
+          "ojtRtg": 2.33,
+          "aiRtg": 4.22,
+          "arst": "1.10 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "5",
+          "avgChat": 167,
+          "chats": 835,
+          "scanned": 20,
+          "qcs": 5,
+          "errorPct": 25,
+          "ojtRtg": 2.67,
+          "aiRtg": 4.03,
+          "arst": "0.79 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 48,
+          "chats": 145,
+          "scanned": 112,
+          "qcs": 11,
+          "errorPct": 9.82,
+          "ojtRtg": 3.05,
+          "aiRtg": 4.42,
+          "arst": "2.38 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 68,
+          "chats": 273,
+          "scanned": 125,
+          "qcs": 10,
+          "errorPct": 8,
+          "ojtRtg": 3.19,
+          "aiRtg": 4.44,
+          "arst": "2.49 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4",
+        "avgChat": 68,
+        "chats": 273,
+        "scanned": 125,
+        "qcs": 10,
+        "errorPct": 8,
+        "ojtRtg": 3.19,
+        "aiRtg": 4.44,
+        "arst": "2.49 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 1293,
+        "qcs": 114,
+        "errorPct": 8.82,
+        "ojtRtg": 2.97,
+        "aiRtg": 4.38,
+        "trend": "↕"
+      }
+    },
+    "alisha dupare": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 37,
+          "chats": 113,
+          "scanned": 78,
+          "qcs": 8,
+          "errorPct": 10.26,
+          "ojtRtg": 3.12,
+          "aiRtg": 4.53,
+          "arst": "5.66 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 53,
+          "chats": 267,
+          "scanned": 210,
+          "qcs": 29,
+          "errorPct": 13.81,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.42,
+          "arst": "3.55 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "5",
+          "avgChat": 63,
+          "chats": 319,
+          "scanned": 258,
+          "qcs": 25,
+          "errorPct": 9.69,
+          "ojtRtg": 3.31,
+          "aiRtg": 4.44,
+          "arst": "2.71 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "2.5",
+          "avgChat": 53,
+          "chats": 159,
+          "scanned": 65,
+          "qcs": 3,
+          "errorPct": 4.62,
+          "ojtRtg": 3.33,
+          "aiRtg": 4.36,
+          "arst": "2.01 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 37,
+          "chats": 113,
+          "scanned": 78,
+          "qcs": 8,
+          "errorPct": 10.26,
+          "ojtRtg": 3.12,
+          "aiRtg": 4.53,
+          "arst": "5.66 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 53,
+          "chats": 267,
+          "scanned": 210,
+          "qcs": 29,
+          "errorPct": 13.81,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.42,
+          "arst": "3.55 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 53,
+        "chats": 267,
+        "scanned": 210,
+        "qcs": 29,
+        "errorPct": 13.81,
+        "ojtRtg": 3.26,
+        "aiRtg": 4.42,
+        "arst": "3.55 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 899,
+        "qcs": 102,
+        "errorPct": 11.35,
+        "ojtRtg": 3.23,
+        "aiRtg": 4.45,
+        "trend": "↓"
+      }
+    },
+    "kalpik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 33,
+          "chats": 100,
+          "scanned": 80,
+          "qcs": 15,
+          "errorPct": 18.75,
+          "ojtRtg": 2.96,
+          "aiRtg": 4.35,
+          "arst": "2.74 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 60,
+          "chats": 359,
+          "scanned": 221,
+          "qcs": 24,
+          "errorPct": 10.86,
+          "ojtRtg": 3.11,
+          "aiRtg": 4.6,
+          "arst": "1.66 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "4",
+          "avgChat": 81,
+          "chats": 325,
+          "scanned": 150,
+          "qcs": 12,
+          "errorPct": 8,
+          "ojtRtg": 3.14,
+          "aiRtg": 4.64,
+          "arst": "2.59 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "7",
+          "avgChat": 99,
+          "chats": 694,
+          "scanned": 170,
+          "qcs": 14,
+          "errorPct": 8.24,
+          "ojtRtg": 3.04,
+          "aiRtg": 4.56,
+          "arst": "1.55 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "5",
+          "avgChat": 125,
+          "chats": 624,
+          "scanned": 177,
+          "qcs": 6,
+          "errorPct": 3.39,
+          "ojtRtg": 3.14,
+          "aiRtg": 4.56,
+          "arst": "1.62 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "5",
+          "avgChat": 145,
+          "chats": 727,
+          "scanned": 178,
+          "qcs": 12,
+          "errorPct": 6.74,
+          "ojtRtg": 3.14,
+          "aiRtg": 4.51,
+          "arst": "1.27 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "3",
+          "avgChat": 1,
+          "chats": 322,
+          "scanned": 67,
+          "qcs": 21,
+          "errorPct": 31.34,
+          "ojtRtg": 2.72,
+          "aiRtg": 4.17,
+          "arst": "1.61 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "5",
+          "avgChat": 104,
+          "chats": 521,
+          "scanned": 35,
+          "qcs": 11,
+          "errorPct": 31.43,
+          "ojtRtg": 2.65,
+          "aiRtg": 4.16,
+          "arst": "2.27 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "6",
+          "avgChat": 139,
+          "chats": 832,
+          "scanned": 22,
+          "qcs": 5,
+          "errorPct": 22.73,
+          "ojtRtg": 2.67,
+          "aiRtg": 4.29,
+          "arst": "1.77 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "5",
+          "avgChat": 159,
+          "chats": 956,
+          "scanned": 36,
+          "qcs": 5,
+          "errorPct": 13.89,
+          "ojtRtg": 2.8,
+          "aiRtg": 4.19,
+          "arst": "1.14 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 33,
+          "chats": 100,
+          "scanned": 80,
+          "qcs": 15,
+          "errorPct": 18.75,
+          "ojtRtg": 2.96,
+          "aiRtg": 4.35,
+          "arst": "2.74 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 60,
+          "chats": 359,
+          "scanned": 221,
+          "qcs": 24,
+          "errorPct": 10.86,
+          "ojtRtg": 3.11,
+          "aiRtg": 4.6,
+          "arst": "1.66 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 60,
+        "chats": 359,
+        "scanned": 221,
+        "qcs": 24,
+        "errorPct": 10.86,
+        "ojtRtg": 3.11,
+        "aiRtg": 4.6,
+        "arst": "1.66 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 1437,
+        "qcs": 164,
+        "errorPct": 11.41,
+        "ojtRtg": 2.95,
+        "aiRtg": 4.42,
+        "trend": "↕"
+      }
+    },
+    "samyak kamble": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 28,
+          "chats": 84,
+          "scanned": 82,
+          "qcs": 10,
+          "errorPct": 12.2,
+          "ojtRtg": 3.3,
+          "aiRtg": 4.29,
+          "arst": "3.48 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5.5",
+          "avgChat": 44,
+          "chats": 266,
+          "scanned": 253,
+          "qcs": 25,
+          "errorPct": 9.88,
+          "ojtRtg": 3.31,
+          "aiRtg": 4.5,
+          "arst": "6.27 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "5",
+          "avgChat": 64,
+          "chats": 318,
+          "scanned": 300,
+          "qcs": 17,
+          "errorPct": 5.67,
+          "ojtRtg": 3.4,
+          "aiRtg": 4.59,
+          "arst": "3.14 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "5",
+          "avgChat": 87,
+          "chats": 433,
+          "scanned": 340,
+          "qcs": 22,
+          "errorPct": 6.47,
+          "ojtRtg": 3.16,
+          "aiRtg": 4.48,
+          "arst": "2.50 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "6",
+          "avgChat": 97,
+          "chats": 583,
+          "scanned": 330,
+          "qcs": 22,
+          "errorPct": 6.67,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.44,
+          "arst": "2.92 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "6",
+          "avgChat": 129,
+          "chats": 776,
+          "scanned": 350,
+          "qcs": 13,
+          "errorPct": 3.71,
+          "ojtRtg": 3.21,
+          "aiRtg": 4.42,
+          "arst": "1.82 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "5",
+          "avgChat": 143,
+          "chats": 714,
+          "scanned": 100,
+          "qcs": 4,
+          "errorPct": 4,
+          "ojtRtg": 3.13,
+          "aiRtg": 4.3,
+          "arst": "1.69 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "4",
+          "avgChat": 107,
+          "chats": 426,
+          "scanned": 45,
+          "qcs": 5,
+          "errorPct": 11.11,
+          "ojtRtg": 3.01,
+          "aiRtg": 4.22,
+          "arst": "1.49 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "6",
+          "avgChat": 153,
+          "chats": 918,
+          "scanned": 19,
+          "qcs": 3,
+          "errorPct": 15.79,
+          "ojtRtg": 2.98,
+          "aiRtg": 4.32,
+          "arst": "1.51 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "7",
+          "avgChat": 216,
+          "chats": 1514,
+          "scanned": 34,
+          "qcs": 2,
+          "errorPct": 5.88,
+          "ojtRtg": 3.07,
+          "aiRtg": 4.36,
+          "arst": "0.98 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 28,
+          "chats": 84,
+          "scanned": 82,
+          "qcs": 10,
+          "errorPct": 12.2,
+          "ojtRtg": 3.3,
+          "aiRtg": 4.29,
+          "arst": "3.48 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5.5",
+          "avgChat": 44,
+          "chats": 266,
+          "scanned": 253,
+          "qcs": 25,
+          "errorPct": 9.88,
+          "ojtRtg": 3.31,
+          "aiRtg": 4.5,
+          "arst": "6.27 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5.5",
+        "avgChat": 44,
+        "chats": 266,
+        "scanned": 253,
+        "qcs": 25,
+        "errorPct": 9.88,
+        "ojtRtg": 3.31,
+        "aiRtg": 4.5,
+        "arst": "6.27 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 2188,
+        "qcs": 158,
+        "errorPct": 7.22,
+        "ojtRtg": 3.2,
+        "aiRtg": 4.39,
+        "trend": "↕"
+      }
+    },
+    "fuzail": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 41,
+          "chats": 127,
+          "scanned": 127,
+          "qcs": 19,
+          "errorPct": 14.96,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.61,
+          "arst": "4.87 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 57,
+          "chats": 285,
+          "scanned": 237,
+          "qcs": 21,
+          "errorPct": 8.86,
+          "ojtRtg": 3.08,
+          "aiRtg": 4.5,
+          "arst": "3.19 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "2",
+          "avgChat": 67,
+          "chats": 131,
+          "scanned": 80,
+          "qcs": 5,
+          "errorPct": 6.25,
+          "ojtRtg": 3.3,
+          "aiRtg": 4.57,
+          "arst": "3.31 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "7",
+          "avgChat": 91,
+          "chats": 640,
+          "scanned": 304,
+          "qcs": 19,
+          "errorPct": 6.25,
+          "ojtRtg": 3.28,
+          "aiRtg": 4.61,
+          "arst": "2.32 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "5",
+          "avgChat": 107,
+          "chats": 537,
+          "scanned": 312,
+          "qcs": 23,
+          "errorPct": 7.37,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.63,
+          "arst": "1.68 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "7",
+          "avgChat": 115,
+          "chats": 806,
+          "scanned": 361,
+          "qcs": 13,
+          "errorPct": 3.6,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.83,
+          "arst": "1.89 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "2",
+          "avgChat": 99,
+          "chats": 198,
+          "scanned": 40,
+          "qcs": 2,
+          "errorPct": 5,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.16,
+          "arst": "2.43 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "6",
+          "avgChat": 85,
+          "chats": 509,
+          "scanned": 33,
+          "qcs": 2,
+          "errorPct": 6.06,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.25,
+          "arst": "2.96 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "5",
+          "avgChat": 117,
+          "chats": 587,
+          "scanned": 10,
+          "qcs": 1,
+          "errorPct": 10,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.24,
+          "arst": "2.48 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "4",
+          "avgChat": 136,
+          "chats": 546,
+          "scanned": 7,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3,
+          "aiRtg": 4.28,
+          "arst": "2.08 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "OJT All",
+          "avail": "46",
+          "avgChat": 91,
+          "chats": 4366,
+          "scanned": 1511,
+          "qcs": 105,
+          "errorPct": 6.95,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.46,
+          "arst": "2.32 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 41,
+          "chats": 127,
+          "scanned": 127,
+          "qcs": 19,
+          "errorPct": 14.96,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.61,
+          "arst": "4.87 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 57,
+          "chats": 285,
+          "scanned": 237,
+          "qcs": 21,
+          "errorPct": 8.86,
+          "ojtRtg": 3.08,
+          "aiRtg": 4.5,
+          "arst": "3.19 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 57,
+        "chats": 285,
+        "scanned": 237,
+        "qcs": 21,
+        "errorPct": 8.86,
+        "ojtRtg": 3.08,
+        "aiRtg": 4.5,
+        "arst": "3.19 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 3386,
+        "qcs": 250,
+        "errorPct": 7.38,
+        "ojtRtg": 3.1,
+        "aiRtg": 4.48,
+        "trend": "↓"
+      }
+    },
+    "vishal kawale": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 74,
+          "chats": 446,
+          "scanned": 80,
+          "qcs": 4,
+          "errorPct": 5,
+          "ojtRtg": 3.09,
+          "aiRtg": 3.89,
+          "arst": "2.90 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 86,
+          "chats": 518,
+          "scanned": 160,
+          "qcs": 3,
+          "errorPct": 1.88,
+          "ojtRtg": 3.25,
+          "aiRtg": 3.99,
+          "arst": "2.60 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "6",
+          "avgChat": 93,
+          "chats": 559,
+          "scanned": 100,
+          "qcs": 3,
+          "errorPct": 3,
+          "ojtRtg": 3.14,
+          "aiRtg": 3.89,
+          "arst": "2.49 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "6",
+          "avgChat": 99,
+          "chats": 593,
+          "scanned": 81,
+          "qcs": 7,
+          "errorPct": 8.64,
+          "ojtRtg": 3.17,
+          "aiRtg": 3.9,
+          "arst": "2.37 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "5.5",
+          "avgChat": 95,
+          "chats": 571,
+          "scanned": 165,
+          "qcs": 7,
+          "errorPct": 4.24,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.15,
+          "arst": "2.31 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "5",
+          "avgChat": 97,
+          "chats": 486,
+          "scanned": 212,
+          "qcs": 12,
+          "errorPct": 5.66,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.41,
+          "arst": "2.52 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "5",
+          "avgChat": 74,
+          "chats": 372,
+          "scanned": 131,
+          "qcs": 17,
+          "errorPct": 12.98,
+          "ojtRtg": 3.07,
+          "aiRtg": 4.47,
+          "arst": "2.99 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "5",
+          "avgChat": 80,
+          "chats": 400,
+          "scanned": 206,
+          "qcs": 8,
+          "errorPct": 3.88,
+          "ojtRtg": 3.31,
+          "aiRtg": 4.53,
+          "arst": "2.92 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "6",
+          "avgChat": 91,
+          "chats": 547,
+          "scanned": 281,
+          "qcs": 24,
+          "errorPct": 8.54,
+          "ojtRtg": 3.12,
+          "aiRtg": 4.5,
+          "arst": "2.57 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "6",
+          "avgChat": 102,
+          "chats": 612,
+          "scanned": 330,
+          "qcs": 19,
+          "errorPct": 5.76,
+          "ojtRtg": 3.15,
+          "aiRtg": 4.33,
+          "arst": "2.25 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 11",
+          "avail": "3.5",
+          "avgChat": 100,
+          "chats": 398,
+          "scanned": 208,
+          "qcs": 12,
+          "errorPct": 5.77,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.36,
+          "arst": "2.71 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 12",
+          "avail": "6",
+          "avgChat": 127,
+          "chats": 763,
+          "scanned": 82,
+          "qcs": 4,
+          "errorPct": 4.88,
+          "ojtRtg": 3.06,
+          "aiRtg": 4.09,
+          "arst": "2.90 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 13",
+          "avail": "6",
+          "avgChat": 142,
+          "chats": 853,
+          "scanned": 67,
+          "qcs": 7,
+          "errorPct": 10.45,
+          "ojtRtg": 2.94,
+          "aiRtg": 4.13,
+          "arst": "2.23 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 14",
+          "avail": "6",
+          "avgChat": 157,
+          "chats": 946,
+          "scanned": 25,
+          "qcs": 2,
+          "errorPct": 8,
+          "ojtRtg": 2.94,
+          "aiRtg": 4.03,
+          "arst": "2.44 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 15",
+          "avail": "6",
+          "avgChat": 201,
+          "chats": 1206,
+          "scanned": 21,
+          "qcs": 5,
+          "errorPct": 23.81,
+          "ojtRtg": 2.7,
+          "aiRtg": 4.18,
+          "arst": "1.77 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 16",
+          "avail": "6",
+          "avgChat": 180,
+          "chats": 1077,
+          "scanned": 42,
+          "qcs": 4,
+          "errorPct": 9.52,
+          "ojtRtg": 3,
+          "aiRtg": 4.18,
+          "arst": "2.01 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 17",
+          "avail": "6",
+          "avgChat": 185,
+          "chats": 1111,
+          "scanned": 39,
+          "qcs": 9,
+          "errorPct": 23.08,
+          "ojtRtg": 2.77,
+          "aiRtg": 4.2,
+          "arst": "1.93 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 18",
+          "avail": "5.5",
+          "avgChat": 148,
+          "chats": 815,
+          "scanned": 55,
+          "qcs": 4,
+          "errorPct": 7.27,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.26,
+          "arst": "1.76 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 19",
+          "avail": "2",
+          "avgChat": 122,
+          "chats": 245,
+          "scanned": 36,
+          "qcs": 4,
+          "errorPct": 11.11,
+          "ojtRtg": 3,
+          "aiRtg": 4.15,
+          "arst": "2.56 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 20",
+          "avail": "6",
+          "avgChat": 133,
+          "chats": 803,
+          "scanned": 120,
+          "qcs": 8,
+          "errorPct": 6.67,
+          "ojtRtg": 3.19,
+          "aiRtg": 4.23,
+          "arst": "1.84 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 21",
+          "avail": "6",
+          "avgChat": 151,
+          "chats": 909,
+          "scanned": 40,
+          "qcs": 2,
+          "errorPct": 5,
+          "ojtRtg": 3.21,
+          "aiRtg": 4.36,
+          "arst": "1.44 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 22",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        }
+      ],
+      "recent": {
+        "week": "Week 21",
+        "avail": "6",
+        "avgChat": 151,
+        "chats": 909,
+        "scanned": 40,
+        "qcs": 2,
+        "errorPct": 5,
+        "ojtRtg": 3.21,
+        "aiRtg": 4.36,
+        "arst": "1.44 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 2481,
+        "qcs": 165,
+        "errorPct": 6.65,
+        "ojtRtg": 3.09,
+        "aiRtg": 4.2,
+        "trend": "↕"
+      }
+    },
+    "raafay": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 260,
+          "chats": 65,
+          "scanned": 181,
+          "qcs": 21,
+          "errorPct": 11.6,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.4,
+          "arst": "3.27 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "3",
+          "avgChat": 64,
+          "chats": 179,
+          "scanned": 134,
+          "qcs": 19,
+          "errorPct": 14.18,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.55,
+          "arst": "2.10 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 5",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 6",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "OJT All",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        }
+      ],
+      "recent": {
+        "week": "Week 3",
+        "avail": "3",
+        "avgChat": 64,
+        "chats": 179,
+        "scanned": 134,
+        "qcs": 19,
+        "errorPct": 14.18,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.55,
+        "arst": "2.10 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 315,
+        "qcs": 40,
+        "errorPct": 12.7,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.47,
+        "trend": "↓"
+      }
+    },
+    "aman": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 35,
+          "chats": 105,
+          "scanned": 93,
+          "qcs": 5,
+          "errorPct": 5.38,
+          "ojtRtg": 3.47,
+          "aiRtg": 4.63,
+          "arst": "4.57 Minutes.",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 51,
+          "chats": 258,
+          "scanned": 175,
+          "qcs": 6,
+          "errorPct": 3.43,
+          "ojtRtg": 3.42,
+          "aiRtg": 4.54,
+          "arst": "3.88 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "5",
+          "avgChat": 72,
+          "chats": 360,
+          "scanned": 170,
+          "qcs": 6,
+          "errorPct": 3.53,
+          "ojtRtg": 3.34,
+          "aiRtg": 4.32,
+          "arst": "2.96 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "6",
+          "avgChat": 81,
+          "chats": 489,
+          "scanned": 122,
+          "qcs": 3,
+          "errorPct": 2.46,
+          "ojtRtg": 3.44,
+          "aiRtg": 4.4,
+          "arst": "2.31 Minutes.",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "5",
+          "avgChat": 86,
+          "chats": 433,
+          "scanned": 220,
+          "qcs": 4,
+          "errorPct": 1.82,
+          "ojtRtg": 3.43,
+          "aiRtg": 4.48,
+          "arst": "2.43 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 6",
+          "avail": "5",
+          "avgChat": 105,
+          "chats": 523,
+          "scanned": 290,
+          "qcs": 6,
+          "errorPct": 2.07,
+          "ojtRtg": 3.43,
+          "aiRtg": 4.53,
+          "arst": "2.02 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "5",
+          "avgChat": 104,
+          "chats": 534,
+          "scanned": 115,
+          "qcs": 2,
+          "errorPct": 1.74,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.29,
+          "arst": "2.32 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 8",
+          "avail": "4",
+          "avgChat": 106,
+          "chats": 425,
+          "scanned": 81,
+          "qcs": 5,
+          "errorPct": 6.17,
+          "ojtRtg": 3,
+          "aiRtg": 4.29,
+          "arst": "2.49 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 9",
+          "avail": "6",
+          "avgChat": 123,
+          "chats": 740,
+          "scanned": 38,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.22,
+          "arst": "1.48 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 10",
+          "avail": "6",
+          "avgChat": 149,
+          "chats": 894,
+          "scanned": 22,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.06,
+          "aiRtg": 4.2,
+          "arst": "1.18 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "OJT All",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week",
+          "avail": "Availability",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "ARST",
+          "trend": "Trend",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 35,
+          "chats": 105,
+          "scanned": 93,
+          "qcs": 5,
+          "errorPct": 5.38,
+          "ojtRtg": 3.47,
+          "aiRtg": 4.63,
+          "arst": "4.57 Minutes.",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 51,
+          "chats": 258,
+          "scanned": 175,
+          "qcs": 6,
+          "errorPct": 3.43,
+          "ojtRtg": 3.42,
+          "aiRtg": 4.54,
+          "arst": "3.88 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 60,
+          "chats": 298,
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3,
+          "aiRtg": 3.82,
+          "arst": "2.61Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 86,
+          "chats": 515,
+          "scanned": 75,
+          "qcs": 3,
+          "errorPct": 4,
+          "ojtRtg": 3.02,
+          "aiRtg": 3.83,
+          "arst": "2.19 Min",
+          "trend": "↑",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 86,
+        "chats": 515,
+        "scanned": 75,
+        "qcs": 3,
+        "errorPct": 4,
+        "ojtRtg": 3.02,
+        "aiRtg": 3.83,
+        "arst": "2.19 Min",
+        "trend": "↑",
+        "valid": true
+      },
+      "average": {
+        "scanned": 1689,
+        "qcs": 51,
+        "errorPct": 3.02,
+        "ojtRtg": 3.27,
+        "aiRtg": 4.34,
+        "trend": "↑"
+      }
+    },
+    "damini": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 37,
+          "chats": 150,
+          "scanned": 136,
+          "qcs": 22,
+          "errorPct": 16.18,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.4,
+          "arst": "4.56 Minutes",
+          "trend": "↔",
+          "valid": true
+        },
+        {
+          "week": "Week 3",
+          "avail": "5",
+          "avgChat": 63,
+          "chats": 317,
+          "scanned": 170,
+          "qcs": 14,
+          "errorPct": 8.24,
+          "ojtRtg": 3.46,
+          "aiRtg": 4.43,
+          "arst": "3.94 Minutes.",
+          "trend": "↔",
+          "valid": true
+        },
+        {
+          "week": "Week 4",
+          "avail": "5",
+          "avgChat": 74,
+          "chats": 371,
+          "scanned": 103,
+          "qcs": 18,
+          "errorPct": 17.48,
+          "ojtRtg": 3.11,
+          "aiRtg": 4.02,
+          "arst": "2.91 Minutes.",
+          "trend": "↔",
+          "valid": true
+        },
+        {
+          "week": "Week 5",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 6",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 1",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 37,
+          "chats": 150,
+          "scanned": 136,
+          "qcs": 22,
+          "errorPct": 16.18,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.4,
+          "arst": "4.56 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 83,
+          "chats": 415,
+          "scanned": 75,
+          "qcs": 5,
+          "errorPct": 6.67,
+          "ojtRtg": 3.09,
+          "aiRtg": 3.14,
+          "arst": "2.12 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 43,
+          "chats": 216,
+          "scanned": 18,
+          "qcs": 1,
+          "errorPct": 5.56,
+          "ojtRtg": 3.1,
+          "aiRtg": 2.6,
+          "arst": "4.31 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 43,
+        "chats": 216,
+        "scanned": 18,
+        "qcs": 1,
+        "errorPct": 5.56,
+        "ojtRtg": 3.1,
+        "aiRtg": 2.6,
+        "arst": "4.31 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 638,
+        "qcs": 82,
+        "errorPct": 12.85,
+        "ojtRtg": 3.21,
+        "aiRtg": 3.83,
+        "trend": "↕"
+      }
+    },
+    "palak jain": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3.5",
+          "avgChat": 40,
+          "chats": 142,
+          "scanned": 15,
+          "qcs": 2,
+          "errorPct": 13.33,
+          "ojtRtg": 3.07,
+          "aiRtg": 4.1,
+          "arst": "4.77 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 71,
+          "chats": 356,
+          "scanned": 35,
+          "qcs": 8,
+          "errorPct": 22.86,
+          "ojtRtg": 2.8,
+          "aiRtg": 4.22,
+          "arst": "3.53 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 71,
+        "chats": 356,
+        "scanned": 35,
+        "qcs": 8,
+        "errorPct": 22.86,
+        "ojtRtg": 2.8,
+        "aiRtg": 4.22,
+        "arst": "3.53 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 50,
+        "qcs": 10,
+        "errorPct": 20,
+        "ojtRtg": 2.93,
+        "aiRtg": 4.16,
+        "trend": "↓"
+      }
+    },
+    "mosin sheikh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 43,
+          "chats": 128,
+          "scanned": 15,
+          "qcs": 2,
+          "errorPct": 13.33,
+          "ojtRtg": 3.13,
+          "aiRtg": 4.25,
+          "arst": "5.03 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 70,
+          "chats": 351,
+          "scanned": 55,
+          "qcs": 14,
+          "errorPct": 25.45,
+          "ojtRtg": 3,
+          "aiRtg": 4.35,
+          "arst": "2.00 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 70,
+        "chats": 351,
+        "scanned": 55,
+        "qcs": 14,
+        "errorPct": 25.45,
+        "ojtRtg": 3,
+        "aiRtg": 4.35,
+        "arst": "2.00 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 70,
+        "qcs": 16,
+        "errorPct": 22.86,
+        "ojtRtg": 3.06,
+        "aiRtg": 4.3,
+        "trend": "↓"
+      }
+    },
+    "tina kute": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 36,
+          "chats": 143,
+          "scanned": 20,
+          "qcs": 4,
+          "errorPct": 20,
+          "ojtRtg": 2.77,
+          "aiRtg": 4.17,
+          "arst": "4.49 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 36,
+        "chats": 143,
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.77,
+        "aiRtg": 4.17,
+        "arst": "4.49 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.77,
+        "aiRtg": 4.17,
+        "trend": "↕"
+      }
+    },
+    "babasaheb kothavale": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 50,
+          "chats": 200,
+          "scanned": 28,
+          "qcs": 3,
+          "errorPct": 10.71,
+          "ojtRtg": 3.03,
+          "aiRtg": 4.26,
+          "arst": "4.23 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 67,
+          "chats": 404,
+          "scanned": 55,
+          "qcs": 12,
+          "errorPct": 21.82,
+          "ojtRtg": 3.09,
+          "aiRtg": 4.29,
+          "arst": "2.33 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 67,
+        "chats": 404,
+        "scanned": 55,
+        "qcs": 12,
+        "errorPct": 21.82,
+        "ojtRtg": 3.09,
+        "aiRtg": 4.29,
+        "arst": "2.33 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 83,
+        "qcs": 15,
+        "errorPct": 18.07,
+        "ojtRtg": 3.06,
+        "aiRtg": 4.28,
+        "trend": "↓"
+      }
+    },
+    "jaya dongare": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3.5",
+          "avgChat": 49,
+          "chats": 173,
+          "scanned": 16,
+          "qcs": 1,
+          "errorPct": 6.25,
+          "ojtRtg": 3.08,
+          "aiRtg": 4.27,
+          "arst": "2.75 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 68,
+          "chats": 409,
+          "scanned": 65,
+          "qcs": 12,
+          "errorPct": 18.46,
+          "ojtRtg": 2.89,
+          "aiRtg": 4.31,
+          "arst": "2.42 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 68,
+        "chats": 409,
+        "scanned": 65,
+        "qcs": 12,
+        "errorPct": 18.46,
+        "ojtRtg": 2.89,
+        "aiRtg": 4.31,
+        "arst": "2.42 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 81,
+        "qcs": 13,
+        "errorPct": 16.05,
+        "ojtRtg": 2.99,
+        "aiRtg": 4.29,
+        "trend": "↓"
+      }
+    },
+    "nitesh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 44,
+          "chats": 174,
+          "scanned": 10,
+          "qcs": 2,
+          "errorPct": 20,
+          "ojtRtg": 3.25,
+          "aiRtg": 4.37,
+          "arst": "2 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 43,
+          "chats": 214,
+          "scanned": 30,
+          "qcs": 7,
+          "errorPct": 23.33,
+          "ojtRtg": 2.88,
+          "aiRtg": 4.38,
+          "arst": "2.1 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 43,
+        "chats": 214,
+        "scanned": 30,
+        "qcs": 7,
+        "errorPct": 23.33,
+        "ojtRtg": 2.88,
+        "aiRtg": 4.38,
+        "arst": "2.1 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 40,
+        "qcs": 9,
+        "errorPct": 22.5,
+        "ojtRtg": 3.06,
+        "aiRtg": 4.38,
+        "trend": "↓"
+      }
+    },
+    "prachi kamble": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 46,
+          "chats": 185,
+          "scanned": 15,
+          "qcs": 5,
+          "errorPct": 33.33,
+          "ojtRtg": 2.97,
+          "aiRtg": 4.02,
+          "arst": "5.71 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 42,
+          "chats": 252,
+          "scanned": 35,
+          "qcs": 14,
+          "errorPct": 40,
+          "ojtRtg": 2.76,
+          "aiRtg": 4.1,
+          "arst": "3.48 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 42,
+        "chats": 252,
+        "scanned": 35,
+        "qcs": 14,
+        "errorPct": 40,
+        "ojtRtg": 2.76,
+        "aiRtg": 4.1,
+        "arst": "3.48 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 50,
+        "qcs": 19,
+        "errorPct": 38,
+        "ojtRtg": 2.87,
+        "aiRtg": 4.06,
+        "trend": "↓"
+      }
+    },
+    "shivam": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 39,
+          "chats": 156,
+          "scanned": 15,
+          "qcs": 3,
+          "errorPct": 20,
+          "ojtRtg": 3.16,
+          "aiRtg": 4.27,
+          "arst": "4.65 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 46,
+          "chats": 274,
+          "scanned": 56,
+          "qcs": 14,
+          "errorPct": 25,
+          "ojtRtg": 3.13,
+          "aiRtg": 4.24,
+          "arst": "2.59 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 46,
+        "chats": 274,
+        "scanned": 56,
+        "qcs": 14,
+        "errorPct": 25,
+        "ojtRtg": 3.13,
+        "aiRtg": 4.24,
+        "arst": "2.59 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 71,
+        "qcs": 17,
+        "errorPct": 23.94,
+        "ojtRtg": 3.15,
+        "aiRtg": 4.25,
+        "trend": "↓"
+      }
+    },
+    "pretty patil": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 43,
+          "chats": 171,
+          "scanned": 15,
+          "qcs": 2,
+          "errorPct": 13.33,
+          "ojtRtg": 3.26,
+          "aiRtg": 4.28,
+          "arst": "4.32 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 44,
+          "chats": 264,
+          "scanned": 50,
+          "qcs": 4,
+          "errorPct": 8,
+          "ojtRtg": 3.15,
+          "aiRtg": 4.35,
+          "arst": "3.44 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 44,
+        "chats": 264,
+        "scanned": 50,
+        "qcs": 4,
+        "errorPct": 8,
+        "ojtRtg": 3.15,
+        "aiRtg": 4.35,
+        "arst": "3.44 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 65,
+        "qcs": 6,
+        "errorPct": 9.23,
+        "ojtRtg": 3.21,
+        "aiRtg": 4.31,
+        "trend": "↕"
+      }
+    },
+    "samiksha kshirsagar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 49,
+          "chats": 196,
+          "scanned": 15,
+          "qcs": 7,
+          "errorPct": 46.67,
+          "ojtRtg": 2.76,
+          "aiRtg": 4.28,
+          "arst": "3.89 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 45,
+          "chats": 271,
+          "scanned": 45,
+          "qcs": 11,
+          "errorPct": 24.44,
+          "ojtRtg": 3.01,
+          "aiRtg": 4.14,
+          "arst": "3.08 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 45,
+        "chats": 271,
+        "scanned": 45,
+        "qcs": 11,
+        "errorPct": 24.44,
+        "ojtRtg": 3.01,
+        "aiRtg": 4.14,
+        "arst": "3.08 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 18,
+        "errorPct": 30,
+        "ojtRtg": 2.88,
+        "aiRtg": 4.21,
+        "trend": "↕"
+      }
+    },
+    "prachi somyani": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 41,
+          "chats": 165,
+          "scanned": 15,
+          "qcs": 7,
+          "errorPct": 46.67,
+          "ojtRtg": 2.66,
+          "aiRtg": 4.23,
+          "arst": "3.30 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 41,
+        "chats": 165,
+        "scanned": 15,
+        "qcs": 7,
+        "errorPct": 46.67,
+        "ojtRtg": 2.66,
+        "aiRtg": 4.23,
+        "arst": "3.30 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 7,
+        "errorPct": 46.67,
+        "ojtRtg": 2.66,
+        "aiRtg": 4.23,
+        "trend": "↓"
+      }
+    },
+    "geetika chopra": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 326,
+          "scanned": 45,
+          "qcs": 14,
+          "errorPct": 31.11,
+          "ojtRtg": 2.72,
+          "aiRtg": 4.07,
+          "arst": "2.88 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 53,
+          "chats": 212,
+          "scanned": 10,
+          "qcs": 3,
+          "errorPct": 30,
+          "ojtRtg": 2.85,
+          "aiRtg": 3.94,
+          "arst": "4.66 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 53,
+        "chats": 212,
+        "scanned": 10,
+        "qcs": 3,
+        "errorPct": 30,
+        "ojtRtg": 2.85,
+        "aiRtg": 3.94,
+        "arst": "4.66 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 55,
+        "qcs": 17,
+        "errorPct": 30.91,
+        "ojtRtg": 2.79,
+        "aiRtg": 4,
+        "trend": "↓"
+      }
+    },
+    "smit": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 67,
+          "chats": 404,
+          "scanned": 71,
+          "qcs": 17,
+          "errorPct": 23.94,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.22,
+          "arst": "2.29 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 61,
+          "chats": 244,
+          "scanned": 45,
+          "qcs": 16,
+          "errorPct": 35.56,
+          "ojtRtg": 2.7,
+          "aiRtg": 4.11,
+          "arst": "2.33 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 61,
+        "chats": 244,
+        "scanned": 45,
+        "qcs": 16,
+        "errorPct": 35.56,
+        "ojtRtg": 2.7,
+        "aiRtg": 4.11,
+        "arst": "2.33 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 116,
+        "qcs": 33,
+        "errorPct": 28.45,
+        "ojtRtg": 2.94,
+        "aiRtg": 4.17,
+        "trend": "↓"
+      }
+    },
+    "mahak lokhande": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 69,
+          "chats": 412,
+          "scanned": 72,
+          "qcs": 10,
+          "errorPct": 13.89,
+          "ojtRtg": 3.11,
+          "aiRtg": 4.33,
+          "arst": "2.20 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 54,
+          "chats": 215,
+          "scanned": 55,
+          "qcs": 12,
+          "errorPct": 21.82,
+          "ojtRtg": 3.15,
+          "aiRtg": 4.27,
+          "arst": "2.52 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 54,
+        "chats": 215,
+        "scanned": 55,
+        "qcs": 12,
+        "errorPct": 21.82,
+        "ojtRtg": 3.15,
+        "aiRtg": 4.27,
+        "arst": "2.52 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 127,
+        "qcs": 22,
+        "errorPct": 17.32,
+        "ojtRtg": 3.13,
+        "aiRtg": 4.3,
+        "trend": "↕"
+      }
+    },
+    "aditya jaiswal": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 58,
+          "chats": 346,
+          "scanned": 68,
+          "qcs": 6,
+          "errorPct": 8.82,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.2,
+          "arst": "2.27 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 41,
+          "chats": 165,
+          "scanned": 32,
+          "qcs": 7,
+          "errorPct": 21.88,
+          "ojtRtg": 3.08,
+          "aiRtg": 4.31,
+          "arst": "3.80 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 41,
+        "chats": 165,
+        "scanned": 32,
+        "qcs": 7,
+        "errorPct": 21.88,
+        "ojtRtg": 3.08,
+        "aiRtg": 4.31,
+        "arst": "3.80 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 100,
+        "qcs": 13,
+        "errorPct": 13,
+        "ojtRtg": 3.13,
+        "aiRtg": 4.25,
+        "trend": "↕"
+      }
+    },
+    "pareedhi": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 40,
+          "chats": 202,
+          "scanned": 58,
+          "qcs": 15,
+          "errorPct": 25.86,
+          "ojtRtg": 2.86,
+          "aiRtg": 4.31,
+          "arst": "3.72 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 37,
+          "chats": 111,
+          "scanned": 30,
+          "qcs": 9,
+          "errorPct": 30,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.08,
+          "arst": "3.61 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "3",
+        "avgChat": 37,
+        "chats": 111,
+        "scanned": 30,
+        "qcs": 9,
+        "errorPct": 30,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.08,
+        "arst": "3.61 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 88,
+        "qcs": 24,
+        "errorPct": 27.27,
+        "ojtRtg": 2.88,
+        "aiRtg": 4.2,
+        "trend": "↓"
+      }
+    },
+    "kunal fukatkar": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 64,
+          "chats": 388,
+          "scanned": 52,
+          "qcs": 9,
+          "errorPct": 17.31,
+          "ojtRtg": 2.8,
+          "aiRtg": 4.19,
+          "arst": "2.79 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 66,
+          "chats": 264,
+          "scanned": 46,
+          "qcs": 10,
+          "errorPct": 21.74,
+          "ojtRtg": 3,
+          "aiRtg": 4.23,
+          "arst": "2.50 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 66,
+        "chats": 264,
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.74,
+        "ojtRtg": 3,
+        "aiRtg": 4.23,
+        "arst": "2.50 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 98,
+        "qcs": 19,
+        "errorPct": 19.39,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.21,
+        "trend": "↓"
+      }
+    },
+    "papiha": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 66,
+          "chats": 331,
+          "scanned": 50,
+          "qcs": 12,
+          "errorPct": 24,
+          "ojtRtg": 2.85,
+          "aiRtg": 4.15,
+          "arst": "2.63 min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "2",
+          "avgChat": 41,
+          "chats": 83,
+          "scanned": 22,
+          "qcs": 3,
+          "errorPct": 13.64,
+          "ojtRtg": 3,
+          "aiRtg": 4.29,
+          "arst": "3.91 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "2",
+        "avgChat": 41,
+        "chats": 83,
+        "scanned": 22,
+        "qcs": 3,
+        "errorPct": 13.64,
+        "ojtRtg": 3,
+        "aiRtg": 4.29,
+        "arst": "3.91 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 72,
+        "qcs": 15,
+        "errorPct": 20.83,
+        "ojtRtg": 2.92,
+        "aiRtg": 4.22,
+        "trend": "↕"
+      }
+    },
+    "anjali": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 69,
+          "chats": 415,
+          "scanned": 44,
+          "qcs": 6,
+          "errorPct": 13.64,
+          "ojtRtg": 3,
+          "aiRtg": 4.31,
+          "arst": "3.08 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 66,
+          "chats": 264,
+          "scanned": 46,
+          "qcs": 10,
+          "errorPct": 21.74,
+          "ojtRtg": 3,
+          "aiRtg": 4.23,
+          "arst": "2.50 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 66,
+        "chats": 264,
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.74,
+        "ojtRtg": 3,
+        "aiRtg": 4.23,
+        "arst": "2.50 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 90,
+        "qcs": 16,
+        "errorPct": 17.78,
+        "ojtRtg": 3,
+        "aiRtg": 4.27,
+        "trend": "↕"
+      }
+    },
+    "lubdha": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 324,
+          "scanned": 50,
+          "qcs": 8,
+          "errorPct": 16,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.39,
+          "arst": "3.37 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 46,
+          "chats": 184,
+          "scanned": 25,
+          "qcs": 4,
+          "errorPct": 16,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.28,
+          "arst": "5.84 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 46,
+        "chats": 184,
+        "scanned": 25,
+        "qcs": 4,
+        "errorPct": 16,
+        "ojtRtg": 3.2,
+        "aiRtg": 4.28,
+        "arst": "5.84 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 75,
+        "qcs": 12,
+        "errorPct": 16,
+        "ojtRtg": 3.05,
+        "aiRtg": 4.33,
+        "trend": "↕"
+      }
+    },
+    "syed khizar ali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 32,
+          "chats": 96,
+          "scanned": 15,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.11,
+          "aiRtg": 4,
+          "arst": "5.74 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 66,
+          "chats": 395,
+          "scanned": 25,
+          "qcs": 3,
+          "errorPct": 12,
+          "ojtRtg": 3.08,
+          "aiRtg": 4.16,
+          "arst": "3.46 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 66,
+        "chats": 395,
+        "scanned": 25,
+        "qcs": 3,
+        "errorPct": 12,
+        "ojtRtg": 3.08,
+        "aiRtg": 4.16,
+        "arst": "3.46 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 40,
+        "qcs": 3,
+        "errorPct": 7.5,
+        "ojtRtg": 3.09,
+        "aiRtg": 4.08,
+        "trend": "↕"
+      }
+    },
+    "raafey": {
+      "weeks": [
+        {
+          "week": "Week 4",
+          "avail": "-",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": null,
+          "arst": "-",
+          "trend": "-",
+          "valid": false
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 260,
+          "chats": 65,
+          "scanned": 181,
+          "qcs": 21,
+          "errorPct": 11.6,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.4,
+          "arst": "3.27 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4",
+        "avgChat": 260,
+        "chats": 65,
+        "scanned": 181,
+        "qcs": 21,
+        "errorPct": 11.6,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.4,
+        "arst": "3.27 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 181,
+        "qcs": 21,
+        "errorPct": 11.6,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.4,
+        "trend": "↓"
+      }
+    },
+    "vishal": {
+      "weeks": [
+        {
+          "week": "Week 6",
+          "avail": "5",
+          "avgChat": 97,
+          "chats": 486,
+          "scanned": 212,
+          "qcs": 12,
+          "errorPct": 5.66,
+          "ojtRtg": 3.2,
+          "aiRtg": 4.41,
+          "arst": "2.52 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 7",
+          "avail": "5",
+          "avgChat": 74,
+          "chats": 372,
+          "scanned": 131,
+          "qcs": 17,
+          "errorPct": 12.98,
+          "ojtRtg": 3.07,
+          "aiRtg": 4.47,
+          "arst": "2.99 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 7",
+        "avail": "5",
+        "avgChat": 74,
+        "chats": 372,
+        "scanned": 131,
+        "qcs": 17,
+        "errorPct": 12.98,
+        "ojtRtg": 3.07,
+        "aiRtg": 4.47,
+        "arst": "2.99 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 343,
+        "qcs": 29,
+        "errorPct": 8.45,
+        "ojtRtg": 3.13,
+        "aiRtg": 4.44,
+        "trend": "↓"
+      }
+    },
+    "shabbar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 50,
+          "chats": 300,
+          "scanned": 40,
+          "qcs": 6,
+          "errorPct": 15,
+          "ojtRtg": 2.86,
+          "aiRtg": 3.88,
+          "arst": "2.36 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 55,
+          "chats": 332,
+          "scanned": 40,
+          "qcs": 4,
+          "errorPct": 10,
+          "ojtRtg": 2.93,
+          "aiRtg": 4.03,
+          "arst": "1.32 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 55,
+        "chats": 332,
+        "scanned": 40,
+        "qcs": 4,
+        "errorPct": 10,
+        "ojtRtg": 2.93,
+        "aiRtg": 4.03,
+        "arst": "1.32 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 80,
+        "qcs": 10,
+        "errorPct": 12.5,
+        "ojtRtg": 2.9,
+        "aiRtg": 3.96,
+        "trend": "↕"
+      }
+    },
+    "nayan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 43,
+          "chats": 213,
+          "scanned": 45,
+          "qcs": 2,
+          "errorPct": 4.44,
+          "ojtRtg": 3,
+          "aiRtg": 3.96,
+          "arst": "1.66 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 51,
+          "chats": 307,
+          "scanned": 37,
+          "qcs": 2,
+          "errorPct": 5.41,
+          "ojtRtg": 3,
+          "aiRtg": 4,
+          "arst": "1.68 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 51,
+        "chats": 307,
+        "scanned": 37,
+        "qcs": 2,
+        "errorPct": 5.41,
+        "ojtRtg": 3,
+        "aiRtg": 4,
+        "arst": "1.68 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 82,
+        "qcs": 4,
+        "errorPct": 4.88,
+        "ojtRtg": 3,
+        "aiRtg": 3.98,
+        "trend": "↕"
+      }
+    },
+    "sakshi kuril": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 49,
+          "chats": 295,
+          "scanned": 45,
+          "qcs": 4,
+          "errorPct": 8.89,
+          "ojtRtg": 2.89,
+          "aiRtg": 3.92,
+          "arst": "2.36 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 61,
+          "chats": 364,
+          "scanned": 45,
+          "qcs": 5,
+          "errorPct": 11.11,
+          "ojtRtg": 3.28,
+          "aiRtg": 4.07,
+          "arst": "2.37 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 61,
+        "chats": 364,
+        "scanned": 45,
+        "qcs": 5,
+        "errorPct": 11.11,
+        "ojtRtg": 3.28,
+        "aiRtg": 4.07,
+        "arst": "2.37 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 90,
+        "qcs": 9,
+        "errorPct": 10,
+        "ojtRtg": 3.08,
+        "aiRtg": 4,
+        "trend": "↕"
+      }
+    },
+    "pranay": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "2",
+          "avgChat": 31,
+          "chats": 61,
+          "scanned": 15,
+          "qcs": 4,
+          "errorPct": 26.67,
+          "ojtRtg": 2.8,
+          "aiRtg": 3.66,
+          "arst": "4.03 Min",
+          "trend": "↓",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "3",
+          "avgChat": 34,
+          "chats": 102,
+          "scanned": 20,
+          "qcs": 6,
+          "errorPct": 30,
+          "ojtRtg": 2.73,
+          "aiRtg": 3.71,
+          "arst": "3.79 Min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "3",
+        "avgChat": 34,
+        "chats": 102,
+        "scanned": 20,
+        "qcs": 6,
+        "errorPct": 30,
+        "ojtRtg": 2.73,
+        "aiRtg": 3.71,
+        "arst": "3.79 Min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 35,
+        "qcs": 10,
+        "errorPct": 28.57,
+        "ojtRtg": 2.76,
+        "aiRtg": 3.69,
+        "trend": "↓"
+      }
+    },
+    "ahmed raza": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "7",
+          "avgChat": 58,
+          "chats": 410,
+          "scanned": 40,
+          "qcs": 7,
+          "errorPct": 17.5,
+          "ojtRtg": 2.76,
+          "aiRtg": 3.86,
+          "arst": "2.26 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 87,
+          "chats": 524,
+          "scanned": 91,
+          "qcs": 7,
+          "errorPct": 7.69,
+          "ojtRtg": 3.09,
+          "aiRtg": 3.85,
+          "arst": "1.95 Min",
+          "trend": "↑",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 87,
+        "chats": 524,
+        "scanned": 91,
+        "qcs": 7,
+        "errorPct": 7.69,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.85,
+        "arst": "1.95 Min",
+        "trend": "↑",
+        "valid": true
+      },
+      "average": {
+        "scanned": 131,
+        "qcs": 14,
+        "errorPct": 10.69,
+        "ojtRtg": 2.92,
+        "aiRtg": 3.85,
+        "trend": "↑"
+      }
+    },
+    "rushikesh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 43,
+          "chats": 259,
+          "scanned": 55,
+          "qcs": 2,
+          "errorPct": 3.64,
+          "ojtRtg": 3.03,
+          "aiRtg": 3.96,
+          "arst": "3.07 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 38,
+          "chats": 152,
+          "scanned": 25,
+          "qcs": 3,
+          "errorPct": 12,
+          "ojtRtg": 2.98,
+          "aiRtg": 4.09,
+          "arst": "3.42 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4",
+        "avgChat": 38,
+        "chats": 152,
+        "scanned": 25,
+        "qcs": 3,
+        "errorPct": 12,
+        "ojtRtg": 2.98,
+        "aiRtg": 4.09,
+        "arst": "3.42 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 80,
+        "qcs": 5,
+        "errorPct": 6.25,
+        "ojtRtg": 3,
+        "aiRtg": 4.03,
+        "trend": "↕"
+      }
+    },
+    "roshan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 39,
+          "chats": 233,
+          "scanned": 40,
+          "qcs": 2,
+          "errorPct": 5,
+          "ojtRtg": 3.17,
+          "aiRtg": 4.06,
+          "arst": "2.80 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 53,
+          "chats": 321,
+          "scanned": 25,
+          "qcs": 2,
+          "errorPct": 8,
+          "ojtRtg": 2.94,
+          "aiRtg": 4.19,
+          "arst": "1.73 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 53,
+        "chats": 321,
+        "scanned": 25,
+        "qcs": 2,
+        "errorPct": 8,
+        "ojtRtg": 2.94,
+        "aiRtg": 4.19,
+        "arst": "1.73 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 65,
+        "qcs": 4,
+        "errorPct": 6.15,
+        "ojtRtg": 3.05,
+        "aiRtg": 4.13,
+        "trend": "↕"
+      }
+    },
+    "rahik sheikh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 38,
+          "chats": 228,
+          "scanned": 53,
+          "qcs": 5,
+          "errorPct": 9.43,
+          "ojtRtg": 3.07,
+          "aiRtg": 4.07,
+          "arst": "3.70 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5.5",
+          "avgChat": 39,
+          "chats": 237,
+          "scanned": 47,
+          "qcs": 10,
+          "errorPct": 21.28,
+          "ojtRtg": 2.9,
+          "aiRtg": 4.06,
+          "arst": "2.90 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5.5",
+        "avgChat": 39,
+        "chats": 237,
+        "scanned": 47,
+        "qcs": 10,
+        "errorPct": 21.28,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.06,
+        "arst": "2.90 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 100,
+        "qcs": 15,
+        "errorPct": 15,
+        "ojtRtg": 2.98,
+        "aiRtg": 4.06,
+        "trend": "↕"
+      }
+    },
+    "tanu": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 49,
+          "chats": 297,
+          "scanned": 20,
+          "qcs": 3,
+          "errorPct": 15,
+          "ojtRtg": 2.83,
+          "aiRtg": 4.11,
+          "arst": "4.43 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5.5",
+          "avgChat": 46,
+          "chats": 277,
+          "scanned": 40,
+          "qcs": 5,
+          "errorPct": 12.5,
+          "ojtRtg": 3,
+          "aiRtg": 4.17,
+          "arst": "3.76 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5.5",
+        "avgChat": 46,
+        "chats": 277,
+        "scanned": 40,
+        "qcs": 5,
+        "errorPct": 12.5,
+        "ojtRtg": 3,
+        "aiRtg": 4.17,
+        "arst": "3.76 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 8,
+        "errorPct": 13.33,
+        "ojtRtg": 2.92,
+        "aiRtg": 4.14,
+        "trend": "↕"
+      }
+    },
+    "aditya malik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 35,
+          "chats": 209,
+          "scanned": 20,
+          "qcs": 8,
+          "errorPct": 40,
+          "ojtRtg": 2.4,
+          "aiRtg": 3.68,
+          "arst": "3.62 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 42,
+          "chats": 250,
+          "scanned": 40,
+          "qcs": 4,
+          "errorPct": 10,
+          "ojtRtg": 3.03,
+          "aiRtg": 3.85,
+          "arst": "4.06 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 42,
+        "chats": 250,
+        "scanned": 40,
+        "qcs": 4,
+        "errorPct": 10,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.85,
+        "arst": "4.06 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 12,
+        "errorPct": 20,
+        "ojtRtg": 2.71,
+        "aiRtg": 3.77,
+        "trend": "↕"
+      }
+    },
+    "riya": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 38,
+          "chats": 229,
+          "scanned": 20,
+          "qcs": 4,
+          "errorPct": 20,
+          "ojtRtg": 2.87,
+          "aiRtg": 4.04,
+          "arst": "2.64 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 46,
+          "chats": 230,
+          "scanned": 40,
+          "qcs": 3,
+          "errorPct": 7.5,
+          "ojtRtg": 2.93,
+          "aiRtg": 4.05,
+          "arst": "2.11 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 46,
+        "chats": 230,
+        "scanned": 40,
+        "qcs": 3,
+        "errorPct": 7.5,
+        "ojtRtg": 2.93,
+        "aiRtg": 4.05,
+        "arst": "2.11 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 7,
+        "errorPct": 11.67,
+        "ojtRtg": 2.9,
+        "aiRtg": 4.04,
+        "trend": "↕"
+      }
+    },
+    "aanchal": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 36,
+          "chats": 143,
+          "scanned": 20,
+          "qcs": 5,
+          "errorPct": 25,
+          "ojtRtg": 2.88,
+          "aiRtg": 3.82,
+          "arst": "3.93 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 49,
+          "chats": 283,
+          "scanned": 40,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 2.88,
+          "aiRtg": 3.83,
+          "arst": "3.49 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 49,
+        "chats": 283,
+        "scanned": 40,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 2.88,
+        "aiRtg": 3.83,
+        "arst": "3.49 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 5,
+        "errorPct": 8.33,
+        "ojtRtg": 2.88,
+        "aiRtg": 3.83,
+        "trend": "↕"
+      }
+    },
+    "sakshi dumre": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "7",
+          "avgChat": 43,
+          "chats": 305,
+          "scanned": 32,
+          "qcs": 1,
+          "errorPct": 3.13,
+          "ojtRtg": 3.06,
+          "aiRtg": 3.83,
+          "arst": "2.66 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 42,
+          "chats": 252,
+          "scanned": 44,
+          "qcs": 2,
+          "errorPct": 4.55,
+          "ojtRtg": 2.99,
+          "aiRtg": 3.76,
+          "arst": "2.04 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 42,
+        "chats": 252,
+        "scanned": 44,
+        "qcs": 2,
+        "errorPct": 4.55,
+        "ojtRtg": 2.99,
+        "aiRtg": 3.76,
+        "arst": "2.04 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 76,
+        "qcs": 3,
+        "errorPct": 3.95,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.79,
+        "trend": "↕"
+      }
+    },
+    "suraksha": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 36,
+          "chats": 216,
+          "scanned": 34,
+          "qcs": 5,
+          "errorPct": 14.71,
+          "ojtRtg": 2.93,
+          "aiRtg": 4.13,
+          "arst": "5.48 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 29,
+          "chats": 177,
+          "scanned": 31,
+          "qcs": 1,
+          "errorPct": 3.23,
+          "ojtRtg": 3.25,
+          "aiRtg": 4.04,
+          "arst": "4.44 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 29,
+        "chats": 177,
+        "scanned": 31,
+        "qcs": 1,
+        "errorPct": 3.23,
+        "ojtRtg": 3.25,
+        "aiRtg": 4.04,
+        "arst": "4.44 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 65,
+        "qcs": 6,
+        "errorPct": 9.23,
+        "ojtRtg": 3.09,
+        "aiRtg": 4.08,
+        "trend": "↕"
+      }
+    },
+    "suyash": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 328,
+          "scanned": 31,
+          "qcs": 5,
+          "errorPct": 16.13,
+          "ojtRtg": 2.88,
+          "aiRtg": 3.82,
+          "arst": "2.58 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 40,
+          "chats": 158,
+          "scanned": 37,
+          "qcs": 3,
+          "errorPct": 8.11,
+          "ojtRtg": 3.03,
+          "aiRtg": 3.98,
+          "arst": "1.96 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4",
+        "avgChat": 40,
+        "chats": 158,
+        "scanned": 37,
+        "qcs": 3,
+        "errorPct": 8.11,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.98,
+        "arst": "1.96 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 68,
+        "qcs": 8,
+        "errorPct": 11.76,
+        "ojtRtg": 2.96,
+        "aiRtg": 3.9,
+        "trend": "↕"
+      }
+    },
+    "sakshi bhagwat": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "2",
+          "avgChat": 46,
+          "chats": 276,
+          "scanned": 38,
+          "qcs": 13,
+          "errorPct": 34.21,
+          "ojtRtg": 2.53,
+          "aiRtg": 4.03,
+          "arst": "1.87 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 31,
+          "chats": 156,
+          "scanned": 50,
+          "qcs": 11,
+          "errorPct": 22,
+          "ojtRtg": 2.69,
+          "aiRtg": 3.7,
+          "arst": "1.80 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 31,
+        "chats": 156,
+        "scanned": 50,
+        "qcs": 11,
+        "errorPct": 22,
+        "ojtRtg": 2.69,
+        "aiRtg": 3.7,
+        "arst": "1.80 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 88,
+        "qcs": 24,
+        "errorPct": 27.27,
+        "ojtRtg": 2.61,
+        "aiRtg": 3.87,
+        "trend": "↓"
+      }
+    },
+    "prajwal": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "7",
+          "avgChat": 39,
+          "chats": 272,
+          "scanned": 31,
+          "qcs": 7,
+          "errorPct": 22.58,
+          "ojtRtg": 2.67,
+          "aiRtg": 3.99,
+          "arst": "4.32 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 37,
+          "chats": 226,
+          "scanned": 33,
+          "qcs": 8,
+          "errorPct": 24.24,
+          "ojtRtg": 2.93,
+          "aiRtg": 3.73,
+          "arst": "3.74 min",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 37,
+        "chats": 226,
+        "scanned": 33,
+        "qcs": 8,
+        "errorPct": 24.24,
+        "ojtRtg": 2.93,
+        "aiRtg": 3.73,
+        "arst": "3.74 min",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 64,
+        "qcs": 15,
+        "errorPct": 23.44,
+        "ojtRtg": 2.8,
+        "aiRtg": 3.86,
+        "trend": "↓"
+      }
+    },
+    "ankush bhagwat": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 326,
+          "scanned": 25,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.28,
+          "aiRtg": 3.95,
+          "arst": "3.07 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 44,
+          "chats": 268,
+          "scanned": 25,
+          "qcs": 7,
+          "errorPct": 28,
+          "ojtRtg": 4.42,
+          "aiRtg": 3.79,
+          "arst": "2.67 Minutes",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 44,
+        "chats": 268,
+        "scanned": 25,
+        "qcs": 7,
+        "errorPct": 28,
+        "ojtRtg": 4.42,
+        "aiRtg": 3.79,
+        "arst": "2.67 Minutes",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 50,
+        "qcs": 7,
+        "errorPct": 14,
+        "ojtRtg": 3.85,
+        "aiRtg": 3.87,
+        "trend": "↕"
+      }
+    },
+    "krunali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 33,
+          "chats": 200,
+          "scanned": 30,
+          "qcs": 3,
+          "errorPct": 10,
+          "ojtRtg": 3.17,
+          "aiRtg": 3.78,
+          "arst": "4.97 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 46,
+          "chats": 277,
+          "scanned": 25,
+          "qcs": 2,
+          "errorPct": 8,
+          "ojtRtg": 3.09,
+          "aiRtg": 3.85,
+          "arst": "3.71 Minutes",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 46,
+        "chats": 277,
+        "scanned": 25,
+        "qcs": 2,
+        "errorPct": 8,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.85,
+        "arst": "3.71 Minutes",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 55,
+        "qcs": 5,
+        "errorPct": 9.09,
+        "ojtRtg": 3.13,
+        "aiRtg": 3.81,
+        "trend": "↕"
+      }
+    },
+    "hansika": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 42,
+          "chats": 254,
+          "scanned": 25,
+          "qcs": 4,
+          "errorPct": 16,
+          "ojtRtg": 3.06,
+          "aiRtg": 3.84,
+          "arst": "3.29 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 42,
+          "chats": 210,
+          "scanned": 50,
+          "qcs": 8,
+          "errorPct": 16,
+          "ojtRtg": 3.13,
+          "aiRtg": 3.75,
+          "arst": "2.30 Minutes",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 42,
+        "chats": 210,
+        "scanned": 50,
+        "qcs": 8,
+        "errorPct": 16,
+        "ojtRtg": 3.13,
+        "aiRtg": 3.75,
+        "arst": "2.30 Minutes",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 75,
+        "qcs": 12,
+        "errorPct": 16,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.79,
+        "trend": "↕"
+      }
+    },
+    "mohjeet": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 41,
+          "chats": 249,
+          "scanned": 25,
+          "qcs": 13,
+          "errorPct": 52,
+          "ojtRtg": 2.09,
+          "aiRtg": 3.75,
+          "arst": "2.85 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 45,
+          "chats": 271,
+          "scanned": 44,
+          "qcs": 14,
+          "errorPct": 31.82,
+          "ojtRtg": 2.48,
+          "aiRtg": 3.66,
+          "arst": "2.54 Minutes",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 45,
+        "chats": 271,
+        "scanned": 44,
+        "qcs": 14,
+        "errorPct": 31.82,
+        "ojtRtg": 2.48,
+        "aiRtg": 3.66,
+        "arst": "2.54 Minutes",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 69,
+        "qcs": 27,
+        "errorPct": 39.13,
+        "ojtRtg": 2.29,
+        "aiRtg": 3.71,
+        "trend": "↓"
+      }
+    },
+    "prerana": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 56,
+          "chats": 338,
+          "scanned": 20,
+          "qcs": 10,
+          "errorPct": 50,
+          "ojtRtg": 2.14,
+          "aiRtg": 3.42,
+          "arst": "2.01 Minutes",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 34,
+          "chats": 173,
+          "scanned": 45,
+          "qcs": 17,
+          "errorPct": 37.78,
+          "ojtRtg": 2.47,
+          "aiRtg": 3.69,
+          "arst": "2.40 Minutes",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 34,
+        "chats": 173,
+        "scanned": 45,
+        "qcs": 17,
+        "errorPct": 37.78,
+        "ojtRtg": 2.47,
+        "aiRtg": 3.69,
+        "arst": "2.40 Minutes",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 65,
+        "qcs": 27,
+        "errorPct": 41.54,
+        "ojtRtg": 2.31,
+        "aiRtg": 3.55,
+        "trend": "↓"
+      }
+    },
+    "rehman": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 55,
+          "chats": 331,
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.2,
+          "aiRtg": 3.88,
+          "arst": "4.35 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 33,
+          "chats": 198,
+          "scanned": 40,
+          "qcs": 4,
+          "errorPct": 10,
+          "ojtRtg": 3.41,
+          "aiRtg": 3.87,
+          "arst": "5.18 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 33,
+        "chats": 198,
+        "scanned": 40,
+        "qcs": 4,
+        "errorPct": 10,
+        "ojtRtg": 3.41,
+        "aiRtg": 3.87,
+        "arst": "5.18 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 55,
+        "qcs": 5,
+        "errorPct": 9.09,
+        "ojtRtg": 3.31,
+        "aiRtg": 3.88,
+        "trend": "↕"
+      }
+    },
+    "kapil": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 60,
+          "chats": 365,
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.28,
+          "aiRtg": 3.76,
+          "arst": "2.22 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 41,
+          "chats": 208,
+          "scanned": 21,
+          "qcs": 5,
+          "errorPct": 23.81,
+          "ojtRtg": 2.82,
+          "aiRtg": 3.91,
+          "arst": "2.85 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 41,
+        "chats": 208,
+        "scanned": 21,
+        "qcs": 5,
+        "errorPct": 23.81,
+        "ojtRtg": 2.82,
+        "aiRtg": 3.91,
+        "arst": "2.85 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 36,
+        "qcs": 6,
+        "errorPct": 16.67,
+        "ojtRtg": 3.05,
+        "aiRtg": 3.83,
+        "trend": "↕"
+      }
+    },
+    "rohit": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 27,
+          "chats": 134,
+          "scanned": 15,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.49,
+          "aiRtg": 3.77,
+          "arst": "3.58 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 32,
+          "chats": 196,
+          "scanned": 42,
+          "qcs": 5,
+          "errorPct": 11.9,
+          "ojtRtg": 3.23,
+          "aiRtg": 4.03,
+          "arst": "5.07 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 32,
+        "chats": 196,
+        "scanned": 42,
+        "qcs": 5,
+        "errorPct": 11.9,
+        "ojtRtg": 3.23,
+        "aiRtg": 4.03,
+        "arst": "5.07 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 57,
+        "qcs": 5,
+        "errorPct": 8.77,
+        "ojtRtg": 3.36,
+        "aiRtg": 3.9,
+        "trend": "↕"
+      }
+    },
+    "punam": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 47,
+          "chats": 282,
+          "scanned": 15,
+          "qcs": 2,
+          "errorPct": 13.33,
+          "ojtRtg": 2.82,
+          "aiRtg": 3.18,
+          "arst": "3.24 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 33,
+          "chats": 202,
+          "scanned": 60,
+          "qcs": 7,
+          "errorPct": 11.67,
+          "ojtRtg": 2.93,
+          "aiRtg": 3.69,
+          "arst": "4.05 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 33,
+        "chats": 202,
+        "scanned": 60,
+        "qcs": 7,
+        "errorPct": 11.67,
+        "ojtRtg": 2.93,
+        "aiRtg": 3.69,
+        "arst": "4.05 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 75,
+        "qcs": 9,
+        "errorPct": 12,
+        "ojtRtg": 2.88,
+        "aiRtg": 3.44,
+        "trend": "↕"
+      }
+    },
+    "shabir": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 39,
+          "chats": 158,
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.42,
+          "aiRtg": 4.04,
+          "arst": "4.30 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "0",
+          "avgChat": 0,
+          "chats": 0,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 0,
+          "aiRtg": 0,
+          "arst": "0",
+          "trend": "0",
+          "valid": false
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 39,
+        "chats": 158,
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.42,
+        "aiRtg": 4.04,
+        "arst": "4.30 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.42,
+        "aiRtg": 4.04,
+        "trend": "↕"
+      }
+    },
+    "hishita": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 53,
+          "chats": 322,
+          "scanned": 14,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.46,
+          "aiRtg": 3.95,
+          "arst": "3.86 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 329,
+          "scanned": 50,
+          "qcs": 3,
+          "errorPct": 6,
+          "ojtRtg": 3.2,
+          "aiRtg": 3.98,
+          "arst": "2.83 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 54,
+        "chats": 329,
+        "scanned": 50,
+        "qcs": 3,
+        "errorPct": 6,
+        "ojtRtg": 3.2,
+        "aiRtg": 3.98,
+        "arst": "2.83 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 64,
+        "qcs": 3,
+        "errorPct": 4.69,
+        "ojtRtg": 3.33,
+        "aiRtg": 3.96,
+        "trend": "↕"
+      }
+    },
+    "kshitij": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6.5",
+          "avgChat": 50,
+          "chats": 348,
+          "scanned": 25,
+          "qcs": 4,
+          "errorPct": 16,
+          "ojtRtg": 3.14,
+          "aiRtg": 4.16,
+          "arst": "3.57 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 35,
+          "chats": 179,
+          "scanned": 33,
+          "qcs": 8,
+          "errorPct": 24.24,
+          "ojtRtg": 3.12,
+          "aiRtg": 4.16,
+          "arst": "4.35 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 58,
+          "chats": 290,
+          "scanned": 91,
+          "qcs": 5,
+          "errorPct": 5.49,
+          "ojtRtg": 3.24,
+          "aiRtg": 4.06,
+          "arst": "1.74 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 66,
+          "chats": 331,
+          "scanned": 33,
+          "qcs": 4,
+          "errorPct": 12.12,
+          "ojtRtg": 3.12,
+          "aiRtg": 3.83,
+          "arst": "2.27 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 66,
+        "chats": 331,
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.12,
+        "ojtRtg": 3.12,
+        "aiRtg": 3.83,
+        "arst": "2.27 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 182,
+        "qcs": 21,
+        "errorPct": 11.54,
+        "ojtRtg": 3.16,
+        "aiRtg": 4.05,
+        "trend": "↕"
+      }
+    },
+    "kartik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "7",
+          "avgChat": 44,
+          "chats": 305,
+          "scanned": 25,
+          "qcs": 10,
+          "errorPct": 40,
+          "ojtRtg": 2.98,
+          "aiRtg": 3.81,
+          "arst": "5.13 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 39,
+          "chats": 195,
+          "scanned": 40,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.18,
+          "aiRtg": 3.8,
+          "arst": "4.09 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 80,
+          "chats": 477,
+          "scanned": 82,
+          "qcs": 6,
+          "errorPct": 7.32,
+          "ojtRtg": 2.84,
+          "aiRtg": 3.69,
+          "arst": "2.31 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 48,
+          "chats": 242,
+          "scanned": 26,
+          "qcs": 2,
+          "errorPct": 7.69,
+          "ojtRtg": 2.8,
+          "aiRtg": 4.46,
+          "arst": "2.54 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 48,
+        "chats": 242,
+        "scanned": 26,
+        "qcs": 2,
+        "errorPct": 7.69,
+        "ojtRtg": 2.8,
+        "aiRtg": 4.46,
+        "arst": "2.54 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 173,
+        "qcs": 18,
+        "errorPct": 10.4,
+        "ojtRtg": 2.95,
+        "aiRtg": 3.94,
+        "trend": "↕"
+      }
+    },
+    "aditi": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 42,
+          "chats": 168,
+          "scanned": 17,
+          "qcs": 13,
+          "errorPct": 76.47,
+          "ojtRtg": 1.7,
+          "aiRtg": 3.84,
+          "arst": "1.12 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 38,
+          "chats": 230,
+          "scanned": 45,
+          "qcs": 18,
+          "errorPct": 40,
+          "ojtRtg": 2.95,
+          "aiRtg": 3.92,
+          "arst": "1.75 mins",
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 38,
+        "chats": 230,
+        "scanned": 45,
+        "qcs": 18,
+        "errorPct": 40,
+        "ojtRtg": 2.95,
+        "aiRtg": 3.92,
+        "arst": "1.75 mins",
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 62,
+        "qcs": 31,
+        "errorPct": 50,
+        "ojtRtg": 2.33,
+        "aiRtg": 3.88,
+        "trend": "↓"
+      }
+    },
+    "pranali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "7",
+          "avgChat": 45,
+          "chats": 362,
+          "scanned": 30,
+          "qcs": 11,
+          "errorPct": 36.67,
+          "ojtRtg": 3.21,
+          "aiRtg": 3.85,
+          "arst": "4.18 mins",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6.5",
+          "avgChat": 40,
+          "chats": 243,
+          "scanned": 38,
+          "qcs": 11,
+          "errorPct": 28.95,
+          "ojtRtg": 3.08,
+          "aiRtg": 3.92,
+          "arst": "1.75 mins",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6.5",
+        "avgChat": 40,
+        "chats": 243,
+        "scanned": 38,
+        "qcs": 11,
+        "errorPct": 28.95,
+        "ojtRtg": 3.08,
+        "aiRtg": 3.92,
+        "arst": "1.75 mins",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 68,
+        "qcs": 22,
+        "errorPct": 32.35,
+        "ojtRtg": 3.15,
+        "aiRtg": 3.88,
+        "trend": "↕"
+      }
+    },
+    "gayatri": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 55,
+          "chats": 274,
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.18,
+          "aiRtg": 3.97,
+          "arst": "1.60 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 81,
+          "chats": 407,
+          "scanned": 45,
+          "qcs": 2,
+          "errorPct": 4.44,
+          "ojtRtg": 3.1,
+          "aiRtg": 3.83,
+          "arst": "1.23 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 81,
+        "chats": 407,
+        "scanned": 45,
+        "qcs": 2,
+        "errorPct": 4.44,
+        "ojtRtg": 3.1,
+        "aiRtg": 3.83,
+        "arst": "1.23 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 65,
+        "qcs": 2,
+        "errorPct": 3.08,
+        "ojtRtg": 3.14,
+        "aiRtg": 3.9,
+        "trend": "↕"
+      }
+    },
+    "piyush": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 51,
+          "chats": 255,
+          "scanned": 36,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.25,
+          "aiRtg": 3.81,
+          "arst": "1.98 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "1",
+          "avgChat": 78,
+          "chats": 78,
+          "scanned": 30,
+          "qcs": 1,
+          "errorPct": 3.33,
+          "ojtRtg": 2.98,
+          "aiRtg": 3.14,
+          "arst": "1.79 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "1",
+        "avgChat": 78,
+        "chats": 78,
+        "scanned": 30,
+        "qcs": 1,
+        "errorPct": 3.33,
+        "ojtRtg": 2.98,
+        "aiRtg": 3.14,
+        "arst": "1.79 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 66,
+        "qcs": 1,
+        "errorPct": 1.52,
+        "ojtRtg": 3.12,
+        "aiRtg": 3.48,
+        "trend": "↕"
+      }
+    },
+    "sayali meshram": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 52,
+          "chats": 262,
+          "scanned": 35,
+          "qcs": 7,
+          "errorPct": 20,
+          "ojtRtg": 2.75,
+          "aiRtg": 3.79,
+          "arst": "2.42 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 72,
+          "chats": 436,
+          "scanned": 127,
+          "qcs": 8,
+          "errorPct": 6.3,
+          "ojtRtg": 3.08,
+          "aiRtg": 3.55,
+          "arst": "2.08 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 72,
+        "chats": 436,
+        "scanned": 127,
+        "qcs": 8,
+        "errorPct": 6.3,
+        "ojtRtg": 3.08,
+        "aiRtg": 3.55,
+        "arst": "2.08 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 162,
+        "qcs": 15,
+        "errorPct": 9.26,
+        "ojtRtg": 2.92,
+        "aiRtg": 3.67,
+        "trend": "↕"
+      }
+    },
+    "aryan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 75,
+          "chats": 376,
+          "scanned": 20,
+          "qcs": 2,
+          "errorPct": 10,
+          "ojtRtg": 2.95,
+          "aiRtg": 3.9,
+          "arst": "2.17 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 90,
+          "chats": 450,
+          "scanned": 40,
+          "qcs": 3,
+          "errorPct": 7.5,
+          "ojtRtg": 3.03,
+          "aiRtg": 3.82,
+          "arst": "1.90 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 90,
+        "chats": 450,
+        "scanned": 40,
+        "qcs": 3,
+        "errorPct": 7.5,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.82,
+        "arst": "1.90 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 5,
+        "errorPct": 8.33,
+        "ojtRtg": 2.99,
+        "aiRtg": 3.86,
+        "trend": "↕"
+      }
+    },
+    "ishika": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 59,
+          "chats": 297,
+          "scanned": 20,
+          "qcs": 3,
+          "errorPct": 15,
+          "ojtRtg": 2.65,
+          "aiRtg": 3.88,
+          "arst": "2.19 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 82,
+          "chats": 412,
+          "scanned": 40,
+          "qcs": 3,
+          "errorPct": 7.5,
+          "ojtRtg": 2.91,
+          "aiRtg": 3.8,
+          "arst": "1.43 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 82,
+        "chats": 412,
+        "scanned": 40,
+        "qcs": 3,
+        "errorPct": 7.5,
+        "ojtRtg": 2.91,
+        "aiRtg": 3.8,
+        "arst": "1.43 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 6,
+        "errorPct": 10,
+        "ojtRtg": 2.78,
+        "aiRtg": 3.84,
+        "trend": "↕"
+      }
+    },
+    "sagar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 43,
+          "chats": 216,
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.05,
+          "aiRtg": 3.96,
+          "arst": "4.62 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 67,
+          "chats": 402,
+          "scanned": 40,
+          "qcs": 4,
+          "errorPct": 10,
+          "ojtRtg": 3.14,
+          "aiRtg": 3.85,
+          "arst": "3.44 min",
+          "trend": "↑",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 67,
+        "chats": 402,
+        "scanned": 40,
+        "qcs": 4,
+        "errorPct": 10,
+        "ojtRtg": 3.14,
+        "aiRtg": 3.85,
+        "arst": "3.44 min",
+        "trend": "↑",
+        "valid": true
+      },
+      "average": {
+        "scanned": 60,
+        "qcs": 4,
+        "errorPct": 6.67,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.91,
+        "trend": "↑"
+      }
+    },
+    "preeti": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "3",
+          "avgChat": 56,
+          "chats": 170,
+          "scanned": 30,
+          "qcs": 2,
+          "errorPct": 6.67,
+          "ojtRtg": 2.92,
+          "aiRtg": 3.88,
+          "arst": "2.66 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "3",
+        "avgChat": 56,
+        "chats": 170,
+        "scanned": 30,
+        "qcs": 2,
+        "errorPct": 6.67,
+        "ojtRtg": 2.92,
+        "aiRtg": 3.88,
+        "arst": "2.66 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 2,
+        "errorPct": 6.67,
+        "ojtRtg": 2.92,
+        "aiRtg": 3.88,
+        "trend": "↕"
+      }
+    },
+    "shashank": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 89,
+          "chats": 356,
+          "scanned": 145,
+          "qcs": 10,
+          "errorPct": 6.9,
+          "ojtRtg": 3.21,
+          "aiRtg": 3.9,
+          "arst": "1.01 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 97,
+          "chats": 385,
+          "scanned": 30,
+          "qcs": 4,
+          "errorPct": 13.33,
+          "ojtRtg": 3.09,
+          "aiRtg": 3.7,
+          "arst": "1.69 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4",
+        "avgChat": 97,
+        "chats": 385,
+        "scanned": 30,
+        "qcs": 4,
+        "errorPct": 13.33,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.7,
+        "arst": "1.69 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 175,
+        "qcs": 14,
+        "errorPct": 8,
+        "ojtRtg": 3.15,
+        "aiRtg": 3.8,
+        "trend": "↕"
+      }
+    },
+    "sayali vaidya": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 40,
+          "chats": 242,
+          "scanned": 141,
+          "qcs": 3,
+          "errorPct": 2.13,
+          "ojtRtg": 3.38,
+          "aiRtg": 4.04,
+          "arst": "4.17 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 25,
+          "chats": 126,
+          "scanned": 25,
+          "qcs": 1,
+          "errorPct": 4,
+          "ojtRtg": 3.41,
+          "aiRtg": 4.07,
+          "arst": "4.99 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 25,
+        "chats": 126,
+        "scanned": 25,
+        "qcs": 1,
+        "errorPct": 4,
+        "ojtRtg": 3.41,
+        "aiRtg": 4.07,
+        "arst": "4.99 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 166,
+        "qcs": 4,
+        "errorPct": 2.41,
+        "ojtRtg": 3.4,
+        "aiRtg": 4.05,
+        "trend": "↕"
+      }
+    },
+    "jeffin": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 76,
+          "chats": 461,
+          "scanned": 81,
+          "qcs": 2,
+          "errorPct": 2.47,
+          "ojtRtg": 3.3,
+          "aiRtg": 3.69,
+          "arst": "2.31 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "4.5",
+          "avgChat": 58,
+          "chats": 259,
+          "scanned": 10,
+          "qcs": 2,
+          "errorPct": 20,
+          "ojtRtg": 2.7,
+          "aiRtg": 4.28,
+          "arst": "3.16 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "4.5",
+        "avgChat": 58,
+        "chats": 259,
+        "scanned": 10,
+        "qcs": 2,
+        "errorPct": 20,
+        "ojtRtg": 2.7,
+        "aiRtg": 4.28,
+        "arst": "3.16 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 91,
+        "qcs": 4,
+        "errorPct": 4.4,
+        "ojtRtg": 3,
+        "aiRtg": 3.99,
+        "trend": "↕"
+      }
+    },
+    "danish": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 82,
+          "chats": 495,
+          "scanned": 71,
+          "qcs": 9,
+          "errorPct": 12.68,
+          "ojtRtg": 2.59,
+          "aiRtg": 3.3,
+          "arst": "1.85 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 42,
+          "chats": 188,
+          "scanned": 12,
+          "qcs": 3,
+          "errorPct": 25,
+          "ojtRtg": 2.69,
+          "aiRtg": 3.59,
+          "arst": "2.26 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 42,
+        "chats": 188,
+        "scanned": 12,
+        "qcs": 3,
+        "errorPct": 25,
+        "ojtRtg": 2.69,
+        "aiRtg": 3.59,
+        "arst": "2.26 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 83,
+        "qcs": 12,
+        "errorPct": 14.46,
+        "ojtRtg": 2.64,
+        "aiRtg": 3.44,
+        "trend": "↕"
+      }
+    },
+    "sumeet": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 83,
+          "chats": 501,
+          "scanned": 115,
+          "qcs": 24,
+          "errorPct": 20.87,
+          "ojtRtg": 2.97,
+          "aiRtg": 3.65,
+          "arst": "2.58 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 66,
+          "chats": 331,
+          "scanned": 33,
+          "qcs": 4,
+          "errorPct": 12.12,
+          "ojtRtg": 3.12,
+          "aiRtg": 3.83,
+          "arst": "2.27 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 66,
+        "chats": 331,
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.12,
+        "ojtRtg": 3.12,
+        "aiRtg": 3.83,
+        "arst": "2.27 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 148,
+        "qcs": 28,
+        "errorPct": 18.92,
+        "ojtRtg": 3.04,
+        "aiRtg": 3.74,
+        "trend": "↕"
+      }
+    },
+    "sana": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 69,
+          "chats": 412,
+          "scanned": 55,
+          "qcs": 6,
+          "errorPct": 10.91,
+          "ojtRtg": 2.85,
+          "aiRtg": 3.57,
+          "arst": "1.59 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 46,
+          "chats": 232,
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.2,
+          "aiRtg": 3.77,
+          "arst": "2.09 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 46,
+        "chats": 232,
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.2,
+        "aiRtg": 3.77,
+        "arst": "2.09 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 70,
+        "qcs": 7,
+        "errorPct": 10,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.67,
+        "trend": "↕"
+      }
+    },
+    "vaibhav": {
+      "weeks": [
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 63,
+          "chats": 317,
+          "scanned": 52,
+          "qcs": 5,
+          "errorPct": 9.62,
+          "ojtRtg": 2.95,
+          "aiRtg": 3.75,
+          "arst": "2.92 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 51,
+          "chats": 255,
+          "scanned": 10,
+          "qcs": 10,
+          "errorPct": 100,
+          "ojtRtg": 2.97,
+          "aiRtg": 4.02,
+          "arst": "3.15 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 24,
+          "chats": 120,
+          "scanned": 30,
+          "qcs": 1,
+          "errorPct": 3.33,
+          "ojtRtg": 3.16,
+          "aiRtg": 3.34,
+          "arst": "4.59 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 35,
+          "chats": 212,
+          "scanned": 60,
+          "qcs": 8,
+          "errorPct": 13.33,
+          "ojtRtg": 3.005,
+          "aiRtg": 3.68,
+          "arst": "2.66 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 35,
+        "chats": 212,
+        "scanned": 60,
+        "qcs": 8,
+        "errorPct": 13.33,
+        "ojtRtg": 3.005,
+        "aiRtg": 3.68,
+        "arst": "2.66 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 152,
+        "qcs": 24,
+        "errorPct": 15.79,
+        "ojtRtg": 3.02,
+        "aiRtg": 3.7,
+        "trend": "↕"
+      }
+    },
+    "bushera": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 103,
+          "chats": 622,
+          "scanned": 35,
+          "qcs": 4,
+          "errorPct": 11.43,
+          "ojtRtg": 2.87,
+          "aiRtg": 3.61,
+          "arst": "1.64 min",
+          "trend": "↑",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 72,
+          "chats": 360,
+          "scanned": 26,
+          "qcs": 3,
+          "errorPct": 11.54,
+          "ojtRtg": 3.19,
+          "aiRtg": 3.89,
+          "arst": "1.52 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 72,
+        "chats": 360,
+        "scanned": 26,
+        "qcs": 3,
+        "errorPct": 11.54,
+        "ojtRtg": 3.19,
+        "aiRtg": 3.89,
+        "arst": "1.52 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 61,
+        "qcs": 7,
+        "errorPct": 11.48,
+        "ojtRtg": 3.03,
+        "aiRtg": 3.75,
+        "trend": "↕"
+      }
+    },
+    "nikhilesh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 59,
+          "chats": 296,
+          "scanned": 35,
+          "qcs": 5,
+          "errorPct": 14.29,
+          "ojtRtg": 3.04,
+          "aiRtg": 4.04,
+          "arst": "0.73  Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 57,
+          "chats": 339,
+          "scanned": 95,
+          "qcs": 3,
+          "errorPct": 3.16,
+          "ojtRtg": 3.06,
+          "aiRtg": 3.96,
+          "arst": "0.76 Min",
+          "trend": "↑",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 57,
+        "chats": 339,
+        "scanned": 95,
+        "qcs": 3,
+        "errorPct": 3.16,
+        "ojtRtg": 3.06,
+        "aiRtg": 3.96,
+        "arst": "0.76 Min",
+        "trend": "↑",
+        "valid": true
+      },
+      "average": {
+        "scanned": 130,
+        "qcs": 8,
+        "errorPct": 6.15,
+        "ojtRtg": 3.05,
+        "aiRtg": 4,
+        "trend": "↑"
+      }
+    },
+    "prakhar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 21,
+          "chats": 84,
+          "scanned": 25,
+          "qcs": 3,
+          "errorPct": 12,
+          "ojtRtg": 3.31,
+          "aiRtg": 4.17,
+          "arst": "2.62  Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4.5",
+          "avgChat": 33,
+          "chats": 166,
+          "scanned": 75,
+          "qcs": 4,
+          "errorPct": 5.33,
+          "ojtRtg": 3.15,
+          "aiRtg": 4.04,
+          "arst": "1.81 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4.5",
+        "avgChat": 33,
+        "chats": 166,
+        "scanned": 75,
+        "qcs": 4,
+        "errorPct": 5.33,
+        "ojtRtg": 3.15,
+        "aiRtg": 4.04,
+        "arst": "1.81 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 100,
+        "qcs": 7,
+        "errorPct": 7,
+        "ojtRtg": 3.23,
+        "aiRtg": 4.11,
+        "trend": "↕"
+      }
+    },
+    "shahid": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 39,
+          "chats": 198,
+          "scanned": 33,
+          "qcs": 4,
+          "errorPct": 12.12,
+          "ojtRtg": 2.95,
+          "aiRtg": 3.89,
+          "arst": "6.17 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 32,
+          "chats": 162,
+          "scanned": 60,
+          "qcs": 6,
+          "errorPct": 10,
+          "ojtRtg": 2.93,
+          "aiRtg": 3.22,
+          "arst": "2.46 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 32,
+        "chats": 162,
+        "scanned": 60,
+        "qcs": 6,
+        "errorPct": 10,
+        "ojtRtg": 2.93,
+        "aiRtg": 3.22,
+        "arst": "2.46 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 93,
+        "qcs": 10,
+        "errorPct": 10.75,
+        "ojtRtg": 2.94,
+        "aiRtg": 3.56,
+        "trend": "↕"
+      }
+    },
+    "charul": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 40,
+          "chats": 200,
+          "scanned": 92,
+          "qcs": 4,
+          "errorPct": 4.35,
+          "ojtRtg": 3.27,
+          "aiRtg": 3.35,
+          "arst": "2.85 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 54,
+          "chats": 325,
+          "scanned": 136,
+          "qcs": 3,
+          "errorPct": 2.21,
+          "ojtRtg": 3.28,
+          "aiRtg": 3.47,
+          "arst": "1.84 Min",
+          "trend": "↑",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 54,
+        "chats": 325,
+        "scanned": 136,
+        "qcs": 3,
+        "errorPct": 2.21,
+        "ojtRtg": 3.28,
+        "aiRtg": 3.47,
+        "arst": "1.84 Min",
+        "trend": "↑",
+        "valid": true
+      },
+      "average": {
+        "scanned": 228,
+        "qcs": 7,
+        "errorPct": 3.07,
+        "ojtRtg": 3.27,
+        "aiRtg": 3.41,
+        "trend": "↑"
+      }
+    },
+    "ashwin": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 31,
+          "chats": 126,
+          "scanned": 84,
+          "qcs": 7,
+          "errorPct": 8.33,
+          "ojtRtg": 3.11,
+          "aiRtg": 3.93,
+          "arst": "7.18 Min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 47,
+          "chats": 238,
+          "scanned": 86,
+          "qcs": 7,
+          "errorPct": 8.14,
+          "ojtRtg": 3.14,
+          "aiRtg": 3.88,
+          "arst": "2.31 Min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 47,
+        "chats": 238,
+        "scanned": 86,
+        "qcs": 7,
+        "errorPct": 8.14,
+        "ojtRtg": 3.14,
+        "aiRtg": 3.88,
+        "arst": "2.31 Min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 170,
+        "qcs": 14,
+        "errorPct": 8.24,
+        "ojtRtg": 3.13,
+        "aiRtg": 3.91,
+        "trend": "↕"
+      }
+    },
+    "darshana": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "6",
+          "avgChat": 26,
+          "chats": 105,
+          "scanned": 29,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.44,
+          "aiRtg": 4.05,
+          "arst": "2.64 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 44,
+          "chats": 223,
+          "scanned": 72,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.33,
+          "aiRtg": 3.05,
+          "arst": "0.87 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "avail": "5",
+        "avgChat": 44,
+        "chats": 223,
+        "scanned": 72,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.33,
+        "aiRtg": 3.05,
+        "arst": "0.87 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 101,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.38,
+        "aiRtg": 3.55,
+        "trend": "↕"
+      }
+    },
+    "pratik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 43,
+          "chats": 172,
+          "scanned": 21,
+          "qcs": 1,
+          "errorPct": 4.76,
+          "ojtRtg": 3.03,
+          "aiRtg": 3.65,
+          "arst": "3.49 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "3",
+          "avgChat": 49,
+          "chats": 147,
+          "scanned": 6,
+          "qcs": 1,
+          "errorPct": 16.67,
+          "ojtRtg": 3.16,
+          "aiRtg": 3.47,
+          "arst": "1.61 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "3",
+        "avgChat": 49,
+        "chats": 147,
+        "scanned": 6,
+        "qcs": 1,
+        "errorPct": 16.67,
+        "ojtRtg": 3.16,
+        "aiRtg": 3.47,
+        "arst": "1.61 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 27,
+        "qcs": 2,
+        "errorPct": 7.41,
+        "ojtRtg": 3.09,
+        "aiRtg": 3.56,
+        "trend": "↕"
+      }
+    },
+    "rashi": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 67,
+          "chats": 335,
+          "scanned": 16,
+          "qcs": 8,
+          "errorPct": 50,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.63,
+          "arst": "2.62 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 88,
+          "chats": 536,
+          "scanned": 70,
+          "qcs": 2,
+          "errorPct": 2.86,
+          "ojtRtg": 3.14,
+          "aiRtg": 4.08,
+          "arst": "1.42 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 88,
+        "chats": 536,
+        "scanned": 70,
+        "qcs": 2,
+        "errorPct": 2.86,
+        "ojtRtg": 3.14,
+        "aiRtg": 4.08,
+        "arst": "1.42 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 86,
+        "qcs": 10,
+        "errorPct": 11.63,
+        "ojtRtg": 3.12,
+        "aiRtg": 4.36,
+        "trend": "↕"
+      }
+    },
+    "sanskriti": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 66,
+          "chats": 262,
+          "scanned": 5,
+          "qcs": 1,
+          "errorPct": 20,
+          "ojtRtg": 3.05,
+          "aiRtg": 3.84,
+          "arst": "2.50 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "4",
+          "avgChat": 73,
+          "chats": 307,
+          "scanned": 131,
+          "qcs": 20,
+          "errorPct": 15.27,
+          "ojtRtg": 2.87,
+          "aiRtg": 3.7,
+          "arst": "1.94 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "4",
+        "avgChat": 73,
+        "chats": 307,
+        "scanned": 131,
+        "qcs": 20,
+        "errorPct": 15.27,
+        "ojtRtg": 2.87,
+        "aiRtg": 3.7,
+        "arst": "1.94 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 136,
+        "qcs": 21,
+        "errorPct": 15.44,
+        "ojtRtg": 2.96,
+        "aiRtg": 3.77,
+        "trend": "↕"
+      }
+    },
+    "shiwani": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4",
+          "avgChat": 60,
+          "chats": 242,
+          "scanned": 61,
+          "qcs": 4,
+          "errorPct": 6.56,
+          "ojtRtg": 3.06,
+          "aiRtg": 3.76,
+          "arst": "2.90 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "1",
+          "avgChat": 27,
+          "chats": 27,
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": null,
+          "aiRtg": 4.13,
+          "arst": "2.50 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "1",
+        "avgChat": 27,
+        "chats": 27,
+        "scanned": 0,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": null,
+        "aiRtg": 4.13,
+        "arst": "2.50 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 61,
+        "qcs": 4,
+        "errorPct": 6.56,
+        "ojtRtg": 3.06,
+        "aiRtg": 3.94,
+        "trend": "↕"
+      }
+    },
+    "farheen": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "5",
+          "avgChat": 68,
+          "chats": 338,
+          "scanned": 120,
+          "qcs": 14,
+          "errorPct": 11.67,
+          "ojtRtg": 3.13,
+          "aiRtg": 4.09,
+          "arst": "1.80 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "6",
+          "avgChat": 85,
+          "chats": 508,
+          "scanned": 120,
+          "qcs": 7,
+          "errorPct": 5.83,
+          "ojtRtg": 3.19,
+          "aiRtg": 4.13,
+          "arst": "1.85 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "6",
+        "avgChat": 85,
+        "chats": 508,
+        "scanned": 120,
+        "qcs": 7,
+        "errorPct": 5.83,
+        "ojtRtg": 3.19,
+        "aiRtg": 4.13,
+        "arst": "1.85 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 240,
+        "qcs": 21,
+        "errorPct": 8.75,
+        "ojtRtg": 3.16,
+        "aiRtg": 4.11,
+        "trend": "↕"
+      }
+    },
+    "simran": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "avail": "4.5",
+          "avgChat": 32,
+          "chats": 147,
+          "scanned": 76,
+          "qcs": 21,
+          "errorPct": 27.63,
+          "ojtRtg": 3.1,
+          "aiRtg": 4.08,
+          "arst": "4.14 min",
+          "trend": "↕",
+          "valid": true
+        },
+        {
+          "week": "Week 2",
+          "avail": "5",
+          "avgChat": 51,
+          "chats": 253,
+          "scanned": 65,
+          "qcs": 5,
+          "errorPct": 7.69,
+          "ojtRtg": 3.33,
+          "aiRtg": 4.15,
+          "arst": "3.44 min",
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 2",
+        "avail": "5",
+        "avgChat": 51,
+        "chats": 253,
+        "scanned": 65,
+        "qcs": 5,
+        "errorPct": 7.69,
+        "ojtRtg": 3.33,
+        "aiRtg": 4.15,
+        "arst": "3.44 min",
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 141,
+        "qcs": 26,
+        "errorPct": 18.44,
+        "ojtRtg": 3.21,
+        "aiRtg": 4.12,
+        "trend": "↕"
+      }
+    }
+  }
+}

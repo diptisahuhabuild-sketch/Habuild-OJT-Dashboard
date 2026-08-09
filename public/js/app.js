@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'aiRtg', 'arst', 'frt', 'break'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'frt', 'break', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -777,24 +777,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
     } else {
-      select.innerHTML = `
+      let optionsHTML = `
         <option value="YESTERDAY">Yesterday</option>
         <option value="ALL">All Time</option>
         <option value="TODAY">Today</option>
         <option value="WEEK">Current Week</option>
-        <option value="WEEK_1">Week 1</option>
-        <option value="WEEK_2">Week 2</option>
-        <option value="WEEK_3">Week 3</option>
-        <option value="WEEK_4">Week 4</option>
-        <option value="WEEK_5">Week 5</option>
-        <option value="WEEK_6">Week 6</option>
-        <option value="WEEK_7">Week 7</option>
-        <option value="WEEK_8">Week 8</option>
+      `;
+      if (state.ojtMode === 'CURRENT') {
+        optionsHTML += `
+          <option value="WEEK_1">Week 1</option>
+          <option value="WEEK_2">Week 2</option>
+          <option value="WEEK_3">Week 3</option>
+          <option value="WEEK_4">Week 4</option>
+          <option value="WEEK_5">Week 5</option>
+          <option value="WEEK_6">Week 6</option>
+          <option value="WEEK_7">Week 7</option>
+          <option value="WEEK_8">Week 8</option>
+        `;
+      }
+      optionsHTML += `
         <option value="MONTH">Current Month</option>
         <option value="CUSTOM">Custom Range...</option>
       `;
-      select.value = currentVal || 'YESTERDAY';
-      state.dateFilter = select.value;
+      select.innerHTML = optionsHTML;
+      
+      if (state.ojtMode === 'ALL' && currentVal && currentVal.startsWith('WEEK_')) {
+        state.dateFilter = 'YESTERDAY';
+      } else {
+        select.value = currentVal || 'YESTERDAY';
+        state.dateFilter = select.value;
+      }
 
       const startInput = document.getElementById('startDateInput');
       const endInput = document.getElementById('endDateInput');
@@ -1499,16 +1511,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('internScorecardTbody');
     if (!theadTr || !tbody) return;
 
-    const scoreCardExtraCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'];
-    const cols = state.internCustomCols.filter(col => {
-      if (state.ojtMode !== 'PREVIOUS' && scoreCardExtraCols.includes(col)) {
-        return false;
-      }
-      if (!state.includeKomalAI && ['simpleQ', 'complexQ', 'aiRtg', 'arst', 'frt', 'break'].includes(col)) {
-        return false;
-      }
-      return true;
-    });
+    const cols = state.internCustomCols;
 
     // Render Headers
     theadTr.innerHTML = cols.map(c => `<th>${INTERN_COL_LABELS[c] || c}</th>`).join('');
@@ -1705,42 +1708,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Aggregate chat counts dynamically
+      // Aggregate chat counts dynamically according to shift time & filter
       let totalChats = 0;
       let hasCommsData = false;
       let matchedCommsKeys = [];
 
       if (state.data && state.data.commsChatData) {
-        const regParts = reg.name.toLowerCase().trim().split(/\s+/).filter(p => p.length > 0);
-        if (regParts.length > 0) {
-          const regFirst = regParts[0];
-          const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
+        const commsRoot = state.data.commsChatData;
+        const regShift = (reg.shift || '').toUpperCase().trim();
+        let targetCommsStore = commsRoot.all || commsRoot;
 
-          parsedCommsKeys.forEach(pk => {
-            if (namesMatch(reg.name, pk.key)) {
-              matchedCommsKeys.push(pk.key);
+        if (regShift.includes('MORN') || regShift.includes('AM')) {
+          if (commsRoot.morning && Object.keys(commsRoot.morning).length > 0) {
+            targetCommsStore = commsRoot.morning;
+          }
+        } else if (regShift.includes('EVE') || regShift.includes('PM')) {
+          if (commsRoot.evening && Object.keys(commsRoot.evening).length > 0) {
+            targetCommsStore = commsRoot.evening;
+          }
+        }
+
+        const commsKeys = Object.keys(targetCommsStore);
+        commsKeys.forEach(k => {
+          if (namesMatch(reg.name, k)) {
+            matchedCommsKeys.push(k);
+          }
+        });
+
+        // Fallback to all store if no match found in specific shift tab
+        if (matchedCommsKeys.length === 0 && commsRoot.all) {
+          targetCommsStore = commsRoot.all;
+          Object.keys(targetCommsStore).forEach(k => {
+            if (namesMatch(reg.name, k)) {
+              matchedCommsKeys.push(k);
             }
           });
+        }
 
-          if (matchedCommsKeys.length > 0) {
-            hasCommsData = true;
-            datesList.forEach(dateStr => {
-              matchedCommsKeys.forEach(k => {
-                const val = state.data.commsChatData[k][dateStr];
-                if (val !== undefined && val !== null && val !== '') {
-                  const num = parseInt(String(val).replace(/,/g, ''), 10);
-                  if (!isNaN(num)) {
-                    totalChats += num;
-                  }
+        if (matchedCommsKeys.length > 0) {
+          hasCommsData = true;
+          datesList.forEach(dateStr => {
+            matchedCommsKeys.forEach(k => {
+              const val = targetCommsStore[k][dateStr];
+              if (val !== undefined && val !== null && val !== '') {
+                const num = parseInt(String(val).replace(/,/g, ''), 10);
+                if (!isNaN(num)) {
+                  totalChats += num;
                 }
-              });
+              }
             });
-          }
+          });
         }
       }
 
-      const chatCountVal = hasCommsData ? totalChats : "No Data";
-      const avgChatCountVal = hasCommsData ? (availableDays > 0 ? parseFloat((totalChats / availableDays).toFixed(1)) : 0) : "No Data";
+      const isSingleDayFilter = state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY' || (evalDates.length === 1);
+      
+      let chatCountVal = "No Data";
+      let avgChatCountVal = "No Data";
+
+      if (hasCommsData) {
+        chatCountVal = totalChats; // Sum for week/multi-day, or exact single day value
+        avgChatCountVal = isSingleDayFilter ? totalChats : (availableDays > 0 ? parseFloat((totalChats / availableDays).toFixed(1)) : 0);
+      }
 
       return { 
         avail: availStr, 
@@ -1833,110 +1862,126 @@ document.addEventListener('DOMContentLoaded', () => {
       
       let frtVal = "No Data";
 
-      // Override with Static Reporting Data for Previous OJT Period (Batch 20)
-      if (state.ojtMode === 'PREVIOUS' && regBatch === 'B-20' && state.data && state.data.b20Reporting) {
+      // Override with Static Reporting Data for Previous/Current OJT Batches (Batch 20, Batch 19, etc.)
+      let batchRepData = null;
+      if (regBatch === 'B-20' && state.data && state.data.b20Reporting) {
+        batchRepData = state.data.b20Reporting;
+      } else if (regBatch === 'B-19' && state.data && state.data.b19Reporting) {
+        batchRepData = state.data.b19Reporting;
+      } else if (state.data && state.data[`${regBatch.toLowerCase().replace(/[^a-z0-9]/g, '')}Reporting`]) {
+        batchRepData = state.data[`${regBatch.toLowerCase().replace(/[^a-z0-9]/g, '')}Reporting`];
+      }
+
+      if ((state.ojtMode === 'PREVIOUS' || regBatch === 'B-20' || regBatch === 'B-19') && batchRepData) {
         const cleanName = reg.name.toLowerCase().trim();
-        const b20 = state.data.b20Reporting;
+        const bRep = batchRepData;
         
-        // 1. Daily Data Override
-        const dailyKeys = Object.keys(b20.daily || {});
+        // 1. Daily Data & Weekly Scorecard Overrides
+        const dailyKeys = Object.keys(bRep.daily || {});
         let dMatch = dailyKeys.find(k => k === cleanName);
         if (!dMatch) {
           dMatch = dailyKeys.find(k => strictNameMatch(k, cleanName) || k.includes(cleanName.split(' ')[0]));
         }
 
-        if (dMatch && b20.daily[dMatch]) {
-          const dailyLog = b20.daily[dMatch];
-          const availableDates = Object.keys(dailyLog).sort();
-          let targetDate = null;
-          
-          if (state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY') {
-             const { startStr } = getDateRangeFromFilter(state.dateFilter);
-             if (dailyLog[startStr]) targetDate = startStr;
-          } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
-             const { startStr, endStr } = getDateRangeFromFilter(state.dateFilter);
-             const datesInThisWeek = availableDates.filter(d => d >= startStr && d <= endStr);
-             if (datesInThisWeek.length > 0) {
-               let sumAi = 0, countAi = 0;
-               let sumArst = 0, countArst = 0;
-               let sumBreak = 0, countBreak = 0;
-               let lastFrt = "No Data";
-               
-               datesInThisWeek.forEach(d => {
-                 const dLog = dailyLog[d];
-                 if (dLog) {
-                   const aiNum = parseFloat(dLog.aiRtg);
-                   if (!isNaN(aiNum) && aiNum > 0) { sumAi += aiNum; countAi++; }
-                   
-                   const arstNum = parseFloat(String(dLog.arst).replace(/[^0-9.]/g, ''));
-                   if (!isNaN(arstNum) && arstNum > 0) { sumArst += arstNum; countArst++; }
-                   
-                   const breakNum = parseFloat(String(dLog.breakVal).replace(/[^0-9.]/g, ''));
-                   if (!isNaN(breakNum) && breakNum > 0) {
-                     const isHrs = String(dLog.breakVal).toLowerCase().includes('hr');
-                     sumBreak += isHrs ? breakNum * 60 : breakNum;
-                     countBreak++;
-                   }
-                   if (dLog.frt && dLog.frt !== '-' && dLog.frt !== 'No Data') {
-                     lastFrt = dLog.frt;
-                   }
-                 }
-               });
-               
-               if (countAi > 0) statsCurrent.aiRtg = parseFloat((sumAi / countAi).toFixed(2));
-               if (countArst > 0) statsCurrent.arstVal = parseFloat((sumArst / countArst).toFixed(2));
-               if (countBreak > 0) statsCurrent.breakVal = parseFloat((sumBreak / countBreak).toFixed(2));
-               if (lastFrt !== "No Data") frtVal = lastFrt;
-             }
-          }
-          
-          if (!targetDate && availableDates.length > 0 && !state.dateFilter.startsWith('WEEK_')) {
-             targetDate = availableDates[availableDates.length - 1];
-          }
-          
-          if (targetDate) {
-            const dLog = dailyLog[targetDate];
-            if (dLog.aiRtg && dLog.aiRtg !== '-') statsCurrent.aiRtg = dLog.aiRtg;
-            if (dLog.arst && dLog.arst !== '-') statsCurrent.arstVal = dLog.arst;
-            if (dLog.breakVal && dLog.breakVal !== '-') statsCurrent.breakVal = dLog.breakVal;
-            if (dLog.frt && dLog.frt !== '-') frtVal = dLog.frt;
-          }
-        }
-        
-        // 2. Weekly Data Override
-        const weeklyKeys = Object.keys(b20.weekly || {});
+        const weeklyKeys = Object.keys(bRep.weekly || {});
         let wMatch = weeklyKeys.find(k => k === cleanName);
         if (!wMatch) {
-           wMatch = weeklyKeys.find(k => {
-             const cleanK = k.replace(/\(.*\)/g, '').trim();
-             return strictNameMatch(cleanK, cleanName) || cleanK.includes(cleanName.split(' ')[0]);
-           });
+          wMatch = weeklyKeys.find(k => {
+            const cleanK = k.replace(/\(.*\)/g, '').trim();
+            return strictNameMatch(cleanK, cleanName) || cleanK.includes(cleanName.split(' ')[0]);
+          });
         }
 
-        if (wMatch && b20.weekly[wMatch]) {
-          const wLog = b20.weekly[wMatch];
-          let weekData = null;
-          if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
-            weekData = wLog.average;
-          } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
-            const weekNum = state.dateFilter.replace(/[^0-9]/g, '');
-            const targetWeekLabel = `Week ${weekNum}`;
-            weekData = (wLog.weeks || []).find(w => w.week && w.week.toLowerCase() === targetWeekLabel.toLowerCase()) || null;
-          } else {
-            weekData = wLog.recent;
-          }
-          
-          if (weekData) {
-            statsCurrent.scannedVal = weekData.scanned;
-            statsCurrent.qcs = weekData.qcs;
-            statsCurrent.errorPct = weekData.errorPct;
-            statsCurrent.ojtRtg = weekData.ojtRtg;
-            trend = weekData.trend;
-          } else {
+        const isSingleDateFilter = (state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY' || state.dateFilter === 'CUSTOM' || (!state.dateFilter.startsWith('WEEK_') && state.dateFilter !== 'MONTH' && state.dateFilter !== 'ALL'));
+
+        if (regBatch === 'B-20') {
+          if (isSingleDateFilter) {
+            // For Batch 20 Single/Custom Date Filter:
+            // Hide Error %, OJT Rtg, Trend, and Scanned
+            statsCurrent.scannedVal = "No Data";
+            statsCurrent.qcs = 0;
+            statsCurrent.errorPct = "No Data";
+            statsCurrent.ojtRtg = "No Data";
             trend = "-";
+
+            // Pull AI Rtg, ARST, FRT, and Break from Daily OJT Status sheet
+            const { startStr } = getDateRangeFromFilter(state.dateFilter);
+            const targetDateStr = startStr || state.customStartDate;
+
+            if (dMatch && bRep.daily && bRep.daily[dMatch]) {
+              const dailyLog = bRep.daily[dMatch];
+              const dLog = targetDateStr ? dailyLog[targetDateStr] : null;
+              if (dLog) {
+                if (dLog.aiRtg && dLog.aiRtg !== 'No Data' && dLog.aiRtg !== '-') statsCurrent.aiRtg = dLog.aiRtg;
+                if (dLog.arst && dLog.arst !== 'No Data' && dLog.arst !== '-') statsCurrent.arstVal = dLog.arst;
+                if (dLog.frt && dLog.frt !== 'No Data' && dLog.frt !== '-') frtVal = dLog.frt;
+                if (dLog.breakVal && dLog.breakVal !== 'No Data' && dLog.breakVal !== '-') statsCurrent.breakVal = dLog.breakVal;
+              }
+            }
+          } else {
+            // For Batch 20 Week / Month / All Filters:
+            // Pull AI Rtg, ARST, FRT, Break, Scanned, QCs, Error %, OJT Rtg, Trend from Weekly score card sheet
+            if (wMatch && bRep.weekly && bRep.weekly[wMatch]) {
+              const wLog = bRep.weekly[wMatch];
+              let weekData = null;
+              if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
+                weekData = wLog.average;
+              } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
+                const weekNum = state.dateFilter.replace(/[^0-9]/g, '');
+                const targetWeekLabel = `Week ${weekNum}`;
+                weekData = (wLog.weeks || []).find(w => w.week && w.week.toLowerCase() === targetWeekLabel.toLowerCase()) || null;
+              } else {
+                weekData = wLog.recent;
+              }
+
+              if (weekData) {
+                if (weekData.scanned !== undefined && weekData.scanned !== null) statsCurrent.scannedVal = weekData.scanned;
+                if (weekData.qcs !== undefined && weekData.qcs !== null) statsCurrent.qcs = weekData.qcs;
+                if (weekData.errorPct !== undefined && weekData.errorPct !== null) statsCurrent.errorPct = weekData.errorPct;
+                if (weekData.ojtRtg !== undefined && weekData.ojtRtg !== null) statsCurrent.ojtRtg = weekData.ojtRtg;
+                if (weekData.aiRtg !== undefined && weekData.aiRtg !== null) statsCurrent.aiRtg = weekData.aiRtg;
+                if (weekData.arst !== undefined && weekData.arst !== null && weekData.arst !== '-') statsCurrent.arstVal = weekData.arst;
+                trend = weekData.trend || "-";
+              }
+            }
           }
         } else {
-          trend = "-";
+          // Default override for other batches (B-19, etc.)
+          if (dMatch && bRep.daily && bRep.daily[dMatch]) {
+            const dailyLog = bRep.daily[dMatch];
+            const { startStr } = getDateRangeFromFilter(state.dateFilter);
+            if (startStr && dailyLog[startStr]) {
+              const dLog = dailyLog[startStr];
+              if (dLog.aiRtg && dLog.aiRtg !== '-' && parseFloat(dLog.aiRtg) <= 5.0) statsCurrent.aiRtg = dLog.aiRtg;
+              if (dLog.arst && dLog.arst !== '-') statsCurrent.arstVal = dLog.arst;
+              if (dLog.breakVal && dLog.breakVal !== '-') statsCurrent.breakVal = dLog.breakVal;
+              if (dLog.frt && dLog.frt !== '-') frtVal = dLog.frt;
+            }
+          }
+
+          if (wMatch && bRep.weekly && bRep.weekly[wMatch]) {
+            const wLog = bRep.weekly[wMatch];
+            let weekData = null;
+            if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
+              weekData = wLog.average;
+            } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
+              const weekNum = state.dateFilter.replace(/[^0-9]/g, '');
+              const targetWeekLabel = `Week ${weekNum}`;
+              weekData = (wLog.weeks || []).find(w => w.week && w.week.toLowerCase() === targetWeekLabel.toLowerCase()) || null;
+            } else {
+              weekData = wLog.recent;
+            }
+
+            if (weekData) {
+              if (weekData.scanned !== undefined && weekData.scanned !== null) statsCurrent.scannedVal = weekData.scanned;
+              if (weekData.qcs !== undefined && weekData.qcs !== null) statsCurrent.qcs = weekData.qcs;
+              if (weekData.errorPct !== undefined && weekData.errorPct !== null) statsCurrent.errorPct = weekData.errorPct;
+              if (weekData.ojtRtg !== undefined && weekData.ojtRtg !== null) statsCurrent.ojtRtg = weekData.ojtRtg;
+              if (weekData.aiRtg !== undefined && weekData.aiRtg !== null) statsCurrent.aiRtg = weekData.aiRtg;
+              if (weekData.arst !== undefined && weekData.arst !== null && weekData.arst !== '-') statsCurrent.arstVal = weekData.arst;
+              trend = weekData.trend || "-";
+            }
+          }
         }
       } else {
         // When Previous OJT period is turned OFF:
@@ -1944,7 +1989,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.komalMetrics) {
           const cleanName = reg.name.toLowerCase().trim();
           const km = state.komalMetrics[cleanName] || {};
-          if (km.aiRtg && km.aiRtg !== '-') statsCurrent.aiRtg = km.aiRtg;
+          if (km.shift && km.shift !== '-') reg.shift = km.shift;
+          if (km.aiRtg && km.aiRtg !== '-' && parseFloat(km.aiRtg) <= 5.0) statsCurrent.aiRtg = km.aiRtg;
           if (km.arst && km.arst !== '-') statsCurrent.arstVal = km.arst;
           if (km.frt && km.frt !== '-') frtVal = km.frt;
           if (km.break && km.break !== '-') statsCurrent.breakVal = km.break;
@@ -2028,8 +2074,9 @@ document.addEventListener('DOMContentLoaded', () => {
           return `<td><span class="badge badge-teal" style="font-weight: 700;">${val}</span></td>`;
         }
         if (col === 'ojtRtg' || col === 'aiRtg') {
-          if (val === "No Data") return `<td>No Data</td>`;
+          if (val === "No Data" || val === null || val === undefined || val === '-') return `<td>No Data</td>`;
           const num = parseFloat(val);
+          if (isNaN(num) || num > 5.0) return `<td>No Data</td>`;
           const colorClass = num >= 3.5 ? 'color-green' : (num >= 3.0 ? 'color-amber' : 'color-red');
           return `<td class="${colorClass} font-semibold">${num.toFixed(2)}</td>`;
         }
@@ -3503,12 +3550,15 @@ document.addEventListener('DOMContentLoaded', () => {
       filtered = records.filter(r => r.internName && namesMatch(filterInternName, r.internName));
     }
 
-    // Apply date range filter
+    // Apply date range filter (fallback to all records if date filter yields no items)
     const activeFilter = state.dateFilter || 'YESTERDAY';
     const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     if (startStr && endStr) {
-      filtered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
+      const dateFiltered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
+      if (dateFiltered.length > 0) {
+        filtered = dateFiltered;
+      }
     }
 
     // Filter spreadsheet audits dynamically

@@ -397,61 +397,59 @@ async function fetchAndSyncGoogleSheetsData() {
       const meta = await sheets.spreadsheets.get({ spreadsheetId: sheetObj.id });
       const tabNames = meta.data.sheets.map(s => s.properties.title);
 
-      for (const tabName of tabNames) {
-        // Skip non-audit sheets to save read quota
+      const activeAuditTabs = tabNames.filter(tabName => {
         const lowerTab = tabName.toLowerCase();
         const skipKeywords = ['attendance', 'assigned', 'kpi', 'email', 'topic', 'schedule', 'template', 'rough', 'week off'];
-        if (skipKeywords.some(kw => lowerTab.includes(kw))) {
-          continue;
-        }
+        return !skipKeywords.some(kw => lowerTab.includes(kw));
+      });
 
-        console.log(`[GoogleSyncService] Reading tab "${tabName}" in spreadsheet "${sheetObj.lead}"...`);
-        
-        // Delay 1500ms to avoid quota limits
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
+      if (activeAuditTabs.length > 0) {
+        console.log(`[GoogleSyncService] Fetching ${activeAuditTabs.length} tabs for spreadsheet "${sheetObj.lead}" via batchGet...`);
+        const auditRanges = activeAuditTabs.map(t => `'${t}'!A1:AE500`);
         try {
-          const res = await sheets.spreadsheets.values.get({
+          const auditBatchRes = await sheets.spreadsheets.values.batchGet({
             spreadsheetId: sheetObj.id,
-            range: `'${tabName}'!A1:AE500`
+            ranges: auditRanges
           });
-          const rows = res.data.values || [];
-          if (rows.length < 2) continue;
 
-          const rawHeaders = rows[0].map(h => String(h || '').trim());
-          const headers = rawHeaders.map(h => h.toLowerCase());
+          (auditBatchRes.data.valueRanges || []).forEach((vr, tIdx) => {
+            const tabName = activeAuditTabs[tIdx];
+            const rows = vr.values || [];
+            if (rows.length < 2) return;
 
-          // Verify if it contains trainee/intern name column
-          const internIdx = headers.findIndex(h => 
-            h.includes('intern') || 
-            h.includes('name') || 
-            h.includes('trainee') || 
-            h.includes('executive') || 
-            h.includes('agent')
-          );
-          if (internIdx < 0) continue;
+            const rawHeaders = rows[0].map(h => String(h || '').trim());
+            const headers = rawHeaders.map(h => h.toLowerCase());
 
-          let resolvedLead = sheetObj.lead;
-          if (resolvedLead === 'AuditPerformance') {
-            const lowerTab = tabName.toLowerCase();
-            if (lowerTab.includes('samiksha')) resolvedLead = 'SAMIKSHA';
-            else if (lowerTab.includes('nilesh')) resolvedLead = 'NILESH';
-            else if (lowerTab.includes('sonali')) resolvedLead = 'SONALI';
-            else if (lowerTab.includes('diksha')) resolvedLead = 'DIKSHA';
-            else if (lowerTab.includes('rashi')) resolvedLead = 'RASHI';
-            else if (lowerTab.includes('priyanshu')) resolvedLead = 'PRIYANSHU';
-            else if (lowerTab.includes('namrata')) resolvedLead = 'NAMRATA';
-            else if (lowerTab.includes('damini')) resolvedLead = 'DAMINI';
-            else if (lowerTab.includes('disha')) resolvedLead = 'DISHA';
-            else if (lowerTab.includes('pooja')) resolvedLead = 'POOJA';
-            else if (lowerTab.includes('jayshree')) resolvedLead = 'JAYSHREE';
-            else if (lowerTab.includes('harsh')) resolvedLead = 'HARSH';
-          }
+            const internIdx = headers.findIndex(h => 
+              h.includes('intern') || 
+              h.includes('name') || 
+              h.includes('trainee') || 
+              h.includes('executive') || 
+              h.includes('agent')
+            );
+            if (internIdx < 0) return;
 
-          // Parse and merge rows into mergedScanData
-          parseSheetRowsIntoMergedData(tabName, rows, resolvedLead, internIdx, headers, mergedScanData, internBatchMap);
+            let resolvedLead = sheetObj.lead;
+            if (resolvedLead === 'AuditPerformance') {
+              const lowerTab = tabName.toLowerCase();
+              if (lowerTab.includes('samiksha')) resolvedLead = 'SAMIKSHA';
+              else if (lowerTab.includes('nilesh')) resolvedLead = 'NILESH';
+              else if (lowerTab.includes('sonali')) resolvedLead = 'SONALI';
+              else if (lowerTab.includes('diksha')) resolvedLead = 'DIKSHA';
+              else if (lowerTab.includes('rashi')) resolvedLead = 'RASHI';
+              else if (lowerTab.includes('priyanshu')) resolvedLead = 'PRIYANSHU';
+              else if (lowerTab.includes('namrata')) resolvedLead = 'NAMRATA';
+              else if (lowerTab.includes('damini')) resolvedLead = 'DAMINI';
+              else if (lowerTab.includes('disha')) resolvedLead = 'DISHA';
+              else if (lowerTab.includes('pooja')) resolvedLead = 'POOJA';
+              else if (lowerTab.includes('jayshree')) resolvedLead = 'JAYSHREE';
+              else if (lowerTab.includes('harsh')) resolvedLead = 'HARSH';
+            }
+
+            parseSheetRowsIntoMergedData(tabName, rows, resolvedLead, internIdx, headers, mergedScanData, internBatchMap);
+          });
         } catch (tabErr) {
-          console.warn(`[GoogleSyncService] Failed to read tab "${tabName}" in "${sheetObj.lead}":`, tabErr.message);
+          console.warn(`[GoogleSyncService] Failed batchGet in "${sheetObj.lead}":`, tabErr.message);
         }
       }
     }
@@ -480,103 +478,100 @@ async function fetchAndSyncGoogleSheetsData() {
       }
       
       if (!skipAttend) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const attendMeta = await sheets.spreadsheets.get({ spreadsheetId: attendId });
-      const attendTabs = attendMeta.data.sheets.map(s => s.properties.title);
-      
-      const activeAttendTabs = attendTabs.filter(t => {
-        const cleanTab = t.toLowerCase().trim();
-        if (cleanTab.includes('time') || cleanTab.includes('leave') || cleanTab.includes('late') || cleanTab.includes('lop') || cleanTab.includes('tracker') || cleanTab.includes('upload') || cleanTab.includes('import') || cleanTab.includes('change') || cleanTab.includes('department') || cleanTab.includes('sheet') || cleanTab.includes('check') || cleanTab.includes('ot') || cleanTab.includes('mastersheet')) {
-          return false;
-        }
-        const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-        const hasMonth = months.some(m => cleanTab.includes(m));
-        const isDetailedStatus = cleanTab.includes('detailed') && cleanTab.includes('status');
-        return hasMonth || isDetailedStatus;
-      });
-      
-      for (const tab of activeAttendTabs) {
-        console.log(`[GoogleSyncService] Reading HR Attendance tab "${tab}"...`);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const attendMeta = await sheets.spreadsheets.get({ spreadsheetId: attendId });
+        const attendTabs = attendMeta.data.sheets.map(s => s.properties.title);
         
-        const res = await sheets.spreadsheets.values.get({
-          spreadsheetId: attendId,
-          range: `'${tab}'!A1:AJ400`
+        const activeAttendTabs = attendTabs.filter(t => {
+          const cleanTab = t.toLowerCase().trim();
+          if (cleanTab.includes('time') || cleanTab.includes('leave') || cleanTab.includes('late') || cleanTab.includes('lop') || cleanTab.includes('tracker') || cleanTab.includes('upload') || cleanTab.includes('import') || cleanTab.includes('change') || cleanTab.includes('department') || cleanTab.includes('sheet') || cleanTab.includes('check') || cleanTab.includes('ot') || cleanTab.includes('mastersheet')) {
+            return false;
+          }
+          const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+          return months.some(m => cleanTab.includes(m));
         });
-        const rows = res.data.values || [];
-        if (rows.length === 0) continue;
         
-        let dateHeaderRow = null;
-        let dates = [];
-        
-        for (let r = 0; r < rows.length; r++) {
-          const row = rows[r];
-          const dateCells = row.filter(c => parseDDMMYYYYDate(c));
-          if (dateCells.length > 5) {
-            dateHeaderRow = r;
-            let lastSeenDate = null;
-            dates = row.map(c => {
-              const parsed = parseDDMMYYYYDate(c);
-              if (parsed) lastSeenDate = parsed;
-              return lastSeenDate;
-            });
-            break;
-          }
-        }
-        
-        if (dateHeaderRow === null) continue;
-        
-        for (let r = dateHeaderRow + 1; r < rows.length; r++) {
-          const row = rows[r];
-          if (!row || row.length === 0) continue;
-          
-          let rawName = '';
-          let nameColIdx = -1;
-          for (let colIdx = 0; colIdx <= 3; colIdx++) {
-            const val = String(row[colIdx] || '').trim();
-            if (!val) continue;
-            
-            const valLower = val.toLowerCase();
-            // Exclude non-name markers
-            if (valLower.includes('date') || valLower.includes('total') || valLower.includes('available') || 
-                valLower.includes('squad') || valLower.includes('employee') || valLower.includes('escalation') || 
-                valLower.includes('in time') || valLower.includes('out time') || valLower.includes('sorted') ||
-                valLower.match(/^\d{2}:\d{2}$/) || valLower.match(/^\d+$/) || valLower === '-') {
-              continue;
+        console.log(`[GoogleSyncService] Fetching ${activeAttendTabs.length} HR Attendance tabs via batchGet...`);
+        const attendRanges = activeAttendTabs.map(t => `'${t}'!A1:AJ400`);
+        const attendBatchRes = await sheets.spreadsheets.values.batchGet({
+          spreadsheetId: attendId,
+          ranges: attendRanges
+        });
+
+        (attendBatchRes.data.valueRanges || []).forEach(vr => {
+          const rows = vr.values || [];
+          if (rows.length === 0) return;
+
+          let dateHeaderRow = null;
+          let dates = [];
+
+          for (let r = 0; r < rows.length; r++) {
+            const row = rows[r];
+            const dateCells = row.filter(c => parseDDMMYYYYDate(c));
+            if (dateCells.length > 5) {
+              dateHeaderRow = r;
+              let lastSeenDate = null;
+              dates = row.map(c => {
+                const parsed = parseDDMMYYYYDate(c);
+                if (parsed) lastSeenDate = parsed;
+                return lastSeenDate;
+              });
+              break;
             }
-            
-            rawName = val;
-            nameColIdx = colIdx;
-            break;
           }
-          
-          if (!rawName || nameColIdx === -1) continue;
-          
-          const cleanName = rawName.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
-          if (!parsedAttendance[cleanName]) {
-            parsedAttendance[cleanName] = {};
-          }
-          
-          for (let col = nameColIdx + 1; col < row.length; col++) {
-            const dateStr = dates[col];
-            if (dateStr) {
-              const val = String(row[col] || '').trim();
-              if (parsedAttendance[cleanName][dateStr]) {
-                const prev = parsedAttendance[cleanName][dateStr];
-                if (val && val !== '-') {
-                  if (prev === '-' || !prev) {
-                    parsedAttendance[cleanName][dateStr] = val;
+
+          if (dateHeaderRow === null) return;
+
+          for (let r = dateHeaderRow + 1; r < rows.length; r++) {
+            const row = rows[r];
+            if (!row || row.length === 0) continue;
+
+            let rawName = '';
+            let nameColIdx = -1;
+            for (let colIdx = 0; colIdx <= 3; colIdx++) {
+              const val = String(row[colIdx] || '').trim();
+              if (!val) continue;
+
+              const valLower = val.toLowerCase();
+              if (valLower.includes('date') || valLower.includes('total') || valLower.includes('available') || 
+                  valLower.includes('squad') || valLower.includes('employee') || valLower.includes('escalation') || 
+                  valLower.includes('in time') || valLower.includes('out time') || valLower.includes('sorted') ||
+                  valLower.match(/^\d{2}:\d{2}$/) || valLower.match(/^\d+$/) || valLower === '-') {
+                continue;
+              }
+
+              rawName = val;
+              nameColIdx = colIdx;
+              break;
+            }
+
+            if (!rawName || nameColIdx === -1) continue;
+
+            const cleanName = rawName.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+            if (!parsedAttendance[cleanName]) {
+              parsedAttendance[cleanName] = {};
+            }
+
+            for (let col = nameColIdx + 1; col < row.length; col++) {
+              const dateStr = dates[col];
+              if (dateStr) {
+                const val = String(row[col] || '').trim();
+                if (parsedAttendance[cleanName][dateStr]) {
+                  const prev = parsedAttendance[cleanName][dateStr];
+                  if (val && val !== '-') {
+                    if (prev === '-' || !prev) {
+                      parsedAttendance[cleanName][dateStr] = val;
+                    }
                   }
+                } else {
+                  parsedAttendance[cleanName][dateStr] = val;
                 }
-              } else {
-                parsedAttendance[cleanName][dateStr] = val;
               }
             }
           }
-        }
+        });
       }
-      }
-    currentData.attendanceData = parsedAttendance;
+      currentData.attendanceData = parsedAttendance;
       console.log(`[GoogleSyncService] Synced attendance for ${Object.keys(parsedAttendance).length} interns`);
     } catch (attendErr) {
       console.error('[GoogleSyncService] Attendance sync error:', attendErr.message);
@@ -584,7 +579,7 @@ async function fetchAndSyncGoogleSheetsData() {
 
     // 3. Fetch Comms Chat counts (Success Squad morning/evening, Gifting, Payments, etc.)
     const commsId = '1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE';
-    const parsedComms = {};
+    const parsedComms = { morning: {}, evening: {}, all: {} };
     try {
       console.log(`[GoogleSyncService] Fetching metadata for Master spreadsheet...`);
       let skipComms = false;
@@ -604,76 +599,83 @@ async function fetchAndSyncGoogleSheetsData() {
       }
       
       if (!skipComms) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const commsMeta = await sheets.spreadsheets.get({ spreadsheetId: commsId });
-      const commsTabs = commsMeta.data.sheets.map(s => s.properties.title);
-      
-      for (const tab of commsTabs) {
-        console.log(`[GoogleSyncService] Inspecting Master tab "${tab}" for chat counts...`);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const commsMeta = await sheets.spreadsheets.get({ spreadsheetId: commsId });
+        const commsTabs = commsMeta.data.sheets.map(s => s.properties.title);
         
-        const res = await sheets.spreadsheets.values.get({
+        console.log(`[GoogleSyncService] Fetching ${commsTabs.length} Master spreadsheet tabs via batchGet...`);
+        const commsRanges = commsTabs.map(t => `'${t}'!A1:ZZ500`);
+        const commsBatchRes = await sheets.spreadsheets.values.batchGet({
           spreadsheetId: commsId,
-          range: `'${tab}'!A1:ZZ500`
+          ranges: commsRanges
         });
-        const rows = res.data.values || [];
-        if (rows.length === 0) continue;
-        
-        let dateHeaderRow = null;
-        let dates = [];
-        
-        for (let r = 0; r < rows.length; r++) {
-          const row = rows[r];
-          const dateCells = row.filter(c => parseDDMMYYYYDate(c));
-          if (dateCells.length > 5) {
-            dateHeaderRow = r;
-            dates = row.map(c => parseDDMMYYYYDate(c));
-            break;
+
+        (commsBatchRes.data.valueRanges || []).forEach((vr, tabIdx) => {
+          const tabName = commsTabs[tabIdx] || '';
+          const isMorningTab = tabName.toLowerCase().includes('morning');
+          const isEveningTab = tabName.toLowerCase().includes('evening');
+          const rows = vr.values || [];
+          if (rows.length === 0) return;
+
+          let dateHeaderRow = null;
+          let dates = [];
+
+          for (let r = 0; r < rows.length; r++) {
+            const row = rows[r];
+            const dateCells = row.filter(c => parseDDMMYYYYDate(c));
+            if (dateCells.length > 5) {
+              dateHeaderRow = r;
+              dates = row.map(c => parseDDMMYYYYDate(c));
+              break;
+            }
           }
-        }
-        
-        if (dateHeaderRow === null) continue;
-        
-        console.log(`[GoogleSyncService] Parsing chat counts from Master tab "${tab}" (Found ${dates.filter(Boolean).length} dates)`);
-        for (let r = dateHeaderRow + 1; r < rows.length; r++) {
-          const row = rows[r];
-          if (!row || row.length === 0 || !row[0]) continue;
-          
-          let rawName = String(row[0]).trim();
-          // Remove anything in parentheses like "Prachi (Evening)" -> "Prachi"
-          rawName = rawName.replace(/\(.*?\)/g, '').trim();
-          
-          if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad') || rawName.toLowerCase().startsWith('day')) {
-            continue;
-          }
-          
-          const cleanName = rawName.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
-          if (!parsedComms[cleanName]) {
-            parsedComms[cleanName] = {};
-          }
-          
-          if (cleanName === 'aditya jaiswal') {
-             console.log(`[DEBUG] Found Aditya in tab "${tab}" row ${r+1}, length: ${row.length}`);
-          }
-          
-          for (let col = 1; col < row.length; col++) {
-            const dateStr = dates[col];
-            if (dateStr) {
-              const val = String(row[col] || '').trim();
-              const chats = parseInt(val.replace(/,/g, ''), 10) || 0;
-              // If multiple tabs define the same date for the same intern name, add them up
-              parsedComms[cleanName][dateStr] = (parsedComms[cleanName][dateStr] || 0) + chats;
-              
-              if (cleanName === 'aditya jaiswal' && chats > 0) {
-                 console.log(`[DEBUG] Aditya col ${col}, date ${dateStr}, chats ${chats}`);
+
+          if (dateHeaderRow === null) return;
+
+          for (let r = dateHeaderRow + 1; r < rows.length; r++) {
+            const row = rows[r];
+            if (!row || row.length === 0 || !row[0]) continue;
+
+            let rawName = String(row[0]).trim();
+            rawName = rawName.replace(/\(.*?\)/g, '').trim();
+
+            if (rawName.toLowerCase().startsWith('date') || rawName.toLowerCase().startsWith('total') || rawName.toLowerCase().startsWith('available') || rawName.toLowerCase().startsWith('success squad') || rawName.toLowerCase().startsWith('squad') || rawName.toLowerCase().startsWith('day')) {
+              continue;
+            }
+
+            const cleanName = rawName.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+
+            if (!parsedComms.all[cleanName]) parsedComms.all[cleanName] = {};
+            if (isMorningTab && !parsedComms.morning[cleanName]) parsedComms.morning[cleanName] = {};
+            if (isEveningTab && !parsedComms.evening[cleanName]) parsedComms.evening[cleanName] = {};
+
+            for (let col = 1; col < row.length; col++) {
+              const dateStr = dates[col];
+              if (dateStr) {
+                const val = String(row[col] || '').trim();
+                const chats = parseInt(val.replace(/,/g, ''), 10) || 0;
+
+                parsedComms.all[cleanName][dateStr] = (parsedComms.all[cleanName][dateStr] || 0) + chats;
+
+                if (isMorningTab) {
+                  parsedComms.morning[cleanName][dateStr] = (parsedComms.morning[cleanName][dateStr] || 0) + chats;
+                }
+                if (isEveningTab) {
+                  parsedComms.evening[cleanName][dateStr] = (parsedComms.evening[cleanName][dateStr] || 0) + chats;
+                }
               }
             }
           }
-        }
+        });
+
+        // Populate root-level keys for backwards compatibility
+        Object.keys(parsedComms.all).forEach(k => {
+          if (!parsedComms[k]) parsedComms[k] = parsedComms.all[k];
+        });
       }
-      }
-    currentData.commsChatData = parsedComms;
-      console.log(`[GoogleSyncService] Synced comms chat count for ${Object.keys(parsedComms).length} interns`);
+
+      currentData.commsChatData = parsedComms;
+      console.log(`[GoogleSyncService] Synced comms chat count for ${Object.keys(parsedComms.all).length} interns`);
     } catch (commsErr) {
       console.error('[GoogleSyncService] Comms chat count sync error:', commsErr.message);
     }
@@ -707,138 +709,254 @@ function saveDataToDisk(data) {
   }
 }
 
+function cleanRatingVal(val) {
+  if (!val || val === '-' || val === 'No Data') return null;
+  const num = parseFloat(String(val).replace(/[^0-9.]/g, ''));
+  if (isNaN(num)) return null;
+  if (num > 5.0) return null; // Rating must be between 0 and 5
+  return num;
+}
+
+function cleanNumVal(val) {
+  if (!val || val === '-' || val === 'No Data') return 0;
+  const num = parseInt(String(val).replace(/,/g, ''), 10);
+  return isNaN(num) ? 0 : num;
+}
+
+function cleanFloatVal(val) {
+  if (!val || val === '-' || val === 'No Data') return 0;
+  const num = parseFloat(String(val).replace(/%/g, '').trim());
+  return isNaN(num) ? 0 : num;
+}
+
 /**
- * Syncs the specific "Batch-20 Weekly score card" and "Daily OJT Status"
- * specifically for Batch 20 as requested by the user, skipping dynamic computation.
+ * Syncs Batch 20, Batch 19, and ALL team weekly scorecards + Daily OJT Status
  */
 async function syncBatch20ReportingData() {
-  const currentData = { daily: {}, weekly: {} };
   try {
     const spreadsheetId = '1zIWboejoQlUVGFlewYK0Ugtj7nUe8rR7cl29VOCJaB4';
-    console.log(`[GoogleSyncService] Fetching Batch 20 Reporting Data...`);
+    console.log(`[GoogleSyncService] Fetching Batch 20 & Batch 19 Reporting Data...`);
     const sheets = googleService.getSheets();
     if (!sheets) throw new Error("Google Sheets API not initialized");
 
-    // 1. Fetch Daily
-    const dailyRes = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: 'Daily OJT Status!A1:ZZ1000'
-    });
-    const dailyRows = dailyRes.data.values;
-    
-    if (dailyRows && dailyRows.length > 2) {
-      const datesRow = dailyRows[0];
-      const dayBlocks = [];
-      for (let i = 0; i < datesRow.length; i++) {
-        let dateStr = datesRow[i];
-        if (dateStr && typeof dateStr === 'string' && dateStr.includes('Summary_Day')) {
-          let match = dateStr.match(/(\d{1,2})(st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i);
-          if (match) {
-            const monthMap = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
-            let month = monthMap[match[3].toLowerCase()];
-            let d = new Date(2026, month, parseInt(match[1], 10));
-            d.setHours(d.getHours() + 5); 
-            let parsedDate = d.toISOString().split('T')[0];
-            dayBlocks.push({ date: parsedDate, startIndex: i });
-          }
-        }
-      }
-      
-      for (let r = 2; r < dailyRows.length; r++) {
-        const row = dailyRows[r];
-        if (!row || row.length === 0) continue;
-        for (const block of dayBlocks) {
-          const idx = block.startIndex;
-          const intern = row[idx];
-          if (intern && intern.trim()) {
-            const cleanName = intern.toLowerCase().trim();
-            if (!currentData.daily[cleanName]) currentData.daily[cleanName] = {};
-            currentData.daily[cleanName][block.date] = {
-              aiRtg: row[idx+6] || "No Data",
-              arst: row[idx+7] || "No Data",
-              frt: row[idx+8] || "No Data",
-              breakVal: row[idx+9] || "No Data"
-            };
-          }
-        }
-      }
-    }
+    const batchSheets = [
+      { key: 'B-20', sheet: ' Batch-20 Weekly score card', outFile: 'data/batches/b20-reporting.json' },
+      { key: 'B-19', sheet: 'Batch-19 Weekly score card', outFile: 'data/batches/b19-reporting.json' }
+    ];
 
-    // 2. Fetch Weekly (from both sheets since some B20 interns are in ALL team sheet)
-    const weeklyRes = await sheets.spreadsheets.values.batchGet({
-      spreadsheetId,
-      ranges: [' Batch-20 Weekly score card!A1:N1000', "ALL team's weekly scorecard!A1:N1000"]
-    });
-    
-    let currentIntern = null;
-    if (weeklyRes.data.valueRanges) {
-      for (const rangeData of weeklyRes.data.valueRanges) {
-        const rows = rangeData.values || [];
-        for (let r = 0; r < rows.length; r++) {
-        const row = rows[r];
-        if (!row || row.length === 0) continue;
-        const col0 = (row[0] || '').trim();
-        if (col0.toLowerCase() === 'intern' || col0.toLowerCase().startsWith('batch')) continue;
-        
-        if (col0 !== '') {
-          currentIntern = col0.toLowerCase();
-          currentData.weekly[currentIntern] = { weeks: [] };
-        }
-        
-        if (currentIntern && currentData.weekly[currentIntern]) {
-          const weekLabel = (row[3] || '').trim();
-          if (weekLabel.toLowerCase().startsWith('week')) {
-             const scanned = parseInt((row[7] || '0').replace(/,/g, ''), 10) || 0;
-             const qcs = parseInt((row[8] || '0').replace(/,/g, ''), 10) || 0;
-             const errorPctStr = row[9] || '0%';
-             let errorPct = parseFloat(errorPctStr.replace('%', '')) || 0;
-             const ojtRtg = parseFloat(row[10]) || 0;
-             const trend = row[13] || '-';
-             currentData.weekly[currentIntern].weeks.push({
-               week: weekLabel,
-               scanned, qcs, errorPct, ojtRtg, trend,
-               valid: scanned > 0 || qcs > 0 || ojtRtg > 0
-             });
-          } else if (weekLabel.toLowerCase().replace(/\s+/g, ' ').includes('ojt all')) {
-             currentData.weekly[currentIntern].allTimeTrend = row[13] || '-';
+    for (const bInfo of batchSheets) {
+      const currentData = { daily: {}, weekly: {} };
+
+      // Fetch weekly sheet + ALL team's weekly scorecard with full ZZ column range
+      const weeklyRes = await sheets.spreadsheets.values.batchGet({
+        spreadsheetId,
+        ranges: [`'${bInfo.sheet}'!A1:ZZ500`, `'ALL team's weekly scorecard'!A1:ZZ500`]
+      });
+
+      if (weeklyRes.data.valueRanges) {
+        for (const rangeData of weeklyRes.data.valueRanges) {
+          const rows = rangeData.values || [];
+          let currentInternLeft = null;
+          let currentInternRight = null;
+
+          for (let r = 0; r < rows.length; r++) {
+            const row = rows[r];
+            if (!row || row.length === 0) continue;
+
+            // Left Table (Cols 0..16)
+            const col0 = (row[0] || '').trim();
+            if (col0 && col0.toLowerCase() !== 'intern' && !col0.toLowerCase().startsWith('batch')) {
+              const cleanName = col0.replace(/\(.*?\)/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+              currentInternLeft = cleanName;
+              if (!currentData.weekly[currentInternLeft]) {
+                currentData.weekly[currentInternLeft] = { weeks: [] };
+              }
+            }
+
+            if (currentInternLeft && currentData.weekly[currentInternLeft]) {
+              const weekLabel = (row[3] || '').trim();
+              if (weekLabel.toLowerCase().startsWith('week') || weekLabel.toLowerCase().includes('ojt')) {
+                const scanned = cleanNumVal(row[7]);
+                const qcs = cleanNumVal(row[8]);
+                const errorPct = cleanFloatVal(row[9]);
+                const ojtRtg = cleanRatingVal(row[10]);
+                const aiRtg = cleanRatingVal(row[11]);
+                const arst = (row[12] || '-').trim();
+                const trend = (row[13] || '-').trim();
+                const avail = (row[4] || '-').trim();
+                const avgChat = cleanNumVal(row[5]);
+                const chats = cleanNumVal(row[6]);
+
+                currentData.weekly[currentInternLeft].weeks.push({
+                  week: weekLabel,
+                  avail, avgChat, chats, scanned, qcs, errorPct, ojtRtg, aiRtg, arst, trend,
+                  valid: scanned > 0 || qcs > 0 || (ojtRtg !== null && ojtRtg > 0) || (aiRtg !== null && aiRtg > 0)
+                });
+              } else if (weekLabel.toLowerCase().replace(/\s+/g, ' ').includes('ojt all')) {
+                currentData.weekly[currentInternLeft].allTimeTrend = (row[13] || '-').trim();
+              }
+            }
+
+            // Right Table (Cols 18..34)
+            const col18 = (row[18] || '').trim();
+            if (col18 && col18.toLowerCase() !== 'intern' && !col18.toLowerCase().startsWith('batch')) {
+              const cleanNameR = col18.replace(/\(.*?\)/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+              currentInternRight = cleanNameR;
+              if (!currentData.weekly[currentInternRight]) {
+                currentData.weekly[currentInternRight] = { weeks: [] };
+              }
+            }
+
+            if (currentInternRight && currentData.weekly[currentInternRight] && row.length > 21) {
+              const weekLabelR = (row[21] || '').trim();
+              if (weekLabelR.toLowerCase().startsWith('week') || weekLabelR.toLowerCase().includes('ojt')) {
+                const scanned = cleanNumVal(row[25]);
+                const qcs = cleanNumVal(row[26]);
+                const errorPct = cleanFloatVal(row[27]);
+                const ojtRtg = cleanRatingVal(row[28]);
+                const aiRtg = cleanRatingVal(row[29]);
+                const arst = (row[30] || '-').trim();
+                const trend = (row[31] || '-').trim();
+                const avail = (row[22] || '-').trim();
+                const avgChat = cleanNumVal(row[23]);
+                const chats = cleanNumVal(row[24]);
+
+                currentData.weekly[currentInternRight].weeks.push({
+                  week: weekLabelR,
+                  avail, avgChat, chats, scanned, qcs, errorPct, ojtRtg, aiRtg, arst, trend,
+                  valid: scanned > 0 || qcs > 0 || (ojtRtg !== null && ojtRtg > 0) || (aiRtg !== null && aiRtg > 0)
+                });
+              } else if (weekLabelR.toLowerCase().replace(/\s+/g, ' ').includes('ojt all')) {
+                currentData.weekly[currentInternRight].allTimeTrend = (row[31] || '-').trim();
+              }
+            }
           }
         }
       }
-    }
-    }
-    
-    Object.keys(currentData.weekly).forEach(key => {
-       const intern = currentData.weekly[key];
-       const validWeeks = intern.weeks.filter(w => w.valid);
-       let recent = validWeeks.length > 0 ? validWeeks[validWeeks.length - 1] : null;
-       
-       let totalScanned = 0, totalQCs = 0, totalOjtRtg = 0;
-       validWeeks.forEach(w => {
-         totalScanned += w.scanned;
-         totalQCs += w.qcs;
-         totalOjtRtg += w.ojtRtg;
-       });
-       
-       let avg = null;
-       if (validWeeks.length > 0) {
-         avg = {
-           scanned: totalScanned,
-           qcs: totalQCs,
-           errorPct: totalScanned > 0 ? (totalQCs / totalScanned) * 100 : 0,
-           ojtRtg: totalOjtRtg / validWeeks.length,
-           trend: intern.allTimeTrend || (recent ? recent.trend : '-')
-         };
-       }
-       intern.recent = recent;
-       intern.average = avg;
-    });
 
-    const outPath = path.join(rootDir, 'data/batches/b20-reporting.json');
-    fs.writeFileSync(outPath, JSON.stringify(currentData, null, 2));
-    console.log(`[GoogleSyncService] Successfully synced B20 Reporting Data to ${outPath}`);
+      // Calculate Averages per intern
+      Object.keys(currentData.weekly).forEach(key => {
+        const intern = currentData.weekly[key];
+        const validWeeks = intern.weeks.filter(w => w.valid);
+        let recent = validWeeks.length > 0 ? validWeeks[validWeeks.length - 1] : null;
+
+        let totalScanned = 0, totalQCs = 0, totalOjtRtg = 0, countOjt = 0;
+        let totalAiRtg = 0, countAi = 0;
+
+        validWeeks.forEach(w => {
+          totalScanned += w.scanned;
+          totalQCs += w.qcs;
+          if (w.ojtRtg !== null) { totalOjtRtg += w.ojtRtg; countOjt++; }
+          if (w.aiRtg !== null) { totalAiRtg += w.aiRtg; countAi++; }
+        });
+
+        let avg = null;
+        if (validWeeks.length > 0) {
+          avg = {
+            scanned: totalScanned,
+            qcs: totalQCs,
+            errorPct: totalScanned > 0 ? parseFloat(((totalQCs / totalScanned) * 100).toFixed(2)) : 0,
+            ojtRtg: countOjt > 0 ? parseFloat((totalOjtRtg / countOjt).toFixed(2)) : null,
+            aiRtg: countAi > 0 ? parseFloat((totalAiRtg / countAi).toFixed(2)) : null,
+            trend: intern.allTimeTrend || (recent ? recent.trend : '-')
+          };
+        }
+        intern.recent = recent;
+        intern.average = avg;
+      });
+
+      // Daily OJT Status Parsing for B20 & B19
+      if (bInfo.key === 'B-20') {
+        const dailyRes = await sheets.spreadsheets.values.get({
+          spreadsheetId,
+          range: 'Daily OJT Status!A1:ZZ500'
+        });
+        const dailyRows = dailyRes.data.values;
+        if (dailyRows && dailyRows.length > 2) {
+          const datesRow = dailyRows[0];
+          const headersRow = dailyRows[1] || [];
+          const dayBlocks = [];
+
+          for (let i = 0; i < datesRow.length; i++) {
+            let dateCell = datesRow[i];
+            if (dateCell && typeof dateCell === 'string') {
+              let match = dateCell.match(/(\d{1,2})(st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'?(\d{2})?/i);
+              if (match) {
+                const monthMap = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+                let month = monthMap[match[3].toLowerCase()];
+                let yr = match[4] ? 2000 + parseInt(match[4], 10) : 2026;
+                let d = new Date(Date.UTC(yr, month, parseInt(match[1], 10)));
+                let parsedDate = d.toISOString().split('T')[0];
+                dayBlocks.push({ date: parsedDate, startIndex: i });
+              }
+            }
+          }
+          
+          for (let r = 2; r < dailyRows.length; r++) {
+            const row = dailyRows[r];
+            if (!row || row.length === 0) continue;
+
+            for (const block of dayBlocks) {
+              const idx = block.startIndex;
+              // Find intern column in this block
+              let internName = '';
+              let internColIdx = idx;
+
+              for (let offset = 0; offset <= 2; offset++) {
+                const hVal = (headersRow[idx + offset] || '').toLowerCase().trim();
+                if (hVal === 'intern') {
+                  internName = (row[idx + offset] || '').trim();
+                  internColIdx = idx + offset;
+                  break;
+                }
+              }
+
+              if (internName) {
+                const cleanName = internName.replace(/\(.*?\)/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+                if (cleanName && cleanName !== 'intern') {
+                  if (!currentData.daily[cleanName]) currentData.daily[cleanName] = {};
+
+                  let rawAi = null;
+                  let arst = "No Data", frt = "No Data", breakVal = "No Data";
+
+                  for (let offset = 1; offset <= 11; offset++) {
+                    const cIdx = internColIdx + offset;
+                    if (cIdx >= headersRow.length) break;
+                    const hName = (headersRow[cIdx] || '').toLowerCase().trim();
+                    const cellVal = (row[cIdx] || '').trim();
+
+                    if (hName.includes('rating by ai') || hName.includes('ai rating') || hName.includes('ai rtg')) {
+                      const parsed = cleanRatingVal(cellVal);
+                      if (parsed !== null) rawAi = parsed;
+                    } else if (hName === 'arst') {
+                      if (cellVal && cellVal !== '-') arst = cellVal;
+                    } else if (hName === 'frt') {
+                      if (cellVal && cellVal !== '-') frt = cellVal;
+                    } else if (hName.includes('break')) {
+                      if (cellVal && cellVal !== '-') breakVal = cellVal;
+                    }
+                  }
+
+                  currentData.daily[cleanName][block.date] = {
+                    aiRtg: rawAi !== null ? rawAi : "No Data",
+                    arst: arst,
+                    frt: frt,
+                    breakVal: breakVal
+                  };
+                }
+              }
+            }
+          }
+        }
+      }
+
+      const outPath = path.join(rootDir, bInfo.outFile);
+      fs.writeFileSync(outPath, JSON.stringify(currentData, null, 2));
+      console.log(`[GoogleSyncService] Successfully synced ${bInfo.key} Reporting Data to ${outPath}`);
+    }
 
   } catch (err) {
-    console.error('[GoogleSyncService] Batch 20 Reporting sync error:', err.message);
+    console.error('[GoogleSyncService] Batch Reporting sync error:', err.message);
   }
 }
 

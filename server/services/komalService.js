@@ -88,11 +88,12 @@ async function syncKomalAIData(sessionToken = null) {
         agentDataMap[key] = {
           name: intern.name,
           batch: intern.batch,
-          simpleQueries: agentRes.simpleQueries || 0,
-          complexQueries: agentRes.complexQueries || 0,
-          breakTimeMinutes: agentRes.breakTimeMinutes || 0,
-          arstMinutes: agentRes.arstMinutes || 0,
-          aiRating: agentRes.aiRating || 4.2,
+          shift: agentRes.shift || '-',
+          simpleQ: agentRes.simpleQueries || 0,
+          complexQ: agentRes.complexQueries || 0,
+          break: agentRes.breakTimeMinutes || 0,
+          arst: agentRes.arstMinutes || 0,
+          aiRtg: agentRes.aiRating || 4.2,
           lastUpdated: new Date().toISOString()
         };
       }

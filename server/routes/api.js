@@ -82,13 +82,18 @@ router.get('/data', (req, res) => {
     attendanceData: data.attendanceData || {},
     commsChatData: data.commsChatData || {},
     milestones: {},
-    b20Reporting: {}
+    b20Reporting: {},
+    b19Reporting: {}
   };
 
   try {
     const b20Path = path.join(rootDir, 'data/batches/b20-reporting.json');
     if (fs.existsSync(b20Path)) {
       lightweightData.b20Reporting = JSON.parse(fs.readFileSync(b20Path, 'utf8'));
+    }
+    const b19Path = path.join(rootDir, 'data/batches/b19-reporting.json');
+    if (fs.existsSync(b19Path)) {
+      lightweightData.b19Reporting = JSON.parse(fs.readFileSync(b19Path, 'utf8'));
     }
   } catch(e) {}
 
