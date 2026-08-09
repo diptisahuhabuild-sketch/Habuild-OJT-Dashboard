@@ -7,6 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const state = {
     currentRole: 'Admin', // 'Admin', 'Lead', 'Viewer'
     activeTab: 'tabOverview',
+    ojtMode: 'ALL', // 'ALL' | 'CURRENT' | 'PREVIOUS'
+    selectedPreviousBatch: 'B-20',
+    completedBatches: {
+      'B-20': { batch: 'B-20', name: 'Batch 20', startDate: '2026-05-25', endDate: '2026-07-19', completedAt: '2026-07-19T00:00:00.000Z' },
+      'B-19': { batch: 'B-19', name: 'Batch 19', startDate: '2026-04-16', endDate: '2026-06-21', completedAt: '2026-06-21T00:00:00.000Z' },
+      'B-18': { batch: 'B-18', name: 'Batch 18', startDate: '2026-01-19', endDate: '2026-04-02', completedAt: '2026-04-02T00:00:00.000Z' },
+      'B-17': { batch: 'B-17', name: 'Batch 17', startDate: '2025-12-30', endDate: '2026-02-16', completedAt: '2026-02-16T00:00:00.000Z' },
+      'B-16': { batch: 'B-16', name: 'Batch 16', startDate: '2025-12-06', endDate: '2026-01-15', completedAt: '2026-01-15T00:00:00.000Z' },
+      'B-15': { batch: 'B-15', name: 'Batch 15', startDate: '2025-10-23', endDate: '2025-12-03', completedAt: '2025-12-03T00:00:00.000Z' }
+    },
+    currentOjtBatch: 'B-21',
     activeBatch: 'ALL',
     activeLead: 'ALL',
     activeShift: 'ALL',
@@ -20,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'aiRtg', 'arst', 'frt', 'break', 'trend', 'action'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'aiRtg', 'arst', 'frt', 'break'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -520,28 +531,376 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnSaveTargets = document.getElementById('btnSaveTargets');
     if (btnSaveTargets) btnSaveTargets.addEventListener('click', handleSaveTargets);
+
+    // OJT Lifecycle Button Filters
+    const btnCurrentOJT = document.getElementById('btnCurrentOJT');
+    if (btnCurrentOJT) {
+      btnCurrentOJT.addEventListener('click', () => {
+        if (state.ojtMode === 'CURRENT') {
+          setOJTMode('ALL');
+        } else {
+          setOJTMode('CURRENT');
+        }
+      });
+    }
+
+    const btnPreviousOJT = document.getElementById('btnPreviousOJT');
+    if (btnPreviousOJT) {
+      btnPreviousOJT.addEventListener('click', () => {
+        if (state.ojtMode === 'PREVIOUS') {
+          setOJTMode('ALL');
+        } else {
+          setOJTMode('PREVIOUS');
+        }
+      });
+    }
+
+    const previousBatchSelect = document.getElementById('previousBatchSelect');
+    if (previousBatchSelect) {
+      previousBatchSelect.addEventListener('change', (e) => {
+        state.selectedPreviousBatch = e.target.value;
+        state.activeBatch = state.selectedPreviousBatch;
+        const statusText = document.getElementById('ojtModeStatusText');
+        const compInfo = state.completedBatches && state.completedBatches[state.activeBatch];
+        if (statusText) statusText.textContent = `Previous OJT Period (${state.activeBatch}${compInfo ? ' • Ended: ' + compInfo.endDate : ''})`;
+        updateDateFilterOptions();
+        renderAllViews();
+      });
+    }
+
+    // OJT Completion Modal & 2-Step Verification
+    const btnOJTCompletion = document.getElementById('btnOJTCompletion');
+    if (btnOJTCompletion) {
+      btnOJTCompletion.addEventListener('click', () => {
+        populateOjtEndBatchDropdown();
+        document.getElementById('ojtEndFormSection').classList.remove('hidden');
+        document.getElementById('ojtVerifyTypeSection').classList.add('hidden');
+        document.getElementById('ojtVerifyFinalSection').classList.add('hidden');
+        window.openModal('ojtCompletionModal');
+      });
+    }
+
+    const ojtCompletionModalClose = document.getElementById('ojtCompletionModalClose');
+    if (ojtCompletionModalClose) {
+      ojtCompletionModalClose.addEventListener('click', () => window.closeModal('ojtCompletionModal'));
+    }
+
+    const btnInitiateEndOJT = document.getElementById('btnInitiateEndOJT');
+    if (btnInitiateEndOJT) {
+      btnInitiateEndOJT.addEventListener('click', () => {
+        const batchSelect = document.getElementById('ojtEndBatchSelect');
+        const targetBatch = batchSelect ? batchSelect.value : 'B-20';
+        
+        document.getElementById('verifyBatchNameText').textContent = targetBatch;
+        document.getElementById('verifyEndInput').value = '';
+        document.getElementById('verifyTypeError').classList.add('hidden');
+
+        document.getElementById('ojtEndFormSection').classList.add('hidden');
+        document.getElementById('ojtVerifyTypeSection').classList.remove('hidden');
+        document.getElementById('verifyEndInput').focus();
+      });
+    }
+
+    const btnCancelVerifyType = document.getElementById('btnCancelVerifyType');
+    if (btnCancelVerifyType) {
+      btnCancelVerifyType.addEventListener('click', () => {
+        document.getElementById('ojtVerifyTypeSection').classList.add('hidden');
+        document.getElementById('ojtEndFormSection').classList.remove('hidden');
+      });
+    }
+
+    const btnConfirmVerifyType = document.getElementById('btnConfirmVerifyType');
+    if (btnConfirmVerifyType) {
+      btnConfirmVerifyType.addEventListener('click', () => {
+        const val = (document.getElementById('verifyEndInput')?.value || '').trim().toLowerCase();
+        if (val !== 'end') {
+          document.getElementById('verifyTypeError').classList.remove('hidden');
+          return;
+        }
+        document.getElementById('verifyTypeError').classList.add('hidden');
+
+        const targetBatch = document.getElementById('ojtEndBatchSelect')?.value || 'B-20';
+        const endDate = document.getElementById('ojtEndDateInput')?.value || new Date().toISOString().split('T')[0];
+
+        document.getElementById('finalBatchText').textContent = targetBatch;
+        document.getElementById('finalDateText').textContent = endDate;
+
+        document.getElementById('ojtVerifyTypeSection').classList.add('hidden');
+        document.getElementById('ojtVerifyFinalSection').classList.remove('hidden');
+      });
+    }
+
+    const btnCancelVerifyFinal = document.getElementById('btnCancelVerifyFinal');
+    if (btnCancelVerifyFinal) {
+      btnCancelVerifyFinal.addEventListener('click', () => {
+        document.getElementById('ojtVerifyFinalSection').classList.add('hidden');
+        document.getElementById('ojtVerifyTypeSection').classList.remove('hidden');
+      });
+    }
+
+    const btnExecuteEndOJT = document.getElementById('btnExecuteEndOJT');
+    if (btnExecuteEndOJT) {
+      btnExecuteEndOJT.addEventListener('click', async () => {
+        const batch = document.getElementById('ojtEndBatchSelect')?.value || 'B-20';
+        const endDate = document.getElementById('ojtEndDateInput')?.value || new Date().toISOString().split('T')[0];
+
+        try {
+          const res = await fetch('/api/batch/complete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ batch, endDate })
+          });
+          const json = await res.json();
+          if (json.success) {
+            if (!state.completedBatches) state.completedBatches = {};
+            state.completedBatches[batch] = {
+              batch,
+              name: batch.startsWith('B-') ? `Batch ${batch.replace('B-', '')}` : batch,
+              endDate
+            };
+
+            window.closeModal('ojtCompletionModal');
+            alert(`🎉 ${json.message}`);
+
+            setOJTMode('PREVIOUS', batch);
+            fetchDashboardData();
+          } else {
+            alert('Failed to end batch: ' + (json.error || 'Unknown error'));
+          }
+        } catch (err) {
+          alert('Network error completing batch: ' + err.message);
+        }
+      });
+    }
+  }
+
+  // OJT Lifecycle Mode Controller
+  function setOJTMode(mode, targetBatch) {
+    state.ojtMode = mode;
+    const btnCurrent = document.getElementById('btnCurrentOJT');
+    const btnPrev = document.getElementById('btnPreviousOJT');
+    const prevContainer = document.getElementById('previousBatchContainer');
+    const statusText = document.getElementById('ojtModeStatusText');
+    const batchSelect = document.getElementById('globalBatchSelect');
+
+    const scoreCardExtraCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'];
+
+    if (mode === 'CURRENT') {
+      if (btnCurrent) btnCurrent.classList.add('active-current');
+      if (btnPrev) btnPrev.classList.remove('active-previous');
+      if (prevContainer) prevContainer.classList.add('hidden');
+      
+      state.activeBatch = state.currentOjtBatch || 'B-21';
+      if (batchSelect) batchSelect.value = state.activeBatch;
+      if (statusText) statusText.textContent = `Current OJT Team Active (${state.activeBatch})`;
+
+      // Strip previous scorecard-only columns if present
+      state.internCustomCols = state.internCustomCols.filter(c => !scoreCardExtraCols.includes(c));
+      updateDateFilterOptions();
+
+    } else if (mode === 'PREVIOUS') {
+      if (btnCurrent) btnCurrent.classList.remove('active-current');
+      if (btnPrev) btnPrev.classList.add('active-previous');
+      if (prevContainer) prevContainer.classList.remove('hidden');
+
+      populatePreviousBatchDropdown();
+      if (targetBatch) {
+        state.selectedPreviousBatch = targetBatch;
+      }
+      state.activeBatch = state.selectedPreviousBatch || 'B-20';
+      if (batchSelect) batchSelect.value = state.activeBatch;
+      
+      const compInfo = state.completedBatches && state.completedBatches[state.activeBatch];
+      if (statusText) statusText.textContent = `Previous OJT Period (${state.activeBatch}${compInfo ? ' • Ended: ' + compInfo.endDate : ''})`;
+
+      // Add previous scorecard columns if not present
+      scoreCardExtraCols.forEach(col => {
+        if (!state.internCustomCols.includes(col)) {
+          state.internCustomCols.push(col);
+        }
+      });
+      updateDateFilterOptions();
+
+    } else {
+      // ALL mode
+      if (btnCurrent) btnCurrent.classList.remove('active-current');
+      if (btnPrev) btnPrev.classList.remove('active-previous');
+      if (prevContainer) prevContainer.classList.add('hidden');
+      
+      state.activeBatch = 'ALL';
+      if (batchSelect) batchSelect.value = 'ALL';
+      if (statusText) statusText.textContent = 'Viewing All Batches';
+
+      // Strip previous scorecard-only columns
+      state.internCustomCols = state.internCustomCols.filter(c => !scoreCardExtraCols.includes(c));
+      updateDateFilterOptions();
+    }
+
+    renderAllViews();
+  }
+
+  function updateDateFilterOptions() {
+    const select = document.getElementById('globalDateFilter');
+    if (!select) return;
+    
+    const currentVal = state.dateFilter;
+    if (state.ojtMode === 'PREVIOUS') {
+      select.innerHTML = `
+        <option value="WEEK_1">Week 1</option>
+        <option value="WEEK_2">Week 2</option>
+        <option value="WEEK_3">Week 3</option>
+        <option value="WEEK_4">Week 4</option>
+        <option value="WEEK_5">Week 5</option>
+        <option value="WEEK_6">Week 6</option>
+        <option value="WEEK_7">Week 7</option>
+        <option value="WEEK_8">Week 8</option>
+        <option value="CUSTOM">Custom Range...</option>
+      `;
+      if (!currentVal.startsWith('WEEK_') && currentVal !== 'CUSTOM') {
+        state.dateFilter = 'WEEK_1';
+      }
+      select.value = state.dateFilter;
+
+      // Update min/max date on custom inputs based on selected completed batch
+      const compInfo = state.completedBatches && state.completedBatches[state.selectedPreviousBatch];
+      const minDate = compInfo ? compInfo.startDate : '2025-10-23';
+      const maxDate = compInfo ? compInfo.endDate : '2026-07-19';
+      const startInput = document.getElementById('startDateInput');
+      const endInput = document.getElementById('endDateInput');
+      if (startInput) {
+        if (minDate) startInput.min = minDate;
+        if (maxDate) startInput.max = maxDate;
+      }
+      if (endInput) {
+        if (minDate) endInput.min = minDate;
+        if (maxDate) endInput.max = maxDate;
+      }
+
+    } else {
+      select.innerHTML = `
+        <option value="YESTERDAY">Yesterday</option>
+        <option value="ALL">All Time</option>
+        <option value="TODAY">Today</option>
+        <option value="WEEK">Current Week</option>
+        <option value="WEEK_1">Week 1</option>
+        <option value="WEEK_2">Week 2</option>
+        <option value="WEEK_3">Week 3</option>
+        <option value="WEEK_4">Week 4</option>
+        <option value="WEEK_5">Week 5</option>
+        <option value="WEEK_6">Week 6</option>
+        <option value="WEEK_7">Week 7</option>
+        <option value="WEEK_8">Week 8</option>
+        <option value="MONTH">Current Month</option>
+        <option value="CUSTOM">Custom Range...</option>
+      `;
+      select.value = currentVal || 'YESTERDAY';
+      state.dateFilter = select.value;
+
+      const startInput = document.getElementById('startDateInput');
+      const endInput = document.getElementById('endDateInput');
+      if (startInput) {
+        startInput.removeAttribute('min');
+        startInput.removeAttribute('max');
+      }
+      if (endInput) {
+        endInput.removeAttribute('min');
+        endInput.removeAttribute('max');
+      }
+    }
+  }
+
+  function populatePreviousBatchDropdown() {
+    const select = document.getElementById('previousBatchSelect');
+    if (!select) return;
+
+    const batches = state.completedBatches || {};
+    select.innerHTML = '';
+    
+    // Sort in descending order: B-20, B-19, B-18, B-17, B-16, B-15
+    const sortedBatches = Object.values(batches).sort((a, b) => {
+      const numA = parseInt(a.batch.replace(/[^0-9]/g, ''), 10) || 0;
+      const numB = parseInt(b.batch.replace(/[^0-9]/g, ''), 10) || 0;
+      return numB - numA;
+    });
+
+    sortedBatches.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.batch;
+      opt.textContent = `${b.name || b.batch} (${b.startDate ? b.startDate + ' to ' : ''}${b.endDate || 'Ended'})`;
+      if (b.batch === state.selectedPreviousBatch) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    if (!state.selectedPreviousBatch && sortedBatches.length > 0) {
+      state.selectedPreviousBatch = sortedBatches[0].batch;
+    }
+  }
+
+  function populateOjtEndBatchDropdown() {
+    const select = document.getElementById('ojtEndBatchSelect');
+    if (!select) return;
+
+    const allBatches = new Set(['B-21', 'B-20', 'B-19', 'B-18', 'B-17', 'B-16', 'B-15', 'B-12']);
+    if (state.data && state.data.scanData) {
+      Object.keys(state.data.scanData).forEach(b => allBatches.add(normalizeBatchName(b)));
+    }
+    if (state.config && state.config.internsRegistry) {
+      state.config.internsRegistry.forEach(i => { if (i.batch) allBatches.add(normalizeBatchName(i.batch)); });
+    }
+
+    select.innerHTML = '';
+    Array.from(allBatches).sort().reverse().forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b;
+      const isCompleted = state.completedBatches && state.completedBatches[b];
+      opt.textContent = `${b} ${isCompleted ? '(Already Ended)' : (b === 'B-21' ? '(Current Active)' : '')}`;
+      select.appendChild(opt);
+    });
+
+    const dateInput = document.getElementById('ojtEndDateInput');
+    if (dateInput) {
+      dateInput.value = new Date().toISOString().split('T')[0];
+    }
   }
 
   // Populate Dynamic Batch List (Includes EVERY batch found in dataset)
   function populateBatchDropdown() {
     const select = document.getElementById('globalBatchSelect');
-    if (!select || !state.data) return;
+    if (!select) return;
 
-    const batches = new Set(['B-20', 'B-19', 'B-18', 'B-17']);
+    const currentBatchName = normalizeBatchName(state.currentOjtBatch || 'B-21');
 
-    if (state.data.scanData) {
-      Object.keys(state.data.scanData).forEach(b => batches.add(b));
+    if (state.ojtMode === 'CURRENT') {
+      select.innerHTML = `<option value="${currentBatchName}" selected>${currentBatchName} (Current Active)</option>`;
+      return;
+    }
+
+    const batches = new Set(['B-20', 'B-19', 'B-18', 'B-17', 'B-16', 'B-15', 'B-12']);
+
+    if (state.data && state.data.scanData) {
+      Object.keys(state.data.scanData).forEach(b => batches.add(normalizeBatchName(b)));
     }
     if (state.config && state.config.internsRegistry) {
-      state.config.internsRegistry.forEach(i => { if (i.batch) batches.add(i.batch); });
+      state.config.internsRegistry.forEach(i => {
+        if (i.batch) {
+          const norm = normalizeBatchName(i.batch);
+          if (norm !== currentBatchName) {
+            batches.add(norm);
+          }
+        }
+      });
     }
+
+    // Strictly ensure current OJT team batch is removed when not in CURRENT mode
+    batches.delete(currentBatchName);
 
     const currentVal = state.activeBatch;
     select.innerHTML = '<option value="ALL">All Batches</option>';
     Array.from(batches).sort().reverse().forEach(b => {
       const opt = document.createElement('option');
       opt.value = b;
-      opt.textContent = `${b} ${b === 'B-20' ? '(Active)' : ''}`;
+      const isCompleted = state.completedBatches && state.completedBatches[b];
+      opt.textContent = `${b} ${isCompleted ? `(Ended: ${isCompleted.endDate || ''})` : ''}`;
       if (b === currentVal) opt.selected = true;
       select.appendChild(opt);
     });
@@ -554,14 +913,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const leads = new Set();
     const regList = (state.config && state.config.internsRegistry) || [];
+    const currentBatchName = normalizeBatchName(state.currentOjtBatch || 'B-21');
+
     regList.forEach(i => {
       if (i.lead) {
-        leads.add(i.lead.toUpperCase().trim());
+        const normBatch = normalizeBatchName(i.batch);
+        if (state.ojtMode === 'CURRENT') {
+          if (normBatch === currentBatchName) {
+            leads.add(i.lead.toUpperCase().trim());
+          }
+        } else {
+          if (normBatch !== currentBatchName) {
+            leads.add(i.lead.toUpperCase().trim());
+          }
+        }
       }
     });
 
-    const leadsListDefault = ['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA'];
-    leadsListDefault.forEach(l => leads.add(l));
+    if (leads.size === 0) {
+      const leadsListDefault = ['DIKSHA', 'SONALI', 'RASHI', 'PRIYANSHU', 'SAMIKSHA', 'NILESH', 'NAMRATA'];
+      leadsListDefault.forEach(l => leads.add(l));
+    }
 
     const currentVal = state.activeLead || 'ALL';
     select.innerHTML = '<option value="ALL">All Leads</option>';
@@ -610,6 +982,14 @@ document.addEventListener('DOMContentLoaded', () => {
           state.data.qcDocData = json.qcDocData || [];
         }
         state.config = json.config;
+        if (state.config) {
+          if (state.config.completedBatches) {
+            state.completedBatches = { ...state.completedBatches, ...state.config.completedBatches };
+          }
+          if (state.config.currentOjtBatch) {
+            state.currentOjtBatch = state.config.currentOjtBatch;
+          }
+        }
         state.komalMetrics = json.komalMetrics;
 
         // Clear optimized lookups cache to pick up newly synced data!
@@ -619,6 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (syncText) syncText.textContent = 'Live Sync Active';
         populateAuditorFilter();
+        populatePreviousBatchDropdown();
         renderAllViews();
         updateBackendStatusUI();
       }
@@ -916,6 +1297,24 @@ document.addEventListener('DOMContentLoaded', () => {
       end.setDate(start.getDate() + 6);
       startStr = start.toISOString().split('T')[0];
       endStr = end.toISOString().split('T')[0];
+    } else if (activeFilter && (activeFilter.startsWith('WEEK_') || activeFilter.startsWith('Week '))) {
+      const weekNum = parseInt(activeFilter.replace(/[^0-9]/g, ''), 10);
+      if (!isNaN(weekNum) && weekNum >= 1) {
+        const batchKey = state.activeBatch === 'ALL' ? (state.selectedPreviousBatch || 'B-20') : normalizeBatchName(state.activeBatch);
+        const compInfo = state.completedBatches && state.completedBatches[batchKey];
+        const configStart = (compInfo && compInfo.startDate) ||
+                            (state.config && state.config.weeklyTargets && state.config.weeklyTargets[batchKey] && state.config.weeklyTargets[batchKey].startDate);
+        const baseDateStr = configStart || '2026-05-25';
+        const [bYear, bMonth, bDay] = baseDateStr.split('-').map(Number);
+        
+        // Use UTC to prevent any timezone shifts
+        const baseDate = new Date(Date.UTC(bYear, bMonth - 1, bDay));
+        const start = new Date(baseDate.getTime() + (weekNum - 1) * 7 * 24 * 60 * 60 * 1000);
+        const end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
+        
+        startStr = start.toISOString().split('T')[0];
+        endStr = end.toISOString().split('T')[0];
+      }
     } else if (activeFilter === 'MONTH') {
       startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
       endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
@@ -1100,7 +1499,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('internScorecardTbody');
     if (!theadTr || !tbody) return;
 
+    const scoreCardExtraCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'];
     const cols = state.internCustomCols.filter(col => {
+      if (state.ojtMode !== 'PREVIOUS' && scoreCardExtraCols.includes(col)) {
+        return false;
+      }
       if (!state.includeKomalAI && ['simpleQ', 'complexQ', 'aiRtg', 'arst', 'frt', 'break'].includes(col)) {
         return false;
       }
@@ -1377,7 +1780,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 1. Batch filter
       const regBatch = normalizeBatchName(reg.batch);
-      if (state.activeBatch !== 'ALL' && regBatch !== normalizeBatchName(state.activeBatch)) return;
+      const currentBatchName = normalizeBatchName(state.currentOjtBatch || 'B-21');
+
+      if (state.ojtMode === 'CURRENT') {
+        // The batch under Current OJT team will appear ONLY when turned ON
+        if (regBatch !== currentBatchName) return;
+      } else {
+        // Otherwise no matter what it will not be displayed
+        if (regBatch === currentBatchName) return;
+
+        if (state.ojtMode === 'PREVIOUS') {
+          const targetPrevious = normalizeBatchName(state.selectedPreviousBatch || 'B-20');
+          if (regBatch !== targetPrevious) return;
+        } else if (state.activeBatch !== 'ALL' && regBatch !== normalizeBatchName(state.activeBatch)) {
+          return;
+        }
+      }
 
       // 2. Lead filter
       if (state.activeLead !== 'ALL' && reg.lead && reg.lead.toUpperCase().trim() !== state.activeLead) return;
@@ -1415,8 +1833,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       let frtVal = "No Data";
 
-      // Override with Static Reporting Data for Batch 20
-      if (regBatch === 'B-20' && state.data && state.data.b20Reporting) {
+      // Override with Static Reporting Data for Previous OJT Period (Batch 20)
+      if (state.ojtMode === 'PREVIOUS' && regBatch === 'B-20' && state.data && state.data.b20Reporting) {
         const cleanName = reg.name.toLowerCase().trim();
         const b20 = state.data.b20Reporting;
         
@@ -1429,17 +1847,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (dMatch && b20.daily[dMatch]) {
           const dailyLog = b20.daily[dMatch];
-          // Determine date to pick (today, yesterday, or most recent)
-          // If activeFilter is a specific range, we could pick the most recent day in that range.
-          // For simplicity and per user request, pick the most recent day available.
           const availableDates = Object.keys(dailyLog).sort();
           let targetDate = null;
           
           if (state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY') {
              const { startStr } = getDateRangeFromFilter(state.dateFilter);
              if (dailyLog[startStr]) targetDate = startStr;
+          } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
+             const { startStr, endStr } = getDateRangeFromFilter(state.dateFilter);
+             const datesInThisWeek = availableDates.filter(d => d >= startStr && d <= endStr);
+             if (datesInThisWeek.length > 0) {
+               let sumAi = 0, countAi = 0;
+               let sumArst = 0, countArst = 0;
+               let sumBreak = 0, countBreak = 0;
+               let lastFrt = "No Data";
+               
+               datesInThisWeek.forEach(d => {
+                 const dLog = dailyLog[d];
+                 if (dLog) {
+                   const aiNum = parseFloat(dLog.aiRtg);
+                   if (!isNaN(aiNum) && aiNum > 0) { sumAi += aiNum; countAi++; }
+                   
+                   const arstNum = parseFloat(String(dLog.arst).replace(/[^0-9.]/g, ''));
+                   if (!isNaN(arstNum) && arstNum > 0) { sumArst += arstNum; countArst++; }
+                   
+                   const breakNum = parseFloat(String(dLog.breakVal).replace(/[^0-9.]/g, ''));
+                   if (!isNaN(breakNum) && breakNum > 0) {
+                     const isHrs = String(dLog.breakVal).toLowerCase().includes('hr');
+                     sumBreak += isHrs ? breakNum * 60 : breakNum;
+                     countBreak++;
+                   }
+                   if (dLog.frt && dLog.frt !== '-' && dLog.frt !== 'No Data') {
+                     lastFrt = dLog.frt;
+                   }
+                 }
+               });
+               
+               if (countAi > 0) statsCurrent.aiRtg = parseFloat((sumAi / countAi).toFixed(2));
+               if (countArst > 0) statsCurrent.arstVal = parseFloat((sumArst / countArst).toFixed(2));
+               if (countBreak > 0) statsCurrent.breakVal = parseFloat((sumBreak / countBreak).toFixed(2));
+               if (lastFrt !== "No Data") frtVal = lastFrt;
+             }
           }
-          if (!targetDate && availableDates.length > 0) {
+          
+          if (!targetDate && availableDates.length > 0 && !state.dateFilter.startsWith('WEEK_')) {
              targetDate = availableDates[availableDates.length - 1];
           }
           
@@ -1467,6 +1918,10 @@ document.addEventListener('DOMContentLoaded', () => {
           let weekData = null;
           if (state.dateFilter === 'MONTH' || state.dateFilter === 'ALL') {
             weekData = wLog.average;
+          } else if (state.dateFilter && (state.dateFilter.startsWith('WEEK_') || state.dateFilter.startsWith('Week '))) {
+            const weekNum = state.dateFilter.replace(/[^0-9]/g, '');
+            const targetWeekLabel = `Week ${weekNum}`;
+            weekData = (wLog.weeks || []).find(w => w.week && w.week.toLowerCase() === targetWeekLabel.toLowerCase()) || null;
           } else {
             weekData = wLog.recent;
           }
@@ -1482,6 +1937,19 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } else {
           trend = "-";
+        }
+      } else {
+        // When Previous OJT period is turned OFF:
+        // Fetch AIRTG, ARST, FRT, BREAK from Komal AI metrics
+        if (state.komalMetrics) {
+          const cleanName = reg.name.toLowerCase().trim();
+          const km = state.komalMetrics[cleanName] || {};
+          if (km.aiRtg && km.aiRtg !== '-') statsCurrent.aiRtg = km.aiRtg;
+          if (km.arst && km.arst !== '-') statsCurrent.arstVal = km.arst;
+          if (km.frt && km.frt !== '-') frtVal = km.frt;
+          if (km.break && km.break !== '-') statsCurrent.breakVal = km.break;
+          if (km.simpleQ && km.simpleQ !== '-') statsCurrent.simpleQ = km.simpleQ;
+          if (km.complexQ && km.complexQ !== '-') statsCurrent.complexQ = km.complexQ;
         }
       }
 
@@ -2891,7 +3359,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelMap = isIntern ? INTERN_COL_LABELS : LEAD_COL_LABELS;
     const activeCols = isIntern ? state.internCustomCols : state.leadCustomCols;
 
-    container.innerHTML = Object.entries(labelMap).map(([key, label]) => `
+    const previousOnlyCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'];
+
+    container.innerHTML = Object.entries(labelMap).filter(([key]) => {
+      if (isIntern && state.ojtMode !== 'PREVIOUS' && previousOnlyCols.includes(key)) {
+        return false;
+      }
+      return true;
+    }).map(([key, label]) => `
       <label class="recipient-item">
         <input type="checkbox" class="col-toggle-cb" value="${key}" ${activeCols.includes(key) ? 'checked' : ''}>
         <span>${label}</span>

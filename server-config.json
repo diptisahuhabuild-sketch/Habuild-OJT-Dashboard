@@ -82,5 +82,50 @@
         "expectedErrorRate": "Below 4-5%"
       }
     }
-  }
+  },
+  "completedBatches": {
+    "B-20": {
+      "batch": "B-20",
+      "name": "Batch 20",
+      "startDate": "2026-05-25",
+      "endDate": "2026-07-19",
+      "completedAt": "2026-07-19T00:00:00.000Z"
+    },
+    "B-19": {
+      "batch": "B-19",
+      "name": "Batch 19",
+      "startDate": "2026-04-16",
+      "endDate": "2026-06-21",
+      "completedAt": "2026-06-21T00:00:00.000Z"
+    },
+    "B-18": {
+      "batch": "B-18",
+      "name": "Batch 18",
+      "startDate": "2026-01-19",
+      "endDate": "2026-04-02",
+      "completedAt": "2026-04-02T00:00:00.000Z"
+    },
+    "B-17": {
+      "batch": "B-17",
+      "name": "Batch 17",
+      "startDate": "2025-12-30",
+      "endDate": "2026-02-16",
+      "completedAt": "2026-02-16T00:00:00.000Z"
+    },
+    "B-16": {
+      "batch": "B-16",
+      "name": "Batch 16",
+      "startDate": "2025-12-06",
+      "endDate": "2026-01-15",
+      "completedAt": "2026-01-15T00:00:00.000Z"
+    },
+    "B-15": {
+      "batch": "B-15",
+      "name": "Batch 15",
+      "startDate": "2025-10-23",
+      "endDate": "2025-12-03",
+      "completedAt": "2025-12-03T00:00:00.000Z"
+    }
+  },
+  "currentOjtBatch": "B-21"
 }

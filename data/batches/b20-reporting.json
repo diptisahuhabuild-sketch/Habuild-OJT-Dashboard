@@ -8306,86 +8306,23 @@
           "ojtRtg": 3.07,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 35,
-          "qcs": 8,
-          "errorPct": 22.86,
-          "ojtRtg": 2.8,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 12,
-          "qcs": 2,
-          "errorPct": 16.67,
-          "ojtRtg": 3.21,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 24,
-          "qcs": 8,
-          "errorPct": 33.33,
-          "ojtRtg": 2.63,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 35,
-          "qcs": 11,
-          "errorPct": 31.43,
-          "ojtRtg": 2.5,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 35,
-          "qcs": 6,
-          "errorPct": 17.14,
-          "ojtRtg": 2.8,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 60,
-          "qcs": 9,
-          "errorPct": 15,
-          "ojtRtg": 2.98,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 33,
-          "qcs": 8,
-          "errorPct": 24.24,
-          "ojtRtg": 2.68,
-          "trend": "↓",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 33,
-        "qcs": 8,
-        "errorPct": 24.24,
-        "ojtRtg": 2.68,
-        "trend": "↓",
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.33,
+        "ojtRtg": 3.07,
+        "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 249,
-        "qcs": 54,
-        "errorPct": 21.686746987951807,
-        "ojtRtg": 2.8337499999999998,
-        "trend": "↓"
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.333333333333334,
+        "ojtRtg": 3.07,
+        "trend": "↕"
       }
     },
     "syed khizar ali": {
@@ -8398,85 +8335,22 @@
           "ojtRtg": 3.11,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 25,
-          "qcs": 3,
-          "errorPct": 12,
-          "ojtRtg": 3.08,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 26,
-          "qcs": 3,
-          "errorPct": 11.54,
-          "ojtRtg": 2.81,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 0,
-          "qcs": 0,
-          "errorPct": 0,
-          "ojtRtg": 0,
-          "trend": "EXIT",
-          "valid": false
-        },
-        {
-          "week": "Week 5",
-          "scanned": 0,
-          "qcs": 0,
-          "errorPct": 0,
-          "ojtRtg": 0,
-          "trend": "-",
-          "valid": false
-        },
-        {
-          "week": "Week 6",
-          "scanned": 0,
-          "qcs": 0,
-          "errorPct": 0,
-          "ojtRtg": 0,
-          "trend": "-",
-          "valid": false
-        },
-        {
-          "week": "Week 7",
-          "scanned": 0,
-          "qcs": 0,
-          "errorPct": 0,
-          "ojtRtg": 0,
-          "trend": "-",
-          "valid": false
-        },
-        {
-          "week": "Week 8",
-          "scanned": 0,
-          "qcs": 0,
-          "errorPct": 0,
-          "ojtRtg": 0,
-          "trend": "-",
-          "valid": false
         }
       ],
       "recent": {
-        "week": "Week 3",
-        "scanned": 26,
-        "qcs": 3,
-        "errorPct": 11.54,
-        "ojtRtg": 2.81,
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.11,
         "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 66,
-        "qcs": 6,
-        "errorPct": 9.090909090909092,
-        "ojtRtg": 3,
+        "scanned": 15,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.11,
         "trend": "↕"
       }
     },
@@ -8490,86 +8364,23 @@
           "ojtRtg": 3.13,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 55,
-          "qcs": 14,
-          "errorPct": 25.45,
-          "ojtRtg": 3,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 45,
-          "qcs": 6,
-          "errorPct": 13.33,
-          "ojtRtg": 2.96,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 21,
-          "qcs": 8,
-          "errorPct": 38.1,
-          "ojtRtg": 2.64,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 40,
-          "qcs": 8,
-          "errorPct": 20,
-          "ojtRtg": 2.88,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 32,
-          "qcs": 7,
-          "errorPct": 21.88,
-          "ojtRtg": 2.83,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 59,
-          "qcs": 6,
-          "errorPct": 10.17,
-          "ojtRtg": 3,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 68,
-          "qcs": 13,
-          "errorPct": 19.12,
-          "ojtRtg": 2.91,
-          "trend": "↓",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 68,
-        "qcs": 13,
-        "errorPct": 19.12,
-        "ojtRtg": 2.91,
-        "trend": "↓",
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.33,
+        "ojtRtg": 3.13,
+        "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 335,
-        "qcs": 64,
-        "errorPct": 19.1044776119403,
-        "ojtRtg": 2.9187499999999997,
-        "trend": "↓"
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.333333333333334,
+        "ojtRtg": 3.13,
+        "trend": "↕"
       }
     },
     "tina kute": {
@@ -8582,86 +8393,23 @@
           "ojtRtg": 2.77,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 61,
-          "qcs": 6,
-          "errorPct": 9.84,
-          "ojtRtg": 2.95,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 45,
-          "qcs": 6,
-          "errorPct": 13.33,
-          "ojtRtg": 2.88,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 20,
-          "qcs": 4,
-          "errorPct": 20,
-          "ojtRtg": 2.72,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 26,
-          "qcs": 5,
-          "errorPct": 19.23,
-          "ojtRtg": 2.92,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 27,
-          "qcs": 4,
-          "errorPct": 14.81,
-          "ojtRtg": 2.91,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 59,
-          "qcs": 8,
-          "errorPct": 13.56,
-          "ojtRtg": 3.05,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 45,
-          "qcs": 7,
-          "errorPct": 15.56,
-          "ojtRtg": 2.9,
-          "trend": "↓",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 45,
-        "qcs": 7,
-        "errorPct": 15.56,
-        "ojtRtg": 2.9,
-        "trend": "↓",
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.77,
+        "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 303,
-        "qcs": 44,
-        "errorPct": 14.521452145214523,
-        "ojtRtg": 2.8875,
-        "trend": "↓"
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.77,
+        "trend": "↕"
       }
     },
     "babasaheb kothavale": {
@@ -8674,86 +8422,23 @@
           "ojtRtg": 3.03,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 55,
-          "qcs": 12,
-          "errorPct": 21.82,
-          "ojtRtg": 3.09,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 47,
-          "qcs": 11,
-          "errorPct": 23.4,
-          "ojtRtg": 2.84,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 34,
-          "qcs": 8,
-          "errorPct": 23.53,
-          "ojtRtg": 2.79,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 39,
-          "qcs": 12,
-          "errorPct": 30.77,
-          "ojtRtg": 2.6,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 45,
-          "qcs": 8,
-          "errorPct": 17.78,
-          "ojtRtg": 2.85,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 63,
-          "qcs": 8,
-          "errorPct": 12.7,
-          "ojtRtg": 2.89,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 44,
-          "qcs": 4,
-          "errorPct": 9.09,
-          "ojtRtg": 2.93,
-          "trend": "↓",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 44,
-        "qcs": 4,
-        "errorPct": 9.09,
-        "ojtRtg": 2.93,
-        "trend": "↓",
+        "week": "Week 1",
+        "scanned": 28,
+        "qcs": 3,
+        "errorPct": 10.71,
+        "ojtRtg": 3.03,
+        "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 355,
-        "qcs": 66,
-        "errorPct": 18.591549295774648,
-        "ojtRtg": 2.8775,
-        "trend": "↓"
+        "scanned": 28,
+        "qcs": 3,
+        "errorPct": 10.714285714285714,
+        "ojtRtg": 3.03,
+        "trend": "↕"
       }
     },
     "jaya dongare": {
@@ -8766,86 +8451,23 @@
           "ojtRtg": 3.08,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 65,
-          "qcs": 12,
-          "errorPct": 18.46,
-          "ojtRtg": 2.89,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 40,
-          "qcs": 4,
-          "errorPct": 10,
-          "ojtRtg": 2.95,
-          "trend": "↑",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 35,
-          "qcs": 6,
-          "errorPct": 17.14,
-          "ojtRtg": 2.82,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 29,
-          "qcs": 4,
-          "errorPct": 13.79,
-          "ojtRtg": 2.98,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 35,
-          "qcs": 4,
-          "errorPct": 11.43,
-          "ojtRtg": 2.91,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 50,
-          "qcs": 8,
-          "errorPct": 16,
-          "ojtRtg": 2.97,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 47,
-          "qcs": 7,
-          "errorPct": 14.89,
-          "ojtRtg": 2.83,
-          "trend": "↓",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 47,
-        "qcs": 7,
-        "errorPct": 14.89,
-        "ojtRtg": 2.83,
-        "trend": "↓",
+        "week": "Week 1",
+        "scanned": 16,
+        "qcs": 1,
+        "errorPct": 6.25,
+        "ojtRtg": 3.08,
+        "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 317,
-        "qcs": 46,
-        "errorPct": 14.511041009463725,
-        "ojtRtg": 2.92875,
-        "trend": "↓"
+        "scanned": 16,
+        "qcs": 1,
+        "errorPct": 6.25,
+        "ojtRtg": 3.08,
+        "trend": "↕"
       }
     },
     "nitesh hiwase": {
@@ -8923,6 +8545,7 @@
           "valid": true
         }
       ],
+      "allTimeTrend": "↓",
       "recent": {
         "week": "Week 8",
         "scanned": 23,
@@ -9015,6 +8638,7 @@
           "valid": true
         }
       ],
+      "allTimeTrend": "↓",
       "recent": {
         "week": "Week 8",
         "scanned": 31,
@@ -9029,7 +8653,7 @@
         "qcs": 58,
         "errorPct": 20.27972027972028,
         "ojtRtg": 2.85875,
-        "trend": "↕"
+        "trend": "↓"
       }
     },
     "shivam lolge": {
@@ -9107,6 +8731,7 @@
           "valid": true
         }
       ],
+      "allTimeTrend": "↓",
       "recent": {
         "week": "Week 8",
         "scanned": 23,
@@ -9134,85 +8759,22 @@
           "ojtRtg": 3.26,
           "trend": "↕",
           "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 50,
-          "qcs": 4,
-          "errorPct": 8,
-          "ojtRtg": 3.15,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 30,
-          "qcs": 4,
-          "errorPct": 13.33,
-          "ojtRtg": 2.98,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 20,
-          "qcs": 1,
-          "errorPct": 5,
-          "ojtRtg": 3,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 33,
-          "qcs": 6,
-          "errorPct": 18.18,
-          "ojtRtg": 2.91,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 30,
-          "qcs": 2,
-          "errorPct": 6.67,
-          "ojtRtg": 3.14,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 46,
-          "qcs": 5,
-          "errorPct": 10.87,
-          "ojtRtg": 2.98,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 46,
-          "qcs": 3,
-          "errorPct": 6.52,
-          "ojtRtg": 3.13,
-          "trend": "↕",
-          "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 46,
-        "qcs": 3,
-        "errorPct": 6.52,
-        "ojtRtg": 3.13,
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.33,
+        "ojtRtg": 3.26,
         "trend": "↕",
         "valid": true
       },
       "average": {
-        "scanned": 270,
-        "qcs": 27,
-        "errorPct": 10,
-        "ojtRtg": 3.06875,
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.333333333333334,
+        "ojtRtg": 3.26,
         "trend": "↕"
       }
     },
@@ -9224,87 +8786,24 @@
           "qcs": 7,
           "errorPct": 46.67,
           "ojtRtg": 2.76,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 45,
-          "qcs": 11,
-          "errorPct": 24.44,
-          "ojtRtg": 3.01,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 30,
-          "qcs": 9,
-          "errorPct": 30,
-          "ojtRtg": 2.73,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 20,
-          "qcs": 5,
-          "errorPct": 25,
-          "ojtRtg": 2.7,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 33,
-          "qcs": 10,
-          "errorPct": 30.3,
-          "ojtRtg": 2.64,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 6",
-          "scanned": 30,
-          "qcs": 4,
-          "errorPct": 13.33,
-          "ojtRtg": 2.86,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 7",
-          "scanned": 44,
-          "qcs": 9,
-          "errorPct": 20.45,
-          "ojtRtg": 2.86,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 8",
-          "scanned": 28,
-          "qcs": 2,
-          "errorPct": 7.14,
-          "ojtRtg": 2.98,
           "trend": "↓",
           "valid": true
         }
       ],
       "recent": {
-        "week": "Week 8",
-        "scanned": 28,
-        "qcs": 2,
-        "errorPct": 7.14,
-        "ojtRtg": 2.98,
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 7,
+        "errorPct": 46.67,
+        "ojtRtg": 2.76,
         "trend": "↓",
         "valid": true
       },
       "average": {
-        "scanned": 245,
-        "qcs": 57,
-        "errorPct": 23.26530612244898,
-        "ojtRtg": 2.8175,
+        "scanned": 15,
+        "qcs": 7,
+        "errorPct": 46.666666666666664,
+        "ojtRtg": 2.76,
         "trend": "↓"
       }
     },
@@ -9316,60 +8815,24 @@
           "qcs": 3,
           "errorPct": 30,
           "ojtRtg": 2.85,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 2",
-          "scanned": 45,
-          "qcs": 14,
-          "errorPct": 31.11,
-          "ojtRtg": 2.72,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 3",
-          "scanned": 44,
-          "qcs": 7,
-          "errorPct": 15.91,
-          "ojtRtg": 2.87,
-          "trend": "↕",
-          "valid": true
-        },
-        {
-          "week": "Week 4",
-          "scanned": 32,
-          "qcs": 11,
-          "errorPct": 34.38,
-          "ojtRtg": 2.42,
-          "trend": "↓",
-          "valid": true
-        },
-        {
-          "week": "Week 5",
-          "scanned": 13,
-          "qcs": 4,
-          "errorPct": 30.77,
-          "ojtRtg": 2.69,
           "trend": "↓",
           "valid": true
         }
       ],
       "recent": {
-        "week": "Week 5",
-        "scanned": 13,
-        "qcs": 4,
-        "errorPct": 30.77,
-        "ojtRtg": 2.69,
+        "week": "Week 1",
+        "scanned": 10,
+        "qcs": 3,
+        "errorPct": 30,
+        "ojtRtg": 2.85,
         "trend": "↓",
         "valid": true
       },
       "average": {
-        "scanned": 144,
-        "qcs": 39,
-        "errorPct": 27.083333333333332,
-        "ojtRtg": 2.71,
+        "scanned": 10,
+        "qcs": 3,
+        "errorPct": 30,
+        "ojtRtg": 2.85,
         "trend": "↓"
       }
     },
@@ -9381,7 +8844,7 @@
           "qcs": 7,
           "errorPct": 46.67,
           "ojtRtg": 2.66,
-          "trend": "↕",
+          "trend": "↓",
           "valid": true
         }
       ],
@@ -9391,7 +8854,7 @@
         "qcs": 7,
         "errorPct": 46.67,
         "ojtRtg": 2.66,
-        "trend": "↕",
+        "trend": "↓",
         "valid": true
       },
       "average": {
@@ -9399,6 +8862,2312 @@
         "qcs": 7,
         "errorPct": 46.666666666666664,
         "ojtRtg": 2.66,
+        "trend": "↓"
+      }
+    },
+    "nitesh (voice support)": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 10,
+          "qcs": 2,
+          "errorPct": 20,
+          "ojtRtg": 3.25,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 10,
+        "qcs": 2,
+        "errorPct": 20,
+        "ojtRtg": 3.25,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 10,
+        "qcs": 2,
+        "errorPct": 20,
+        "ojtRtg": 3.25,
+        "trend": "↕"
+      }
+    },
+    "prachi kamble  (voice support)": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 5,
+          "errorPct": 33.33,
+          "ojtRtg": 2.97,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 5,
+        "errorPct": 33.33,
+        "ojtRtg": 2.97,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 5,
+        "errorPct": 33.33333333333333,
+        "ojtRtg": 2.97,
+        "trend": "↓"
+      }
+    },
+    "shivam (voice support)": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 3,
+          "errorPct": 20,
+          "ojtRtg": 3.16,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 3,
+        "errorPct": 20,
+        "ojtRtg": 3.16,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 3,
+        "errorPct": 20,
+        "ojtRtg": 3.16,
+        "trend": "↕"
+      }
+    },
+    "smit": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 45,
+          "qcs": 16,
+          "errorPct": 35.56,
+          "ojtRtg": 2.7,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 45,
+        "qcs": 16,
+        "errorPct": 35.56,
+        "ojtRtg": 2.7,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 45,
+        "qcs": 16,
+        "errorPct": 35.55555555555556,
+        "ojtRtg": 2.7,
+        "trend": "↓"
+      }
+    },
+    "mahak lokhande": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 55,
+          "qcs": 12,
+          "errorPct": 21.82,
+          "ojtRtg": 3.15,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 55,
+        "qcs": 12,
+        "errorPct": 21.82,
+        "ojtRtg": 3.15,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 55,
+        "qcs": 12,
+        "errorPct": 21.818181818181817,
+        "ojtRtg": 3.15,
+        "trend": "↕"
+      }
+    },
+    "aditya jaiswal": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 32,
+          "qcs": 7,
+          "errorPct": 21.88,
+          "ojtRtg": 3.08,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 32,
+        "qcs": 7,
+        "errorPct": 21.88,
+        "ojtRtg": 3.08,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 32,
+        "qcs": 7,
+        "errorPct": 21.875,
+        "ojtRtg": 3.08,
+        "trend": "↕"
+      }
+    },
+    "pareedhi (voice support)": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 9,
+          "errorPct": 30,
+          "ojtRtg": 2.9,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 9,
+        "errorPct": 30,
+        "ojtRtg": 2.9,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 9,
+        "errorPct": 30,
+        "ojtRtg": 2.9,
+        "trend": "↓"
+      }
+    },
+    "kunal fukatkar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 46,
+          "qcs": 10,
+          "errorPct": 21.74,
+          "ojtRtg": 3,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.74,
+        "ojtRtg": 3,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.73913043478261,
+        "ojtRtg": 3,
+        "trend": "↓"
+      }
+    },
+    "papiha": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 22,
+          "qcs": 3,
+          "errorPct": 13.64,
+          "ojtRtg": 3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 22,
+        "qcs": 3,
+        "errorPct": 13.64,
+        "ojtRtg": 3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 22,
+        "qcs": 3,
+        "errorPct": 13.636363636363635,
+        "ojtRtg": 3,
+        "trend": "↕"
+      }
+    },
+    "anjali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 46,
+          "qcs": 10,
+          "errorPct": 21.74,
+          "ojtRtg": 3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.74,
+        "ojtRtg": 3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 46,
+        "qcs": 10,
+        "errorPct": 21.73913043478261,
+        "ojtRtg": 3,
+        "trend": "↕"
+      }
+    },
+    "lubdha": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 4,
+          "errorPct": 16,
+          "ojtRtg": 3.2,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 4,
+        "errorPct": 16,
+        "ojtRtg": 3.2,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 4,
+        "errorPct": 16,
+        "ojtRtg": 3.2,
+        "trend": "↕"
+      }
+    },
+    "sohail sheikh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 42,
+          "qcs": 5,
+          "errorPct": 11.9,
+          "ojtRtg": 3.3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 42,
+        "qcs": 5,
+        "errorPct": 11.9,
+        "ojtRtg": 3.3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 42,
+        "qcs": 5,
+        "errorPct": 11.904761904761903,
+        "ojtRtg": 3.3,
+        "trend": "↕"
+      }
+    },
+    "alisha dupare": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 78,
+          "qcs": 8,
+          "errorPct": 10.26,
+          "ojtRtg": 3.12,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 78,
+        "qcs": 8,
+        "errorPct": 10.26,
+        "ojtRtg": 3.12,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 78,
+        "qcs": 8,
+        "errorPct": 10.256410256410255,
+        "ojtRtg": 3.12,
+        "trend": "↕"
+      }
+    },
+    "samyak kamble": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 82,
+          "qcs": 10,
+          "errorPct": 12.2,
+          "ojtRtg": 3.3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 82,
+        "qcs": 10,
+        "errorPct": 12.2,
+        "ojtRtg": 3.3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 82,
+        "qcs": 10,
+        "errorPct": 12.195121951219512,
+        "ojtRtg": 3.3,
+        "trend": "↕"
+      }
+    },
+    "tanushree": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 112,
+          "qcs": 11,
+          "errorPct": 9.82,
+          "ojtRtg": 3.05,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 112,
+        "qcs": 11,
+        "errorPct": 9.82,
+        "ojtRtg": 3.05,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 112,
+        "qcs": 11,
+        "errorPct": 9.821428571428571,
+        "ojtRtg": 3.05,
+        "trend": "↕"
+      }
+    },
+    "kalpik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 80,
+          "qcs": 15,
+          "errorPct": 18.75,
+          "ojtRtg": 2.96,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 80,
+        "qcs": 15,
+        "errorPct": 18.75,
+        "ojtRtg": 2.96,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 80,
+        "qcs": 15,
+        "errorPct": 18.75,
+        "ojtRtg": 2.96,
+        "trend": "↓"
+      }
+    },
+    "fuzail": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 127,
+          "qcs": 19,
+          "errorPct": 14.96,
+          "ojtRtg": 2.9,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 127,
+        "qcs": 19,
+        "errorPct": 14.96,
+        "ojtRtg": 2.9,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 127,
+        "qcs": 19,
+        "errorPct": 14.960629921259844,
+        "ojtRtg": 2.9,
+        "trend": "↓"
+      }
+    },
+    "aman": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3,
+        "trend": "↕"
+      }
+    },
+    "damini": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 18,
+          "qcs": 1,
+          "errorPct": 5.56,
+          "ojtRtg": 3.1,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 18,
+        "qcs": 1,
+        "errorPct": 5.56,
+        "ojtRtg": 3.1,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 18,
+        "qcs": 1,
+        "errorPct": 5.555555555555555,
+        "ojtRtg": 3.1,
+        "trend": "↕"
+      }
+    },
+    "raafey": {
+      "weeks": [
+        {
+          "week": "Week 4",
+          "scanned": 0,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 0,
+          "trend": "-",
+          "valid": false
+        }
+      ],
+      "recent": null,
+      "average": null
+    },
+    "vishal": {
+      "weeks": [
+        {
+          "week": "Week 6",
+          "scanned": 212,
+          "qcs": 12,
+          "errorPct": 5.66,
+          "ojtRtg": 3.2,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 6",
+        "scanned": 212,
+        "qcs": 12,
+        "errorPct": 5.66,
+        "ojtRtg": 3.2,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 212,
+        "qcs": 12,
+        "errorPct": 5.660377358490567,
+        "ojtRtg": 3.2,
+        "trend": "↕"
+      }
+    },
+    "shabbar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 40,
+          "qcs": 6,
+          "errorPct": 15,
+          "ojtRtg": 2.86,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 40,
+        "qcs": 6,
+        "errorPct": 15,
+        "ojtRtg": 2.86,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 40,
+        "qcs": 6,
+        "errorPct": 15,
+        "ojtRtg": 2.86,
+        "trend": "↓"
+      }
+    },
+    "nayan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 45,
+          "qcs": 2,
+          "errorPct": 4.44,
+          "ojtRtg": 3,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 45,
+        "qcs": 2,
+        "errorPct": 4.44,
+        "ojtRtg": 3,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 45,
+        "qcs": 2,
+        "errorPct": 4.444444444444445,
+        "ojtRtg": 3,
+        "trend": "↕"
+      }
+    },
+    "sakshi kuril": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 45,
+          "qcs": 4,
+          "errorPct": 8.89,
+          "ojtRtg": 2.89,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 45,
+        "qcs": 4,
+        "errorPct": 8.89,
+        "ojtRtg": 2.89,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 45,
+        "qcs": 4,
+        "errorPct": 8.88888888888889,
+        "ojtRtg": 2.89,
+        "trend": "↓"
+      }
+    },
+    "pranay": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 4,
+          "errorPct": 26.67,
+          "ojtRtg": 2.8,
+          "trend": "↓",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 4,
+        "errorPct": 26.67,
+        "ojtRtg": 2.8,
+        "trend": "↓",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 4,
+        "errorPct": 26.666666666666668,
+        "ojtRtg": 2.8,
+        "trend": "↓"
+      }
+    },
+    "ahmed raza": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 40,
+          "qcs": 7,
+          "errorPct": 17.5,
+          "ojtRtg": 2.76,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 40,
+        "qcs": 7,
+        "errorPct": 17.5,
+        "ojtRtg": 2.76,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 40,
+        "qcs": 7,
+        "errorPct": 17.5,
+        "ojtRtg": 2.76,
+        "trend": "↕"
+      }
+    },
+    "rushikesh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 55,
+          "qcs": 2,
+          "errorPct": 3.64,
+          "ojtRtg": 3.03,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 55,
+        "qcs": 2,
+        "errorPct": 3.64,
+        "ojtRtg": 3.03,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 55,
+        "qcs": 2,
+        "errorPct": 3.6363636363636362,
+        "ojtRtg": 3.03,
+        "trend": "↕"
+      }
+    },
+    "roshan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 40,
+          "qcs": 2,
+          "errorPct": 5,
+          "ojtRtg": 3.17,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 40,
+        "qcs": 2,
+        "errorPct": 5,
+        "ojtRtg": 3.17,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 40,
+        "qcs": 2,
+        "errorPct": 5,
+        "ojtRtg": 3.17,
+        "trend": "↕"
+      }
+    },
+    "rahik sheikh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 53,
+          "qcs": 5,
+          "errorPct": 9.43,
+          "ojtRtg": 3.07,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 53,
+        "qcs": 5,
+        "errorPct": 9.43,
+        "ojtRtg": 3.07,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 53,
+        "qcs": 5,
+        "errorPct": 9.433962264150944,
+        "ojtRtg": 3.07,
+        "trend": "↕"
+      }
+    },
+    "tanu": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 3,
+          "errorPct": 15,
+          "ojtRtg": 2.83,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 3,
+        "errorPct": 15,
+        "ojtRtg": 2.83,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 3,
+        "errorPct": 15,
+        "ojtRtg": 2.83,
+        "trend": "↕"
+      }
+    },
+    "aditya malik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 8,
+          "errorPct": 40,
+          "ojtRtg": 2.4,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 8,
+        "errorPct": 40,
+        "ojtRtg": 2.4,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 8,
+        "errorPct": 40,
+        "ojtRtg": 2.4,
+        "trend": "↕"
+      }
+    },
+    "riya": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 4,
+          "errorPct": 20,
+          "ojtRtg": 2.87,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.87,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 4,
+        "errorPct": 20,
+        "ojtRtg": 2.87,
+        "trend": "↕"
+      }
+    },
+    "aanchal": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 5,
+          "errorPct": 25,
+          "ojtRtg": 2.88,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 5,
+        "errorPct": 25,
+        "ojtRtg": 2.88,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 5,
+        "errorPct": 25,
+        "ojtRtg": 2.88,
+        "trend": "↕"
+      }
+    },
+    "sakshi dumre": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 32,
+          "qcs": 1,
+          "errorPct": 3.13,
+          "ojtRtg": 3.06,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 32,
+        "qcs": 1,
+        "errorPct": 3.13,
+        "ojtRtg": 3.06,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 32,
+        "qcs": 1,
+        "errorPct": 3.125,
+        "ojtRtg": 3.06,
+        "trend": "↕"
+      }
+    },
+    "suraksha": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 34,
+          "qcs": 5,
+          "errorPct": 14.71,
+          "ojtRtg": 2.93,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 34,
+        "qcs": 5,
+        "errorPct": 14.71,
+        "ojtRtg": 2.93,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 34,
+        "qcs": 5,
+        "errorPct": 14.705882352941178,
+        "ojtRtg": 2.93,
+        "trend": "↕"
+      }
+    },
+    "suyash": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 31,
+          "qcs": 5,
+          "errorPct": 16.13,
+          "ojtRtg": 2.88,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 31,
+        "qcs": 5,
+        "errorPct": 16.13,
+        "ojtRtg": 2.88,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 31,
+        "qcs": 5,
+        "errorPct": 16.129032258064516,
+        "ojtRtg": 2.88,
+        "trend": "↕"
+      }
+    },
+    "sakshi bhagwat": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 38,
+          "qcs": 13,
+          "errorPct": 34.21,
+          "ojtRtg": 2.53,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 38,
+        "qcs": 13,
+        "errorPct": 34.21,
+        "ojtRtg": 2.53,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 38,
+        "qcs": 13,
+        "errorPct": 34.21052631578947,
+        "ojtRtg": 2.53,
+        "trend": "↕"
+      }
+    },
+    "prajwal": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 31,
+          "qcs": 7,
+          "errorPct": 22.58,
+          "ojtRtg": 2.67,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 31,
+        "qcs": 7,
+        "errorPct": 22.58,
+        "ojtRtg": 2.67,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 31,
+        "qcs": 7,
+        "errorPct": 22.58064516129032,
+        "ojtRtg": 2.67,
+        "trend": "↕"
+      }
+    },
+    "ankush bhagwat": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.28,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.28,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.28,
+        "trend": "↕"
+      }
+    },
+    "krunali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 3,
+          "errorPct": 10,
+          "ojtRtg": 3.17,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 3,
+        "errorPct": 10,
+        "ojtRtg": 3.17,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 3,
+        "errorPct": 10,
+        "ojtRtg": 3.17,
+        "trend": "↕"
+      }
+    },
+    "hansika": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 4,
+          "errorPct": 16,
+          "ojtRtg": 3.06,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 4,
+        "errorPct": 16,
+        "ojtRtg": 3.06,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 4,
+        "errorPct": 16,
+        "ojtRtg": 3.06,
+        "trend": "↕"
+      }
+    },
+    "mohjeet": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 13,
+          "errorPct": 52,
+          "ojtRtg": 2.09,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 13,
+        "errorPct": 52,
+        "ojtRtg": 2.09,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 13,
+        "errorPct": 52,
+        "ojtRtg": 2.09,
+        "trend": "↕"
+      }
+    },
+    "prerana": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 10,
+          "errorPct": 50,
+          "ojtRtg": 2.14,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 10,
+        "errorPct": 50,
+        "ojtRtg": 2.14,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 10,
+        "errorPct": 50,
+        "ojtRtg": 2.14,
+        "trend": "↕"
+      }
+    },
+    "rehman": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.2,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.2,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.666666666666667,
+        "ojtRtg": 3.2,
+        "trend": "↕"
+      }
+    },
+    "kapil": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.28,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.28,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.666666666666667,
+        "ojtRtg": 3.28,
+        "trend": "↕"
+      }
+    },
+    "rohit": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.49,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.49,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.49,
+        "trend": "↕"
+      }
+    },
+    "punam": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 2,
+          "errorPct": 13.33,
+          "ojtRtg": 2.82,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.33,
+        "ojtRtg": 2.82,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 2,
+        "errorPct": 13.333333333333334,
+        "ojtRtg": 2.82,
+        "trend": "↕"
+      }
+    },
+    "shabir": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.42,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.42,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.666666666666667,
+        "ojtRtg": 3.42,
+        "trend": "↕"
+      }
+    },
+    "hishita": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 14,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.46,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 14,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.46,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 14,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.46,
+        "trend": "↕"
+      }
+    },
+    "kshitij": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 91,
+          "qcs": 5,
+          "errorPct": 5.49,
+          "ojtRtg": 3.24,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 91,
+        "qcs": 5,
+        "errorPct": 5.49,
+        "ojtRtg": 3.24,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 91,
+        "qcs": 5,
+        "errorPct": 5.4945054945054945,
+        "ojtRtg": 3.24,
+        "trend": "↕"
+      }
+    },
+    "kartik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 26,
+          "qcs": 2,
+          "errorPct": 7.69,
+          "ojtRtg": 2.8,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 26,
+        "qcs": 2,
+        "errorPct": 7.69,
+        "ojtRtg": 2.8,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 26,
+        "qcs": 2,
+        "errorPct": 7.6923076923076925,
+        "ojtRtg": 2.8,
+        "trend": "↕"
+      }
+    },
+    "aditi": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 17,
+          "qcs": 13,
+          "errorPct": 76.47,
+          "ojtRtg": 1.7,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 17,
+        "qcs": 13,
+        "errorPct": 76.47,
+        "ojtRtg": 1.7,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 17,
+        "qcs": 13,
+        "errorPct": 76.47058823529412,
+        "ojtRtg": 1.7,
+        "trend": "↕"
+      }
+    },
+    "pranali": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 11,
+          "errorPct": 36.67,
+          "ojtRtg": 3.21,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 11,
+        "errorPct": 36.67,
+        "ojtRtg": 3.21,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 11,
+        "errorPct": 36.666666666666664,
+        "ojtRtg": 3.21,
+        "trend": "↕"
+      }
+    },
+    "gayatri": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.18,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.18,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.18,
+        "trend": "↕"
+      }
+    },
+    "piyush": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 36,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.25,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 36,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.25,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 36,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.25,
+        "trend": "↕"
+      }
+    },
+    "sayali meshram": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 35,
+          "qcs": 7,
+          "errorPct": 20,
+          "ojtRtg": 2.75,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 35,
+        "qcs": 7,
+        "errorPct": 20,
+        "ojtRtg": 2.75,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 35,
+        "qcs": 7,
+        "errorPct": 20,
+        "ojtRtg": 2.75,
+        "trend": "↕"
+      }
+    },
+    "aryan": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 2,
+          "errorPct": 10,
+          "ojtRtg": 2.95,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 2,
+        "errorPct": 10,
+        "ojtRtg": 2.95,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 2,
+        "errorPct": 10,
+        "ojtRtg": 2.95,
+        "trend": "↕"
+      }
+    },
+    "ishika": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 3,
+          "errorPct": 15,
+          "ojtRtg": 2.65,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 3,
+        "errorPct": 15,
+        "ojtRtg": 2.65,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 3,
+        "errorPct": 15,
+        "ojtRtg": 2.65,
+        "trend": "↕"
+      }
+    },
+    "sagar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 20,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.05,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.05,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 20,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.05,
+        "trend": "↕"
+      }
+    },
+    "preeti": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 2,
+          "errorPct": 6.67,
+          "ojtRtg": 2.92,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 2,
+        "errorPct": 6.67,
+        "ojtRtg": 2.92,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 2,
+        "errorPct": 6.666666666666667,
+        "ojtRtg": 2.92,
+        "trend": "↕"
+      }
+    },
+    "shashank": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 4,
+          "errorPct": 13.33,
+          "ojtRtg": 3.09,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 4,
+        "errorPct": 13.33,
+        "ojtRtg": 3.09,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 4,
+        "errorPct": 13.333333333333334,
+        "ojtRtg": 3.09,
+        "trend": "↕"
+      }
+    },
+    "sayali vaidya": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 1,
+          "errorPct": 4,
+          "ojtRtg": 3.41,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 1,
+        "errorPct": 4,
+        "ojtRtg": 3.41,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 1,
+        "errorPct": 4,
+        "ojtRtg": 3.41,
+        "trend": "↕"
+      }
+    },
+    "jeffin": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 10,
+          "qcs": 2,
+          "errorPct": 20,
+          "ojtRtg": 2.7,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 10,
+        "qcs": 2,
+        "errorPct": 20,
+        "ojtRtg": 2.7,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 10,
+        "qcs": 2,
+        "errorPct": 20,
+        "ojtRtg": 2.7,
+        "trend": "↕"
+      }
+    },
+    "danish": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 12,
+          "qcs": 3,
+          "errorPct": 25,
+          "ojtRtg": 2.69,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 12,
+        "qcs": 3,
+        "errorPct": 25,
+        "ojtRtg": 2.69,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 12,
+        "qcs": 3,
+        "errorPct": 25,
+        "ojtRtg": 2.69,
+        "trend": "↕"
+      }
+    },
+    "sumeet": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 33,
+          "qcs": 4,
+          "errorPct": 12.12,
+          "ojtRtg": 3.12,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.12,
+        "ojtRtg": 3.12,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.121212121212121,
+        "ojtRtg": 3.12,
+        "trend": "↕"
+      }
+    },
+    "sana": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 15,
+          "qcs": 1,
+          "errorPct": 6.67,
+          "ojtRtg": 3.2,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.67,
+        "ojtRtg": 3.2,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 15,
+        "qcs": 1,
+        "errorPct": 6.666666666666667,
+        "ojtRtg": 3.2,
+        "trend": "↕"
+      }
+    },
+    "vaibhav": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 30,
+          "qcs": 1,
+          "errorPct": 3.33,
+          "ojtRtg": 3.16,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 30,
+        "qcs": 1,
+        "errorPct": 3.33,
+        "ojtRtg": 3.16,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 30,
+        "qcs": 1,
+        "errorPct": 3.3333333333333335,
+        "ojtRtg": 3.16,
+        "trend": "↕"
+      }
+    },
+    "bushera": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 26,
+          "qcs": 3,
+          "errorPct": 11.54,
+          "ojtRtg": 3.19,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 26,
+        "qcs": 3,
+        "errorPct": 11.54,
+        "ojtRtg": 3.19,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 26,
+        "qcs": 3,
+        "errorPct": 11.538461538461538,
+        "ojtRtg": 3.19,
+        "trend": "↕"
+      }
+    },
+    "nikhilesh": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 35,
+          "qcs": 5,
+          "errorPct": 14.29,
+          "ojtRtg": 3.04,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 35,
+        "qcs": 5,
+        "errorPct": 14.29,
+        "ojtRtg": 3.04,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 35,
+        "qcs": 5,
+        "errorPct": 14.285714285714285,
+        "ojtRtg": 3.04,
+        "trend": "↕"
+      }
+    },
+    "prakhar": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 25,
+          "qcs": 3,
+          "errorPct": 12,
+          "ojtRtg": 3.31,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 25,
+        "qcs": 3,
+        "errorPct": 12,
+        "ojtRtg": 3.31,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 25,
+        "qcs": 3,
+        "errorPct": 12,
+        "ojtRtg": 3.31,
+        "trend": "↕"
+      }
+    },
+    "shahid": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 33,
+          "qcs": 4,
+          "errorPct": 12.12,
+          "ojtRtg": 2.95,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.12,
+        "ojtRtg": 2.95,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 33,
+        "qcs": 4,
+        "errorPct": 12.121212121212121,
+        "ojtRtg": 2.95,
+        "trend": "↕"
+      }
+    },
+    "charul": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 92,
+          "qcs": 4,
+          "errorPct": 4.35,
+          "ojtRtg": 3.27,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 92,
+        "qcs": 4,
+        "errorPct": 4.35,
+        "ojtRtg": 3.27,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 92,
+        "qcs": 4,
+        "errorPct": 4.3478260869565215,
+        "ojtRtg": 3.27,
+        "trend": "↕"
+      }
+    },
+    "ashwin": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 84,
+          "qcs": 7,
+          "errorPct": 8.33,
+          "ojtRtg": 3.11,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 84,
+        "qcs": 7,
+        "errorPct": 8.33,
+        "ojtRtg": 3.11,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 84,
+        "qcs": 7,
+        "errorPct": 8.333333333333332,
+        "ojtRtg": 3.11,
+        "trend": "↕"
+      }
+    },
+    "darshana": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 29,
+          "qcs": 0,
+          "errorPct": 0,
+          "ojtRtg": 3.44,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 29,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.44,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 29,
+        "qcs": 0,
+        "errorPct": 0,
+        "ojtRtg": 3.44,
+        "trend": "↕"
+      }
+    },
+    "pratik": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 21,
+          "qcs": 1,
+          "errorPct": 4.76,
+          "ojtRtg": 3.03,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 21,
+        "qcs": 1,
+        "errorPct": 4.76,
+        "ojtRtg": 3.03,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 21,
+        "qcs": 1,
+        "errorPct": 4.761904761904762,
+        "ojtRtg": 3.03,
+        "trend": "↕"
+      }
+    },
+    "rashi": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 16,
+          "qcs": 8,
+          "errorPct": 50,
+          "ojtRtg": 3.1,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 16,
+        "qcs": 8,
+        "errorPct": 50,
+        "ojtRtg": 3.1,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 16,
+        "qcs": 8,
+        "errorPct": 50,
+        "ojtRtg": 3.1,
+        "trend": "↕"
+      }
+    },
+    "sanskriti": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 5,
+          "qcs": 1,
+          "errorPct": 20,
+          "ojtRtg": 3.05,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 5,
+        "qcs": 1,
+        "errorPct": 20,
+        "ojtRtg": 3.05,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 5,
+        "qcs": 1,
+        "errorPct": 20,
+        "ojtRtg": 3.05,
+        "trend": "↕"
+      }
+    },
+    "shiwani": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 61,
+          "qcs": 4,
+          "errorPct": 6.56,
+          "ojtRtg": 3.06,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 61,
+        "qcs": 4,
+        "errorPct": 6.56,
+        "ojtRtg": 3.06,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 61,
+        "qcs": 4,
+        "errorPct": 6.557377049180328,
+        "ojtRtg": 3.06,
+        "trend": "↕"
+      }
+    },
+    "farheen": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 120,
+          "qcs": 14,
+          "errorPct": 11.67,
+          "ojtRtg": 3.13,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 120,
+        "qcs": 14,
+        "errorPct": 11.67,
+        "ojtRtg": 3.13,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 120,
+        "qcs": 14,
+        "errorPct": 11.666666666666666,
+        "ojtRtg": 3.13,
+        "trend": "↕"
+      }
+    },
+    "simran": {
+      "weeks": [
+        {
+          "week": "Week 1",
+          "scanned": 76,
+          "qcs": 21,
+          "errorPct": 27.63,
+          "ojtRtg": 3.1,
+          "trend": "↕",
+          "valid": true
+        }
+      ],
+      "recent": {
+        "week": "Week 1",
+        "scanned": 76,
+        "qcs": 21,
+        "errorPct": 27.63,
+        "ojtRtg": 3.1,
+        "trend": "↕",
+        "valid": true
+      },
+      "average": {
+        "scanned": 76,
+        "qcs": 21,
+        "errorPct": 27.631578947368425,
+        "ojtRtg": 3.1,
         "trend": "↕"
       }
     }

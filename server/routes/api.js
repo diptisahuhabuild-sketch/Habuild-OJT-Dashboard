@@ -548,4 +548,46 @@ router.get('/proxy-image', async (req, res) => {
   }
 });
 
+// OJT Batch Completion Endpoint
+router.post('/batch/complete', (req, res) => {
+  const { batch, endDate } = req.body;
+  if (!batch) {
+    return res.status(400).json({ success: false, error: 'Batch identifier is required' });
+  }
+
+  try {
+    let rawConfig = {};
+    if (fs.existsSync(CONFIG_FILE)) {
+      rawConfig = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    }
+
+    if (!rawConfig.completedBatches) {
+      rawConfig.completedBatches = {};
+    }
+
+    const cleanBatch = batch.toUpperCase().trim();
+    const effectiveEndDate = endDate || new Date().toISOString().split('T')[0];
+
+    rawConfig.completedBatches[cleanBatch] = {
+      batch: cleanBatch,
+      name: cleanBatch.startsWith('B-') ? `Batch ${cleanBatch.replace('B-', '')}` : cleanBatch,
+      endDate: effectiveEndDate,
+      completedAt: new Date().toISOString()
+    };
+
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(rawConfig, null, 2));
+
+    const updatedConfig = getConfig();
+    res.json({
+      success: true,
+      message: `OJT period for ${cleanBatch} successfully marked as completed on ${effectiveEndDate}!`,
+      completedBatches: updatedConfig.completedBatches,
+      config: updatedConfig
+    });
+  } catch (e) {
+    console.error('[API Router] Error completing batch:', e.message);
+    res.status(500).json({ success: false, error: e.message });
+  }
+});
+
 module.exports = router;

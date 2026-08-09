@@ -98,18 +98,59 @@
   <!-- Main Container -->
   <main class="dashboard-container">
 
+    <!-- OJT Lifecycle Filter Bar -->
+    <section class="ojt-lifecycle-bar card">
+      <div class="ojt-lifecycle-controls">
+        <!-- Current OJT Team Filter Button -->
+        <button class="btn btn-lifecycle" id="btnCurrentOJT" title="Filter to Current Active OJT Team (Batch 21)">
+          <span class="lifecycle-dot"></span>
+          <span class="btn-icon">⚡</span>
+          <span class="btn-text">Current OJT team</span>
+          <span class="badge badge-xs badge-success" id="currentOjtBadge">B-21</span>
+        </button>
+
+        <!-- Previous OJT Period Filter Button & Single Batch Dropdown -->
+        <div class="previous-ojt-group">
+          <button class="btn btn-lifecycle" id="btnPreviousOJT" title="Toggle Previous Ended OJT Period Batches">
+            <span class="lifecycle-dot"></span>
+            <span class="btn-icon">📁</span>
+            <span class="btn-text">Previous OJT period</span>
+          </button>
+          
+          <div class="previous-batch-selector hidden" id="previousBatchContainer">
+            <label class="sr-only" for="previousBatchSelect">Select Previous Ended Batch</label>
+            <select id="previousBatchSelect" class="form-select form-select-sm font-semibold previous-select">
+              <!-- Dynamically populated ended batches, e.g. Batch 20 -->
+            </select>
+          </div>
+        </div>
+
+        <div class="lifecycle-divider"></div>
+
+        <!-- OJT Completion Action Button -->
+        <button class="btn btn-outline-danger btn-lifecycle-action" id="btnOJTCompletion" title="End OJT Period for a Batch">
+          <span class="btn-icon">🏁</span>
+          <span>OJT completion</span>
+        </button>
+      </div>
+
+      <div class="lifecycle-status-tag" id="ojtModeStatusTag">
+        <span class="status-indicator-dot"></span>
+        <span id="ojtModeStatusText">Viewing All Batches</span>
+      </div>
+    </section>
+
     <!-- Global Active Batch & Date Filter Bar -->
     <section class="control-bar card">
       <div class="control-group">
         <label for="globalBatchSelect" class="control-label">Active Batch</label>
         <select id="globalBatchSelect" class="form-select font-semibold">
-          <option value="B-20">Batch 20 (Current Active)</option>
-          <option value="B-19">Batch 19</option>
-          <option value="B-18">Batch 18</option>
-          <option value="B-17">Batch 17</option>
-          <option value="B-16">Batch 16</option>
-          <option value="B-15">Batch 15</option>
-          <option value="B-12">Batch 12</option>
+          <option value="B-20">Batch 20 (Ended: 2026-07-19)</option>
+          <option value="B-19">Batch 19 (Ended: 2026-06-21)</option>
+          <option value="B-18">Batch 18 (Ended: 2026-04-02)</option>
+          <option value="B-17">Batch 17 (Ended: 2026-02-16)</option>
+          <option value="B-16">Batch 16 (Ended: 2026-01-15)</option>
+          <option value="B-15">Batch 15 (Ended: 2025-12-03)</option>
           <option value="ALL" selected>All Batches</option>
         </select>
       </div>
@@ -144,6 +185,14 @@
           <option value="ALL">All Time</option>
           <option value="TODAY">Today</option>
           <option value="WEEK">Current Week</option>
+          <option value="WEEK_1">Week 1</option>
+          <option value="WEEK_2">Week 2</option>
+          <option value="WEEK_3">Week 3</option>
+          <option value="WEEK_4">Week 4</option>
+          <option value="WEEK_5">Week 5</option>
+          <option value="WEEK_6">Week 6</option>
+          <option value="WEEK_7">Week 7</option>
+          <option value="WEEK_8">Week 8</option>
           <option value="MONTH">Current Month</option>
           <option value="CUSTOM">Custom Range...</option>
         </select>
@@ -1007,8 +1056,97 @@
     </div>
   </div>
 
+  <!-- OJT Period Completion Modal (2-Step Verification) -->
+  <div class="modal-backdrop" id="ojtCompletionModal">
+    <div class="modal-window max-w-500">
+      <div class="modal-header modal-header-danger">
+        <div class="flex-row items-center gap-xs">
+          <span style="font-size: 1.5rem;">🏁</span>
+          <div>
+            <h3 class="modal-title" style="color: #dc2626; margin: 0;">OJT Period Completion</h3>
+            <p class="text-xs text-muted" style="margin: 0;">End active OJT period for a batch</p>
+          </div>
+        </div>
+        <button class="modal-close" id="ojtCompletionModalClose">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem;">
+        <!-- Step 1: Batch & Date Selection Form -->
+        <div id="ojtEndFormSection">
+          <div class="form-group">
+            <label class="control-label font-semibold" for="ojtEndBatchSelect">Select Batch to End OJT Period</label>
+            <select id="ojtEndBatchSelect" class="form-select font-semibold">
+              <!-- Dynamically populated with active batches -->
+            </select>
+            <p class="text-xs text-muted margin-top-xs">This batch will be moved under the <strong>Previous OJT period</strong> category.</p>
+          </div>
+
+          <div class="form-group margin-top-md">
+            <label class="control-label font-semibold" for="ojtEndDateInput">Official OJT Completion Date</label>
+            <input type="date" id="ojtEndDateInput" class="form-input">
+            <p class="text-xs text-muted margin-top-xs">Future dates after this completion date will be locked in the previous batch date filters.</p>
+          </div>
+
+          <div class="notice-box margin-top-md" style="background: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; padding: 0.75rem; border-radius: 6px;">
+            <p class="text-xs text-warning-dark" style="margin: 0; color: #92400e; font-weight: 500;">
+              ⚠️ <strong>Confirmation Required:</strong> Ending an OJT period requires 2-step verification and moves the batch data into Previous OJT period records.
+            </p>
+          </div>
+
+          <button class="btn btn-danger width-full margin-top-md font-semibold" id="btnInitiateEndOJT" style="background-color: #dc2626; color: #fff; padding: 0.65rem;">
+            END OJT Period ➔
+          </button>
+        </div>
+
+        <!-- Verification Step 1: Type 'end' -->
+        <div id="ojtVerifyTypeSection" class="hidden">
+          <div class="verification-card" style="text-align: center; padding: 0.5rem 0;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔒</div>
+            <h4 style="color: #dc2626; margin: 0; font-size: 1.1rem;">Verification: Step 1 of 2</h4>
+            <p class="text-sm margin-top-xs" style="color: #475569;">
+              To end the OJT period for <strong id="verifyBatchNameText" style="color: #0f172a;">Batch 20</strong>, please type <code style="background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-weight: 700;">end</code> below:
+            </p>
+
+            <div class="form-group margin-top-md">
+              <input type="text" id="verifyEndInput" class="form-input text-center font-bold" placeholder="Type end here" autocomplete="off" style="font-size: 1.25rem; letter-spacing: 2px; text-transform: lowercase;">
+              <p class="text-xs text-danger margin-top-xs hidden" id="verifyTypeError" style="color: #dc2626; font-weight: 600;">Please type exactly "end" to continue.</p>
+            </div>
+
+            <div class="flex-row gap-sm margin-top-lg">
+              <button class="btn btn-outline flex-1" id="btnCancelVerifyType">Back</button>
+              <button class="btn btn-danger flex-1" id="btnConfirmVerifyType" style="background-color: #dc2626; color: #fff;">Verify & Continue ➔</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verification Step 2: Final Confirmation -->
+        <div id="ojtVerifyFinalSection" class="hidden">
+          <div class="verification-card" style="text-align: center; padding: 0.5rem 0;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚠️</div>
+            <h4 style="color: #dc2626; margin: 0; font-size: 1.1rem;">Final Confirmation: Step 2 of 2</h4>
+            
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: left;">
+              <p class="text-sm font-semibold" style="color: #0f172a; margin-top: 0;">Are you sure you want to officially end the OJT period?</p>
+              <div style="font-size: 0.875rem; color: #334155; display: flex; flex-direction: column; gap: 0.25rem;">
+                <div>• Batch: <strong id="finalBatchText" style="color: #2563eb;">Batch 20</strong></div>
+                <div>• Completion Date: <strong id="finalDateText" style="color: #0f172a;">19 July 2026</strong></div>
+                <div>• Category: <strong style="color: #d97706;">Previous OJT Period</strong></div>
+              </div>
+            </div>
+
+            <div class="flex-row gap-sm margin-top-lg">
+              <button class="btn btn-outline flex-1" id="btnCancelVerifyFinal">Cancel</button>
+              <button class="btn btn-danger flex-1" id="btnExecuteEndOJT" style="background-color: #dc2626; color: #fff; font-weight: 700;">Yes, End OJT Period</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- Client JavaScript Application -->
-  <script src="/js/app.js?v=14"></script>
+  <script src="/js/app.js?v=15"></script>
 </body>
 
 </html>
