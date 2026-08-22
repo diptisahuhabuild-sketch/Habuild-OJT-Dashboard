@@ -882,6 +882,11 @@ async function fetchAndSyncGoogleSheetsData() {
     console.error('[GoogleSyncService] Google Sheets multi-fetch error:', err.message);
     currentData.syncStatus = 'ERROR';
     currentData.lastSyncError = err.message;
+    try {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(currentData, null, 2));
+    } catch (saveErr) {
+      console.error('[GoogleSyncService] Error saving error state:', saveErr.message);
+    }
   }
 
   return currentData;
