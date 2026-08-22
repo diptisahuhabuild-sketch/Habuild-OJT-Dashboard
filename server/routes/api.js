@@ -69,6 +69,30 @@ router.get('/health', (req, res) => {
   });
 });
 
+// Debug Filesystem Endpoint
+router.get('/debug-fs', (req, res) => {
+  try {
+    const files = fs.readdirSync(rootDir);
+    const dataExists = fs.existsSync(DATA_FILE);
+    let dataContent = null;
+    if (dataExists) {
+      dataContent = fs.readFileSync(DATA_FILE, 'utf8');
+      if (dataContent.length > 2000) {
+        dataContent = dataContent.substring(0, 2000) + '... TRUNCATED';
+      }
+    }
+    res.json({
+      rootDir,
+      DATA_FILE,
+      dataExists,
+      dataContent,
+      files
+    });
+  } catch (e) {
+    res.json({ error: e.message });
+  }
+});
+
 // Dashboard Data Endpoint
 router.get('/data', (req, res) => {
   const data = getData();
