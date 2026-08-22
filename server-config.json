@@ -102,6 +102,90 @@
   "leadPhones": {},
   "internsRegistry": [
     {
+      "name": "Dipti Sahu",
+      "batch": "T&D lead",
+      "shift": "9-5",
+      "process": "Success Squad",
+      "designation": "T&D lead",
+      "lead": "Komal",
+      "phone": "917558475797",
+      "email": "diptisahu.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Charudatta Bhumbar",
+      "batch": "T&D lead",
+      "shift": "9-5",
+      "process": "Success Squad",
+      "designation": "T&D lead",
+      "lead": "Dipti",
+      "phone": "917385993467",
+      "email": "charudattabhumar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Priyanshu shashtrakar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917558390024",
+      "email": "Priyanshushastrakar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Nilesh Nandanwar",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "917620589481",
+      "email": "nileshnandanwar.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Samiksha Randai",
+      "batch": "OJT Lead",
+      "shift": "PM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "919284786693",
+      "email": "samiksharandai.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Sonali Landge",
+      "batch": "OJT Lead",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "918308593734",
+      "email": "sonalilandge.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
+      "name": "Rashi Vazirani",
+      "batch": "OJT Lead",
+      "shift": "AM",
+      "process": "Success Squad",
+      "designation": "OJT Lead",
+      "lead": "Dipti",
+      "phone": "918208225342",
+      "email": "rashivazirani.habuild@gmail.com",
+      "remark": "",
+      "status": "active"
+    },
+    {
       "name": "Vishal Kawale",
       "batch": "Batch 15",
       "shift": "PM",
@@ -111,8 +195,7 @@
       "phone": "918010181392",
       "email": "vishalkawle.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "REPORTING"
+      "status": "active"
     },
     {
       "name": "Damini Goul",
@@ -124,8 +207,7 @@
       "phone": "8975234859",
       "email": "daminigoul.habuild@gmail.com",
       "remark": "Exit On 30 December 2025",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Aditi Shiv",
@@ -137,8 +219,7 @@
       "phone": "7249568354",
       "email": "aditishiv.habuild@gmail.com",
       "remark": "Exit on 3rd January 2026",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Irfan Khan",
@@ -162,8 +243,7 @@
       "phone": "8208254827",
       "email": "kunalramteke.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Ritika Karande",
@@ -175,8 +255,7 @@
       "phone": "7387212311",
       "email": "ritikakarande.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Vaishnavi Wakde",
@@ -188,8 +267,7 @@
       "phone": "7709681725",
       "email": "vaishnaviwakde.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Vishal Kawle",
@@ -201,8 +279,7 @@
       "phone": "918010181392",
       "email": "vishalkawle.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Lakshmi Mahato",
@@ -214,8 +291,7 @@
       "phone": "7028148486",
       "email": "lakshmimahato.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Mansi Mawale",
@@ -227,8 +303,7 @@
       "phone": "9834187176",
       "email": "mansimawle.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Harsh Dhawane",
@@ -240,8 +315,7 @@
       "phone": "7028821867",
       "email": "harshdhawane.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Shekhar Thakur",
@@ -253,8 +327,7 @@
       "phone": "9075617974",
       "email": "shekharthakur.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Ashutosh Karnewar",
@@ -266,8 +339,7 @@
       "phone": "7972736249",
       "email": "aashutoshkarnewar.habuild@gmail.com",
       "remark": "Exit on 27th March 2026",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Premkumar Hajare",
@@ -291,8 +363,7 @@
       "phone": "9595315009",
       "email": "Not Found",
       "remark": "Given Exit bcs of decipline issue during OJT",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Mukul Bawane",
@@ -304,8 +375,7 @@
       "phone": "8657575663",
       "email": "Not Found",
       "remark": "Quit the job during OJT period due to personal reason",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Arpit Awale",
@@ -317,8 +387,7 @@
       "phone": "9021242729",
       "email": "Not Found",
       "remark": "quit the job during OJT period due to medical issue of his family member",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Zinat Sayyed",
@@ -378,8 +447,7 @@
       "phone": "9022961193",
       "email": "nikhileshsolanki.habuild@gmail.com",
       "remark": "Exit on 6th July 2026 - Due to personal reason",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
+      "status": "inactive"
     },
     {
       "name": "Prakhar buradkar",
@@ -391,8 +459,7 @@
       "phone": "8329760853",
       "email": "prakharburadkar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Shahid Yasini",
@@ -404,8 +471,7 @@
       "phone": "8329407130",
       "email": "shahidyasini.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "CHARUL TURKAR",
@@ -417,8 +483,7 @@
       "phone": "7219639704",
       "email": "charulturkar.habuild@gmail.com",
       "remark": "Exit on 12th April - Resign",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Ashwin nair",
@@ -430,8 +495,7 @@
       "phone": "7249391359",
       "email": "ashwinnair.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Darshana Kshirsagar",
@@ -443,8 +507,7 @@
       "phone": "7972870203",
       "email": "darshanakshirsagar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Vaibhav",
@@ -456,8 +519,7 @@
       "phone": "917898379511",
       "email": "",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "REPORTING"
+      "status": "active"
     },
     {
       "name": "Rashi Vazirani",
@@ -469,8 +531,7 @@
       "phone": "8208225342",
       "email": "rashivazirani.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Shiwani  S Kanampalliwar",
@@ -494,8 +555,7 @@
       "phone": "9765625048",
       "email": "farheenqureshi.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Gayatri Menon",
@@ -519,8 +579,7 @@
       "phone": "919156075072",
       "email": "aniket04khobragade@gmail.com",
       "remark": "selected for session team",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Suchita padwe",
@@ -544,8 +603,7 @@
       "phone": "9685271140",
       "email": "tanyamasih123@gmail.com",
       "remark": "selected for session team",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Anirudhha",
@@ -569,8 +627,7 @@
       "phone": "9370975431",
       "email": "pratikgabhane.habuild@gmail.com",
       "remark": "Quit the job on 2nd week of OJT period",
-      "status": "active",
-      "ojtLead": "Adarsh"
+      "status": "active"
     },
     {
       "name": "Sanskruti Jain",
@@ -582,8 +639,7 @@
       "phone": "8767850137",
       "email": "sanskritijain.habuild@gmail.com",
       "remark": "Given exit bcs of behaviou & punctualiyu issue in 2nd week of OJT",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Simran Dilip sontakkey",
@@ -595,8 +651,7 @@
       "phone": "9921482719",
       "email": "",
       "remark": "Given exit bcs productivity issue in 2nd week of OJT",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Pawan Katole",
@@ -608,8 +663,7 @@
       "phone": "9168075483",
       "email": "",
       "remark": "Given exit at last of the training bcs of behaviour, understanding, scores and multiple issue",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Rahul G. Borkar",
@@ -621,8 +675,7 @@
       "phone": "8983202789",
       "email": "",
       "remark": "given exit ON 2ND WEEK OF training  bcs performance was not good in the training in terms of decipline like punctuality, not attendtive during training , using phones, going outside premises without permission additionally scores are also below average",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Minal Bhoge",
@@ -634,8 +687,7 @@
       "phone": "9860056894",
       "email": "",
       "remark": "taking Alot sick leave so given exit during training, and asked to join further batch",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Reshma Sambre",
@@ -647,8 +699,7 @@
       "phone": "9359266124",
       "email": "",
       "remark": "will join next batch bcs need to focus more for her son's treatment",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Zubin Jha",
@@ -660,8 +711,7 @@
       "phone": "9373171007",
       "email": "",
       "remark": "quit the job on 3rd day of training because of her mothers serious health condition",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Radhika Vijaysingh Rathod",
@@ -673,8 +723,7 @@
       "phone": "7219233496",
       "email": "",
       "remark": "removed from this batch as she want leave for 3-4 days bcs of sudden demise in family, i asked her to join next batch",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Hrishika Thakur",
@@ -686,8 +735,7 @@
       "phone": "9325327785",
       "email": "hrishikat630@gmail.com",
       "remark": "removed from this batch as she want leave for 4-5  days bcs of sudden demise in family, i asked her to join next batch",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Nupur Bawariya",
@@ -699,8 +747,7 @@
       "phone": "9075471696",
       "email": "",
       "remark": "quit the job on 2nd day of the training as not liked the enviorement",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Danish Khan",
@@ -712,8 +759,7 @@
       "phone": "9326484333",
       "email": "danishkhan.habuild@gmail.com",
       "remark": "Exit on 15th April - low performer",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Aman Khadgi",
@@ -737,8 +783,7 @@
       "phone": "8087200195",
       "email": "sagarkumbhare.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Jeffin M John",
@@ -762,8 +807,7 @@
       "phone": "9075137594",
       "email": "kshitijthool.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "KARTIK THAKUR",
@@ -775,8 +819,7 @@
       "phone": "9657354613",
       "email": "kartikthakur.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Vaibhav Patil",
@@ -788,8 +831,7 @@
       "phone": "7517363642",
       "email": "vaibhavpatil.habuild@gmail.com",
       "remark": "Exit on 5th April",
-      "status": "inactive",
-      "ojtLead": "Damini"
+      "status": "inactive"
     },
     {
       "name": "Damini Bawne",
@@ -801,8 +843,7 @@
       "phone": "7385085906",
       "email": "bawnedamini@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Aryan Jaiswal",
@@ -814,8 +855,7 @@
       "phone": "9096509485",
       "email": "aryanjaiswal.habuild@gmail.com",
       "remark": "Exit on 25th May - Due to medical emergency",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Sumeet Sahare",
@@ -827,8 +867,7 @@
       "phone": "7038966983",
       "email": "sumeetsahare.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Sana Tanzila M S Hussain",
@@ -852,8 +891,7 @@
       "phone": "7875660229",
       "email": "gayatrideoghare.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Bushera khan",
@@ -865,8 +903,7 @@
       "phone": "8799839605",
       "email": "Bushrakhan.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Ishika Mandawkar",
@@ -878,8 +915,7 @@
       "phone": "9172111235",
       "email": "ishikamandawkar.habuild@gmail.com",
       "remark": "Exit on 6th july 2026- Resign",
-      "status": "inactive",
-      "ojtLead": "NILESH"
+      "status": "inactive"
     },
     {
       "name": "Piyush Nikhare",
@@ -891,8 +927,7 @@
       "phone": "7378841480",
       "email": "piyushnikhare.habuild@gmail.com",
       "remark": "Exit on 27th March- Resign",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Sayali Meshram",
@@ -904,8 +939,7 @@
       "phone": "91 9604810511",
       "email": "saylimeshram.habuild@gmail.com",
       "remark": "Exit on 7th June 2026 - Low performer",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
+      "status": "inactive"
     },
     {
       "name": "SAYALI VAIDYA",
@@ -917,8 +951,7 @@
       "phone": "9767903426",
       "email": "sayalivaidya.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Akshay Kumar",
@@ -942,8 +975,7 @@
       "phone": "9822300086",
       "email": "shashanktiwari.habuild@gmail.com",
       "remark": "resigned on 4th feb during week 6 of OJT bcs of his businuess",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Preeti Banjare",
@@ -955,8 +987,7 @@
       "phone": "8319707151",
       "email": "preetibanjare.habuild@gmail.com",
       "remark": "Quit on day 23 during OJT  bcs of family responsblities",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Anjum sheikh",
@@ -968,8 +999,7 @@
       "phone": "8421962727",
       "email": "",
       "remark": "Quit on day 20 during bcs of medical issue",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Govind S. Singhaniya",
@@ -1029,8 +1059,7 @@
       "phone": "7499483099",
       "email": "bhagwatankush.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Sakshi Dumre",
@@ -1042,8 +1071,7 @@
       "phone": "8087145862",
       "email": "sakshidumre.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Suyash Chandurkar",
@@ -1055,8 +1083,7 @@
       "phone": "8600123931",
       "email": "suyashchandurkar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Hishita Sangtani",
@@ -1068,8 +1095,7 @@
       "phone": "9028881513",
       "email": "hishitasangtani.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Sheikh Raheman Shekh Jabir",
@@ -1093,8 +1119,7 @@
       "phone": "9284759394",
       "email": "pranalibhardwaj.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "Rashi"
+      "status": "active"
     },
     {
       "name": "Suraksha Khaparde",
@@ -1106,8 +1131,7 @@
       "phone": "7038045709",
       "email": "surakshakhaparde.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
+      "status": "active"
     },
     {
       "name": "Shabbar sheikh",
@@ -1119,8 +1143,7 @@
       "phone": "7840979930",
       "email": "shabbarsheikh.habuild@gmail.com",
       "remark": "Exited after shifted to the squad - Due to mistakes",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
+      "status": "inactive"
     },
     {
       "name": "Kshitij Gotefode",
@@ -1132,8 +1155,7 @@
       "phone": "9423439449",
       "email": "kshitijgotefode.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "Rashi"
+      "status": "active"
     },
     {
       "name": "Sakshi Kuril",
@@ -1145,8 +1167,7 @@
       "phone": "8766991454",
       "email": "sakshikuril.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Aanchal Tiwari",
@@ -1158,8 +1179,7 @@
       "phone": "8485840225",
       "email": "aanchaltiwari.habuild@gmail.com",
       "remark": "Given Exit on 25th May 2026 after shifting on Squad- Poor performance",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
+      "status": "inactive"
     },
     {
       "name": "Nayan Dhakne",
@@ -1171,8 +1191,7 @@
       "phone": "8554983874",
       "email": "nayandhakne.habuild@gmail.com",
       "remark": "Given Exit on 30th April 2026 due to behaviour issue",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
+      "status": "inactive"
     },
     {
       "name": "Rushikesh Deshpande",
@@ -1184,8 +1203,7 @@
       "phone": "7499458114",
       "email": "rushikeshdeshpande.habuild@gmail.com",
       "remark": "Exit on 15th April 2026 (Personal reason)",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Roshan Nagrale",
@@ -1209,8 +1227,7 @@
       "phone": "9226406057",
       "email": "ahmedraza.habuild@gmail.com",
       "remark": "Given Exit on 3rd April 2026 after shifting on Squad- Personal reason",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
+      "status": "inactive"
     },
     {
       "name": "Kapil Dilip Madke",
@@ -1234,8 +1251,7 @@
       "phone": "917620117966",
       "email": "adityamallik.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Riya Majumdar",
@@ -1247,8 +1263,7 @@
       "phone": "8767027586",
       "email": "riyamajumdar.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Tanu Patle",
@@ -1260,8 +1275,7 @@
       "phone": "7066627525",
       "email": "tanupatle.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Krunali Moon",
@@ -1273,8 +1287,7 @@
       "phone": "9322167978",
       "email": "krunalimoon.habuild@gmail.com",
       "remark": "Exit on week 8 - was under warning for quality issue",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Hansika Bhagat",
@@ -1286,8 +1299,7 @@
       "phone": "8010095070",
       "email": "hansikabhagat.habuild@gmail.com",
       "remark": "Exit on week 7 - was under warning for quality issue",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Kartik Pentamwar",
@@ -1299,8 +1311,7 @@
       "phone": "7709166005",
       "email": "kartikpentamwar.habuild@gmail.com",
       "remark": "Given exit on week 6 of OJT bcs  of behvioural issue  also did not had satisfactory performance",
-      "status": "inactive",
-      "ojtLead": "Rashi"
+      "status": "inactive"
     },
     {
       "name": "Rohit Meshram",
@@ -1312,8 +1323,7 @@
       "phone": "7507407267",
       "email": "rohitmeshram.habuild@gmail.com",
       "remark": "Given exit on week 6 of OJT bcs  of behvioural issue  also did not had satisfactory performance",
-      "status": "inactive",
-      "ojtLead": "SONALI"
+      "status": "inactive"
     },
     {
       "name": "Prajwal nikhade",
@@ -1325,8 +1335,7 @@
       "phone": "6266642631",
       "email": "prajwalnikhade.habuild@gmail.com",
       "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality was not good",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Prerana Gawande",
@@ -1338,8 +1347,7 @@
       "phone": "7709373166",
       "email": "preranagawande.habuild@gmail.com",
       "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality and communicatuion was not good",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Punam Dhore",
@@ -1351,8 +1359,7 @@
       "phone": "7083017361",
       "email": "punamdhore.habuild@gmail.com",
       "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality and communicatuion was not good",
-      "status": "inactive",
-      "ojtLead": "SONALI"
+      "status": "inactive"
     },
     {
       "name": "Raahil Sheikh",
@@ -1376,8 +1383,7 @@
       "phone": "8149762684",
       "email": "mohjeetsalwatkar.habuild@gmail.com",
       "remark": "warning / given exit bcs of chat performance issue and low scores on test",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Aditi Lute",
@@ -1389,8 +1395,7 @@
       "phone": "9370747483",
       "email": "aditilute.habuild@gmail.com",
       "remark": "quit the job on 3rd week of OJT bcs she received warning mail due to her poor performance",
-      "status": "active",
-      "ojtLead": "Rashi"
+      "status": "active"
     },
     {
       "name": "Pranay Lokhare",
@@ -1414,8 +1419,7 @@
       "phone": "9545197638",
       "email": "sakshibhagwathabuild@gmail.com",
       "remark": "given exit on 2nd week of OJT bcs of punctuality, behaviour and decipline issue",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
+      "status": "inactive"
     },
     {
       "name": "Shabir Sheikh",
@@ -1475,8 +1479,7 @@
       "phone": "9765967689",
       "email": "daminiathawale.habuild@gmail.com",
       "remark": "Exited on 14th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Alisha Dupare",
@@ -1488,8 +1491,7 @@
       "phone": "8830894281",
       "email": "alishadupare.habuild@gmail.com",
       "remark": "Exited on 8th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
+      "status": "inactive"
     },
     {
       "name": "Shivam Durbule",
@@ -1501,8 +1503,7 @@
       "phone": "9834907453",
       "email": "shivamdurbule.habuild.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Tanushree Pawar",
@@ -1514,8 +1515,7 @@
       "phone": "9373281079",
       "email": "tanupawar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "RASHI"
+      "status": "active"
     },
     {
       "name": "Fuzail Sheikh",
@@ -1527,8 +1527,7 @@
       "phone": "9356626979",
       "email": "fuzailsheikh.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Samyak Kamble",
@@ -1540,8 +1539,7 @@
       "phone": "7249270693",
       "email": "samyakkamble.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Aman Gondane",
@@ -1553,8 +1551,7 @@
       "phone": "8956426817",
       "email": "aman.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Sohail Sheikh",
@@ -1566,8 +1563,7 @@
       "phone": "7057276100",
       "email": "sohailsheikh.habuild@gmail.com",
       "remark": "Exited on 16th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
+      "status": "inactive"
     },
     {
       "name": "kalpik ramteke",
@@ -1579,8 +1575,7 @@
       "phone": "9309868713",
       "email": "kalpikramteke.habuild@gmail.comn",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
+      "status": "active"
     },
     {
       "name": "Geetika",
@@ -1592,8 +1587,7 @@
       "phone": "8595227628",
       "email": "geetikachopra.habuild@gmail.com",
       "remark": "Exited on 2nd July 2026 - given medical reason",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
+      "status": "inactive"
     },
     {
       "name": "Prachi Kamble",
@@ -1605,8 +1599,7 @@
       "phone": "7304954184",
       "email": "prachikamble.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Mosin sheikh",
@@ -1618,8 +1611,7 @@
       "phone": "9011272753",
       "email": "mosinsheikh.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Anjali Balbudhe",
@@ -1631,8 +1623,7 @@
       "phone": "6265382353",
       "email": "anjalibalbudhe.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Palak jain",
@@ -1644,8 +1635,7 @@
       "phone": "9518346017",
       "email": "palakjain.habuid@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Jaya Dongare",
@@ -1657,8 +1647,7 @@
       "phone": "9373837779",
       "email": "jayadongare.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Smit pendor",
@@ -1670,8 +1659,7 @@
       "phone": "8767536379",
       "email": "smitpendor.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Papiha Ghube",
@@ -1683,8 +1671,7 @@
       "phone": "9370286958",
       "email": "papihaghube.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Babasaheb Kothavale",
@@ -1696,8 +1683,7 @@
       "phone": "8956131953",
       "email": "babasahebkothavale.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Nitesh Hiwase",
@@ -1709,8 +1695,7 @@
       "phone": "8855869549",
       "email": "niteshhiwase.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Shivam lolge",
@@ -1722,8 +1707,7 @@
       "phone": "7097002007",
       "email": "shivamlolge.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Tina Kute",
@@ -1735,8 +1719,7 @@
       "phone": "9307712638",
       "email": "tinakute.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "samiksha Kshirsagar",
@@ -1748,8 +1731,7 @@
       "phone": "917387946241",
       "email": "samikshakshirsagar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Lubdha Bhasme",
@@ -1761,8 +1743,7 @@
       "phone": "8637705694",
       "email": "lubdhabhasme.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Pretty Patil",
@@ -1774,8 +1755,7 @@
       "phone": "9158448461",
       "email": "prettypatil.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Mahak Lokhande",
@@ -1787,8 +1767,7 @@
       "phone": "7588263574",
       "email": "mahaklokhande.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Prachi Somyani",
@@ -1800,8 +1779,7 @@
       "phone": "9156019242",
       "email": "prachiisomyani.habuild@gmail.com",
       "remark": "Exited on 29th may - withount informing",
-      "status": "inactive",
-      "ojtLead": "NILESH"
+      "status": "inactive"
     },
     {
       "name": "Pareedhi Sarwan",
@@ -1813,8 +1791,7 @@
       "phone": "9096521384",
       "email": "pareedhisarwan.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Syed khizar ali",
@@ -1826,8 +1803,7 @@
       "phone": "7350167455",
       "email": "khizaralisayyed.habuild@gmail.com",
       "remark": "Exited on 14 June2026 - Without informing",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
+      "status": "inactive"
     },
     {
       "name": "Aditya Jaiswal",
@@ -1839,8 +1815,7 @@
       "phone": "9325417346",
       "email": "adityajaiswal.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "kunal fukatkar",
@@ -1852,8 +1827,7 @@
       "phone": "7057502334",
       "email": "kunalfukatkar.habuild@gmail.com",
       "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "khushi dixit",
@@ -1949,8 +1923,7 @@
       "phone": "9067423103",
       "email": "renuka.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Dhananjay Hivre",
@@ -1962,8 +1935,7 @@
       "phone": "7796694310",
       "email": "dhananjayhivre.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Ashish sethi",
@@ -1987,8 +1959,7 @@
       "phone": "8329866144",
       "email": "sharayu.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Disha Kamble",
@@ -2000,8 +1971,7 @@
       "phone": "8806517357",
       "email": "dishakamble.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Akanksha Singh",
@@ -2013,8 +1983,7 @@
       "phone": "7754014122",
       "email": "akankshasingh@habuild.gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Arjama Chaudhuri",
@@ -2026,8 +1995,7 @@
       "phone": "8871783325",
       "email": "arjamachaudhuri.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Aryan Jaiswal",
@@ -2039,8 +2007,7 @@
       "phone": "9096509485",
       "email": "aryanjaiswal.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Mohammad Sahil GulamNabi Shamsi",
@@ -2064,8 +2031,7 @@
       "phone": "8237674415",
       "email": "nikhil.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Moin Sheikh",
@@ -2101,8 +2067,7 @@
       "phone": "7887792983",
       "email": "ritikeshhirekhan.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Shefali Humne",
@@ -2114,8 +2079,7 @@
       "phone": "8329238042",
       "email": "shefalihumne.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Sachi Nagdev",
@@ -2139,8 +2103,7 @@
       "phone": "9270196288",
       "email": "fatema.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Avelina Dass",
@@ -2164,8 +2127,7 @@
       "phone": "7447738713",
       "email": "nikitasharma.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Dhanlaxmi khawshi",
@@ -2177,8 +2139,7 @@
       "phone": "9373856926",
       "email": "dhanlaxmikhawshi.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Vanshika Ragde",
@@ -2190,8 +2151,7 @@
       "phone": "7758833352",
       "email": "vanshikaragdehabuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Ishika gour",
@@ -2203,8 +2163,7 @@
       "phone": "9588481626",
       "email": "ishikagour.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Shraboli Khobragade",
@@ -2216,8 +2175,7 @@
       "phone": "8087216327",
       "email": "shrabolikhobragade.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Ishika Naik",
@@ -2229,8 +2187,7 @@
       "phone": "7028499052",
       "email": "ishikanaik.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Parivartan Patil",
@@ -2242,8 +2199,7 @@
       "phone": "9049668461",
       "email": "parivartanpatil.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Gayatri Junghare",
@@ -2255,8 +2211,7 @@
       "phone": "9325804512",
       "email": "gayatrijunghare.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Sufiyan Mugal",
@@ -2268,8 +2223,7 @@
       "phone": "9022573553",
       "email": "sufiyanmugal.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Jyoti yadav",
@@ -2281,8 +2235,7 @@
       "phone": "7558630693",
       "email": "jyotiyadav.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
+      "status": "active"
     },
     {
       "name": "Karan vaidya",
@@ -2294,8 +2247,7 @@
       "phone": "8390575812",
       "email": "karanvaidya.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
+      "status": "active"
     },
     {
       "name": "Ekta Dahikar",
@@ -2307,8 +2259,7 @@
       "phone": "7887882450",
       "email": "ektadahikar.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Ayushi Bansod",
@@ -2332,8 +2283,7 @@
       "phone": "9370939532",
       "email": "vedant1999.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
+      "status": "active"
     },
     {
       "name": "Akshay Doble",
@@ -2345,8 +2295,7 @@
       "phone": "9665651763",
       "email": "akshaydoble.habuild@gmail.com",
       "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
+      "status": "active"
     },
     {
       "name": "Asawari Ganar",
@@ -2357,2437 +2306,6 @@
       "lead": "",
       "phone": "91 96659 77278",
       "email": "asawariganar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Priyanshu shashtrakar",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "917558390024",
-      "email": "Priyanshushastrakar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Nilesh Nandanwar",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "917620589481",
-      "email": "nileshnandanwar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Samiksha Randai",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "919284786693",
-      "email": "samiksharandai.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Sonali Landge",
-      "batch": "OJT Lead",
-      "shift": "AM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "918308593734",
-      "email": "sonalilandge.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Rashi Vazirani",
-      "batch": "OJT Lead",
-      "shift": "AM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "918208225342",
-      "email": "rashivazirani.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Dipti Sahu",
-      "batch": "T&D lead",
-      "shift": "9-5",
-      "process": "Success Squad",
-      "designation": "T&D lead",
-      "lead": "Komal",
-      "phone": "917558475797",
-      "email": "diptisahu.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Charudatta Bhumbar",
-      "batch": "T&D lead",
-      "shift": "9-5",
-      "process": "Success Squad",
-      "designation": "T&D lead",
-      "lead": "Dipti",
-      "phone": "917385993467",
-      "email": "charudattabhumar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Vishal Kawale",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "918010181392",
-      "email": "vishalkawle.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "REPORTING"
-    },
-    {
-      "name": "Damini Goul",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8975234859",
-      "email": "daminigoul.habuild@gmail.com",
-      "remark": "Exit On 30 December 2025",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Aditi Shiv",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7249568354",
-      "email": "aditishiv.habuild@gmail.com",
-      "remark": "Exit on 3rd January 2026",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Irfan Khan",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "918269444560",
-      "email": "irfanshaikh.habuild@gmail.com",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Kunal Ramteke",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8208254827",
-      "email": "kunalramteke.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Ritika Karande",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7387212311",
-      "email": "ritikakarande.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Vaishnavi Wakde",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7709681725",
-      "email": "vaishnaviwakde.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Vishal Kawle",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "918010181392",
-      "email": "vishalkawle.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Lakshmi Mahato",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "7028148486",
-      "email": "lakshmimahato.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Mansi Mawale",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9834187176",
-      "email": "mansimawle.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Harsh Dhawane",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "7028821867",
-      "email": "harshdhawane.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Shekhar Thakur",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9075617974",
-      "email": "shekharthakur.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Ashutosh Karnewar",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7972736249",
-      "email": "aashutoshkarnewar.habuild@gmail.com",
-      "remark": "Exit on 27th March 2026",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Premkumar Hajare",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8007876683",
-      "email": "premhajare1.habuild@gmail.com",
-      "remark": "Selected for meet up and operations team",
-      "status": "active"
-    },
-    {
-      "name": "Himanshu Narnawre",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9595315009",
-      "email": "Not Found",
-      "remark": "Given Exit bcs of decipline issue during OJT",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Mukul Bawane",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8657575663",
-      "email": "Not Found",
-      "remark": "Quit the job during OJT period due to personal reason",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Arpit Awale",
-      "batch": "Batch 15",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "9021242729",
-      "email": "Not Found",
-      "remark": "quit the job during OJT period due to medical issue of his family member",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Zinat Sayyed",
-      "batch": "Batch 15",
-      "shift": "AM",
-      "process": "Product & Ops",
-      "designation": "Product & Ops",
-      "lead": "Sumaiya",
-      "phone": "9834075716",
-      "email": "Not Found",
-      "remark": "removed due to performance issue in sumaiya's team",
-      "status": "active"
-    },
-    {
-      "name": "Ayushi Shrivas",
-      "batch": "Batch 15",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "919410913556",
-      "email": "Not Found",
-      "remark": "Given Exit after training- bcs of low score and low responsiveness during training",
-      "status": "inactive"
-    },
-    {
-      "name": "Avinash Prasad",
-      "batch": "Batch 15",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "918856896460",
-      "email": "Not Found",
-      "remark": "Given Exit after training- bcs of decipline issue during training",
-      "status": "inactive"
-    },
-    {
-      "name": "Vivek",
-      "batch": "Batch 15",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "918329083397",
-      "email": "Not Found",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Nikhilesh Solanki",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "9022961193",
-      "email": "nikhileshsolanki.habuild@gmail.com",
-      "remark": "Exit on 6th July 2026 - Due to personal reason",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Prakhar buradkar",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8329760853",
-      "email": "prakharburadkar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Shahid Yasini",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8329407130",
-      "email": "shahidyasini.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "CHARUL TURKAR",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "7219639704",
-      "email": "charulturkar.habuild@gmail.com",
-      "remark": "Exit on 12th April - Resign",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Ashwin nair",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "7249391359",
-      "email": "ashwinnair.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Darshana Kshirsagar",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Adarsh",
-      "phone": "7972870203",
-      "email": "darshanakshirsagar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Vaibhav",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Adarsh",
-      "phone": "917898379511",
-      "email": "",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "REPORTING"
-    },
-    {
-      "name": "Rashi Vazirani",
-      "batch": "Batch 16",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "8208225342",
-      "email": "rashivazirani.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Shiwani  S Kanampalliwar",
-      "batch": "Batch 16",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "8668486035",
-      "email": "",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Farheen Wahab Qureshi",
-      "batch": "Batch 16",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9765625048",
-      "email": "farheenqureshi.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Gayatri Menon",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "918080837214",
-      "email": "",
-      "remark": "selected for session team",
-      "status": "active"
-    },
-    {
-      "name": "Aniket Khobragade",
-      "batch": "Batch 16",
-      "shift": "",
-      "process": "Session Team",
-      "designation": "-",
-      "lead": "-",
-      "phone": "919156075072",
-      "email": "aniket04khobragade@gmail.com",
-      "remark": "selected for session team",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Suchita padwe",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Session Team",
-      "designation": "-",
-      "lead": "-",
-      "phone": "917888227184",
-      "email": "suchitapadwe128@gmail.com",
-      "remark": "selected for session team",
-      "status": "active"
-    },
-    {
-      "name": "Tanya Masih",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Session Team",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9685271140",
-      "email": "tanyamasih123@gmail.com",
-      "remark": "selected for session team",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Anirudhha",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "meetup & operation",
-      "designation": "-",
-      "lead": "-",
-      "phone": "919372572405",
-      "email": "aniruddhsingh.habuild@gmail.com",
-      "remark": "Selected for meet up and operations team",
-      "status": "active"
-    },
-    {
-      "name": "Pratik Gabhane",
-      "batch": "Batch 16",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Adarsh",
-      "phone": "9370975431",
-      "email": "pratikgabhane.habuild@gmail.com",
-      "remark": "Quit the job on 2nd week of OJT period",
-      "status": "active",
-      "ojtLead": "Adarsh"
-    },
-    {
-      "name": "Sanskruti Jain",
-      "batch": "Batch 16",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "8767850137",
-      "email": "sanskritijain.habuild@gmail.com",
-      "remark": "Given exit bcs of behaviou & punctualiyu issue in 2nd week of OJT",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Simran Dilip sontakkey",
-      "batch": "Batch 16",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9921482719",
-      "email": "",
-      "remark": "Given exit bcs productivity issue in 2nd week of OJT",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Pawan Katole",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9168075483",
-      "email": "",
-      "remark": "Given exit at last of the training bcs of behaviour, understanding, scores and multiple issue",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Rahul G. Borkar",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "8983202789",
-      "email": "",
-      "remark": "given exit ON 2ND WEEK OF training  bcs performance was not good in the training in terms of decipline like punctuality, not attendtive during training , using phones, going outside premises without permission additionally scores are also below average",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Minal Bhoge",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9860056894",
-      "email": "",
-      "remark": "taking Alot sick leave so given exit during training, and asked to join further batch",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Reshma Sambre",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9359266124",
-      "email": "",
-      "remark": "will join next batch bcs need to focus more for her son's treatment",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Zubin Jha",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9373171007",
-      "email": "",
-      "remark": "quit the job on 3rd day of training because of her mothers serious health condition",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Radhika Vijaysingh Rathod",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "7219233496",
-      "email": "",
-      "remark": "removed from this batch as she want leave for 3-4 days bcs of sudden demise in family, i asked her to join next batch",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Hrishika Thakur",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9325327785",
-      "email": "hrishikat630@gmail.com",
-      "remark": "removed from this batch as she want leave for 4-5  days bcs of sudden demise in family, i asked her to join next batch",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Nupur Bawariya",
-      "batch": "Batch 16",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9075471696",
-      "email": "",
-      "remark": "quit the job on 2nd day of the training as not liked the enviorement",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Danish Khan",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "9326484333",
-      "email": "danishkhan.habuild@gmail.com",
-      "remark": "Exit on 15th April - low performer",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Aman Khadgi",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "9518903410",
-      "email": "amankhadgi.habuild@gmail.com",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Sagar Kumbhare",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "8087200195",
-      "email": "sagarkumbhare.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Jeffin M John",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "9518779536",
-      "email": "jeffinmjohn.habuild@gmail.com",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Kshitij Thool",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "9075137594",
-      "email": "kshitijthool.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "KARTIK THAKUR",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "9657354613",
-      "email": "kartikthakur.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Vaibhav Patil",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "7517363642",
-      "email": "vaibhavpatil.habuild@gmail.com",
-      "remark": "Exit on 5th April",
-      "status": "inactive",
-      "ojtLead": "Damini"
-    },
-    {
-      "name": "Damini Bawne",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "7385085906",
-      "email": "bawnedamini@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Aryan Jaiswal",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "9096509485",
-      "email": "aryanjaiswal.habuild@gmail.com",
-      "remark": "Exit on 25th May - Due to medical emergency",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Sumeet Sahare",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7038966983",
-      "email": "sumeetsahare.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Sana Tanzila M S Hussain",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "9309559859",
-      "email": "sanatanzila.habuild@gmail.com",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Gayatri Deoghare",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "7875660229",
-      "email": "gayatrideoghare.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Bushera khan",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Damini",
-      "phone": "8799839605",
-      "email": "Bushrakhan.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Ishika Mandawkar",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "9172111235",
-      "email": "ishikamandawkar.habuild@gmail.com",
-      "remark": "Exit on 6th july 2026- Resign",
-      "status": "inactive",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Piyush Nikhare",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "7378841480",
-      "email": "piyushnikhare.habuild@gmail.com",
-      "remark": "Exit on 27th March- Resign",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Sayali Meshram",
-      "batch": "Batch 17",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "91 9604810511",
-      "email": "saylimeshram.habuild@gmail.com",
-      "remark": "Exit on 7th June 2026 - Low performer",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
-    },
-    {
-      "name": "SAYALI VAIDYA",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9767903426",
-      "email": "sayalivaidya.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Akshay Kumar",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Session team",
-      "designation": "-",
-      "lead": "-",
-      "phone": "",
-      "email": "",
-      "remark": "selected for sessions team",
-      "status": "active"
-    },
-    {
-      "name": "Shashank Tiwari",
-      "batch": "Batch 17",
-      "shift": "AM",
-      "process": "Session team",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9822300086",
-      "email": "shashanktiwari.habuild@gmail.com",
-      "remark": "resigned on 4th feb during week 6 of OJT bcs of his businuess",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Preeti Banjare",
-      "batch": "Batch 17",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "8319707151",
-      "email": "preetibanjare.habuild@gmail.com",
-      "remark": "Quit on day 23 during OJT  bcs of family responsblities",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Anjum sheikh",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8421962727",
-      "email": "",
-      "remark": "Quit on day 20 during bcs of medical issue",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Govind S. Singhaniya",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9822438057/8956696861",
-      "email": "govindsinghaniya.habuild@gmail.com",
-      "remark": "quit on day 6 of the training as met with  major accident",
-      "status": "active"
-    },
-    {
-      "name": "Dhanashri laxmikant zade",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9359869997",
-      "email": "",
-      "remark": "Quit on the same day by second half becuse of medical issue",
-      "status": "active"
-    },
-    {
-      "name": "Prajwal Fulchand Pakhale",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9022868297",
-      "email": "-",
-      "remark": "Quit on day 2 of the training as he got another job according to his field",
-      "status": "active"
-    },
-    {
-      "name": "Aditya Bharat Bhendare",
-      "batch": "Batch 17",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9067042672",
-      "email": "-",
-      "remark": "Quit on day 2 of the training as he got another job according to his field",
-      "status": "active"
-    },
-    {
-      "name": "Ankush Bhagwat",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "7499483099",
-      "email": "bhagwatankush.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Sakshi Dumre",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "8087145862",
-      "email": "sakshidumre.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Suyash Chandurkar",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "8600123931",
-      "email": "suyashchandurkar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Hishita Sangtani",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "9028881513",
-      "email": "hishitasangtani.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Sheikh Raheman Shekh Jabir",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "7666885001",
-      "email": "rahemanshekh.habuild@gmail.com",
-      "remark": "-",
-      "status": "active"
-    },
-    {
-      "name": "Pranali Bhardwaj",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9284759394",
-      "email": "pranalibhardwaj.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "Rashi"
-    },
-    {
-      "name": "Suraksha Khaparde",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "7038045709",
-      "email": "surakshakhaparde.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Shabbar sheikh",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "7840979930",
-      "email": "shabbarsheikh.habuild@gmail.com",
-      "remark": "Exited after shifted to the squad - Due to mistakes",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Kshitij Gotefode",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9423439449",
-      "email": "kshitijgotefode.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "Rashi"
-    },
-    {
-      "name": "Sakshi Kuril",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8766991454",
-      "email": "sakshikuril.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Aanchal Tiwari",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8485840225",
-      "email": "aanchaltiwari.habuild@gmail.com",
-      "remark": "Given Exit on 25th May 2026 after shifting on Squad- Poor performance",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Nayan Dhakne",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "8554983874",
-      "email": "nayandhakne.habuild@gmail.com",
-      "remark": "Given Exit on 30th April 2026 due to behaviour issue",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Rushikesh Deshpande",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "7499458114",
-      "email": "rushikeshdeshpande.habuild@gmail.com",
-      "remark": "Exit on 15th April 2026 (Personal reason)",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Roshan Nagrale",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "8805638653",
-      "email": "roshannagarale.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Ahmed Raza",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "9226406057",
-      "email": "ahmedraza.habuild@gmail.com",
-      "remark": "Given Exit on 3rd April 2026 after shifting on Squad- Personal reason",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
-    },
-    {
-      "name": "Kapil Dilip Madke",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "9763217162",
-      "email": "kapilmadke.habuild@gmail.com",
-      "remark": "Given Exit on 13th july 2026 after shifting on Squad- Poor Performance",
-      "status": "inactive"
-    },
-    {
-      "name": "Aditya mallik",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "917620117966",
-      "email": "adityamallik.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Riya Majumdar",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "8767027586",
-      "email": "riyamajumdar.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Tanu Patle",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "7066627525",
-      "email": "tanupatle.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Krunali Moon",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9322167978",
-      "email": "krunalimoon.habuild@gmail.com",
-      "remark": "Exit on week 8 - was under warning for quality issue",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Hansika Bhagat",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "8010095070",
-      "email": "hansikabhagat.habuild@gmail.com",
-      "remark": "Exit on week 7 - was under warning for quality issue",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Kartik Pentamwar",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "7709166005",
-      "email": "kartikpentamwar.habuild@gmail.com",
-      "remark": "Given exit on week 6 of OJT bcs  of behvioural issue  also did not had satisfactory performance",
-      "status": "inactive",
-      "ojtLead": "Rashi"
-    },
-    {
-      "name": "Rohit Meshram",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "7507407267",
-      "email": "rohitmeshram.habuild@gmail.com",
-      "remark": "Given exit on week 6 of OJT bcs  of behvioural issue  also did not had satisfactory performance",
-      "status": "inactive",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Prajwal nikhade",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "6266642631",
-      "email": "prajwalnikhade.habuild@gmail.com",
-      "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality was not good",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Prerana Gawande",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "7709373166",
-      "email": "preranagawande.habuild@gmail.com",
-      "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality and communicatuion was not good",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Punam Dhore",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "7083017361",
-      "email": "punamdhore.habuild@gmail.com",
-      "remark": "Given exit on week 6 of OJT bcs scored less in retraining also - quality and communicatuion was not good",
-      "status": "inactive",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Raahil Sheikh",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "7709913269",
-      "email": "rahilsheikh.habuild@gmail.com",
-      "remark": "Given exit on (week-7 of OJT) 12th March 2026- poor performance and  understanding issue",
-      "status": "inactive"
-    },
-    {
-      "name": "mohjeet salwatkar",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "8149762684",
-      "email": "mohjeetsalwatkar.habuild@gmail.com",
-      "remark": "warning / given exit bcs of chat performance issue and low scores on test",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Aditi Lute",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9370747483",
-      "email": "aditilute.habuild@gmail.com",
-      "remark": "quit the job on 3rd week of OJT bcs she received warning mail due to her poor performance",
-      "status": "active",
-      "ojtLead": "Rashi"
-    },
-    {
-      "name": "Pranay Lokhare",
-      "batch": "Batch 18",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "9834376482",
-      "email": "pranaylohakare.habuild@gmail.com",
-      "remark": "Given exit on 3rd week of OJT  bcs of leave issue and poor performance",
-      "status": "inactive"
-    },
-    {
-      "name": "Sakshi Bhagwat",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Namrata",
-      "phone": "9545197638",
-      "email": "sakshibhagwathabuild@gmail.com",
-      "remark": "given exit on 2nd week of OJT bcs of punctuality, behaviour and decipline issue",
-      "status": "inactive",
-      "ojtLead": "NAMRATA"
-    },
-    {
-      "name": "Shabir Sheikh",
-      "batch": "Batch 18",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "8329346137",
-      "email": "shabirshaikh.habuild@gmail.com",
-      "remark": "Quit during 2nd week of OJT bcs of medical issue",
-      "status": "active"
-    },
-    {
-      "name": "Kanak Thakur",
-      "batch": "Batch 18",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9322691136",
-      "email": "chintad880@gmail.com",
-      "remark": "Given Exit after training  on 16th jan- low score and understanding issue",
-      "status": "inactive"
-    },
-    {
-      "name": "Smita Barik",
-      "batch": "Batch 18",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9527407102",
-      "email": "smitab109@gmail.com",
-      "remark": "Quit the training on day 3 - bcs of examination",
-      "status": "active"
-    },
-    {
-      "name": "Saloni Singh",
-      "batch": "Batch 18",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "8767987791",
-      "email": "salonisingh75748@gmail.com",
-      "remark": "Quit the training on day 3 -",
-      "status": "active"
-    },
-    {
-      "name": "DAMINI ATHAWALE",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "9765967689",
-      "email": "daminiathawale.habuild@gmail.com",
-      "remark": "Exited on 14th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Alisha Dupare",
-      "batch": "Batch 19",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "8830894281",
-      "email": "alishadupare.habuild@gmail.com",
-      "remark": "Exited on 8th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Shivam Durbule",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Sessions team",
-      "designation": "Sessions Intern",
-      "lead": "Sanovar",
-      "phone": "9834907453",
-      "email": "shivamdurbule.habuild.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Tanushree Pawar",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9373281079",
-      "email": "tanupawar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "RASHI"
-    },
-    {
-      "name": "Fuzail Sheikh",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "9356626979",
-      "email": "fuzailsheikh.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Samyak Kamble",
-      "batch": "Batch 19",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "7249270693",
-      "email": "samyakkamble.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Aman Gondane",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Diksha",
-      "phone": "8956426817",
-      "email": "aman.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Sohail Sheikh",
-      "batch": "Batch 19",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "7057276100",
-      "email": "sohailsheikh.habuild@gmail.com",
-      "remark": "Exited on 16th May 2026 - given Personal reason",
-      "status": "inactive",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "kalpik ramteke",
-      "batch": "Batch 19",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9309868713",
-      "email": "kalpikramteke.habuild@gmail.comn",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "DIKSHA"
-    },
-    {
-      "name": "Geetika",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Harsha",
-      "phone": "8595227628",
-      "email": "geetikachopra.habuild@gmail.com",
-      "remark": "Exited on 2nd July 2026 - given medical reason",
-      "status": "inactive",
-      "ojtLead": "REPORTING"
-    },
-    {
-      "name": "Prachi Kamble",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Dimpal",
-      "phone": "7304954184",
-      "email": "prachikamble.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Mosin sheikh",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "9011272753",
-      "email": "mosinsheikh.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Anjali Balbudhe",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "6265382353",
-      "email": "anjalibalbudhe.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Palak jain",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "9518346017",
-      "email": "palakjain.habuid@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Jaya Dongare",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "9373837779",
-      "email": "jayadongare.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Smit pendor",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "8767536379",
-      "email": "smitpendor.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Papiha Ghube",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "9370286958",
-      "email": "papihaghube.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Babasaheb Kothavale",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Nilesh",
-      "phone": "8956131953",
-      "email": "babasahebkothavale.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Nitesh Hiwase",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Dimpal",
-      "phone": "8855869549",
-      "email": "niteshhiwase.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Shivam lolge",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Harsha",
-      "phone": "7097002007",
-      "email": "shivamlolge.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Tina Kute",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Samiksha",
-      "phone": "9307712638",
-      "email": "tinakute.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "samiksha Kshirsagar",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Harsha",
-      "phone": "917387946241",
-      "email": "samikshakshirsagar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Lubdha Bhasme",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Harsha",
-      "phone": "8637705694",
-      "email": "lubdhabhasme.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Pretty Patil",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Dimpal",
-      "phone": "9158448461",
-      "email": "prettypatil.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Mahak Lokhande",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "7588263574",
-      "email": "mahaklokhande.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Prachi Somyani",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Dimpal",
-      "phone": "9156019242",
-      "email": "prachiisomyani.habuild@gmail.com",
-      "remark": "Exited on 29th may - withount informing",
-      "status": "inactive",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Pareedhi Sarwan",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Voice process",
-      "designation": "OJT Intern",
-      "lead": "Harsha",
-      "phone": "9096521384",
-      "email": "pareedhisarwan.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Syed khizar ali",
-      "batch": "Batch 20",
-      "shift": "PM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Priyanshu",
-      "phone": "7350167455",
-      "email": "khizaralisayyed.habuild@gmail.com",
-      "remark": "Exited on 14 June2026 - Without informing",
-      "status": "inactive",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Aditya Jaiswal",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Rashi",
-      "phone": "9325417346",
-      "email": "adityajaiswal.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "kunal fukatkar",
-      "batch": "Batch 20",
-      "shift": "AM",
-      "process": "Chat process",
-      "designation": "OJT Intern",
-      "lead": "Sonali",
-      "phone": "7057502334",
-      "email": "kunalfukatkar.habuild@gmail.com",
-      "remark": "-",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "khushi dixit",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "7385028202",
-      "email": "khushidixitt28@gmail.com",
-      "remark": "Exit because of family emergency on day 11 of the trainings, also performance was not good",
-      "status": "inactive"
-    },
-    {
-      "name": "Aryan Dhube",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9356995612",
-      "email": "aryanghube8421@gmail.com",
-      "remark": "Exit because of personal reason on day 12 of the training",
-      "status": "inactive"
-    },
-    {
-      "name": "Vedanshu Sharma",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9370451749",
-      "email": "sharmavedansh32@gmail.com",
-      "remark": "Exit on day 5 of training because did not find the growth alignment as per their education",
-      "status": "inactive"
-    },
-    {
-      "name": "Saurabh Chavhan",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9518723350",
-      "email": "saurabhchavhan26@gmail.com",
-      "remark": "Exit on day 5 of training because did not find the growth alignment as per their education",
-      "status": "inactive"
-    },
-    {
-      "name": "Vrushabh",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "8830672394",
-      "email": "somkuwarvrushabh25@gmail.com",
-      "remark": "Exit on day 5 of training because did not find the growth alignment as per their education",
-      "status": "inactive"
-    },
-    {
-      "name": "Smita Pardhi",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "8007219115",
-      "email": "smitapardhi44@gmail.com",
-      "remark": "Given exit on Day 3 of the training due to some personal issues/incidents that occurred in the office which were not appropriate.",
-      "status": "inactive"
-    },
-    {
-      "name": "Yashshri Prakash Bagade",
-      "batch": "Batch 20",
-      "shift": "-",
-      "process": "-",
-      "designation": "-",
-      "lead": "-",
-      "phone": "9356805516",
-      "email": "ypbagade1996@gmail.com",
-      "remark": "quit on day 3 of the training without informing about the reason",
-      "status": "active"
-    },
-    {
-      "name": "Renuka Deshmukh",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9067423103",
-      "email": "renuka.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Dhananjay Hivre",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7796694310",
-      "email": "dhananjayhivre.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Ashish sethi",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9284140573",
-      "email": "ashishsethi.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Sharayu Aswale",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8329866144",
-      "email": "sharayu.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Disha Kamble",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8806517357",
-      "email": "dishakamble.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Akanksha Singh",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7754014122",
-      "email": "akankshasingh@habuild.gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Arjama Chaudhuri",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8871783325",
-      "email": "arjamachaudhuri.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Aryan Jaiswal",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9096509485",
-      "email": "aryanjaiswal.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Mohammad Sahil GulamNabi Shamsi",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8668540148",
-      "email": "sahilshamsi.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Nikhil Damle",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8237674415",
-      "email": "nikhil.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Moin Sheikh",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8329368883",
-      "email": "moinsheikh.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Janvi Raichada",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8381030533",
-      "email": "janviraichada.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Ritikesh Hirekhan",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7887792983",
-      "email": "ritikeshhirekhan.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Shefali Humne",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8329238042",
-      "email": "shefalihumne.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Sachi Nagdev",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8600880617",
-      "email": "sachinagdeve.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Fatema Thool",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9270196288",
-      "email": "fatema.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Avelina Dass",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "918010734327",
-      "email": "avelina.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Nikita Sharma",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7447738713",
-      "email": "nikitasharma.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Dhanlaxmi khawshi",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9373856926",
-      "email": "dhanlaxmikhawshi.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Vanshika Ragde",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7758833352",
-      "email": "vanshikaragdehabuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Ishika gour",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9588481626",
-      "email": "ishikagour.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Shraboli Khobragade",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8087216327",
-      "email": "shrabolikhobragade.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Ishika Naik",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7028499052",
-      "email": "ishikanaik.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Parivartan Patil",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9049668461",
-      "email": "parivartanpatil.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Gayatri Junghare",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9325804512",
-      "email": "gayatrijunghare.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Sufiyan Mugal",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9022573553",
-      "email": "sufiyanmugal.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Jyoti yadav",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7558630693",
-      "email": "jyotiyadav.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Karan vaidya",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8390575812",
-      "email": "karanvaidya.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SAMIKSHA"
-    },
-    {
-      "name": "Ekta Dahikar",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "7887882450",
-      "email": "ektadahikar.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Ayushi Bansod",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "8261831645",
-      "email": "ayushibansod.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Vedant Dudhat",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9370939532",
-      "email": "vedant1999.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "PRIYANSHU"
-    },
-    {
-      "name": "Akshay Doble",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "9665651763",
-      "email": "akshaydoble.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "NILESH"
-    },
-    {
-      "name": "Asawari Ganar",
-      "batch": "Batch 21",
-      "shift": "",
-      "process": "Success Squad",
-      "designation": "OJT Intern",
-      "lead": "",
-      "phone": "91 96659 77278",
-      "email": "asawariganar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Priyanshu shashtrakar",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "917558390024",
-      "email": "Priyanshushastrakar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Nilesh Nandanwar",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "917620589481",
-      "email": "nileshnandanwar.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Samiksha Randai",
-      "batch": "OJT Lead",
-      "shift": "PM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "919284786693",
-      "email": "samiksharandai.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Sonali Landge",
-      "batch": "OJT Lead",
-      "shift": "AM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "918308593734",
-      "email": "sonalilandge.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Rashi Vazirani",
-      "batch": "OJT Lead",
-      "shift": "AM",
-      "process": "Success Squad",
-      "designation": "OJT Lead",
-      "lead": "Dipti",
-      "phone": "918208225342",
-      "email": "rashivazirani.habuild@gmail.com",
-      "remark": "",
-      "status": "active",
-      "ojtLead": "SONALI"
-    },
-    {
-      "name": "Dipti Sahu",
-      "batch": "T&D lead",
-      "shift": "9-5",
-      "process": "Success Squad",
-      "designation": "T&D lead",
-      "lead": "Komal",
-      "phone": "917558475797",
-      "email": "diptisahu.habuild@gmail.com",
-      "remark": "",
-      "status": "active"
-    },
-    {
-      "name": "Charudatta Bhumbar",
-      "batch": "T&D lead",
-      "shift": "9-5",
-      "process": "Success Squad",
-      "designation": "T&D lead",
-      "lead": "Dipti",
-      "phone": "917385993467",
-      "email": "charudattabhumar.habuild@gmail.com",
       "remark": "",
       "status": "active"
     }

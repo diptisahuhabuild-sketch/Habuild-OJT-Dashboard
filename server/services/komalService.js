@@ -51,11 +51,22 @@ function lastNamesMatch(lastA, lastB) {
 
 function namesMatch(regName, targetName) {
   if (!regName || !targetName) return false;
-
-  const cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-
+  let cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  let cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
   if (cleanReg === cleanTarget) return true;
+
+  // Normalized words lists
+  const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
+  const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
+  if (regWords.length === 0 || targetWords.length === 0) return false;
+
+  // Handle "mohammad" vs "md" alias abbreviation explicitly
+  const normalizeWord = (w) => {
+    if (w === 'mohammad' || w === 'mohamad' || w === 'mohammed' || w === 'md') return 'md';
+    return w;
+  };
+  const normRegWords = regWords.map(normalizeWord);
+  const normTargetWords = targetWords.map(normalizeWord);
 
   // Concatenation & suffix removal logic (e.g. "Asawariganar Habuild" vs "Asawari Ganar")
   const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
@@ -64,7 +75,7 @@ function namesMatch(regName, targetName) {
   if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
   if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
 
-  // Spellings overrides
+  // Explicit Alias mappings for known misspellings in the sheets
   if (cleanReg.includes('pareedhi') && cleanTarget.includes('paridhi')) return true;
   if (cleanReg.includes('paridhi') && cleanTarget.includes('pareedhi')) return true;
   if (cleanReg.includes('mahak') && cleanTarget.includes('mahek')) return true;
@@ -74,36 +85,43 @@ function namesMatch(regName, targetName) {
   if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
   if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
 
-  // Subset match: if all tokens of one are in the other (e.g. "Aditya Jaiswal" in "Aditya Jaiswal QC errors")
+  // Surname and First name matching
+  const getFirstName = (words) => {
+    if (words.length > 1 && words[0] === 'md') return words[1];
+    return words[0];
+  };
+  const getLastName = (words) => {
+    if (words.length > 1) return words[words.length - 1];
+    return null;
+  };
+
+  const regFirst = getFirstName(normRegWords);
+  const regLast = getLastName(normRegWords);
+  const targetFirst = getFirstName(normTargetWords);
+  const targetLast = getLastName(normTargetWords);
+
+  // If we have both first name and last name, check if they both match!
+  if (regFirst && regLast && targetFirst && targetLast) {
+    if (regFirst === targetFirst && lastNamesMatch(regLast, targetLast)) {
+      return true;
+    }
+  }
+
+  // Subset match: only if both names have at least 2 tokens (prevents single-word false positive overlaps)
   const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
   const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
-  if (regTokens.length > 0 && targetTokens.length > 0) {
+  if (regTokens.length >= 2 && targetTokens.length >= 2) {
     if (regTokens.every(t => targetTokens.includes(t)) || targetTokens.every(t => regTokens.includes(t))) {
       return true;
     }
   }
 
-  const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
-  const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
-
-  if (regWords.length === 0 || targetWords.length === 0) return false;
-
-  // If both names have last names, check for conflict
-  if (regWords.length > 1 && targetWords.length > 1) {
-    if (regWords[0] === targetWords[0]) {
-      const lastA = regWords[regWords.length - 1];
-      const lastB = targetWords[targetWords.length - 1];
-      if (lastNamesMatch(lastA, lastB)) return true;
-    }
-    return false;
-  }
-
-  // If one of the names is a single word, check if it matches the first name of the other
+  // Single word fallback
   if (regWords.length === 1) {
-    return regWords[0] === targetWords[0];
+    return normRegWords[0] === normTargetWords[0];
   }
   if (targetWords.length === 1) {
-    return targetWords[0] === regWords[0];
+    return normTargetWords[0] === normRegWords[0];
   }
 
   return false;
