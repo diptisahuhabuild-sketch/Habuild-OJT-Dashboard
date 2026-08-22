@@ -9,6 +9,84 @@ const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
 const CACHE_FILE = path.join(rootDir, 'qc-doc-cache.json');
 
+function lastNamesMatch(lastA, lastB) {
+  if (!lastA || !lastB) return true;
+  const cleanA = lastA.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const cleanB = lastB.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (cleanA === cleanB) return true;
+  if (cleanA.includes(cleanB) || cleanB.includes(cleanA)) return true;
+
+  // Protect short last names from false positive overlap matches (like "naik" and "mandawkar")
+  if (cleanA.length <= 4 || cleanB.length <= 4) {
+    return false;
+  }
+
+  const setA = new Set(cleanA.split(''));
+  const setB = new Set(cleanB.split(''));
+  let common = 0;
+  setA.forEach(c => { if (setB.has(c)) common++; });
+  const pct = common / Math.min(setA.size, setB.size);
+  return pct > 0.65;
+}
+
+function namesMatch(regName, targetName) {
+  if (!regName || !targetName) return false;
+  const cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (cleanReg === cleanTarget) return true;
+
+  // Concatenation & suffix removal logic (e.g. "Asawariganar Habuild" vs "Asawari Ganar")
+  const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
+  const cleanTargetNoSpace = cleanTarget.replace(/habuild/g, '').replace(/\s+/g, '');
+  if (cleanRegNoSpace === cleanTargetNoSpace) return true;
+  if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
+  if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
+
+  // Spellings overrides
+  if (cleanReg.includes('mahak') && cleanTarget.includes('mahek')) return true;
+  if (cleanReg.includes('mahek') && cleanTarget.includes('mahak')) return true;
+  if (cleanReg.includes('pareedhi') && cleanTarget.includes('paridhi')) return true;
+  if (cleanReg.includes('paridhi') && cleanTarget.includes('pareedhi')) return true;
+  if (cleanReg.includes('raichada') && cleanTarget.includes('raichadda')) return true;
+  if (cleanReg.includes('raichadda') && cleanTarget.includes('raichada')) return true;
+  if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
+  if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
+
+  // Subset match: if all tokens of one are in the other (e.g. "Aditya Jaiswal" in "Aditya Jaiswal QC errors")
+  const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
+  const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
+  if (regTokens.length > 0 && targetTokens.length > 0) {
+    if (regTokens.every(t => targetTokens.includes(t)) || targetTokens.every(t => regTokens.includes(t))) {
+      return true;
+    }
+  }
+
+  const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
+  const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
+
+  if (regWords.length === 0 || targetWords.length === 0) return false;
+
+  // If both names have last names, check for conflict
+  if (regWords.length > 1 && targetWords.length > 1) {
+    if (regWords[0] === targetWords[0]) {
+      const lastA = regWords[regWords.length - 1];
+      const lastB = targetWords[targetWords.length - 1];
+      if (lastNamesMatch(lastA, lastB)) return true;
+    }
+    return false;
+  }
+
+  // If one of the names is a single word, check if it matches the first name of the other
+  if (regWords.length === 1) {
+    return regWords[0] === targetWords[0];
+  }
+  if (targetWords.length === 1) {
+    return targetWords[0] === regWords[0];
+  }
+
+  return false;
+}
+
 const defaultInternNames = [
   'smit', 'mahak', 'aditya', 'anjali', 'kunal', 'papiha', 'palak', 'mosin', 'tina', 'babasaheb', 'jaya',
   'fuzail', 'samyak', 'alisha', 'kalpik', 'shivam', 'sohail', 'kapil', 'simran', 'farheen', 'gayatri',
@@ -32,7 +110,7 @@ const BATCH_OVERRIDES = {
 };
 
 function buildInternNameResolver() {
-  const batchNameMap = new Map(); // batchKey -> Map<lowercase -> original full name>
+  const globalNameMap = new Map(); // lowercase -> { originalName, batchName }
   const batchesDir = path.join(rootDir, 'data', 'batches');
 
   try {
@@ -43,9 +121,7 @@ function buildInternNameResolver() {
         const batchKey = file.replace('.json', '');
         const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
         
-        const nameMap = new Map();
         const rawNames = new Set();
-        
         if (batchData.interns && Array.isArray(batchData.interns)) {
           batchData.interns.forEach(i => {
             if (i.name) rawNames.add(i.name.trim());
@@ -59,24 +135,23 @@ function buildInternNameResolver() {
           const clean = name.toLowerCase().trim();
           if (!clean || clean === 'intern name' || clean === 'wati id' || clean === 'batch 19' || clean === 'calling morning') return;
           
-          nameMap.set(clean, name);
+          globalNameMap.set(clean, { originalName: name, batchName: batchKey });
 
           const first = clean.split(/\s+/)[0];
           if (first && first.length > 2) {
-            if (!nameMap.has(first)) {
-              nameMap.set(first, name);
+            if (!globalNameMap.has(first)) {
+              globalNameMap.set(first, { originalName: name, batchName: batchKey });
             }
           }
         });
-        
-        batchNameMap.set(batchKey, nameMap);
       }
     }
   } catch (e) {
     console.error('[DocSync] Batches dir read error:', e.message);
   }
 
-  return batchNameMap;
+  const globalSearchKeys = Array.from(globalNameMap.keys()).sort((a, b) => b.length - a.length);
+  return { globalNameMap, globalSearchKeys };
 }
 
 function parseDDMMYYYYDate(str) {
@@ -88,13 +163,62 @@ function parseDDMMYYYYDate(str) {
     let month = parseInt(parts[1], 10) - 1;
     let year = parseInt(parts[2], 10);
     if (year < 100) year += 2000;
-    const d = new Date(year, month, day);
-    if (!isNaN(d.getTime())) {
-      return d.toISOString().split('T')[0];
+    
+    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+      let finalDay, finalMonth;
+      if (day > 12) {
+        finalDay = day;
+        finalMonth = month;
+      } else if (month + 1 > 12) {
+        finalDay = month + 1;
+        finalMonth = day - 1;
+      } else {
+        finalDay = day;
+        finalMonth = month;
+      }
+      const yStr = String(year);
+      const mStr = String(finalMonth + 1).padStart(2, '0');
+      const dStr = String(finalDay).padStart(2, '0');
+      return `${yStr}-${mStr}-${dStr}`;
     }
   }
   return null;
 }
+
+function extractChatDate(text) {
+  if (!text) return null;
+  
+  // Pre-process common typos like 26/62026 -> 26/6/2026 and 26/062026 -> 26/06/2026
+  let normalizedText = text.replace(/\b(\d{1,2})\/(\d)(\d{4})\b/g, '$1/$2/$3')
+                           .replace(/\b(\d{1,2})\/(\d{2})(\d{4})\b/g, '$1/$2/$3');
+
+  const clean = normalizedText.toLowerCase().replace(/\s+/g, ' ');
+  
+  // 1. Try matching "chat date <date>" or "chat date - <date>"
+  const matchChatDate = clean.match(/chat\s*date\s*[-–:]?\s*(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/i);
+  if (matchChatDate && matchChatDate[1]) {
+    const parsed = parseDDMMYYYYDate(matchChatDate[1]);
+    if (parsed) return parsed;
+  }
+
+  // 2. Scan for any date pattern like dd/mm/yyyy
+  const dateMatches = normalizedText.match(/\b\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}\b/g);
+  if (dateMatches && dateMatches.length > 0) {
+    if (clean.includes('chat date') && dateMatches.length >= 2) {
+      const idx = clean.indexOf('chat date');
+      for (const dm of dateMatches) {
+        if (normalizedText.indexOf(dm) > idx) {
+          const parsed = parseDDMMYYYYDate(dm);
+          if (parsed) return parsed;
+        }
+      }
+    }
+    const parsed = parseDDMMYYYYDate(dateMatches[0]);
+    if (parsed) return parsed;
+  }
+  return null;
+}
+
 
 /**
  * Parses a single Google Doc and returns structured records
@@ -107,8 +231,7 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
     });
     const doc = docRes.data;
     const parsedRecords = [];
-    const batchResolver = nameResolver.get(batchName) || new Map();
-    const searchKeys = Array.from(batchResolver.keys()).sort((a, b) => b.length - a.length);
+    const { globalNameMap, globalSearchKeys } = nameResolver;
 
     // Default root properties
     const rootInlineObjects = doc.inlineObjects || {};
@@ -123,7 +246,7 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
       }
     }
 
-    function flattenTabs(tabsArray, result = []) {
+    function flattenTabs(tabsArray, parentTitle = null, result = []) {
       if (!tabsArray) return result;
       for (const t of tabsArray) {
         let tabInlineObjects = rootInlineObjects;
@@ -131,13 +254,20 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
           tabInlineObjects = { ...rootInlineObjects, ...t.documentTab.inlineObjects };
         }
         
+        const currentTitle = t.tabProperties && t.tabProperties.title ? t.tabProperties.title.trim() : '';
+        let resolvedTitle = currentTitle;
+        if (currentTitle.toLowerCase().includes('suggestion') && parentTitle) {
+          resolvedTitle = parentTitle;
+        }
+        
         result.push({
-          title: t.tabProperties.title,
+          title: resolvedTitle,
+          originalTitle: currentTitle,
           content: t.documentTab && t.documentTab.body ? t.documentTab.body.content : [],
           inlineObjects: tabInlineObjects
         });
         if (t.childTabs) {
-          flattenTabs(t.childTabs, result);
+          flattenTabs(t.childTabs, resolvedTitle, result);
         }
       }
       return result;
@@ -178,64 +308,104 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
           });
 
           if (txt.trim()) {
-            rawParagraphs.push({ text: txt.trim(), index });
+            const lines = txt.split(/[\u000b\r\n]/);
+            lines.forEach((line, lineIdx) => {
+              const cleaned = line.trim();
+              if (cleaned) {
+                rawParagraphs.push({ text: cleaned, index: index + (lineIdx * 0.001) });
+              }
+            });
           }
         }
       });
 
+      const isSuggestionTab = (tabData.originalTitle || tabData.title).toLowerCase().trim().includes('suggestion');
       let currentDate = null;
       let pendingPhone = null;
       let pendingIndex = -1;
       let foundSuggestion = false;
       let suggestionText = '';
 
-      for (let i = 0; i < rawParagraphs.length; i++) {
-        const p = rawParagraphs[i];
+      if (isSuggestionTab) {
+        // Line-by-line parsing for Suggestions tab (allow null phone numbers)
+        for (let i = 0; i < rawParagraphs.length; i++) {
+          const p = rawParagraphs[i];
 
-        // 1. Check if date
-        const dateMatch = p.text.match(/^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}$/);
-        if (dateMatch) {
-          const parsed = parseDDMMYYYYDate(p.text);
-          if (parsed) currentDate = parsed;
-          continue;
-        }
-
-        // 2. Check if phone number
-        const phoneMatches = p.text.match(/\b\d{10,13}\b/g) || [];
-        if (phoneMatches.length > 0) {
-          // If we had a previous pending phone but no feedback followed, save it as is.
-          if (pendingPhone) {
-            saveParsedRecord();
+          // 1. Check if date line (has date but no phone number, like "26/06/2026 chat date")
+          const hasDate = p.text.match(/\b\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}\b/);
+          const hasPhone = p.text.match(/\b\d{10,13}\b/);
+          if (hasDate && !hasPhone) {
+            const parsed = extractChatDate(p.text);
+            if (parsed) {
+              currentDate = parsed;
+              continue;
+            }
           }
-          pendingPhone = phoneMatches[0].trim();
-          pendingIndex = p.index;
-          suggestionText = p.text.replace(pendingPhone, '').trim();
-          foundSuggestion = suggestionText.length > 10;
-          continue;
-        }
 
-        // 3. If we have a pending phone and need feedback text
-        if (pendingPhone && !foundSuggestion) {
-          suggestionText += (suggestionText ? ' ' : '') + p.text;
-          // Keep reading paragraphs until we hit the next phone number or date
-          // For simplicity, we assume the next non-date, non-phone paragraph is the full feedback
+          // 2. Extract phone number and process immediately as a separate record
+          const phoneMatches = p.text.match(/\b\d{10,13}\b/g) || [];
+          const phone = phoneMatches.length > 0 ? phoneMatches[0].trim() : null;
+
+          pendingPhone = phone;
+          pendingIndex = p.index;
+          suggestionText = phone ? p.text.replace(phone, '').trim() : p.text;
+
           saveParsedRecord();
         }
-      }
-      
-      // Flush any trailing record
-      if (pendingPhone) {
-        saveParsedRecord();
+      } else {
+        // Robust phone-centric parser for Main tabs (merges non-phone feedback text into preceding record)
+        for (let i = 0; i < rawParagraphs.length; i++) {
+          const p = rawParagraphs[i];
+
+          // 1. Check if date line
+          const hasDate = p.text.match(/\b\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}\b/);
+          const hasPhone = p.text.match(/\b\d{10,13}\b/);
+          if (hasDate && !hasPhone) {
+            const parsed = extractChatDate(p.text);
+            if (parsed) {
+              if (pendingPhone) {
+                saveParsedRecord();
+              }
+              currentDate = parsed;
+              continue;
+            }
+          }
+
+          // 2. Check if phone number
+          const phoneMatches = p.text.match(/\b\d{10,13}\b/g) || [];
+          if (phoneMatches.length > 0) {
+            if (pendingPhone) {
+              saveParsedRecord();
+            }
+            pendingPhone = phoneMatches[0].trim();
+            pendingIndex = p.index;
+            suggestionText = p.text.replace(pendingPhone, '').trim();
+            continue;
+          }
+
+          // 3. Append feedback text to preceding phone number
+          if (pendingPhone) {
+            suggestionText += (suggestionText ? ' ' : '') + p.text;
+          }
+        }
+        
+        // Flush any trailing record
+        if (pendingPhone) {
+          saveParsedRecord();
+        }
       }
 
       function saveParsedRecord() {
         let matchedIntern = 'Unassigned';
+        let resolvedBatch = batchName;
         
         // Strategy A: Check if Tab Title matches an intern name perfectly
         const cleanTabTitle = tabData.title.toLowerCase().trim();
-        for (const nameKey of searchKeys) {
-          if (cleanTabTitle.includes(nameKey)) {
-            matchedIntern = batchResolver.get(nameKey);
+        for (const nameKey of globalSearchKeys) {
+          if (namesMatch(nameKey, cleanTabTitle)) {
+            const entry = globalNameMap.get(nameKey);
+            matchedIntern = entry.originalName;
+            resolvedBatch = entry.batchName;
             break;
           }
         }
@@ -243,9 +413,11 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
         // Strategy B: Scan the feedback text for intern mentions
         if (matchedIntern === 'Unassigned') {
           const lowerText = suggestionText.toLowerCase();
-          for (const nameKey of searchKeys) {
+          for (const nameKey of globalSearchKeys) {
             if (lowerText.includes(nameKey)) {
-              matchedIntern = batchResolver.get(nameKey);
+              const entry = globalNameMap.get(nameKey);
+              matchedIntern = entry.originalName;
+              resolvedBatch = entry.batchName;
               break;
             }
           }
@@ -262,7 +434,6 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
            matchedIntern = tabData.title.trim();
         }
 
-        let resolvedBatch = batchName;
         const cleanName = matchedIntern.toLowerCase().trim();
         if (BATCH_OVERRIDES[cleanName]) {
           resolvedBatch = BATCH_OVERRIDES[cleanName];
@@ -277,15 +448,19 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
           screenshotFallback = nearbyImages[0].url;
         }
 
+        let recordDate = extractChatDate(suggestionText) || currentDate || new Date().toISOString().split('T')[0];
+        const isSuggestionTab = (tabData.originalTitle || tabData.title).toLowerCase().trim().includes('suggestion');
+
         parsedRecords.push({
           internName: matchedIntern,
-          chatDate: currentDate || new Date().toISOString().split('T')[0],
+          chatDate: recordDate,
           number: pendingPhone,
           summary: suggestionText || pendingPhone,
           index: pendingIndex,
           batch: resolvedBatch,
           auditor: leadName,
-          screenshotTempUrl: screenshotFallback
+          screenshotTempUrl: screenshotFallback,
+          type: isSuggestionTab ? 'suggestion' : 'qc'
         });
         
         pendingPhone = null;
@@ -295,13 +470,15 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
       }
     });
 
-    // Download closest images locally in chunks
+    // Download closest images locally in chunks (using URL hash to avoid duplicate downloads)
+    const crypto = require('crypto');
     const chunkSize = 5;
     for (let i = 0; i < parsedRecords.length; i += chunkSize) {
       const chunk = parsedRecords.slice(i, i + chunkSize);
       await Promise.all(chunk.map(async (rec) => {
         if (rec.screenshotTempUrl) {
-          const imgName = `${rec.number || rec.index}.png`;
+          const urlHash = crypto.createHash('md5').update(rec.screenshotTempUrl).digest('hex');
+          const imgName = `${urlHash}.png`;
           const localRelPath = `/qc-images/${rec.batch}/${imgName}`;
           const localAbsPath = path.join(rootDir, 'public', 'qc-images', rec.batch, imgName);
 
@@ -361,6 +538,25 @@ function getBatchDocMap() {
   } catch(e) {
     console.error('[DocSync] Error parsing modular batches:', e);
   }
+
+  try {
+    if (fs.existsSync(CONFIG_FILE)) {
+      const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+      if (config.batchQcDocs && typeof config.batchQcDocs === 'object') {
+        Object.entries(config.batchQcDocs).forEach(([batchKey, docUrl]) => {
+          if (docUrl) {
+            const match = docUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
+            if (match && match[1]) {
+              map[batchKey] = match[1];
+            }
+          }
+        });
+      }
+    }
+  } catch(e) {
+    console.error('[DocSync] Error reading batchQcDocs from config:', e);
+  }
+
   return map;
 }
 

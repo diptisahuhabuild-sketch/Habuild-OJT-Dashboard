@@ -7,6 +7,13 @@ function namesMatch(regName, targetName) {
   const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
   
   if (cleanReg === cleanTarget) return true;
+
+  // Concatenation & suffix removal logic
+  const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
+  const cleanTargetNoSpace = cleanTarget.replace(/habuild/g, '').replace(/\s+/g, '');
+  if (cleanRegNoSpace === cleanTargetNoSpace) return true;
+  if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
+  if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
   
   const regTokens = cleanReg.split(' ').filter(t => t.length > 2);
   const targetTokens = cleanTarget.split(' ').filter(t => t.length > 2);
@@ -28,6 +35,26 @@ function namesMatch(regName, targetName) {
   }
   
   return false;
+}
+
+function lastNamesMatch(lastA, lastB) {
+  if (!lastA || !lastB) return true;
+  const cleanA = lastA.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const cleanB = lastB.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (cleanA === cleanB) return true;
+  if (cleanA.includes(cleanB) || cleanB.includes(cleanA)) return true;
+
+  // Protect short last names from false positive overlap matches (like "naik" and "mandawkar")
+  if (cleanA.length <= 4 || cleanB.length <= 4) {
+    return false;
+  }
+
+  const setA = new Set(cleanA.split(''));
+  const setB = new Set(cleanB.split(''));
+  let common = 0;
+  setA.forEach(c => { if (setB.has(c)) common++; });
+  const pct = common / Math.min(setA.size, setB.size);
+  return pct > 0.65;
 }
 
 try {

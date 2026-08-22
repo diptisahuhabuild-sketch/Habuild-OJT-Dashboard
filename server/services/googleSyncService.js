@@ -21,22 +21,48 @@ function parseDDMMYYYYDate(val) {
   const str = String(val).trim();
   if (!str) return null;
 
-  if (str.includes('/') || (str.includes('-') && str.split('-')[0].length <= 2)) {
+  if (str.match(/^\d{4}-\d{2}-\d{2}/)) {
+    return str.substring(0, 10);
+  }
+
+  // Handle slashes and dashes
+  if (str.includes('/') || str.includes('-')) {
     const parts = str.split(/[\/-]/);
     if (parts.length === 3) {
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1; // 0-indexed month
-      let year = parseInt(parts[2], 10);
-      if (year < 100) year += 2000;
-      if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-        const d = new Date(Date.UTC(year, month, day));
-        return d.toISOString().split('T')[0];
+      let p0 = parseInt(parts[0], 10);
+      let p1 = parseInt(parts[1], 10);
+      let p2 = parseInt(parts[2], 10);
+      if (!isNaN(p0) && !isNaN(p1) && !isNaN(p2)) {
+        if (p2 < 100) p2 += 2000;
+        let day, month;
+        // Check which token is the day vs month:
+        if (p0 > 12) {
+          day = p0;
+          month = p1 - 1;
+        } else if (p1 > 12) {
+          day = p1;
+          month = p0 - 1;
+        } else {
+          // If both <= 12, default to DD/MM/YYYY (Standard format in these sheets)
+          day = p0;
+          month = p1 - 1;
+        }
+        if (!isNaN(day) && !isNaN(month) && !isNaN(p2)) {
+          const d = new Date(Date.UTC(p2, month, day));
+          return d.toISOString().split('T')[0];
+        }
       }
     }
   }
 
-  if (str.match(/^\d{4}-\d{2}-\d{2}/)) {
-    return str.substring(0, 10);
+  // Try parsing directly as fallback
+  const parsedTime = Date.parse(str);
+  if (!isNaN(parsedTime)) {
+    const d = new Date(parsedTime);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   return null;
@@ -192,11 +218,91 @@ async function syncInternsRegistryFromGoogleSheet() {
       fs.writeFileSync(batchFile, JSON.stringify(batchData, null, 2));
     }
 
+    // Write back to server-config.json to persist registry
+    if (fs.existsSync(CONFIG_FILE)) {
+      try {
+        const configJson = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+        configJson.internsRegistry = registry;
+        fs.writeFileSync(CONFIG_FILE, JSON.stringify(configJson, null, 2));
+        console.log(`[GoogleSyncService] Successfully updated server-config.json with ${registry.length} registry interns.`);
+      } catch (configErr) {
+        console.error('[GoogleSyncService] Failed to write config registry:', configErr.message);
+      }
+    }
+
     console.log(`[GoogleSyncService] Successfully synced ${registry.length} interns registry to modular batch files.`);
 
   } catch (err) {
     console.error('[GoogleSyncService] Error syncing Admin registry:', err.message);
   }
+}
+
+function lastNamesMatch(lastA, lastB) {
+  if (!lastA || !lastB) return true;
+  const cleanA = lastA.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const cleanB = lastB.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (cleanA === cleanB) return true;
+  if (cleanA.includes(cleanB) || cleanB.includes(cleanA)) return true;
+
+  // Protect short last names from false positive overlap matches (like "naik" and "mandawkar")
+  if (cleanA.length <= 4 || cleanB.length <= 4) {
+    return false;
+  }
+
+  const setA = new Set(cleanA.split(''));
+  const setB = new Set(cleanB.split(''));
+  let common = 0;
+  setA.forEach(c => { if (setB.has(c)) common++; });
+  const pct = common / Math.min(setA.size, setB.size);
+  return pct > 0.65;
+}
+
+function namesMatch(regName, targetName) {
+  if (!regName || !targetName) return false;
+  const cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (cleanReg === cleanTarget) return true;
+
+  // Concatenation & suffix removal logic (e.g. "Asawariganar Habuild" vs "Asawari Ganar")
+  const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
+  const cleanTargetNoSpace = cleanTarget.replace(/habuild/g, '').replace(/\s+/g, '');
+  if (cleanRegNoSpace === cleanTargetNoSpace) return true;
+  if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
+  if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
+
+  // Subset match: if all tokens of one are in the other (e.g. "Aditya Jaiswal" in "Aditya Jaiswal QC errors")
+  const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
+  const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
+  if (regTokens.length > 0 && targetTokens.length > 0) {
+    if (regTokens.every(t => targetTokens.includes(t)) || targetTokens.every(t => regTokens.includes(t))) {
+      return true;
+    }
+  }
+
+  const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
+  const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
+
+  if (regWords.length === 0 || targetWords.length === 0) return false;
+
+  // If both names have last names, check for conflict
+  if (regWords.length > 1 && targetWords.length > 1) {
+    if (regWords[0] === targetWords[0]) {
+      const lastA = regWords[regWords.length - 1];
+      const lastB = targetWords[targetWords.length - 1];
+      if (lastNamesMatch(lastA, lastB)) return true;
+    }
+    return false;
+  }
+
+  // If one of the names is a single word, check if it matches the first name of the other
+  if (regWords.length === 1) {
+    return regWords[0] === targetWords[0];
+  }
+  if (targetWords.length === 1) {
+    return targetWords[0] === regWords[0];
+  }
+
+  return false;
 }
 
 /**
@@ -221,6 +327,9 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
   const feedbackIdx = headers.findIndex(h => h.includes('overall feedback') || h.includes('summary') || h.includes('feedback'));
   const screenshotIdx = headers.findIndex(h => h.includes('screenshot') || h.includes('image') || h.includes('proof') || h.includes('link'));
 
+  let lastSeenScanDate = null;
+  let lastSeenChatDate = null;
+
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
     if (!row || row.length === 0) continue;
@@ -228,33 +337,62 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
     const internName = row[internIdx] ? String(row[internIdx]).trim() : '';
     if (!internName || internName.toLowerCase() === 'intern' || internName.toLowerCase() === 'executive name') continue;
 
-    // Resolve correct batch using map or tab
+    // Resolve correct batch: Prioritize sheet tab title batch numbers if present
     const cleanName = internName.toLowerCase().trim();
-    let resolvedBatch = 'B-20'; // default fallback
-    if (internBatchMap.has(cleanName)) {
-      resolvedBatch = internBatchMap.get(cleanName);
-    } else {
-      const cleanTab = sheetName.toLowerCase();
-      if (cleanTab.includes('20')) resolvedBatch = 'B-20';
-      else if (cleanTab.includes('19')) resolvedBatch = 'B-19';
-      else if (cleanTab.includes('18')) resolvedBatch = 'B-18';
-      else if (cleanTab.includes('17')) resolvedBatch = 'B-17';
-      else if (cleanTab.includes('16')) resolvedBatch = 'B-16';
-      else if (cleanTab.includes('15')) resolvedBatch = 'B-15';
-      else if (cleanTab.includes('12')) resolvedBatch = 'B-12';
+    const cleanTab = sheetName.toLowerCase();
+    let resolvedBatch = null;
+
+    if (cleanTab.includes('21')) resolvedBatch = 'B-21';
+    else if (cleanTab.includes('20')) resolvedBatch = 'B-20';
+    else if (cleanTab.includes('19')) resolvedBatch = 'B-19';
+    else if (cleanTab.includes('18')) resolvedBatch = 'B-18';
+    else if (cleanTab.includes('17')) resolvedBatch = 'B-17';
+    else if (cleanTab.includes('16')) resolvedBatch = 'B-16';
+    else if (cleanTab.includes('15')) resolvedBatch = 'B-15';
+    else if (cleanTab.includes('12')) resolvedBatch = 'B-12';
+
+    // Fallback to registry registry lookup if tab name doesn't specify a batch
+    if (!resolvedBatch) {
+      for (const [regName, batchVal] of internBatchMap.entries()) {
+        if (namesMatch(regName, cleanName)) {
+          resolvedBatch = batchVal;
+          break;
+        }
+      }
+    }
+
+    if (!resolvedBatch) {
+      resolvedBatch = 'B-20'; // default fallback
     }
 
     if (!mergedData[resolvedBatch]) {
       mergedData[resolvedBatch] = [];
     }
 
-    const scanDate = scanDateIdx >= 0 ? parseDDMMYYYYDate(row[scanDateIdx]) : null;
-    const chatDate = chatDateIdx >= 0 ? parseDDMMYYYYDate(row[chatDateIdx]) : null;
+    let scanDate = scanDateIdx >= 0 ? parseDDMMYYYYDate(row[scanDateIdx]) : null;
+    let chatDate = chatDateIdx >= 0 ? parseDDMMYYYYDate(row[chatDateIdx]) : null;
+
+    if (scanDate) {
+      lastSeenScanDate = scanDate;
+    } else {
+      scanDate = lastSeenScanDate;
+    }
+
+    if (chatDate) {
+      lastSeenChatDate = chatDate;
+    } else {
+      chatDate = lastSeenChatDate;
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const finalScanDate = scanDate || todayStr;
+    const finalChatDate = chatDate || finalScanDate;
+
     const auditor = auditorIdx >= 0 && row[auditorIdx] ? String(row[auditorIdx]).trim() : leadOwner;
 
     mergedData[resolvedBatch].push({
-      scanDate: scanDate || new Date().toISOString().split('T')[0],
-      chatDate: chatDate || scanDate || new Date().toISOString().split('T')[0],
+      scanDate: finalScanDate,
+      chatDate: finalChatDate,
       internName,
       auditor,
       lead: leadOwner,
@@ -522,6 +660,8 @@ async function fetchAndSyncGoogleSheetsData() {
 
           if (dateHeaderRow === null) return;
 
+          const subHeaderRow = rows[dateHeaderRow + 1] || [];
+
           for (let r = dateHeaderRow + 1; r < rows.length; r++) {
             const row = rows[r];
             if (!row || row.length === 0) continue;
@@ -556,18 +696,40 @@ async function fetchAndSyncGoogleSheetsData() {
               const dateStr = dates[col];
               if (dateStr) {
                 const val = String(row[col] || '').trim();
-                if (parsedAttendance[cleanName][dateStr]) {
-                  const prev = parsedAttendance[cleanName][dateStr];
-                  if (val && val !== '-') {
-                    if (prev === '-' || !prev) {
-                      parsedAttendance[cleanName][dateStr] = val;
-                    }
-                  }
-                } else {
-                  parsedAttendance[cleanName][dateStr] = val;
+                const subHeaderVal = String(subHeaderRow[col] || '').toLowerCase().trim();
+
+                if (!parsedAttendance[cleanName][dateStr] || typeof parsedAttendance[cleanName][dateStr] === 'string') {
+                  parsedAttendance[cleanName][dateStr] = {
+                    status: '-',
+                    inTime: '-',
+                    outTime: '-'
+                  };
+                }
+
+                if (subHeaderVal.includes('in time')) {
+                  if (val && val !== '-') parsedAttendance[cleanName][dateStr].inTime = val;
+                } else if (subHeaderVal.includes('out time')) {
+                  if (val && val !== '-') parsedAttendance[cleanName][dateStr].outTime = val;
+                } else if (subHeaderVal.includes('status') || subHeaderVal.includes('attendance')) {
+                  if (val && val !== '-') parsedAttendance[cleanName][dateStr].status = val;
                 }
               }
             }
+
+            // Post-process the intern's dates to compile them into strings
+            Object.keys(parsedAttendance[cleanName]).forEach(dateStr => {
+              const obj = parsedAttendance[cleanName][dateStr];
+              if (obj && typeof obj === 'object') {
+                const status = obj.status || '-';
+                const inTime = obj.inTime || '-';
+                const outTime = obj.outTime || '-';
+                if (inTime !== '-' || outTime !== '-') {
+                  parsedAttendance[cleanName][dateStr] = `${status}|${inTime}|${outTime}`;
+                } else {
+                  parsedAttendance[cleanName][dateStr] = status;
+                }
+              }
+            });
           }
         });
       }

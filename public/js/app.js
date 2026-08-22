@@ -3,6 +3,86 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Timezone-safe local date string formatter
+  function getLocalDateStr(d) {
+    if (!d || isNaN(d.getTime())) return '';
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  // Parse any duration representation (string or number) to seconds
+  function parseToSeconds(val) {
+    if (val === null || val === undefined || val === "No Data" || val === "-") return 0;
+    if (typeof val === 'number') return val;
+    
+    const str = String(val).toLowerCase().trim();
+    if (!str || str === '-') return 0;
+    
+    // Check if it's MM:SS or HH:MM:SS format
+    if (str.includes(':')) {
+      const parts = str.split(':').map(p => parseFloat(p) || 0);
+      if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      }
+      if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+      }
+    }
+    
+    const num = parseFloat(str);
+    if (isNaN(num)) return 0;
+    
+    if (str.includes('hr') || str.includes('hour')) {
+      return num * 3600;
+    }
+    if (str.includes('min') || str.includes('m')) {
+      return num * 60;
+    }
+    if (str.includes('sec') || str.includes('s')) {
+      return num;
+    }
+    
+    return num;
+  }
+
+  // Format Average Response Time (ARST/ARPT) strictly in minutes format
+  function formatResponseTime(seconds) {
+    if (seconds === null || seconds === undefined || seconds === "No Data" || seconds === "-") return seconds;
+    if (typeof seconds === 'string') return seconds;
+    const val = parseFloat(seconds);
+    if (isNaN(val) || val <= 0) return "-";
+    return `${(val / 60).toFixed(2)} Min`;
+  }
+
+  // Format Komal AI time metric fields (seconds based) in day/hr/min formats matching the AI Dashboard
+  function formatKomalTime(e) {
+    if (e === null || e === undefined || e === "No Data" || e === "-") return e;
+    if (typeof e === 'string') return e;
+    const val = parseFloat(e);
+    if (isNaN(val) || val <= 0) return "-";
+    if (val >= 86400) {
+      let t = (val / 86400).toFixed(2);
+      return `${t} Day${t > 1 ? 's' : ''}`;
+    }
+    if (val >= 3600) {
+      let t = (val / 3600).toFixed(2);
+      return `${t} Hr${t > 1 ? 's' : ''}`;
+    }
+    let t = (val / 60).toFixed(2);
+    return `${t} Min`;
+  }
+
+  // Format First Response Time (FRT) in MM:SS format
+  function formatFrtTime(e) {
+    return formatKomalTime(e);
+  }
+
+  function formatBreakTime(seconds) {
+    return formatKomalTime(seconds);
+  }
+
   // Global Application State
   const state = {
     currentRole: 'Admin', // 'Admin', 'Lead', 'Viewer'
@@ -31,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'frt', 'break', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'arpt', 'frt', 'break', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'score', 'trend', 'action'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -46,37 +126,83 @@ document.addEventListener('DOMContentLoaded', () => {
     return clean;
   }
 
+  function lastNamesMatch(lastA, lastB) {
+    if (!lastA || !lastB) return true;
+    const cleanA = lastA.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanB = lastB.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (cleanA === cleanB) return true;
+    if (cleanA.includes(cleanB) || cleanB.includes(cleanA)) return true;
+
+    // Protect short last names from false positive overlap matches (like "naik" and "mandawkar")
+    if (cleanA.length <= 4 || cleanB.length <= 4) {
+      return false;
+    }
+
+    const setA = new Set(cleanA.split(''));
+    const setB = new Set(cleanB.split(''));
+    let common = 0;
+    setA.forEach(c => { if (setB.has(c)) common++; });
+    const pct = common / Math.min(setA.size, setB.size);
+    return pct > 0.65;
+  }
+
   function namesMatch(regName, targetName) {
     if (!regName || !targetName) return false;
-    
+
     const cleanReg = regName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
     const cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-    
+
     if (cleanReg === cleanTarget) return true;
-    
+
+    // Concatenation & suffix removal logic (e.g. "Asawariganar Habuild" vs "Asawari Ganar")
+    const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
+    const cleanTargetNoSpace = cleanTarget.replace(/habuild/g, '').replace(/\s+/g, '');
+    if (cleanRegNoSpace === cleanTargetNoSpace) return true;
+    if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
+    if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
+
     // Explicit Alias mappings for known misspellings in the sheets
     if (cleanReg.includes('pareedhi') && cleanTarget.includes('paridhi')) return true;
     if (cleanReg.includes('paridhi') && cleanTarget.includes('pareedhi')) return true;
-    
-    const regTokens = cleanReg.split(' ').filter(t => t.length > 2);
-    const targetTokens = cleanTarget.split(' ').filter(t => t.length > 2);
-    
-    if (regTokens.length === 0 || targetTokens.length === 0) return false;
-    
-    const allRegTokensInTarget = regTokens.every(t => targetTokens.includes(t));
-    if (allRegTokensInTarget) return true;
+    if (cleanReg.includes('mahak') && cleanTarget.includes('mahek')) return true;
+    if (cleanReg.includes('mahek') && cleanTarget.includes('mahak')) return true;
+    if (cleanReg.includes('raichada') && cleanTarget.includes('raichadda')) return true;
+    if (cleanReg.includes('raichadda') && cleanTarget.includes('raichada')) return true;
+    if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
+    if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
 
-    const allTargetTokensInReg = targetTokens.every(t => regTokens.includes(t));
-    if (allTargetTokensInReg) return true;
-
-    if (regTokens.length >= 2) {
-      const first = regTokens[0];
-      const last = regTokens[regTokens.length - 1];
-      if (targetTokens.includes(first) && targetTokens.includes(last)) {
+    // Subset match: if all tokens of one are in the other (e.g. "Aditya Jaiswal" in "Aditya Jaiswal QC errors")
+    const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
+    const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
+    if (regTokens.length > 0 && targetTokens.length > 0) {
+      if (regTokens.every(t => targetTokens.includes(t)) || targetTokens.every(t => regTokens.includes(t))) {
         return true;
       }
     }
-    
+
+    const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
+    const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
+
+    if (regWords.length === 0 || targetWords.length === 0) return false;
+
+    // If both names have last names, check for conflict
+    if (regWords.length > 1 && targetWords.length > 1) {
+      if (regWords[0] === targetWords[0]) {
+        const lastA = regWords[regWords.length - 1];
+        const lastB = targetWords[targetWords.length - 1];
+        if (lastNamesMatch(lastA, lastB)) return true;
+      }
+      return false;
+    }
+
+    // If one of the names is a single word, check if it matches the first name of the other
+    if (regWords.length === 1) {
+      return regWords[0] === targetWords[0];
+    }
+    if (targetWords.length === 1) {
+      return targetWords[0] === regWords[0];
+    }
+
     return false;
   }
 
@@ -136,27 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!state.data || !state.data.attendanceData) return null;
-    initializeParsedKeys();
 
-    const regParts = cleanName.split(/\s+/).filter(p => p.length > 0);
-    if (regParts.length === 0) return null;
-    const regFirst = regParts[0];
-    const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
-
-    const matchingKeys = [];
-    if (parsedAttendanceKeys) {
-      parsedAttendanceKeys.forEach(pk => {
-        if (regFirst === pk.first) {
-          if (regLast && pk.last) {
-            if (regLast === pk.last) {
-              matchingKeys.push(pk.key);
-            }
-          } else if (!regLast && !pk.last) {
-            matchingKeys.push(pk.key);
-          }
-        }
-      });
-    }
+    const attKeys = Object.keys(state.data.attendanceData);
+    const matchingKeys = attKeys.filter(k => namesMatch(internName, k));
 
     if (matchingKeys.length === 0) {
       attendanceCache.set(cleanName, null);
@@ -185,9 +293,47 @@ document.addEventListener('DOMContentLoaded', () => {
     return merged;
   }
 
+  function formatAttendanceCell(val) {
+    if (val === undefined || val === null || val === "No Data" || val === '-') {
+      return `<td>No Data</td>`;
+    }
+
+    const parts = String(val).split('|');
+    const status = parts[0].trim();
+
+    if (parts.length >= 3) {
+      const inTime = parts[1].trim();
+      const outTime = parts[2].trim();
+      if ((inTime && inTime !== '-') || (outTime && outTime !== '-')) {
+        const tooltip = `IN ${inTime} | OUT ${outTime}`;
+        
+        // Match user style colors: green for Present, amber for Half Day, red for Absent/Leaves
+        const u = status.toUpperCase();
+        let colorClass = '';
+        if (u === 'PRESENT') colorClass = 'color-green';
+        else if (u === 'HALF DAY') colorClass = 'color-amber';
+        else if (u === 'ABSENT' || u.includes('LEAVE') || u === 'LWP' || u === 'UL') colorClass = 'color-red';
+        else colorClass = 'text-gray-500';
+
+        const formattedStatus = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+
+        return `<td class="${colorClass} font-semibold" title="${tooltip}" style="cursor: help;">${formattedStatus}</td>`;
+      }
+    }
+
+    // Default number display or fallback status display without In/Out times
+    const u = status.toUpperCase();
+    if (u === 'PRESENT') return `<td class="color-green font-semibold">Present</td>`;
+    if (u === 'HALF DAY') return `<td class="color-amber font-semibold">Half Day</td>`;
+    if (u === 'ABSENT' || u.includes('LEAVE') || u === 'LWP' || u === 'UL') return `<td class="color-red font-semibold">Absent</td>`;
+
+    return `<td>${status}</td>`;
+  }
+
   function getAvailabilityScore(val) {
     if (!val) return 0;
-    const u = val.toUpperCase().trim();
+    const parts = String(val).split('|');
+    const u = parts[0].toUpperCase().trim();
     if (u.includes(':') || u === 'PRESENT') {
       return 1.0;
     }
@@ -197,6 +343,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return 0;
   }
 
+  function isScheduledWorkDay(val) {
+    if (val === undefined || val === null) return false;
+    const parts = String(val).split('|');
+    const u = parts[0].toUpperCase().trim();
+    if (u === '' || u === '-' || u === 'WEEK OFF' || u === 'WO' || u === 'COMP OFF' || u === 'CO' || u === 'SICK LEAVE' || u === 'SL' || u === 'UNPAID LEAVE' || u === 'UL' || u === 'LWP' || u === 'TRIP' || u === 'LEAVE' || u === 'CASUAL LEAVE' || u === 'CL' || u === 'PL') {
+      return false;
+    }
+    return true;
+  }
+
   function getLeadFullName(leadKey) {
     if (!leadKey) return "";
     const cleanKey = leadKey.toUpperCase().trim();
@@ -204,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const match = regList.find(i => {
       if (!i.name) return false;
       const isLead = (i.designation && i.designation.toUpperCase().includes('LEAD')) ||
-                     (i.batch && i.batch.toUpperCase().includes('LEAD'));
+        (i.batch && i.batch.toUpperCase().includes('LEAD'));
       if (!isLead) return false;
       const nameParts = i.name.toUpperCase().trim().split(/\s+/);
       return nameParts[0] === cleanKey;
@@ -214,26 +370,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Master Column Label Maps
   const INTERN_COL_LABELS = {
-    intern: 'Intern',
+    intern: 'Agent Name',
     batch: 'Batch',
     lead: 'Lead',
     shift: 'Shift',
     phone: 'Number',
     email: 'Email',
     remark: 'Remark',
-    avail: 'Avail',
-    avg: 'Avg',
-    count: 'Count',
+    avail: 'Attendance',
+    avg: 'Avg Mess',
+    count: 'Chats',
     scanned: 'Scanned',
-    qcs: 'QCs',
+    qcs: 'QC Count',
     errorPct: 'Error %',
     ojtRtg: 'OJT Rtg',
     simpleQ: 'Simple Q',
     complexQ: 'Complex Q',
-    aiRtg: 'AI Rtg',
-    arst: 'ARST',
+    aiRtg: 'Rating',
+    arst: 'ARsT',
+    arpt: 'ARpT',
     frt: 'FRT',
     break: 'Break',
+    score: 'LB Score',
     trend: 'Trend',
     action: 'Action'
   };
@@ -253,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Global Modal Handlers
-  window.openModal = function(modalId) {
+  window.openModal = function (modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.add('active');
@@ -262,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  window.closeModal = function(modalId) {
+  window.closeModal = function (modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.remove('active');
@@ -278,21 +436,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function init() {
     setupEventListeners();
-    
+
     // Enforce initial default states on DOM elements to override browser input caching
     const batchSelect = document.getElementById('globalBatchSelect');
     if (batchSelect) batchSelect.value = state.activeBatch;
-    
+
     const leadSelect = document.getElementById('globalLeadSelect');
     if (leadSelect) leadSelect.value = state.activeLead;
-    
+
     const shiftSelect = document.getElementById('globalShiftSelect');
     if (shiftSelect) shiftSelect.value = state.activeShift;
-    
+
     const dateFilterSelect = document.getElementById('globalDateFilter');
     if (dateFilterSelect) dateFilterSelect.value = state.dateFilter;
-    
+
     fetchDashboardData();
+    startSyncPolling();
+  }
+
+  // Auto-sync polling: check for data updates every 30 seconds
+  function startSyncPolling() {
+    setInterval(async () => {
+      try {
+        const res = await fetch('/api/data');
+        const json = await res.json();
+        if (json.success && json.data) {
+          if (!state.data || json.data.lastSyncedAt !== state.data.lastSyncedAt) {
+            console.log('[Poll] Backend data changed, updating state...');
+            state.data = json.data;
+            state.config = json.config;
+            state.komalMetrics = json.komalMetrics;
+            
+            // Re-render, preserving user edits if highlights are currently focused
+            const isEditing = document.activeElement && 
+              (document.activeElement.id === 'highlightPositive' || 
+               document.activeElement.id === 'highlightConcerns' || 
+               document.activeElement.id === 'highlightNote');
+               
+            if (!isEditing) {
+              renderAllViews();
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('[Poll] Failed to auto-sync:', err.message);
+      }
+    }, 30000);
   }
 
   // Event Listeners Registration
@@ -502,10 +691,204 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnTestEmail = document.getElementById('btnTestEmail');
     if (btnTestEmail) btnTestEmail.addEventListener('click', () => testBackendConnection('email'));
 
+    // Komal AI Token and Sync Handlers
+    const btnSaveKomalToken = document.getElementById('btnSaveKomalToken');
+    if (btnSaveKomalToken) {
+      btnSaveKomalToken.addEventListener('click', async () => {
+        const token = document.getElementById('komalTokenInput').value.trim();
+        try {
+          const res = await fetch('/api/config/komal-token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token })
+          });
+          const json = await res.json();
+          if (json.success) {
+            alert('Komal AI Session Token saved successfully!');
+            fetchDashboardData();
+          } else {
+            alert('Failed to save token: ' + json.error);
+          }
+        } catch (e) {
+          alert('Error: ' + e.message);
+        }
+      });
+    }
+
+    const btnTriggerKomalSync = document.getElementById('btnTriggerKomalSync');
+    if (btnTriggerKomalSync) {
+      btnTriggerKomalSync.addEventListener('click', async () => {
+        btnTriggerKomalSync.disabled = true;
+        btnTriggerKomalSync.textContent = 'Syncing...';
+        try {
+          const res = await fetch('/api/komal/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionToken: document.getElementById('komalTokenInput').value.trim() })
+          });
+          const json = await res.json();
+          if (json.success) {
+            alert('Komal AI metrics sync completed successfully!');
+            fetchDashboardData();
+          } else {
+            alert('Sync failed: ' + json.error);
+          }
+        } catch (e) {
+          alert('Error: ' + e.message);
+        } finally {
+          btnTriggerKomalSync.disabled = false;
+          btnTriggerKomalSync.textContent = 'Sync Now';
+        }
+      });
+    }
+
+    // Email OTP Authentication Handlers
+    let tempJwtToken = '';
+    const btnKomalSendOTP = document.getElementById('btnKomalSendOTP');
+    const btnKomalVerifyOTP = document.getElementById('btnKomalVerifyOTP');
+    const komalOTPGroup = document.getElementById('komalOTPGroup');
+
+    if (btnKomalSendOTP) {
+      btnKomalSendOTP.addEventListener('click', async () => {
+        const email = document.getElementById('komalEmailInput').value.trim();
+        if (!email) {
+          alert('Please enter a valid email address.');
+          return;
+        }
+        btnKomalSendOTP.disabled = true;
+        btnKomalSendOTP.textContent = 'Sending...';
+        try {
+          const res = await fetch('/api/komal/login-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          const json = await res.json();
+          if (json.success && json.data) {
+            const raw = json.data;
+            const userObj = raw.data || raw;
+            if (userObj.jwtToken) {
+              tempJwtToken = userObj.jwtToken;
+              const otpInput = document.getElementById('komalOTPInput');
+              if (otpInput) otpInput.value = '0000';
+              alert('OTP request succeeded! (Using standard verify code: 0000). Please click "Verify & Link" below.');
+              if (komalOTPGroup) {
+                komalOTPGroup.classList.remove('hidden');
+                komalOTPGroup.style.display = 'flex';
+              }
+            } else {
+              alert('OTP request completed, but no session returned: ' + JSON.stringify(raw));
+            }
+          } else {
+            alert('Failed to send OTP: ' + (json.error || 'Unknown error'));
+          }
+        } catch (e) {
+          alert('OTP Error: ' + e.message);
+        } finally {
+          btnKomalSendOTP.disabled = false;
+          btnKomalSendOTP.textContent = 'Send OTP';
+        }
+      });
+    }
+
+    if (btnKomalVerifyOTP) {
+      btnKomalVerifyOTP.addEventListener('click', async () => {
+        const otp = document.getElementById('komalOTPInput').value.trim();
+        if (!otp || otp.length !== 4) {
+          alert('Please enter a valid 4-digit OTP code.');
+          return;
+        }
+        if (!tempJwtToken) {
+          alert('Session expired. Please click "Send OTP" again.');
+          return;
+        }
+        btnKomalVerifyOTP.disabled = true;
+        btnKomalVerifyOTP.textContent = 'Verifying...';
+        try {
+          const res = await fetch('/api/komal/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ otp, jwtToken: tempJwtToken })
+          });
+          const json = await res.json();
+          if (json.success) {
+            alert('Linked and Authenticated with Komal AI successfully! Sync triggered in the background.');
+            const tokenInput = document.getElementById('komalTokenInput');
+            if (tokenInput) tokenInput.value = json.token;
+            
+            fetchDashboardData();
+            
+            if (komalOTPGroup) {
+              komalOTPGroup.classList.add('hidden');
+              komalOTPGroup.style.display = 'none';
+            }
+          } else {
+            alert('Verification failed: ' + (json.error || 'Incorrect OTP code'));
+          }
+        } catch (e) {
+          alert('Verification error: ' + e.message);
+        } finally {
+          btnKomalVerifyOTP.disabled = false;
+          btnKomalVerifyOTP.textContent = 'Verify & Link';
+        }
+      });
+    }
+
+    const btnSaveConfigLink = document.getElementById('btnSaveConfigLink');
+    if (btnSaveConfigLink) {
+      btnSaveConfigLink.addEventListener('click', async () => {
+        const type = document.getElementById('linkTypeInput').value.trim();
+        const key = document.getElementById('linkKeyInput').value.trim();
+        const url = document.getElementById('linkUrlInput').value.trim();
+
+        if (!key || !url || !type) {
+          alert('Please enter Section/Category, Key, and Link URL.');
+          return;
+        }
+
+        btnSaveConfigLink.disabled = true;
+        btnSaveConfigLink.textContent = 'Saving...';
+
+        let typeKey = type.trim();
+        if (typeKey.toLowerCase() === 'sheet' || typeKey.toLowerCase() === 'sheets') {
+          typeKey = 'sheets';
+        } else if (typeKey.toLowerCase() === 'qcdoc' || typeKey.toLowerCase() === 'qcdocs' || typeKey.toLowerCase() === 'batchqcdocs') {
+          typeKey = 'batchQcDocs';
+        }
+
+        const payload = {};
+        if (!payload[typeKey]) payload[typeKey] = {};
+        payload[typeKey][key.toUpperCase()] = url;
+
+        try {
+          const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const json = await res.json();
+          if (json.success) {
+            alert('Link saved and deep merged successfully!');
+            state.config = json.config;
+            renderSheetsLinksPanel();
+            document.getElementById('linkKeyInput').value = '';
+            document.getElementById('linkUrlInput').value = '';
+          } else {
+            alert('Failed to save link: ' + json.error);
+          }
+        } catch (err) {
+          alert('Error saving config: ' + err.message);
+        } finally {
+          btnSaveConfigLink.disabled = false;
+          btnSaveConfigLink.textContent = '💾 Save Link';
+        }
+      });
+    }
+
     // Admin Add Intern Modal Triggers
     const btnAddIntern = document.getElementById('btnAddIntern');
     if (btnAddIntern) {
-      btnAddIntern.onclick = function(e) {
+      btnAddIntern.onclick = function (e) {
         if (e) e.preventDefault();
         window.openModal('internModal');
       };
@@ -513,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const internModalClose = document.getElementById('internModalClose');
     if (internModalClose) {
-      internModalClose.onclick = function(e) {
+      internModalClose.onclick = function (e) {
         if (e) e.preventDefault();
         window.closeModal('internModal');
       };
@@ -590,7 +973,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnInitiateEndOJT.addEventListener('click', () => {
         const batchSelect = document.getElementById('ojtEndBatchSelect');
         const targetBatch = batchSelect ? batchSelect.value : 'B-20';
-        
+
         document.getElementById('verifyBatchNameText').textContent = targetBatch;
         document.getElementById('verifyEndInput').value = '';
         document.getElementById('verifyTypeError').classList.add('hidden');
@@ -620,7 +1003,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('verifyTypeError').classList.add('hidden');
 
         const targetBatch = document.getElementById('ojtEndBatchSelect')?.value || 'B-20';
-        const endDate = document.getElementById('ojtEndDateInput')?.value || new Date().toISOString().split('T')[0];
+        const endDate = document.getElementById('ojtEndDateInput')?.value || getLocalDateStr(new Date());
 
         document.getElementById('finalBatchText').textContent = targetBatch;
         document.getElementById('finalDateText').textContent = endDate;
@@ -642,7 +1025,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnExecuteEndOJT) {
       btnExecuteEndOJT.addEventListener('click', async () => {
         const batch = document.getElementById('ojtEndBatchSelect')?.value || 'B-20';
-        const endDate = document.getElementById('ojtEndDateInput')?.value || new Date().toISOString().split('T')[0];
+        const endDate = document.getElementById('ojtEndDateInput')?.value || getLocalDateStr(new Date());
 
         try {
           const res = await fetch('/api/batch/complete', {
@@ -689,13 +1072,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btnCurrent) btnCurrent.classList.add('active-current');
       if (btnPrev) btnPrev.classList.remove('active-previous');
       if (prevContainer) prevContainer.classList.add('hidden');
-      
+
       state.activeBatch = state.currentOjtBatch || 'B-21';
       if (batchSelect) batchSelect.value = state.activeBatch;
       if (statusText) statusText.textContent = `Current OJT Team Active (${state.activeBatch})`;
 
-      // Strip previous scorecard-only columns if present
-      state.internCustomCols = state.internCustomCols.filter(c => !scoreCardExtraCols.includes(c));
+      // Add scorecard columns if not present
+      scoreCardExtraCols.forEach(col => {
+        if (!state.internCustomCols.includes(col)) {
+          state.internCustomCols.push(col);
+        }
+      });
       updateDateFilterOptions();
 
     } else if (mode === 'PREVIOUS') {
@@ -709,11 +1096,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       state.activeBatch = state.selectedPreviousBatch || 'B-20';
       if (batchSelect) batchSelect.value = state.activeBatch;
-      
+
       const compInfo = state.completedBatches && state.completedBatches[state.activeBatch];
       if (statusText) statusText.textContent = `Previous OJT Period (${state.activeBatch}${compInfo ? ' • Ended: ' + compInfo.endDate : ''})`;
 
-      // Add previous scorecard columns if not present
+      // Add scorecard columns if not present
       scoreCardExtraCols.forEach(col => {
         if (!state.internCustomCols.includes(col)) {
           state.internCustomCols.push(col);
@@ -726,13 +1113,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btnCurrent) btnCurrent.classList.remove('active-current');
       if (btnPrev) btnPrev.classList.remove('active-previous');
       if (prevContainer) prevContainer.classList.add('hidden');
-      
+
       state.activeBatch = 'ALL';
       if (batchSelect) batchSelect.value = 'ALL';
       if (statusText) statusText.textContent = 'Viewing All Batches';
 
-      // Strip previous scorecard-only columns
-      state.internCustomCols = state.internCustomCols.filter(c => !scoreCardExtraCols.includes(c));
+      // Add scorecard columns if not present
+      scoreCardExtraCols.forEach(col => {
+        if (!state.internCustomCols.includes(col)) {
+          state.internCustomCols.push(col);
+        }
+      });
       updateDateFilterOptions();
     }
 
@@ -742,82 +1133,40 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateDateFilterOptions() {
     const select = document.getElementById('globalDateFilter');
     if (!select) return;
-    
+
     const currentVal = state.dateFilter;
-    if (state.ojtMode === 'PREVIOUS') {
-      select.innerHTML = `
-        <option value="WEEK_1">Week 1</option>
-        <option value="WEEK_2">Week 2</option>
-        <option value="WEEK_3">Week 3</option>
-        <option value="WEEK_4">Week 4</option>
-        <option value="WEEK_5">Week 5</option>
-        <option value="WEEK_6">Week 6</option>
-        <option value="WEEK_7">Week 7</option>
-        <option value="WEEK_8">Week 8</option>
-        <option value="CUSTOM">Custom Range...</option>
-      `;
-      if (!currentVal.startsWith('WEEK_') && currentVal !== 'CUSTOM') {
-        state.dateFilter = 'WEEK_1';
-      }
-      select.value = state.dateFilter;
+    
+    // Always render all filter options unified
+    select.innerHTML = `
+      <option value="YESTERDAY">Yesterday</option>
+      <option value="ALL">All Days / All Time</option>
+      <option value="TODAY">Today</option>
+      <option value="WEEK">Current Week</option>
+      <option value="WEEK_1">Week 1</option>
+      <option value="WEEK_2">Week 2</option>
+      <option value="WEEK_3">Week 3</option>
+      <option value="WEEK_4">Week 4</option>
+      <option value="WEEK_5">Week 5</option>
+      <option value="WEEK_6">Week 6</option>
+      <option value="WEEK_7">Week 7</option>
+      <option value="WEEK_8">Week 8</option>
+      <option value="MONTH">Current Month</option>
+      <option value="CUSTOM">Custom Range...</option>
+    `;
+    
+    select.value = currentVal || 'YESTERDAY';
+    state.dateFilter = select.value;
 
-      // Update min/max date on custom inputs based on selected completed batch
-      const compInfo = state.completedBatches && state.completedBatches[state.selectedPreviousBatch];
-      const minDate = compInfo ? compInfo.startDate : '2025-10-23';
-      const maxDate = compInfo ? compInfo.endDate : '2026-07-19';
-      const startInput = document.getElementById('startDateInput');
-      const endInput = document.getElementById('endDateInput');
-      if (startInput) {
-        if (minDate) startInput.min = minDate;
-        if (maxDate) startInput.max = maxDate;
-      }
-      if (endInput) {
-        if (minDate) endInput.min = minDate;
-        if (maxDate) endInput.max = maxDate;
-      }
+    const startInput = document.getElementById('startDateInput');
+    const endInput = document.getElementById('endDateInput');
 
-    } else {
-      let optionsHTML = `
-        <option value="YESTERDAY">Yesterday</option>
-        <option value="ALL">All Time</option>
-        <option value="TODAY">Today</option>
-        <option value="WEEK">Current Week</option>
-      `;
-      if (state.ojtMode === 'CURRENT') {
-        optionsHTML += `
-          <option value="WEEK_1">Week 1</option>
-          <option value="WEEK_2">Week 2</option>
-          <option value="WEEK_3">Week 3</option>
-          <option value="WEEK_4">Week 4</option>
-          <option value="WEEK_5">Week 5</option>
-          <option value="WEEK_6">Week 6</option>
-          <option value="WEEK_7">Week 7</option>
-          <option value="WEEK_8">Week 8</option>
-        `;
-      }
-      optionsHTML += `
-        <option value="MONTH">Current Month</option>
-        <option value="CUSTOM">Custom Range...</option>
-      `;
-      select.innerHTML = optionsHTML;
-      
-      if (state.ojtMode === 'ALL' && currentVal && currentVal.startsWith('WEEK_')) {
-        state.dateFilter = 'YESTERDAY';
-      } else {
-        select.value = currentVal || 'YESTERDAY';
-        state.dateFilter = select.value;
-      }
-
-      const startInput = document.getElementById('startDateInput');
-      const endInput = document.getElementById('endDateInput');
-      if (startInput) {
-        startInput.removeAttribute('min');
-        startInput.removeAttribute('max');
-      }
-      if (endInput) {
-        endInput.removeAttribute('min');
-        endInput.removeAttribute('max');
-      }
+    if (startInput) {
+      startInput.removeAttribute('min');
+      startInput.removeAttribute('max');
+    }
+    if (endInput) {
+      endInput.removeAttribute('min');
+      endInput.removeAttribute('max');
     }
   }
 
@@ -827,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const batches = state.completedBatches || {};
     select.innerHTML = '';
-    
+
     // Sort in descending order: B-20, B-19, B-18, B-17, B-16, B-15
     const sortedBatches = Object.values(batches).sort((a, b) => {
       const numA = parseInt(a.batch.replace(/[^0-9]/g, ''), 10) || 0;
@@ -871,7 +1220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dateInput = document.getElementById('ojtEndDateInput');
     if (dateInput) {
-      dateInput.value = new Date().toISOString().split('T')[0];
+      dateInput.value = getLocalDateStr(new Date());
     }
   }
 
@@ -986,12 +1335,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (syncText) syncText.textContent = 'Syncing...';
 
     try {
-      const res = await fetch(`/api/data?t=${Date.now()}`);
-      const json = await res.json();
+      const [dataRes, qcDocsRes] = await Promise.all([
+        fetch(`/api/data?t=${Date.now()}`),
+        fetch('/api/qc-docs')
+      ]);
+      const json = await dataRes.json();
+      const qcDocsJson = await qcDocsRes.json();
+
       if (json.success) {
         state.data = json.data;
         if (state.data) {
-          state.data.qcDocData = json.qcDocData || [];
+          state.data.qcDocData = qcDocsJson.success ? (qcDocsJson.data || []) : [];
         }
         state.config = json.config;
         if (state.config) {
@@ -1014,10 +1368,35 @@ document.addEventListener('DOMContentLoaded', () => {
         populatePreviousBatchDropdown();
         renderAllViews();
         updateBackendStatusUI();
+        updateKomalAIStatusUI();
       }
     } catch (err) {
       console.error('Data fetch error:', err);
       if (syncText) syncText.textContent = 'Sync Offline';
+    }
+  }
+
+  // Update Komal AI Admin status dynamically
+  function updateKomalAIStatusUI() {
+    if (state.config) {
+      const tokenInput = document.getElementById('komalTokenInput');
+      if (tokenInput && state.config.komalSessionToken && !tokenInput.value) {
+        tokenInput.value = state.config.komalSessionToken;
+      }
+    }
+
+    const syncTag = document.getElementById('komalSyncStatusTag');
+    const lastSyncText = document.getElementById('komalLastSyncedText');
+    if (syncTag && lastSyncText && state.komalMetrics) {
+      const status = state.komalMetrics.syncStatus || 'IDLE';
+      syncTag.textContent = status;
+      syncTag.className = 'badge ' + (status === 'SUCCESS' ? 'badge-success' : (status === 'ERROR' ? 'badge-danger' : 'badge-warning'));
+      
+      if (state.komalMetrics.lastSyncedAt) {
+        lastSyncText.textContent = 'Last Synced: ' + new Date(state.komalMetrics.lastSyncedAt).toLocaleString();
+      } else {
+        lastSyncText.textContent = 'Last Synced: never';
+      }
     }
   }
 
@@ -1058,8 +1437,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  let activeRangeFetchPromise = null;
+  let activeRangeFetchKey = null;
+
+  async function ensureRangeMetrics() {
+    const activeFilter = state.dateFilter || 'YESTERDAY';
+    const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
+    if (!startStr || !endStr) return;
+
+    const rangeKey = `${startStr}_${endStr}`;
+    if (state.rangeMetricsKey === rangeKey) {
+      return; // Already loaded
+    }
+
+    if (activeRangeFetchKey === rangeKey) {
+      return activeRangeFetchPromise; // Currently fetching
+    }
+
+    activeRangeFetchKey = rangeKey;
+    const syncText = document.getElementById('syncText');
+    if (syncText) syncText.textContent = 'Fetching Komal AI...';
+
+    activeRangeFetchPromise = (async () => {
+      try {
+        const res = await fetch(`/api/komal/range-metrics?startDate=${startStr}&endDate=${endStr}`);
+        const json = await res.json();
+        if (json.success && json.data) {
+          state.komalRangeMetrics = json.data;
+          state.rangeMetricsKey = rangeKey;
+          if (syncText) syncText.textContent = 'Live Sync Active';
+          renderAllViews();
+        }
+      } catch (err) {
+        console.error('Error fetching range metrics:', err);
+        if (syncText) syncText.textContent = 'Sync Offline';
+      } finally {
+        activeRangeFetchKey = null;
+        activeRangeFetchPromise = null;
+      }
+    })();
+
+    return activeRangeFetchPromise;
+  }
+
   // Main Render Master Controller
   function renderAllViews() {
+    ensureRangeMetrics();
+    syncSubFilters();
     applyRolePermissionsUI();
     populateBatchDropdown();
     populateLeadDropdown();
@@ -1078,6 +1502,20 @@ document.addEventListener('DOMContentLoaded', () => {
       renderReportsTab();
     } else if (state.activeTab === 'tabAdmin') {
       renderAdminPanel();
+    }
+  }
+
+  // Synchronize sub-tab filters dynamically
+  function syncSubFilters() {
+    const qcSelect = document.getElementById('qcBatchShiftSelect');
+    if (qcSelect) {
+      const batch = state.activeBatch === 'ALL' ? 'B-20' : state.activeBatch;
+      const shift = state.activeShift === 'AM' ? 'morning' : (state.activeShift === 'PM' ? 'evening' : 'morning');
+      const combination = `${batch}|${shift}`;
+      const hasOption = Array.from(qcSelect.options).some(opt => opt.value === combination);
+      if (hasOption) {
+        qcSelect.value = combination;
+      }
     }
   }
 
@@ -1270,7 +1708,7 @@ document.addEventListener('DOMContentLoaded', () => {
           legend: { position: 'right' },
           tooltip: {
             callbacks: {
-              label: function(ctx) {
+              label: function (ctx) {
                 const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
                 const val = ctx.raw;
                 const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
@@ -1283,53 +1721,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Helper to resolve start/end date strings from activeFilter
+  // Helper to resolve start/end date strings from activeFilter (Timezone-safe)
   function getDateRangeFromFilter(activeFilter) {
     let startStr = null;
     let endStr = null;
-    const now = new Date();
+    const now = new Date(); // Local time
+
+    function formatLocalDate(d) {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
 
     if (activeFilter === 'CUSTOM') {
       startStr = state.customStartDate || null;
-      endStr = state.customEndDate || null;
+      endStr = state.customEndDate || startStr || null;
     } else if (activeFilter === 'TODAY') {
-      startStr = now.toISOString().split('T')[0];
+      startStr = formatLocalDate(now);
       endStr = startStr;
     } else if (activeFilter === 'YESTERDAY') {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      startStr = yesterday.toISOString().split('T')[0];
+      const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+      startStr = formatLocalDate(yesterday);
       endStr = startStr;
     } else if (activeFilter === 'WEEK') {
       const day = now.getDay();
       const diffToMonday = day === 0 ? -6 : 1 - day;
-      const start = new Date(now);
-      start.setDate(now.getDate() + diffToMonday);
-      const end = new Date(start);
-      end.setDate(start.getDate() + 6);
-      startStr = start.toISOString().split('T')[0];
-      endStr = end.toISOString().split('T')[0];
+      const start = new Date(now.getTime() + diffToMonday * 24 * 60 * 60 * 1000);
+      const end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
+      startStr = formatLocalDate(start);
+      endStr = formatLocalDate(end);
     } else if (activeFilter && (activeFilter.startsWith('WEEK_') || activeFilter.startsWith('Week '))) {
       const weekNum = parseInt(activeFilter.replace(/[^0-9]/g, ''), 10);
       if (!isNaN(weekNum) && weekNum >= 1) {
         const batchKey = state.activeBatch === 'ALL' ? (state.selectedPreviousBatch || 'B-20') : normalizeBatchName(state.activeBatch);
         const compInfo = state.completedBatches && state.completedBatches[batchKey];
         const configStart = (compInfo && compInfo.startDate) ||
-                            (state.config && state.config.weeklyTargets && state.config.weeklyTargets[batchKey] && state.config.weeklyTargets[batchKey].startDate);
+          (state.config && state.config.weeklyTargets && state.config.weeklyTargets[batchKey] && state.config.weeklyTargets[batchKey].startDate);
         const baseDateStr = configStart || '2026-05-25';
         const [bYear, bMonth, bDay] = baseDateStr.split('-').map(Number);
-        
-        // Use UTC to prevent any timezone shifts
-        const baseDate = new Date(Date.UTC(bYear, bMonth - 1, bDay));
+
+        const baseDate = new Date(bYear, bMonth - 1, bDay);
         const start = new Date(baseDate.getTime() + (weekNum - 1) * 7 * 24 * 60 * 60 * 1000);
         const end = new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000);
-        
-        startStr = start.toISOString().split('T')[0];
-        endStr = end.toISOString().split('T')[0];
+
+        startStr = formatLocalDate(start);
+        endStr = formatLocalDate(end);
       }
     } else if (activeFilter === 'MONTH') {
-      startStr = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-      endStr = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+      const start = new Date(now.getFullYear(), now.getMonth(), 1);
+      const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      startStr = formatLocalDate(start);
+      endStr = formatLocalDate(end);
+    } else if (activeFilter === 'ALL') {
+      startStr = '2025-01-01';
+      endStr = '2026-12-31';
     }
     return { startStr, endStr };
   }
@@ -1361,7 +1807,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filter google doc QC records dynamically by batch, date, and search query!
     let filtered = (state.data && state.data.qcDocData) || [];
-    
+
     // High-performance O(1) batch lookup map (same as scorecard!)
     const internBatchMap = new Map();
     const baseline = [
@@ -1451,7 +1897,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const totalBadge = document.getElementById('totalQCErrorsBadge');
     if (totalBadge) {
-      totalBadge.textContent = state.searchQuery 
+      totalBadge.textContent = state.searchQuery
         ? `Flagged QC Errors for ${state.searchQuery.toUpperCase()}: ${grandTotal}`
         : `Total Flagged QC Errors: ${grandTotal.toLocaleString()}`;
     }
@@ -1489,7 +1935,7 @@ document.addEventListener('DOMContentLoaded', () => {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: function(ctx) {
+              label: function (ctx) {
                 return ` ${ctx.label}`;
               }
             }
@@ -1522,13 +1968,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const datesInRange = [];
     if (startStr && endStr) {
-      const start = new Date(startStr);
-      const end = new Date(endStr);
-      const diffTime = Math.abs(end - start);
-      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-      for (let i = 0; i <= diffDays; i++) {
-        const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
-        datesInRange.push(d.toISOString().split('T')[0]);
+      let current = new Date(startStr + 'T00:00:00');
+      const endDateObj = new Date(endStr + 'T00:00:00');
+      while (current <= endDateObj) {
+        datesInRange.push(getLocalDateStr(current));
+        current.setDate(current.getDate() + 1);
       }
     } else {
       // Collect all dates with entries if dateFilter is ALL
@@ -1540,7 +1984,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (state.data && state.data.commsChatData) {
         Object.values(state.data.commsChatData).forEach(obj => {
-          Object.keys(obj).forEach(d => uniqueDates.add(d));
+          if (obj && typeof obj === 'object') {
+            const firstKey = Object.keys(obj)[0];
+            if (firstKey) {
+              const isDateKey = /^\d{4}-\d{2}-\d{2}$/.test(firstKey);
+              if (isDateKey) {
+                Object.keys(obj).forEach(d => uniqueDates.add(d));
+              } else {
+                Object.values(obj).forEach(dateStore => {
+                  if (dateStore && typeof dateStore === 'object') {
+                    Object.keys(dateStore).forEach(d => uniqueDates.add(d));
+                  }
+                });
+              }
+            }
+          }
+        });
+      }
+      if (state.data && state.data.dailyAuditScanned) {
+        Object.values(state.data.dailyAuditScanned).forEach(batchStore => {
+          Object.values(batchStore).forEach(internStore => {
+            Object.keys(internStore).forEach(d => uniqueDates.add(d));
+          });
+        });
+      }
+      if (state.data && state.data.qcDocData) {
+        state.data.qcDocData.forEach(item => {
+          if (item.chatDate) uniqueDates.add(item.chatDate);
         });
       }
       datesInRange.push(...Array.from(uniqueDates));
@@ -1549,15 +2019,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Compute previous period dates of equal length
     const prevDatesList = [];
     if (startStr && endStr) {
-      const start = new Date(startStr);
-      const end = new Date(endStr);
+      const start = new Date(startStr + 'T00:00:00');
+      const end = new Date(endStr + 'T00:00:00');
       const diffTime = Math.abs(end - start);
       const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-      const prevStart = new Date(start.getTime() - diffDays * 24 * 60 * 60 * 1000);
+      let current = new Date(start.getTime());
+      current.setDate(current.getDate() - diffDays);
       for (let i = 0; i < diffDays; i++) {
-        const d = new Date(prevStart.getTime() + i * 24 * 60 * 60 * 1000);
-        prevDatesList.push(d.toISOString().split('T')[0]);
+        prevDatesList.push(getLocalDateStr(current));
+        current.setDate(current.getDate() + 1);
       }
     }
 
@@ -1589,23 +2060,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return attendanceCache.get(cleanName);
       }
 
-      const regParts = cleanName.split(/\s+/).filter(p => p.length > 0);
-      if (regParts.length === 0) return null;
-      const regFirst = regParts[0];
-      const regLast = regParts.length > 1 ? regParts[regParts.length - 1] : "";
+      if (!state.data || !state.data.attendanceData) return null;
 
-      const matchingKeys = [];
-      parsedAttendanceKeys.forEach(pk => {
-        if (regFirst === pk.first) {
-          if (regLast && pk.last) {
-            if (regLast === pk.last) {
-              matchingKeys.push(pk.key);
-            }
-          } else if (!regLast && !pk.last) {
-            matchingKeys.push(pk.key);
-          }
-        }
-      });
+      const attKeys = Object.keys(state.data.attendanceData);
+      const matchingKeys = attKeys.filter(k => namesMatch(internName, k));
 
       if (matchingKeys.length === 0) {
         attendanceCache.set(cleanName, null);
@@ -1663,7 +2121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let evalDates = [];
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const yesterdayStr = getLocalDateStr(yesterday);
 
       const activeFilter = state.dateFilter || 'YESTERDAY';
       const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
@@ -1679,7 +2137,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const limit = Math.min(1000, Math.max(0, diffDays));
           for (let i = 0; i <= limit; i++) {
             const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
-            evalDates.push(d.toISOString().split('T')[0]);
+            evalDates.push(getLocalDateStr(d));
           }
         } else {
           evalDates = datesList.filter(d => d <= yesterdayStr);
@@ -1691,16 +2149,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       evalDates.forEach(dateStr => {
         const val = record[dateStr];
-        if (val !== undefined) {
+        if (isScheduledWorkDay(val)) {
           scheduledDays++;
           availableDays += getAvailabilityScore(val);
         }
       });
 
       let availStr = 'No Data';
-      if (scheduledDays > 0) {
-        const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) && 
-                            (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
+      if (evalDates.length === 1) {
+        availStr = record[evalDates[0]] || 'No Data';
+      } else if (scheduledDays > 0) {
+        const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) &&
+          (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
         if (isFullMonth) {
           availStr = `${availableDays} / ${scheduledDays}`;
         } else {
@@ -1762,7 +2222,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const isSingleDayFilter = state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY' || (evalDates.length === 1);
-      
+
       let chatCountVal = "No Data";
       let avgChatCountVal = "No Data";
 
@@ -1771,31 +2231,209 @@ document.addEventListener('DOMContentLoaded', () => {
         avgChatCountVal = isSingleDayFilter ? totalChats : (availableDays > 0 ? parseFloat((totalChats / availableDays).toFixed(1)) : 0);
       }
 
-      return { 
-        avail: availStr, 
-        chatCount: chatCountVal, 
-        avgChatCount: avgChatCountVal, 
-        scannedVal: "No Data", 
-        qcs: 0, 
-        errorPct: "No Data", 
-        ojtRtg: "No Data", 
-        simpleQ: "No Data", 
-        complexQ: "No Data", 
-        aiRtg: "No Data", 
-        arstVal: "No Data", 
-        breakVal: "No Data" 
+      let qcDocsCount = 0;
+      const regBatch = normalizeBatchName(reg.batch || 'B-20');
+      if (state.data && state.data.qcDocData) {
+        state.data.qcDocData.forEach(item => {
+          if (item.type !== 'suggestion') {
+            const itemBatch = normalizeBatchName(item.batch || 'B-20');
+            if (itemBatch === regBatch || itemBatch === 'UNASSIGNED' || !item.batch) {
+              if (item.internName && namesMatch(reg.name, item.internName)) {
+                if (item.chatDate && datesList.includes(item.chatDate)) {
+                  qcDocsCount++;
+                }
+              }
+            }
+          }
+        });
+      }
+
+      let scannedChatsSum = 0;
+      let ratingSum = 0;
+      let ratingCount = 0;
+      let hasScannedData = false;
+      const nameKey = reg.name.toLowerCase().trim();
+
+      if (state.data && state.data.dailyAuditScanned) {
+        const bKeys = [regBatch, regBatch.replace('Batch ', 'B-'), reg.batch].map(k => k ? k.toUpperCase().trim() : '');
+        const uniqueBKeys = Array.from(new Set(bKeys));
+
+        for (const bKey of uniqueBKeys) {
+          const batchStore = state.data.dailyAuditScanned[bKey];
+          if (batchStore) {
+            // Match ALL keys that correspond to this intern name to handle variations (e.g. "aditya" and "aditya jaiswal")
+            const matchedKeys = Object.keys(batchStore).filter(k => namesMatch(nameKey, k));
+            matchedKeys.forEach(matchedInternKey => {
+              const internDatesStore = batchStore[matchedInternKey];
+              datesList.forEach(dateStr => {
+                const entry = internDatesStore[dateStr];
+                if (entry) {
+                  scannedChatsSum += (entry.scanned || 0);
+                  if (entry.ratingCount > 0) {
+                    ratingSum += (entry.ratingSum || 0);
+                    ratingCount += (entry.ratingCount || 0);
+                  }
+                  hasScannedData = true;
+                }
+              });
+            });
+            if (hasScannedData) break;
+          }
+        }
+      }
+
+      const finalScannedVal = hasScannedData ? scannedChatsSum : "No Data";
+      const finalOjtRtg = (hasScannedData && ratingCount > 0) ? parseFloat((ratingSum / ratingCount).toFixed(2)) : "No Data";
+      
+      let finalErrorPct = "No Data";
+      if (hasScannedData) {
+        if (scannedChatsSum > 0) {
+          // Dynamic Formula: Error % = QC Found / Chats Scanned * 100
+          finalErrorPct = parseFloat(((qcDocsCount / scannedChatsSum) * 100).toFixed(2));
+        } else {
+          finalErrorPct = 0;
+        }
+      }
+
+      // 3. Retrieve Komal AI agent metrics dynamically inside the date range
+      let simpleQ = "No Data";
+      let complexQ = "No Data";
+      let finalBreak = "No Data";
+      let avgBreakVal = "No Data";
+      let finalArst = "No Data";
+      let finalArpt = "No Data";
+      let finalAiRtg = "No Data";
+      let finalFrt = "No Data";
+      let finalCalcScore = "No Data";
+      let hasKomalData = false;
+
+      // If we have live range metrics fetched from Komal AI for this range, use it!
+      const rangeKey = `${startStr}_${endStr}`;
+      
+      if (state.komalRangeMetrics && state.rangeMetricsKey === rangeKey) {
+        const matchedKey = Object.keys(state.komalRangeMetrics).find(k => namesMatch(reg.name, k));
+        const rangeRecord = matchedKey ? state.komalRangeMetrics[matchedKey] : null;
+        if (rangeRecord) {
+          hasKomalData = true;
+          simpleQ = rangeRecord.simpleQ;
+          complexQ = rangeRecord.complexQ;
+          finalBreak = rangeRecord.break;
+          avgBreakVal = datesList.length > 0 ? (rangeRecord.break / datesList.length) : rangeRecord.break;
+          finalArst = rangeRecord.arst;
+          finalArpt = rangeRecord.arpt;
+          finalAiRtg = rangeRecord.aiRtg;
+          finalFrt = rangeRecord.frt;
+          finalCalcScore = rangeRecord.calculation_score;
+        }
+      }
+
+      if (!hasKomalData) {
+        // Fallback to daily logs aggregation
+        if (state.komalMetrics && state.komalMetrics.agentMetrics) {
+          const cleanName = reg.name.toLowerCase().trim();
+          const agentRecord = state.komalMetrics.agentMetrics[cleanName];
+          if (agentRecord && agentRecord.daily) {
+            let simpleQSum = 0;
+            let complexQSum = 0;
+            let breakSum = 0;
+            let breakCount = 0;
+            let arstSum = 0;
+            let arstCount = 0;
+            let arptSum = 0;
+            let arptCount = 0;
+            let aiRtgSum = 0;
+            let aiRtgCount = 0;
+            let frtSum = 0;
+            let frtCount = 0;
+            let calcScoreSum = 0;
+            let calcScoreCount = 0;
+
+            datesList.forEach(dateStr => {
+              const dayData = agentRecord.daily[dateStr];
+              if (dayData) {
+                hasKomalData = true;
+                simpleQSum += (dayData.simpleQ || 0);
+                complexQSum += (dayData.complexQ || 0);
+                
+                const breakSec = parseToSeconds(dayData.break || dayData.breakVal);
+                breakSum += breakSec;
+                breakCount++;
+                
+                const arstSec = parseToSeconds(dayData.arst);
+                if (arstSec > 0) {
+                  arstSum += arstSec;
+                  arstCount++;
+                }
+
+                const arptSec = parseToSeconds(dayData.arpt);
+                if (arptSec > 0) {
+                  arptSum += arptSec;
+                  arptCount++;
+                }
+
+                const aiRtg = parseFloat(dayData.aiRtg);
+                if (!isNaN(aiRtg) && aiRtg > 0) {
+                  aiRtgSum += aiRtg;
+                  aiRtgCount++;
+                }
+
+                const frtSec = parseToSeconds(dayData.frt);
+                if (frtSec > 0) {
+                  frtSum += frtSec;
+                  frtCount++;
+                }
+
+                const calcScore = parseFloat(dayData.calculation_score);
+                if (!isNaN(calcScore) && calcScore > 0) {
+                  calcScoreSum += calcScore;
+                  calcScoreCount++;
+                }
+              }
+            });
+
+            if (hasKomalData) {
+              simpleQ = simpleQSum;
+              complexQ = complexQSum;
+              const isMultiDay = datesList.length > 1;
+              finalBreak = isMultiDay ? breakSum : (breakCount > 0 ? parseFloat((breakSum / breakCount).toFixed(2)) : 0);
+              avgBreakVal = (breakCount > 0) ? parseFloat((breakSum / breakCount).toFixed(2)) : 0;
+              finalArst = arstCount > 0 ? parseFloat((arstSum / arstCount).toFixed(2)) : 0;
+              finalArpt = arptCount > 0 ? parseFloat((arptSum / arptCount).toFixed(2)) : 0;
+              finalAiRtg = aiRtgCount > 0 ? parseFloat((aiRtgSum / aiRtgCount).toFixed(2)) : 0;
+              finalFrt = frtCount > 0 ? parseFloat((frtSum / frtCount).toFixed(2)) : 0;
+              finalCalcScore = calcScoreCount > 0 ? parseFloat((calcScoreSum / calcScoreCount).toFixed(2)) : 0;
+            }
+          }
+        }
+      }
+
+      return {
+        avail: availStr,
+        chatCount: chatCountVal,
+        avgChatCount: avgChatCountVal,
+        scannedVal: finalScannedVal,
+        qcs: qcDocsCount,
+        errorPct: finalErrorPct,
+        ojtRtg: finalOjtRtg,
+        simpleQ: simpleQ,
+        complexQ: complexQ,
+        aiRtg: finalAiRtg,
+        arstVal: finalArst,
+        arptVal: finalArpt,
+        breakVal: finalBreak,
+        avgBreakVal: avgBreakVal,
+        frtVal: finalFrt,
+        calculation_scoreVal: finalCalcScore,
+        scheduledDaysVal: scheduledDays
       };
     }
 
     function getWeightedScore(stats) {
-      const errorScore = stats.errorPct !== "No Data" ? Math.max(0, 100 - stats.errorPct) : 100;
-      const chatScore = stats.avgChatCount !== "No Data" ? Math.min(100, (stats.avgChatCount / 150) * 100) : 50;
-      const breakScore = stats.breakVal !== "No Data" ? Math.max(0, 100 - Math.abs((stats.breakVal / 60) - 9) * 10) : 50;
-      const aiScore = stats.aiRtg !== "No Data" ? (stats.aiRtg / 5) * 100 : 50;
-      const ojtScore = stats.ojtRtg !== "No Data" ? (stats.ojtRtg / 5) * 100 : 50;
-      const arstScore = stats.arstVal !== "No Data" ? Math.max(0, 100 - stats.arstVal * 15) : 50;
-
-      return errorScore * 0.35 + chatScore * 0.20 + breakScore * 0.15 + aiScore * 0.15 + ojtScore * 0.10 + arstScore * 0.05;
+      if (!stats || stats.calculation_scoreVal === "No Data" || stats.calculation_scoreVal === null || stats.calculation_scoreVal === undefined) {
+        return 0;
+      }
+      const val = parseFloat(stats.calculation_scoreVal);
+      return isNaN(val) ? 0 : val;
     }
 
     // Process each intern from Admin Panel registry
@@ -1826,8 +2464,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      // Skip inactive interns ONLY when in CURRENT OJT mode
+      if (state.ojtMode === 'CURRENT' && reg.status && reg.status.toLowerCase() === 'inactive') return;
+
       // 2. Lead filter
-      if (state.activeLead !== 'ALL' && reg.lead && reg.lead.toUpperCase().trim() !== state.activeLead) return;
+      if (state.activeLead !== 'ALL') {
+        const internLead = (reg.lead || '').toUpperCase().trim();
+        const internOjtLead = (reg.ojtLead || '').toUpperCase().trim();
+        if (internLead !== state.activeLead && internOjtLead !== state.activeLead) return;
+      }
 
       // 3. Shift filter
       if (state.activeShift !== 'ALL' && reg.shift && reg.shift.toUpperCase().trim() !== state.activeShift) return;
@@ -1844,7 +2489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const statsCurrent = calculateStatsForDates(reg, datesInRange);
       let statsPrev = null;
       let trend = "-";
-      
+
       if (prevDatesList.length > 0) {
         statsPrev = calculateStatsForDates(reg, prevDatesList);
         const scoreCurrent = getWeightedScore(statsCurrent);
@@ -1859,7 +2504,7 @@ document.addEventListener('DOMContentLoaded', () => {
           trend = "▬ Stable";
         }
       }
-      
+
       let frtVal = "No Data";
 
       // Override with Static Reporting Data for Previous/Current OJT Batches (Batch 20, Batch 19, etc.)
@@ -1872,15 +2517,20 @@ document.addEventListener('DOMContentLoaded', () => {
         batchRepData = state.data[`${regBatch.toLowerCase().replace(/[^a-z0-9]/g, '')}Reporting`];
       }
 
-      if ((state.ojtMode === 'PREVIOUS' || regBatch === 'B-20' || regBatch === 'B-19') && batchRepData) {
+      const compInfo = state.completedBatches && state.completedBatches[regBatch];
+      const ojtEndDate = compInfo ? compInfo.endDate : null;
+      const { startStr: currentStartStr } = getDateRangeFromFilter(state.dateFilter);
+      const isAfterOjt = ojtEndDate && currentStartStr && (currentStartStr > ojtEndDate);
+
+      if ((state.ojtMode === 'PREVIOUS' || regBatch === 'B-20' || regBatch === 'B-19') && batchRepData && !isAfterOjt) {
         const cleanName = reg.name.toLowerCase().trim();
         const bRep = batchRepData;
-        
+
         // 1. Daily Data & Weekly Scorecard Overrides
         const dailyKeys = Object.keys(bRep.daily || {});
         let dMatch = dailyKeys.find(k => k === cleanName);
         if (!dMatch) {
-          dMatch = dailyKeys.find(k => strictNameMatch(k, cleanName) || k.includes(cleanName.split(' ')[0]));
+          dMatch = dailyKeys.find(k => namesMatch(cleanName, k));
         }
 
         const weeklyKeys = Object.keys(bRep.weekly || {});
@@ -1888,19 +2538,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!wMatch) {
           wMatch = weeklyKeys.find(k => {
             const cleanK = k.replace(/\(.*\)/g, '').trim();
-            return strictNameMatch(cleanK, cleanName) || cleanK.includes(cleanName.split(' ')[0]);
+            return namesMatch(cleanName, cleanK);
           });
         }
 
         const isSingleDateFilter = (state.dateFilter === 'TODAY' || state.dateFilter === 'YESTERDAY' || state.dateFilter === 'CUSTOM' || (!state.dateFilter.startsWith('WEEK_') && state.dateFilter !== 'MONTH' && state.dateFilter !== 'ALL'));
+        const isDynamicBatch = (regBatch === 'B-20' || regBatch === 'B-21' || regBatch === 'B-22' || parseInt((regBatch.match(/\d+/) || [0])[0], 10) >= 20);
 
         if (regBatch === 'B-20') {
           if (isSingleDateFilter) {
             // For Batch 20 Single/Custom Date Filter:
-            // Hide Error %, OJT Rtg, Trend, and Scanned
-            statsCurrent.scannedVal = "No Data";
-            statsCurrent.qcs = 0;
-            statsCurrent.errorPct = "No Data";
+            // Hide Error %, OJT Rtg, Trend, and Scanned unless dynamic
+            if (!isDynamicBatch) {
+              statsCurrent.scannedVal = "No Data";
+              statsCurrent.errorPct = "No Data";
+            }
             statsCurrent.ojtRtg = "No Data";
             trend = "-";
 
@@ -1935,9 +2587,10 @@ document.addEventListener('DOMContentLoaded', () => {
               }
 
               if (weekData) {
-                if (weekData.scanned !== undefined && weekData.scanned !== null) statsCurrent.scannedVal = weekData.scanned;
-                if (weekData.qcs !== undefined && weekData.qcs !== null) statsCurrent.qcs = weekData.qcs;
-                if (weekData.errorPct !== undefined && weekData.errorPct !== null) statsCurrent.errorPct = weekData.errorPct;
+                if (!isDynamicBatch) {
+                  if (weekData.scanned !== undefined && weekData.scanned !== null) statsCurrent.scannedVal = weekData.scanned;
+                  if (weekData.errorPct !== undefined && weekData.errorPct !== null) statsCurrent.errorPct = weekData.errorPct;
+                }
                 if (weekData.ojtRtg !== undefined && weekData.ojtRtg !== null) statsCurrent.ojtRtg = weekData.ojtRtg;
                 if (weekData.aiRtg !== undefined && weekData.aiRtg !== null) statsCurrent.aiRtg = weekData.aiRtg;
                 if (weekData.arst !== undefined && weekData.arst !== null && weekData.arst !== '-') statsCurrent.arstVal = weekData.arst;
@@ -1974,7 +2627,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (weekData) {
               if (weekData.scanned !== undefined && weekData.scanned !== null) statsCurrent.scannedVal = weekData.scanned;
-              if (weekData.qcs !== undefined && weekData.qcs !== null) statsCurrent.qcs = weekData.qcs;
               if (weekData.errorPct !== undefined && weekData.errorPct !== null) statsCurrent.errorPct = weekData.errorPct;
               if (weekData.ojtRtg !== undefined && weekData.ojtRtg !== null) statsCurrent.ojtRtg = weekData.ojtRtg;
               if (weekData.aiRtg !== undefined && weekData.aiRtg !== null) statsCurrent.aiRtg = weekData.aiRtg;
@@ -1983,20 +2635,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         }
-      } else {
-        // When Previous OJT period is turned OFF:
-        // Fetch AIRTG, ARST, FRT, BREAK from Komal AI metrics
-        if (state.komalMetrics) {
-          const cleanName = reg.name.toLowerCase().trim();
-          const km = state.komalMetrics[cleanName] || {};
-          if (km.shift && km.shift !== '-') reg.shift = km.shift;
-          if (km.aiRtg && km.aiRtg !== '-' && parseFloat(km.aiRtg) <= 5.0) statsCurrent.aiRtg = km.aiRtg;
-          if (km.arst && km.arst !== '-') statsCurrent.arstVal = km.arst;
-          if (km.frt && km.frt !== '-') frtVal = km.frt;
-          if (km.break && km.break !== '-') statsCurrent.breakVal = km.break;
-          if (km.simpleQ && km.simpleQ !== '-') statsCurrent.simpleQ = km.simpleQ;
-          if (km.complexQ && km.complexQ !== '-') statsCurrent.complexQ = km.complexQ;
+      }
+
+      statsCurrent.frtVal = frtVal;
+
+      // Skip interns whose batch has not started yet during the applied date filter range
+      let batchStart = null;
+      if (regBatch === 'B-21') {
+        batchStart = '2026-08-03';
+      } else if (state.completedBatches[regBatch]) {
+        batchStart = state.completedBatches[regBatch].startDate;
+      }
+      if (batchStart) {
+        const maxQueryDate = datesInRange.reduce((max, d) => d > max ? d : max, '');
+        if (maxQueryDate && maxQueryDate < batchStart) {
+          return; // Skip!
         }
+      }
+
+      // Skip inactive/quit interns if they have no scheduled days and no chats/data in the applied range
+      const hasQuit = reg.remark && (reg.remark.toLowerCase().includes('quit') || reg.remark.toLowerCase().includes('remove') || reg.remark.toLowerCase().includes('exit') || reg.remark.toLowerCase().includes('left'));
+      if (hasQuit && (statsCurrent.scheduledDaysVal === 0 || statsCurrent.scheduledDaysVal === undefined) && (statsCurrent.chatCount === 0 || statsCurrent.chatCount === "No Data")) {
+        return; // Skip!
       }
 
       // Format final values for display
@@ -2019,12 +2679,14 @@ document.addEventListener('DOMContentLoaded', () => {
         simpleQ: statsCurrent.simpleQ,
         complexQ: statsCurrent.complexQ,
         aiRtg: statsCurrent.aiRtg,
-        arst: statsCurrent.arstVal !== "No Data" && !String(statsCurrent.arstVal).toLowerCase().includes('min') ? `${statsCurrent.arstVal} Min` : statsCurrent.arstVal,
-        frt: frtVal,
-        break: statsCurrent.breakVal !== "No Data" && !isNaN(statsCurrent.breakVal) ? `${(statsCurrent.breakVal / 60).toFixed(2)} hours` : statsCurrent.breakVal,
+        arst: formatResponseTime(statsCurrent.arstVal),
+        arpt: formatKomalTime(statsCurrent.arptVal),
+        frt: formatFrtTime(statsCurrent.frtVal),
+        break: formatBreakTime(statsCurrent.breakVal),
         trend,
         rawStats: statsCurrent,
-        score: getWeightedScore(statsCurrent)
+        score: statsCurrent.calculation_scoreVal !== "No Data" ? statsCurrent.calculation_scoreVal : 0,
+        scorePrev: statsPrev && statsPrev.calculation_scoreVal !== "No Data" ? statsPrev.calculation_scoreVal : null
       });
     });
 
@@ -2034,7 +2696,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const normB = normalizeBatchName(b.batch);
       const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
       const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
-      
+
       if (numA !== numB) {
         return numB - numA; // Descending batches
       }
@@ -2064,11 +2726,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr = document.createElement('tr');
       tr.innerHTML = cols.map(col => {
         let val = row[col] !== undefined ? row[col] : '-';
+        if (col === 'avail') {
+          return formatAttendanceCell(val);
+        }
         if (col === 'errorPct') {
           if (val === "No Data") return `<td>No Data</td>`;
           const num = parseFloat(val);
           const colorClass = num > 20 ? 'color-red' : (num > 10 ? 'color-amber' : 'color-green');
           return `<td class="${colorClass} font-semibold">${num.toFixed(2)}%</td>`;
+        }
+        if (col === 'score') {
+          if (val === "No Data" || val === null || val === undefined || val === '-' || val === 0) return `<td>No Data</td>`;
+          const num = parseFloat(val);
+          if (isNaN(num)) return `<td>No Data</td>`;
+          return `<td class="font-semibold">${num.toFixed(2)}%</td>`;
         }
         if (col === 'batch') {
           return `<td><span class="badge badge-teal" style="font-weight: 700;">${val}</span></td>`;
@@ -2107,6 +2778,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Helper function to update Executive Highlights
   function updateHighlights(records, startStr, endStr) {
+    // 1. Sync Overview KPI Summary Cards first
+    updateOverviewKPIs(records);
+
     const positiveBox = document.getElementById('highlightPositive');
     const concernsBox = document.getElementById('highlightConcerns');
     const noteBox = document.getElementById('highlightNote');
@@ -2119,17 +2793,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (records.length === 0) {
       if (positiveBox) positiveBox.innerHTML = `<strong>Positive:</strong> No active records found for the applied filter.`;
       if (concernsBox) concernsBox.innerHTML = `<strong>Concerns:</strong> No concern data available.`;
+      if (noteBox) noteBox.innerHTML = `<strong>Note:</strong> OJT Audit and Komal AI metrics are empty for the selected filters.`;
       return;
     }
 
-    // Filters out "No Data" for correct highlight selection
-    const validScores = records.filter(r => r.score !== undefined);
-    const validOjt = records.filter(r => r.ojtRtg !== "No Data");
-    const validAvg = records.filter(r => r.avg !== "No Data");
-    const validError = records.filter(r => r.errorPct !== "No Data");
-    const validAi = records.filter(r => r.aiRtg !== "No Data");
-    const validComplex = records.filter(r => r.complexQ !== "No Data");
+    // Filters out "No Data" for correct highlights selection
+    const validScores = records.filter(r => r.score !== undefined && !isNaN(r.score));
+    const validOjt = records.filter(r => r.ojtRtg !== "No Data" && !isNaN(r.ojtRtg));
+    const validAvg = records.filter(r => r.avg !== "No Data" && !isNaN(r.avg));
+    const validError = records.filter(r => r.errorPct !== "No Data" && !isNaN(r.errorPct) && r.scanned > 10);
+    const validAi = records.filter(r => r.aiRtg !== "No Data" && !isNaN(r.aiRtg));
+    const validComplex = records.filter(r => r.complexQ !== "No Data" && !isNaN(r.complexQ));
+    const validChats = records.filter(r => r.count !== "No Data" && !isNaN(r.count));
+    const validBreaks = records.filter(r => r.rawStats && r.rawStats.breakVal !== "No Data" && !isNaN(r.rawStats.breakVal));
 
+    // Performer Calculations
     let topPerformer = null;
     if (validScores.length > 0) {
       topPerformer = validScores.reduce((max, r) => r.score > max.score ? r : max, validScores[0]);
@@ -2155,31 +2833,59 @@ document.addEventListener('DOMContentLoaded', () => {
       highestComplex = validComplex.reduce((max, r) => r.complexQ > max.complexQ ? r : max, validComplex[0]);
     }
 
-    // Concerns lists
-    const highErrorList = records.filter(r => r.errorPct !== "No Data" && r.errorPct > 20).map(r => `${r.intern} (${r.errorPct}%)`);
-    const lowProdList = records.filter(r => r.avg !== "No Data" && r.avg < 50).map(r => `${r.intern} (${r.avg} chats/day)`);
+    let highestChatCount = null;
+    if (validChats.length > 0) {
+      highestChatCount = validChats.reduce((max, r) => r.count > max.count ? r : max, validChats[0]);
+    }
+
+    // Most Improved Calculation: based on difference between scoreCurrent and scorePrev
+    const improvedList = records.filter(r => r.score !== undefined && r.scorePrev !== null && r.scorePrev !== undefined && !isNaN(r.scorePrev));
+    let mostImproved = null;
+    if (improvedList.length > 0) {
+      mostImproved = improvedList.reduce((max, r) => {
+        const diffR = r.score - r.scorePrev;
+        const diffMax = max.score - max.scorePrev;
+        return diffR > diffMax ? r : max;
+      }, improvedList[0]);
+    }
+
+    // Most Consistent Performer: high score (> 75) and Stable trend
+    const consistentList = records.filter(r => r.score > 75 && (r.trend.includes('Stable') || r.trend.includes('▬') || r.trend.includes('↕')));
+    const mostConsistent = consistentList.length > 0 ? consistentList.reduce((max, r) => r.score > max.score ? r : max, consistentList[0]) : null;
+
+    // Attention Needed Lists
+    const highErrorList = records.filter(r => r.errorPct !== "No Data" && r.errorPct > 15).map(r => `${r.intern} (Error Rate: ${r.errorPct.toFixed(1)}%)`);
+    const lowProdList = records.filter(r => r.avg !== "No Data" && r.avg < 50).map(r => `${r.intern} (Productivity: ${r.avg} chats/day)`);
     const lowAvailList = records.filter(r => {
       if (r.avail === "No Data") return false;
       const parts = String(r.avail).split('/');
       const days = parseFloat(parts[0] || '0');
       return days < 3;
-    }).map(r => `${r.intern} (${r.avail} days)`);
+    }).map(r => `${r.intern} (Available: ${r.avail} days)`);
+    const highBreakList = records.filter(r => r.rawStats && r.rawStats.breakVal !== "No Data" && r.rawStats.breakVal > 360).map(r => `${r.intern} (Break: ${Math.round(r.rawStats.breakVal)} mins)`);
 
     // Render positive highlights
     let posHtml = `<strong>Positive:</strong> `;
     const posParts = [];
     if (topPerformer) {
-      posParts.push(`Top Performer was <strong>${topPerformer.intern}</strong> (Weighted Score: ${topPerformer.score.toFixed(1)})`);
+      posParts.push(`Top Performer is <strong>${topPerformer.intern}</strong> (Weighted Score: ${topPerformer.score.toFixed(1)})`);
     }
     if (highestProd) {
       posParts.push(`Highest productivity achieved by <strong>${highestProd.intern}</strong> with an average of <strong>${highestProd.avg}</strong> chats/day`);
     }
     if (highestQuality) {
-      posParts.push(`Highest quality maintained by <strong>${highestQuality.intern}</strong> with an error rate of <strong>${highestQuality.errorPct}%</strong>`);
+      posParts.push(`Highest quality maintained by <strong>${highestQuality.intern}</strong> with an error rate of <strong>${highestQuality.errorPct.toFixed(1)}%</strong>`);
     }
     if (highestAi) {
       posParts.push(`Highest AI Rating was <strong>${highestAi.aiRtg}</strong> by <strong>${highestAi.intern}</strong>`);
     }
+    if (highestComplex && highestComplex.complexQ > 0) {
+      posParts.push(`Most Complex Queries handled by <strong>${highestComplex.intern}</strong> (${highestComplex.complexQ} queries)`);
+    }
+    if (highestChatCount) {
+      posParts.push(`Highest total chats taken by <strong>${highestChatCount.intern}</strong> (${highestChatCount.count} chats)`);
+    }
+
     if (posParts.length > 0) {
       posHtml += posParts.join('. ') + '.';
     } else {
@@ -2191,7 +2897,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let concHtml = `<strong>Concerns:</strong> `;
     const concParts = [];
     if (highErrorList.length > 0) {
-      concParts.push(`High Error Rate (>20%): <strong>${highErrorList.join(', ')}</strong>`);
+      concParts.push(`High Error Rate (>15%): <strong>${highErrorList.join(', ')}</strong>`);
     }
     if (lowProdList.length > 0) {
       concParts.push(`Low Chat Averages (<50): <strong>${lowProdList.join(', ')}</strong>`);
@@ -2199,6 +2905,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lowAvailList.length > 0) {
       concParts.push(`Low Availability (<3 days): <strong>${lowAvailList.join(', ')}</strong>`);
     }
+    if (highBreakList.length > 0) {
+      concParts.push(`High Break Time (>360m): <strong>${highBreakList.join(', ')}</strong>`);
+    }
+
     if (concParts.length > 0) {
       concHtml += concParts.join('. ') + '.';
     } else {
@@ -2207,8 +2917,62 @@ document.addEventListener('DOMContentLoaded', () => {
     if (concernsBox) concernsBox.innerHTML = concHtml;
 
     // Render note
-    if (noteBox) {
-      noteBox.innerHTML = `<strong>Note:</strong> Performance metrics are dynamically derived from source logs (HR Attendance Sheet, Comms Team Master, and OJT Audit Performance logs). AI metrics retrieved from Komal AI.`;
+    let noteHtml = `<strong>Note:</strong> `;
+    const noteParts = [];
+    if (mostImproved && (mostImproved.score - mostImproved.scorePrev) > 0.5) {
+      const diff = mostImproved.score - mostImproved.scorePrev;
+      noteParts.push(`Most Improved Trainee: <strong>${mostImproved.intern}</strong> (Weighted score grew by +${diff.toFixed(1)} points, from ${mostImproved.scorePrev.toFixed(1)} to ${mostImproved.score.toFixed(1)})`);
+    }
+    if (mostConsistent) {
+      noteParts.push(`Most Consistent Performer: <strong>${mostConsistent.intern}</strong> (Weighted score: ${mostConsistent.score.toFixed(1)}, showing Stable trend)`);
+    }
+    noteParts.push(`Highlights box is fully editable. Performance metrics are dynamically derived from source logs (HR Attendance Sheet, Comms Team Master, and OJT Audit Performance logs) and AI metrics.`);
+
+    noteHtml += noteParts.join('. ') + '.';
+    if (noteBox) noteBox.innerHTML = noteHtml;
+  }
+
+  // Update Overview tab top KPI cards dynamically
+  function updateOverviewKPIs(records) {
+    const kpiAIRtg = document.getElementById('kpiAvgAIRating');
+    const kpiProd = document.getElementById('kpiAvgProductivity');
+    const kpiTotalChats = document.getElementById('kpiTotalChatCount');
+    const kpiInterns = document.getElementById('kpiTotalInterns');
+
+    if (!records || records.length === 0) return;
+
+    let aiSum = 0;
+    let aiCount = 0;
+    let prodSum = 0;
+    let prodCount = 0;
+    let totalChats = 0;
+    let totalInterns = records.length;
+
+    records.forEach(r => {
+      if (r.aiRtg && r.aiRtg !== 'No Data' && !isNaN(r.aiRtg)) {
+        aiSum += parseFloat(r.aiRtg);
+        aiCount++;
+      }
+      if (r.avg && r.avg !== 'No Data' && !isNaN(r.avg)) {
+        prodSum += parseFloat(r.avg);
+        prodCount++;
+      }
+      if (r.count && r.count !== 'No Data' && !isNaN(r.count)) {
+        totalChats += parseInt(r.count, 10);
+      }
+    });
+
+    if (kpiAIRtg) {
+      kpiAIRtg.textContent = aiCount > 0 ? `${(aiSum / aiCount).toFixed(2)}` : 'No Data';
+    }
+    if (kpiProd) {
+      kpiProd.textContent = prodCount > 0 ? `${(prodSum / prodCount).toFixed(1)}` : 'No Data';
+    }
+    if (kpiTotalChats) {
+      kpiTotalChats.textContent = totalChats.toLocaleString();
+    }
+    if (kpiInterns) {
+      kpiInterns.textContent = totalInterns;
     }
   }
 
@@ -2351,13 +3115,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const datesInRange = [];
     if (startStr && endStr) {
-      const start = new Date(startStr);
-      const end = new Date(endStr);
-      const diffTime = Math.abs(end - start);
-      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-      for (let i = 0; i <= diffDays; i++) {
-        const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
-        datesInRange.push(d.toISOString().split('T')[0]);
+      let current = new Date(startStr + 'T00:00:00');
+      const endDateObj = new Date(endStr + 'T00:00:00');
+      while (current <= endDateObj) {
+        datesInRange.push(getLocalDateStr(current));
+        current.setDate(current.getDate() + 1);
       }
     } else {
       const uniqueDates = new Set();
@@ -2368,7 +3130,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (state.data && state.data.commsChatData) {
         Object.values(state.data.commsChatData).forEach(obj => {
-          Object.keys(obj).forEach(d => uniqueDates.add(d));
+          if (obj && typeof obj === 'object') {
+            const firstKey = Object.keys(obj)[0];
+            if (firstKey) {
+              const isDateKey = /^\d{4}-\d{2}-\d{2}$/.test(firstKey);
+              if (isDateKey) {
+                Object.keys(obj).forEach(d => uniqueDates.add(d));
+              } else {
+                Object.values(obj).forEach(dateStore => {
+                  if (dateStore && typeof dateStore === 'object') {
+                    Object.keys(dateStore).forEach(d => uniqueDates.add(d));
+                  }
+                });
+              }
+            }
+          }
+        });
+      }
+      if (state.data && state.data.dailyAuditScanned) {
+        Object.values(state.data.dailyAuditScanned).forEach(batchStore => {
+          Object.values(batchStore).forEach(internStore => {
+            Object.keys(internStore).forEach(d => uniqueDates.add(d));
+          });
+        });
+      }
+      if (state.data && state.data.qcDocData) {
+        state.data.qcDocData.forEach(item => {
+          if (item.chatDate) uniqueDates.add(item.chatDate);
         });
       }
       datesInRange.push(...Array.from(uniqueDates));
@@ -2443,7 +3231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const d = r.chatDate || r.scanDate;
             if (!d || d < startStr || d > endStr) return;
           }
-          
+
           let matchedLead = null;
           if (r.auditor) {
             const auditorLower = r.auditor.toLowerCase().trim();
@@ -2453,9 +3241,9 @@ document.addEventListener('DOMContentLoaded', () => {
               const leadParts = leadFullName.toLowerCase().split(/\s+/);
               const leadFirst = leadParts[0] || l.toLowerCase();
               const leadLast = leadParts.length > 1 ? leadParts[leadParts.length - 1] : "";
-              
+
               if (auditorLower === leadFirst) return true;
-              
+
               const partsAud = auditorLower.split(/\s+/);
               const audFirst = partsAud[0];
               const audLast = partsAud.length > 1 ? partsAud[partsAud.length - 1] : "";
@@ -2476,9 +3264,9 @@ document.addEventListener('DOMContentLoaded', () => {
               const leadParts = leadFullName.toLowerCase().split(/\s+/);
               const leadFirst = leadParts[0] || l.toLowerCase();
               const leadLast = leadParts.length > 1 ? leadParts[leadParts.length - 1] : "";
-              
+
               if (leadLower === leadFirst) return true;
-              
+
               const partsAud = leadLower.split(/\s+/);
               const audFirst = partsAud[0];
               const audLast = partsAud.length > 1 ? partsAud[partsAud.length - 1] : "";
@@ -2495,13 +3283,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (matchedLead) {
             const leadObj = leadMap.get(matchedLead);
-            
+
             // Only count audit if summary/feedback is present and not empty
             const hasSummary = r.summary && r.summary.trim().length > 0 && r.summary.trim() !== '-' && r.summary.trim().toLowerCase() !== 'no';
             if (hasSummary) {
               leadObj.audits += 1;
             }
-            
+
             leadObj.simpleQ += r.weakChat || 0;
             leadObj.complexQ += r.complexQuery || 0;
             if (r.leadRating) {
@@ -2534,7 +3322,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const leadRecords = Array.from(leadMap.values()).map(l => {
       l.aiRtg = l.ratingCount > 0 ? parseFloat((l.totalAiRatingSum / l.ratingCount).toFixed(2)) : "No Data";
-      
+
       // Calculate attendance dynamically
       const leadFullName = getLeadFullName(l.lead);
       const record = findAttendanceRecord(leadFullName);
@@ -2542,12 +3330,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (record) {
         let availableDays = 0;
         let scheduledDays = 0;
-        
+
         let evalDates = [];
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-        
+        const yesterdayStr = getLocalDateStr(yesterday);
+
         if (startStr && endStr) {
           evalDates = datesInRange.filter(d => d <= yesterdayStr);
         } else {
@@ -2557,7 +3345,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const u = String(val).toUpperCase().trim();
             return u !== '' && u !== '-';
           }).sort();
-          
+
           if (datesWithStatus.length > 0) {
             const startDateStr = datesWithStatus[0];
             const start = new Date(startDateStr);
@@ -2567,22 +3355,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const limit = Math.min(1000, Math.max(0, diffDays));
             for (let i = 0; i <= limit; i++) {
               const d = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
-              evalDates.push(d.toISOString().split('T')[0]);
+              evalDates.push(getLocalDateStr(d));
             }
           }
         }
-        
+
         evalDates.forEach(dateStr => {
           const val = record[dateStr];
-          if (val !== undefined) {
+          if (isScheduledWorkDay(val)) {
             scheduledDays++;
             availableDays += getAvailabilityScore(val);
           }
         });
-        
-        if (scheduledDays > 0) {
-          const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) && 
-                              (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
+
+        if (evalDates.length === 1) {
+          availStr = record[evalDates[0]] || 'No Data';
+        } else if (scheduledDays > 0) {
+          const isFullMonth = startStr && endStr && (new Date(startStr).getDate() === 1) &&
+            (new Date(endStr).getDate() >= 28 && new Date(endStr).getDate() <= 31);
           if (isFullMonth) {
             availStr = `${availableDays} / ${scheduledDays}`;
           } else {
@@ -2604,7 +3394,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const tr = document.createElement('tr');
-      tr.innerHTML = state.leadCustomCols.map(col => `<td>${row[col] !== undefined ? row[col] : '-'}</td>`).join('');
+      tr.innerHTML = state.leadCustomCols.map(col => {
+        let val = row[col] !== undefined ? row[col] : '-';
+        if (col === 'attend') {
+          return formatAttendanceCell(val);
+        }
+        return `<td>${val}</td>`;
+      }).join('');
       tbody.appendChild(tr);
     });
 
@@ -2690,7 +3486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!box) return;
 
     const leadName = document.getElementById('eodLeadName')?.value || 'SONALI';
-    const dateStr = document.getElementById('eodDate')?.value || new Date().toISOString().split('T')[0];
+    const dateStr = document.getElementById('eodDate')?.value || getLocalDateStr(new Date());
     const batch = document.getElementById('eodBatch')?.value || 'B-20';
     const attendance = document.getElementById('eodAttendance')?.value || '6/6';
     const teamChatCount = document.getElementById('eodTeamChatCount')?.value || '643';
@@ -2703,17 +3499,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const summary = document.getElementById('eodSummary')?.value || 'All team members completed allocated scan targets smoothly.';
 
     const formatted = `*Team ${leadName}* - Date: ${dateStr}\n\n` +
-                      `*Batch: ${batch}*\n` +
-                      `Attendance: ${attendance}\n` +
-                      `Team Chat Count: ${teamChatCount}\n` +
-                      `*Calling OJT* Attendance: ${callingAttendance}\n` +
-                      `Chats: ${chats}\n` +
-                      `calls: ${calls}\n\n` +
-                      `━━━━━━━━━━━━━━━\n` +
-                      `*Personal Chats Done: ${personalChats} I Chat Scan: ${chatScan} | QC Posted: ${qcPosted}\n` +
-                      `━━━━━━━━━━━━━━━\n\n` +
-                      `*EOD Summary*\n` +
-                      `${summary}`;
+      `*Batch: ${batch}*\n` +
+      `Attendance: ${attendance}\n` +
+      `Team Chat Count: ${teamChatCount}\n` +
+      `*Calling OJT* Attendance: ${callingAttendance}\n` +
+      `Chats: ${chats}\n` +
+      `calls: ${calls}\n\n` +
+      `━━━━━━━━━━━━━━━\n` +
+      `*Personal Chats Done: ${personalChats} I Chat Scan: ${chatScan} | QC Posted: ${qcPosted}\n` +
+      `━━━━━━━━━━━━━━━\n\n` +
+      `*EOD Summary*\n` +
+      `${summary}`;
 
     box.textContent = formatted;
   }
@@ -2791,21 +3587,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let sampleTemplate = '';
     if (channel === 'WHATSAPP') {
       sampleTemplate = `*Habuild OJT Daily Update*\n` +
-                       `*Batch: ${state.activeBatch}*\n` +
-                       `Date: ${new Date().toLocaleDateString('en-GB')}\n\n` +
-                       `*Performance Highlights:*\n` +
-                       `• Avg AI Rating: 4.21 / 5.0\n` +
-                       `• Team Chat Count: 6,412\n` +
-                       `• Avg Error Rate: 12.8%\n\n` +
-                       `*Recipients (${count}):* ${selectedCBs.map(c => c.value).slice(0, 3).join(', ')}${count > 3 ? '...' : ''}`;
+        `*Batch: ${state.activeBatch}*\n` +
+        `Date: ${new Date().toLocaleDateString('en-GB')}\n\n` +
+        `*Performance Highlights:*\n` +
+        `• Avg AI Rating: 4.21 / 5.0\n` +
+        `• Team Chat Count: 6,412\n` +
+        `• Avg Error Rate: 12.8%\n\n` +
+        `*Recipients (${count}):* ${selectedCBs.map(c => c.value).slice(0, 3).join(', ')}${count > 3 ? '...' : ''}`;
     } else {
       sampleTemplate = `<div style="font-family: Arial; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">\n` +
-                       `  <h3 style="color: #0284c7;">📊 Habuild OJT Performance Update</h3>\n` +
-                       `  <p><strong>Batch:</strong> ${state.activeBatch}</p>\n` +
-                       `  <p><strong>Date:</strong> ${new Date().toLocaleDateString('en-GB')}</p>\n` +
-                       `  <hr>\n` +
-                       `  <p>Attached is the updated OJT intern scorecard and QC feedback report.</p>\n` +
-                       `</div>`;
+        `  <h3 style="color: #0284c7;">📊 Habuild OJT Performance Update</h3>\n` +
+        `  <p><strong>Batch:</strong> ${state.activeBatch}</p>\n` +
+        `  <p><strong>Date:</strong> ${new Date().toLocaleDateString('en-GB')}</p>\n` +
+        `  <hr>\n` +
+        `  <p>Attached is the updated OJT intern scorecard and QC feedback report.</p>\n` +
+        `</div>`;
     }
 
     if (content) content.innerHTML = sampleTemplate;
@@ -2870,7 +3666,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const normB = normalizeBatchName(b.batch);
       const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
       const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
-      
+
       if (numA !== numB) {
         return numB - numA; // Descending batches
       }
@@ -2931,7 +3727,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Selected intern state for Admin detail view
   let selectedInternName = '';
 
-  window.viewMoreInternDetails = function(encodedName) {
+  window.viewMoreInternDetails = function (encodedName) {
     const name = decodeURIComponent(encodedName);
     selectedInternName = name;
 
@@ -2945,7 +3741,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.switchAdminDetailTab('INDIVIDUAL');
   };
 
-  window.switchAdminDetailTab = function(tabType) {
+  window.switchAdminDetailTab = function (tabType) {
     state.currentAdminDetailTab = tabType || 'INDIVIDUAL';
 
     // Update active button classes
@@ -2973,16 +3769,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const batches = new Set(['ALL']);
           const interns = (state.config && state.config.internsRegistry) || [];
           interns.forEach(i => { if (i.batch) batches.add(normalizeBatchName(i.batch)); });
-          
+
           const currentFilter = state.detailBatchFilterVal || 'ALL';
-          select.innerHTML = Array.from(batches).sort((a,b) => {
+          select.innerHTML = Array.from(batches).sort((a, b) => {
             if (a === 'ALL') return -1;
             if (b === 'ALL') return 1;
             const numA = parseInt((a.match(/\d+/) || [0])[0], 10);
             const numB = parseInt((b.match(/\d+/) || [0])[0], 10);
             return numB - numA;
           }).map(b => `<option value="${b}" ${b === currentFilter ? 'selected' : ''}>${b === 'ALL' ? 'All Batches' : b}</option>`).join('');
-          
+
           state.detailBatchFilterVal = select.value;
         }
       }
@@ -2991,7 +3787,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.renderAdminDetailContent();
   };
 
-  window.renderAdminDetailContent = function() {
+  window.renderAdminDetailContent = function () {
     const contentBox = document.getElementById('adminDetailPanelContent');
     if (!contentBox) return;
 
@@ -3003,7 +3799,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const normB = normalizeBatchName(b.batch);
       const numA = parseInt((normA.match(/\d+/) || [0])[0], 10);
       const numB = parseInt((normB.match(/\d+/) || [0])[0], 10);
-      
+
       if (numA !== numB) {
         return numB - numA;
       }
@@ -3148,9 +3944,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </thead>
             <tbody>
               ${Object.entries(leadGroups).map(([leadName, list]) => {
-                const activeCount = list.filter(i => i.status !== 'inactive').length;
-                const listDisp = list.map(i => `${i.name} (${normalizeBatchName(i.batch)})`).join(', ');
-                return `
+        const activeCount = list.filter(i => i.status !== 'inactive').length;
+        const listDisp = list.map(i => `${i.name} (${normalizeBatchName(i.batch)})`).join(', ');
+        return `
                   <tr>
                     <td class="font-bold">${leadName.toUpperCase()}</td>
                     <td class="font-semibold color-green">${activeCount}</td>
@@ -3158,7 +3954,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="white-space: normal; max-width: 600px; font-size: 0.8rem; line-height: 1.4;">${listDisp}</td>
                   </tr>
                 `;
-              }).join('')}
+      }).join('')}
             </tbody>
           </table>
         </div>
@@ -3166,7 +3962,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  window.editIntern = function(encodedName) {
+  window.editIntern = function (encodedName) {
     const name = decodeURIComponent(encodedName);
     const registry = (state.config && state.config.internsRegistry) || [];
     const found = registry.find(i => i.name && i.name.toLowerCase().trim() === name.toLowerCase().trim());
@@ -3189,24 +3985,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('sheetsLinksContainer');
     if (!container) return;
 
-    const sheets = (state.config && state.config.sheets) || {
-      masterUrl: 'https://docs.google.com/spreadsheets/d/1kXppDZk3t44-fALRBZAJ6IGsmjsJO_DeAqARGEXU0WE/edit',
-      DIKSHA: 'https://docs.google.com/spreadsheets/d/12l-8GZZ5-Hf9dIuU_g0Wev1GN-SrN7hPh11RLNwBPI0/edit',
-      SONALI: 'https://docs.google.com/spreadsheets/d/12l-8GZZ5-Hf9dIuU_g0Wev1GN-SrN7hPh11RLNwBPI0/edit'
-    };
+    const sheets = (state.config && state.config.sheets) || {};
+    const batchQcDocs = (state.config && state.config.batchQcDocs) || {};
 
-    container.innerHTML = Object.entries(sheets).map(([lead, url]) => `
-      <div class="status-item">
+    let html = '';
+    
+    // Render Sheets
+    html += '<h4 class="text-xs font-bold uppercase tracking-wider text-teal" style="margin-bottom: 0.5rem; color: #0d9488;">Google Sheets (Per Lead)</h4>';
+    html += Object.entries(sheets).map(([lead, url]) => `
+      <div class="status-item" style="margin-bottom: 0.5rem;">
         <div>
-          <strong>${lead === 'masterUrl' ? 'OJT Master Spreadsheet' : `Team ${lead} Audit Sheet`}</strong>
-          <p class="text-xs text-muted">${url.substring(0, 45)}...</p>
+          <strong>${lead === 'masterUrl' ? 'OJT Master Spreadsheet' : (lead === 'REPORTING' ? 'OJT Reporting Sheet' : `Team ${lead} Audit Sheet`)}</strong>
+          <p class="text-xs text-muted" style="word-break: break-all;">${url.substring(0, 45)}...</p>
         </div>
         <div class="flex-row gap-xs">
-          <a href="${url}" target="_blank" class="hyperlink-btn">Open Sheet ↗</a>
-          <button class="copy-link-btn" onclick="navigator.clipboard.writeText('${url}'); alert('Link copied to clipboard!');">📋 Copy</button>
+          <a href="${url}" target="_blank" class="hyperlink-btn">Open ↗</a>
+          <button class="copy-link-btn" onclick="navigator.clipboard.writeText('${url}'); alert('Link copied!');">📋 Copy</button>
         </div>
       </div>
     `).join('');
+
+    // Render Batch QC Docs
+    html += '<h4 class="text-xs font-bold uppercase tracking-wider text-teal" style="margin-top: 1rem; margin-bottom: 0.5rem; color: #0d9488;">Upcoming Batch QC Docs</h4>';
+    if (Object.keys(batchQcDocs).length === 0) {
+      html += '<p class="text-xs text-muted">No batch QC Docs configured yet.</p>';
+    } else {
+      html += Object.entries(batchQcDocs).map(([batch, url]) => `
+        <div class="status-item" style="margin-bottom: 0.5rem;">
+          <div>
+            <strong>${batch} QC Document</strong>
+            <p class="text-xs text-muted" style="word-break: break-all;">${url.substring(0, 45)}...</p>
+          </div>
+          <div class="flex-row gap-xs">
+            <a href="${url}" target="_blank" class="hyperlink-btn">Open ↗</a>
+            <button class="copy-link-btn" onclick="navigator.clipboard.writeText('${url}'); alert('Link copied!');">📋 Copy</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    container.innerHTML = html;
   }
 
 
@@ -3267,7 +4085,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Immediately update state and re-render all scorecards
         if (!state.config) state.config = {};
         if (!state.config.internsRegistry) state.config.internsRegistry = [];
-        
+
         const existingIdx = state.config.internsRegistry.findIndex(i => i.name.toLowerCase().trim() === name.toLowerCase());
         if (existingIdx >= 0) {
           state.config.internsRegistry[existingIdx] = payload.intern;
@@ -3286,7 +4104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  window.handleSaveInlineIntern = async function() {
+  window.handleSaveInlineIntern = async function () {
     const name = document.getElementById('inlineInternName')?.value.trim();
     if (!name) return alert('Please enter Intern Full Name');
 
@@ -3317,7 +4135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!state.config) state.config = {};
         if (!state.config.internsRegistry) state.config.internsRegistry = [];
-        
+
         const existingIdx = state.config.internsRegistry.findIndex(i => i.name.toLowerCase().trim() === name.toLowerCase());
         if (existingIdx >= 0) {
           state.config.internsRegistry[existingIdx] = payload.intern;
@@ -3336,7 +4154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  window.handleSaveBulkInterns = async function() {
+  window.handleSaveBulkInterns = async function () {
     const text = document.getElementById('bulkInternsTextarea')?.value.trim();
     if (!text) return alert('Please paste intern rows into the text area');
 
@@ -3346,7 +4164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lines.forEach(line => {
       const delimiter = line.includes('\t') ? '\t' : (line.includes('|') ? '|' : ',');
       const parts = line.split(delimiter).map(p => p.trim());
-      
+
       if (parts[0]) {
         interns.push({
           name: parts[0],
@@ -3406,7 +4224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelMap = isIntern ? INTERN_COL_LABELS : LEAD_COL_LABELS;
     const activeCols = isIntern ? state.internCustomCols : state.leadCustomCols;
 
-    const previousOnlyCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'trend', 'action'];
+    const previousOnlyCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'score', 'trend', 'action'];
 
     container.innerHTML = Object.entries(labelMap).filter(([key]) => {
       if (isIntern && state.ojtMode !== 'PREVIOUS' && previousOnlyCols.includes(key)) {
@@ -3470,14 +4288,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderWeeklyTrendTable();
   }
 
-  window.viewInternQCDoc = function(encodedName) {
+  window.viewInternQCDoc = function (encodedName) {
     const internName = decodeURIComponent(encodedName);
     const titleEl = document.getElementById('qcDocModalTitle');
     if (titleEl) titleEl.textContent = `📄 QC Errors & Feedback: ${internName}`;
     populateQCDocModal(internName);
   };
 
-  window.viewBatchQCDoc = function() {
+  window.viewBatchQCDoc = function () {
     const activeBatch = state.activeBatch || 'B-20';
     const titleEl = document.getElementById('qcDocModalTitle');
     if (titleEl) titleEl.textContent = `📄 Batch QC Errors & Feedback: ${activeBatch}`;
@@ -3539,7 +4357,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanName = rec.internName.toLowerCase().trim();
       const internBatch = normalizeBatchName(internBatchMap.get(cleanName) || rec.batch || 'B-20');
 
-      if (!filterInternName && state.activeBatch !== 'ALL' && internBatch !== state.activeBatch) {
+      if (state.activeBatch !== 'ALL' && internBatch !== state.activeBatch) {
         return;
       }
       records.push({ ...rec, batch: internBatch });
@@ -3555,10 +4373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     if (startStr && endStr) {
-      const dateFiltered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
-      if (dateFiltered.length > 0) {
-        filtered = dateFiltered;
-      }
+      filtered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
     }
 
     // Filter spreadsheet audits dynamically
@@ -3592,16 +4407,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const qcErrors = filtered.filter(item => item.type !== 'suggestion');
+    const suggestions = filtered.filter(item => item.type === 'suggestion');
+
     // Prepend stats banner
-    const totalQCs = filtered.length;
+    const totalQCs = qcErrors.length;
     const totalSheetAudits = sheetAudits.length;
-    const suggestionsCount = filtered.filter(rec => {
-      const txt = (rec.summary || '').toLowerCase();
-      return txt.includes('suggest') || txt.includes('should') || txt.includes('recommend') || txt.includes('please') || txt.includes('try to');
-    }).length + sheetAudits.filter(rec => {
-      const txt = (rec.improvementsNeeded || '').toLowerCase();
-      return txt && txt.length > 0;
-    }).length;
+    const suggestionsCount = suggestions.length;
 
     const statsBanner = document.createElement('div');
     statsBanner.style.cssText = `
@@ -3648,35 +4460,23 @@ document.addEventListener('DOMContentLoaded', () => {
       return clean;
     }
 
-    function getAuditorDetails(item) {
-      const leadName = item.lead || 'Rashi';
-      const auditorRaw = (item.auditor && item.auditor !== 'Unassigned Auditor') ? item.auditor : leadName;
-      const clean = auditorRaw.toLowerCase().trim();
-      const leadsList = ['diksha', 'sonali', 'rashi', 'priyanshu', 'samiksha', 'nilesh'];
-      if (leadsList.includes(clean) || clean === 'team lead') {
-        const formattedName = clean === 'team lead' ? leadName : auditorRaw;
-        return { name: formattedName, designation: 'OJT Lead' };
-      }
-      return { name: auditorRaw, designation: 'QC Team' };
-    }
-
     // Render Google Doc QC mistakes
-    if (filtered.length > 0) {
+    if (qcErrors.length > 0) {
       if (filterInternName) {
         const header = document.createElement('h3');
         header.style.cssText = 'font-size: 1.05rem; font-weight: 700; color: #991b1b; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid #fee2e2; padding-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;';
-        header.innerHTML = `⚠️ Flagged QC Errors (Google Doc - ${filtered.length})`;
+        header.innerHTML = `⚠️ Flagged QC Errors (Google Doc - ${qcErrors.length})`;
         container.appendChild(header);
       }
 
-      filtered.forEach(item => {
+      qcErrors.forEach(item => {
         const card = document.createElement('div');
         card.style.cssText = 'border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.75rem; border: 1px solid #fee2e2; border-left: 4px solid #ef4444; background-color: #fef2f2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);';
-        
+
         const screenshotLink = item.screenshot || '';
         const isLocal = screenshotLink.startsWith('/qc-images');
         const isURL = screenshotLink.startsWith('http') || screenshotLink.startsWith('https') || isLocal;
-        
+
         let proofHTML = '';
         if (isURL) {
           let proxiedUrl = screenshotLink;
@@ -3705,8 +4505,6 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
         }
 
-        const aud = getAuditorDetails(item);
-
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px dashed #fee2e2; padding-bottom: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
@@ -3715,7 +4513,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span style="background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">📞 Member: ${item.number || 'N/A'}</span>
             </div>
             <div style="font-size: 0.8rem; color: #991b1b; font-weight: 600;">
-              Auditor: <span style="color: #7f1d1d;">${aud.name} (${aud.designation})</span> | Batch: <span style="color: #7f1d1d;">${item.batch}</span>
+              Batch: <span style="color: #7f1d1d;">${item.batch}</span>
             </div>
           </div>
           <div style="font-size: 0.88rem; color: #7f1d1d; line-height: 1.5; text-align: left; white-space: normal;">
@@ -3725,6 +4523,68 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
           ${proofHTML}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Render Google Doc Suggestions
+    if (suggestions.length > 0) {
+      if (filterInternName) {
+        const header = document.createElement('h3');
+        header.style.cssText = 'font-size: 1.05rem; font-weight: 700; color: #d97706; margin-top: 1.8rem; margin-bottom: 0.75rem; border-bottom: 2px solid #fef3c7; padding-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;';
+        header.innerHTML = `💡 Suggestions (Google Doc - ${suggestions.length})`;
+        container.appendChild(header);
+      }
+
+      suggestions.forEach(item => {
+        const card = document.createElement('div');
+        card.style.cssText = 'border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.75rem; border: 1px solid #fef3c7; border-left: 4px solid #f59e0b; background-color: #fffbeb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);';
+
+        const screenshotLink = item.screenshot || '';
+        const isLocal = screenshotLink.startsWith('/qc-images');
+        const isURL = screenshotLink.startsWith('http') || screenshotLink.startsWith('https') || isLocal;
+
+        let proofHTML = '';
+        if (isURL) {
+          let proxiedUrl = screenshotLink;
+          if (!isLocal) {
+            const directImgUrl = getDirectImageUrl(screenshotLink);
+            proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(directImgUrl)}`;
+          }
+          proofHTML = `
+            <div style="margin-top: 0.5rem; background: #ffffff; border: 1px solid #fef3c7; border-radius: 6px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+              <div style="font-size: 0.8rem; color: #b45309; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <strong>🖼️ Proof Screenshot:</strong> <a href="${screenshotLink}" target="_blank" style="color: #f59e0b; text-decoration: underline;">${screenshotLink}</a>
+              </div>
+              <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <img src="${proxiedUrl}" alt="QC Screenshot" onclick="window.zoomImage('${proxiedUrl}')" style="max-width: 280px; max-height: 180px; border-radius: 6px; border: 1px solid #fde68a; cursor: zoom-in; object-fit: contain; background: #f8fafc;" title="Click to Zoom Image">
+                <span style="font-size: 0.75rem; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fde68a; padding: 0.25rem 0.5rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 0.25rem;">
+                  ✅ Mapped QC Doc Image
+                </span>
+              </div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px dashed #fde68a; padding-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span style="background-color: #fef3c7; color: #b45309; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">📅 ${item.chatDate || '-'}</span>
+              <span style="font-weight: 700; color: #78350f; font-size: 0.95rem;">👤 ${item.internName}</span>
+              ${item.number ? `<span style="background-color: rgba(245, 158, 11, 0.1); color: #b45309; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">📞 Member: ${item.number}</span>` : ''}
+            </div>
+            <div style="font-size: 0.8rem; color: #b45309; font-weight: 600;">
+              Batch: <span style="color: #78350f;">${item.batch}</span>
+            </div>
+          </div>
+          <div style="font-size: 0.88rem; color: #78350f; line-height: 1.5; text-align: left; white-space: normal;">
+            <strong>Suggestion details:</strong>
+            <div style="margin-top: 0.25rem; background: rgba(255,255,255,0.75); padding: 0.85rem; border-radius: 6px; border: 1px solid #fef3c7; color: #78350f; font-weight: 500; word-break: break-word; white-space: normal; overflow-wrap: break-word; line-height: 1.6;">
+              ${item.summary || 'No detailed suggestion text provided.'}
+            </div>
+          </div>
+          ${proofHTML || ''}
         `;
         container.appendChild(card);
       });
@@ -3740,7 +4600,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sheetAudits.forEach(item => {
         const card = document.createElement('div');
         card.style.cssText = 'border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.75rem; border: 1px solid #e2e8f0; border-left: 4px solid #0ea5e9; background-color: #f0f9ff; box-shadow: 0 1px 3px rgba(0,0,0,0.05);';
-        
+
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px dashed #bae6fd; padding-bottom: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
@@ -3776,7 +4636,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Image Zoom Lightbox Handlers
-  window.zoomImage = function(imgSrc) {
+  window.zoomImage = function (imgSrc) {
     const zoomedImg = document.getElementById('zoomedImage');
     if (zoomedImg) {
       zoomedImg.src = imgSrc;
@@ -3784,7 +4644,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  window.removeIntern = async function(nameParam) {
+  window.removeIntern = async function (nameParam) {
     if (!confirm('Are you sure you want to remove this intern?')) return;
     try {
       const res = await fetch(`/api/interns/${nameParam}`, { method: 'DELETE' });

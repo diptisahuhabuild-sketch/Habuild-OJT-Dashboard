@@ -11,7 +11,10 @@ function getConfig() {
       config = { ...config, ...JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')) };
     }
     
-    // Dynamically reconstruct from modular data stores
+    // Reconstruct registry: prioritize modular batch files (freshly synced from sheets) first
+    const uniqueInterns = [];
+    const seenNames = new Set();
+
     const batchesDir = path.join(rootDir, 'data', 'batches');
     if (fs.existsSync(batchesDir)) {
       const files = fs.readdirSync(batchesDir);
@@ -20,14 +23,21 @@ function getConfig() {
         const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
         const batchKey = file.replace('.json', '');
         
-        // Append interns
+        // Append interns if not already seen
         if (batchData.interns && Array.isArray(batchData.interns)) {
-          config.internsRegistry.push(...batchData.interns);
+          batchData.interns.forEach(i => {
+            if (i && i.name) {
+              const clean = i.name.trim().toLowerCase();
+              if (!seenNames.has(clean)) {
+                seenNames.add(clean);
+                uniqueInterns.push(i);
+              }
+            }
+          });
         }
         
         // Reconstruct batchDocLinks
         if (batchData.qcDocs && Array.isArray(batchData.qcDocs)) {
-          // Assume the first doc link is for morning and evening for now, or just map the first one
           if (batchData.qcDocs.length > 0) {
             config.batchDocLinks[`${batchKey}|morning`] = batchData.qcDocs[0];
             config.batchDocLinks[`${batchKey}|evening`] = batchData.qcDocs[0];
@@ -35,6 +45,20 @@ function getConfig() {
         }
       }
     }
+
+    // Fall back to server-config.json interns registry for any other interns not in batch files
+    if (Array.isArray(config.internsRegistry)) {
+      config.internsRegistry.forEach(i => {
+        if (i && i.name) {
+          const clean = i.name.trim().toLowerCase();
+          if (!seenNames.has(clean)) {
+            seenNames.add(clean);
+            uniqueInterns.push(i);
+          }
+        }
+      });
+    }
+    config.internsRegistry = uniqueInterns;
 
     const teamsDir = path.join(rootDir, 'data', 'teams');
     if (fs.existsSync(teamsDir)) {

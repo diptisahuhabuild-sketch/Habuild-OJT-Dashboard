@@ -74,11 +74,46 @@ router.get('/data', (req, res) => {
   const data = getData();
   const config = getConfig();
 
+  // Pre-calculate daily audit scanned counts from data.scanData
+  const dailyAuditScanned = {};
+  if (data.scanData) {
+    Object.entries(data.scanData).forEach(([batchKey, rows]) => {
+      if (!Array.isArray(rows)) return;
+      const bKey = batchKey.toUpperCase().trim();
+      dailyAuditScanned[bKey] = {};
+      
+      rows.forEach(row => {
+        if (!row.internName) return;
+        const nameKey = row.internName.toLowerCase().trim();
+        const dateStr = row.chatDate || row.scanDate;
+        if (!dateStr) return;
+        
+        if (!dailyAuditScanned[bKey][nameKey]) {
+          dailyAuditScanned[bKey][nameKey] = {};
+        }
+        
+        if (!dailyAuditScanned[bKey][nameKey][dateStr]) {
+          dailyAuditScanned[bKey][nameKey][dateStr] = { scanned: 0, ratingSum: 0, ratingCount: 0 };
+        }
+        
+        // Increment by 1 per row (each row in sheet = 1 chat scanned/audited)
+        dailyAuditScanned[bKey][nameKey][dateStr].scanned += 1;
+        
+        const rating = parseFloat(row.leadRating);
+        if (!isNaN(rating) && rating !== null) {
+          dailyAuditScanned[bKey][nameKey][dateStr].ratingSum += rating;
+          dailyAuditScanned[bKey][nameKey][dateStr].ratingCount += 1;
+        }
+      });
+    });
+  }
+
   // Step 1: Return lightweight data objects to avoid heavy 38MB payload downloads over localtunnel
   const lightweightData = {
     lastSyncedAt: data.lastSyncedAt,
     syncStatus: data.syncStatus,
     scanData: {},
+    dailyAuditScanned,
     attendanceData: data.attendanceData || {},
     commsChatData: data.commsChatData || {},
     milestones: {},
@@ -95,16 +130,97 @@ router.get('/data', (req, res) => {
     if (fs.existsSync(b19Path)) {
       lightweightData.b19Reporting = JSON.parse(fs.readFileSync(b19Path, 'utf8'));
     }
-  } catch(e) {}
+  } catch (e) { }
 
   res.json({
     success: true,
     data: lightweightData,
     config,
-    komalMetrics: {},
+    komalMetrics: komalService.getCachedMetrics() || {},
     qcDocData: [],
     serverTime: new Date().toISOString()
   });
+});
+
+
+// Debug route to check Komal AI connectivity and raw responses
+router.get('/test-komal', async (req, res) => {
+  try {
+    const config = getConfig();
+    const token = config.komalSessionToken;
+    if (!token) {
+      return res.json({ success: false, error: 'No token configured in server-config.json' });
+    }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    const agents = await komalService.requestUrl('https://komal-api.habuild.in/api/v1/agent/getAllAgents', 'POST', {}, headers);
+    
+    let sampleMetrics = null;
+    if (Array.isArray(agents) && agents.length > 0) {
+      // Fetch metrics for the first agent as a sample
+      sampleMetrics = await komalService.requestUrl(
+        'https://komal-api.habuild.in/api/v1/agentmetric/agentMetric/all',
+        'POST',
+        { agentId: agents[0].id, startDate: '2026-08-01', endDate: '2026-08-17' },
+        headers
+      );
+    }
+    
+    res.json({ success: true, agentsCount: Array.isArray(agents) ? agents.length : 0, agents, sampleMetrics });
+  } catch (e) {
+    res.json({ success: false, error: e.message });
+  }
+});
+
+// Route to trigger email login on Komal AI API
+router.post('/komal/login-email', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, error: 'Email is required' });
+    }
+    console.log(`[KomalService] Requesting login OTP for email: ${email}`);
+    const response = await komalService.requestUrl('https://komal-api.habuild.in/api/v1/user/login', 'POST', { email });
+    if (response.error) {
+      return res.status(500).json({ success: false, error: response.error, raw: response });
+    }
+    res.json({ success: true, data: response });
+  } catch (e) {
+    res.status(500).json({ success: false, error: e.message });
+  }
+});
+
+// Route to verify login OTP and save JWT token
+router.post('/komal/verify-otp', async (req, res) => {
+  try {
+    const { otp, jwtToken } = req.body;
+    if (!otp || !jwtToken) {
+      return res.status(400).json({ success: false, error: 'OTP and jwtToken are required' });
+    }
+    console.log('[KomalService] Verifying OTP token...');
+    const headers = { 'Authorization': `Bearer ${jwtToken}` };
+    const response = await komalService.requestUrl('https://komal-api.habuild.in/api/v1/user/verify-otp', 'PUT', { emailToken: otp }, headers);
+    if (response.error) {
+      return res.status(500).json({ success: false, error: response.error, raw: response });
+    }
+    
+    // Extract the final token
+    const rawData = response.data || response;
+    const finalToken = rawData.jwtToken || rawData.token;
+    if (finalToken) {
+      const config = getConfig();
+      config.komalSessionToken = finalToken;
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+      
+      // Sync metrics in background
+      await komalService.syncKomalAIData(finalToken);
+      
+      res.json({ success: true, message: 'Authentication successful & cache synced!', token: finalToken });
+    } else {
+      res.json({ success: false, error: 'Failed to parse authorization token from verify response', raw: response });
+    }
+  } catch (e) {
+    res.status(500).json({ success: false, error: e.message });
+  }
 });
 
 // Dedicated QC Docs Endpoint (Lazy Loaded by UI)
@@ -119,10 +235,10 @@ router.get('/qc-docs', (req, res) => {
 // Real-Time Webhook Endpoint for Google Apps Script triggers
 router.post('/webhook-sync', async (req, res) => {
   console.log('[API Router] Webhook triggered! Initiating background sync...');
-  
+
   // Respond immediately so Google Apps Script doesn't timeout
   res.json({ success: true, message: 'Sync triggered successfully.' });
-  
+
   // Trigger background updates
   try {
     await googleSyncService.syncInternsRegistryFromGoogleSheet();
@@ -135,29 +251,41 @@ router.post('/webhook-sync', async (req, res) => {
 });
 
 function getBatchDocMap() {
+  const batchesDir = path.join(rootDir, 'data/batches');
+  const map = {};
+
   try {
-    const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-    const map = {};
-    if (config.batchDocLinks) {
-      for (const [key, link] of Object.entries(config.batchDocLinks)) {
-        const batch = key.split('|')[0];
-        const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (match && match[1]) {
-          map[batch] = match[1];
+    if (fs.existsSync(batchesDir)) {
+      const files = fs.readdirSync(batchesDir);
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
+        const batchKey = file.replace('.json', '');
+
+        if (batchData.qcDocs && Array.isArray(batchData.qcDocs)) {
+          if (batchData.qcDocs.length > 0) {
+            const match = batchData.qcDocs[0].match(/\/d\/([a-zA-Z0-9-_]+)/);
+            if (match && match[1]) {
+              map[batchKey.toUpperCase().trim()] = match[1];
+            }
+          }
         }
       }
     }
-    return map;
-  } catch(e) {
-    return {
-      'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
-      'B-19': '1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc',
-      'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
-      'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
-      'B-16': '1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs',
-      'B-15': '1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM'
-    };
+  } catch (e) {
+    console.error('[API getBatchDocMap] Error parsing modular batches:', e);
   }
+
+  const fallback = {
+    'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE',
+    'B-19': '1dWLPyDnXWW3YTnoyaztIh_89s1Jcdg_5j1hQEN85-pc',
+    'B-18': '1iVBQ7fG3IhVcNJew5VhxqdmgRTSrL_FmvIl1VulChqY',
+    'B-17': '1fvPUWGBMYkk2swjulkaUvYTvyolvfSSI-vJpjUIqu30',
+    'B-16': '1bz5IC3feRcesHnDfcfdflatF8_j8XDs3sqdCNR2KnMs',
+    'B-15': '1n1dtuJpJGanvpgas0d9uoJLxA9_4DyBNr6DL_cRuMyM'
+  };
+
+  return { ...fallback, ...map };
 }
 
 
@@ -206,10 +334,10 @@ router.get('/qc-images', async (req, res) => {
     const phoneImageMap = {};
     images.forEach(img => {
       if (numbers.length === 0) return;
-      
+
       let closestNum = numbers[0];
       let minDistance = Math.abs(img.index - closestNum.index);
-      
+
       for (let k = 1; k < numbers.length; k++) {
         const dist = Math.abs(img.index - numbers[k].index);
         if (dist < minDistance) {
@@ -217,7 +345,7 @@ router.get('/qc-images', async (req, res) => {
           closestNum = numbers[k];
         }
       }
-      
+
       const numVal = closestNum.phone;
       if (!phoneImageMap[numVal]) phoneImageMap[numVal] = [];
       phoneImageMap[numVal].push(img.url);
@@ -257,6 +385,32 @@ router.post('/komal/sync', async (req, res) => {
     res.status(500).json({ success: false, error: e.message });
   }
 });
+
+// Save Komal AI Session Token configuration
+router.post('/config/komal-token', async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (token === undefined) {
+      return res.status(400).json({ success: false, error: 'Token is required' });
+    }
+
+    let config = {};
+    if (fs.existsSync(CONFIG_FILE)) {
+      config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    }
+
+    config.komalSessionToken = token.trim();
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+
+    // Trigger sync in background immediately
+    komalService.syncKomalAIData(config.komalSessionToken);
+
+    res.json({ success: true, message: 'Komal AI Session Token saved successfully' });
+  } catch (e) {
+    res.status(500).json({ success: false, error: e.message });
+  }
+});
+
 
 // Save Daily EOD Update
 router.post('/eod', (req, res) => {
@@ -383,7 +537,7 @@ router.post('/test/google', async (req, res) => {
 router.post('/config', (req, res) => {
   const newPartialConfig = req.body;
   if (!newPartialConfig) return res.status(400).json({ success: false, error: 'No config provided' });
-  
+
   try {
     const existingConfig = getConfig();
     const mergedConfig = deepMerge(existingConfig, newPartialConfig);
@@ -407,7 +561,7 @@ router.post('/interns', (req, res) => {
   try {
     const config = getConfig();
     if (!config.internsRegistry) config.internsRegistry = [];
-    
+
     const record = {
       name: intern.name.trim(),
       batch: intern.batch || 'B-20',
@@ -439,11 +593,11 @@ router.post('/interns', (req, res) => {
     }
 
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
-    
+
     // Auto-fetch Komal AI metrics for the newly added/updated intern
     try {
       komalService.syncKomalAIData();
-    } catch(err) {
+    } catch (err) {
       console.warn('[API Router] Komal AI sync trigger note:', err.message);
     }
 
@@ -503,7 +657,7 @@ router.post('/interns/bulk', (req, res) => {
     // Auto-fetch Komal AI metrics for all new interns
     try {
       komalService.syncKomalAIData();
-    } catch(err) {
+    } catch (err) {
       console.warn('[API Router] Bulk Komal AI sync note:', err.message);
     }
 
@@ -543,7 +697,7 @@ router.get('/proxy-image', async (req, res) => {
       responseType: 'stream',
       timeout: 10000
     });
-    
+
     res.setHeader('Content-Type', response.headers['content-type'] || 'image/png');
     res.setHeader('Cache-Control', 'public, max-age=1800');
     response.data.pipe(res);
@@ -592,6 +746,77 @@ router.post('/batch/complete', (req, res) => {
   } catch (e) {
     console.error('[API Router] Error completing batch:', e.message);
     res.status(500).json({ success: false, error: e.message });
+  }
+});
+
+// Dynamic range metrics fetch endpoint
+router.get('/komal/range-metrics', async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+    if (!startDate || !endDate) {
+      return res.status(400).json({ success: false, error: 'startDate and endDate are required' });
+    }
+
+    const config = getConfig();
+    const token = config.komalSessionToken;
+    if (!token) {
+      return res.status(500).json({ success: false, error: 'Komal session token not configured' });
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+
+    console.log(`[API Router] Fetching range metrics from Komal AI: ${startDate} to ${endDate}`);
+    const realTimeRes = await komalService.requestUrl(
+      'https://komal-api.habuild.in/api/v1/agent/getRealTimeAgent',
+      'POST',
+      {
+        startDate,
+        endDate,
+        limit: 500,
+        offset: 0
+      },
+      headers
+    );
+
+    if (realTimeRes && !realTimeRes.error) {
+      const records = realTimeRes.data || [];
+      const rangeData = {};
+      
+      records.forEach(rec => {
+        if (!rec.name) return;
+        const key = rec.name.trim().toLowerCase();
+        
+        // Note: ARsT and ARpT are swapped in the API!
+        // - average_resolution_time contains Response Time (ARST)
+        // - average_response_time contains Resolution Time (ARPT)
+        const rawArst = rec.average_resolution_time !== undefined ? rec.average_resolution_time : 0;
+        const rawBreak = rec.total_break_time !== undefined ? rec.total_break_time : 0;
+        const rawArpt = rec.average_response_time !== undefined ? rec.average_response_time : 0;
+        const rawFrt = rec.max_first_response_time !== undefined ? rec.max_first_response_time : 0;
+
+        rangeData[key] = {
+          simpleQ: rec.total_simple_queries !== undefined ? rec.total_simple_queries : 0,
+          complexQ: rec.total_complex_queries !== undefined ? rec.total_complex_queries : 0,
+          break: rawBreak,
+          arst: rawArst,
+          arpt: rawArpt,
+          aiRtg: rec.average_score !== undefined ? rec.average_score : 0,
+          frt: rawFrt || rawArst,
+          calculation_score: rec.calculation_score !== undefined ? rec.calculation_score : 0,
+          shift: rec.shift || '-'
+        };
+      });
+
+      return res.json({ success: true, data: rangeData });
+    } else {
+      return res.status(500).json({ success: false, error: realTimeRes ? realTimeRes.error : 'Failed to fetch from Komal AI' });
+    }
+  } catch (err) {
+    console.error('[API Router] Error fetching range metrics:', err.message);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 

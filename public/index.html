@@ -145,13 +145,7 @@
       <div class="control-group">
         <label for="globalBatchSelect" class="control-label">Active Batch</label>
         <select id="globalBatchSelect" class="form-select font-semibold">
-          <option value="B-20">Batch 20 (Ended: 2026-07-19)</option>
-          <option value="B-19">Batch 19 (Ended: 2026-06-21)</option>
-          <option value="B-18">Batch 18 (Ended: 2026-04-02)</option>
-          <option value="B-17">Batch 17 (Ended: 2026-02-16)</option>
-          <option value="B-16">Batch 16 (Ended: 2026-01-15)</option>
-          <option value="B-15">Batch 15 (Ended: 2025-12-03)</option>
-          <option value="ALL" selected>All Batches</option>
+          <option value="ALL" selected>Loading Batches...</option>
         </select>
       </div>
 
@@ -199,9 +193,11 @@
       </div>
 
       <div class="control-group custom-date-group hidden" id="customDateRangeGroup">
-        <label class="control-label">Select Date</label>
-        <div class="flex-row gap-xs">
-          <input type="date" id="startDateInput" class="form-input form-input-sm">
+        <label class="control-label">Select Date Range</label>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <input type="date" id="startDateInput" class="form-input form-input-sm" style="min-height: 38px;">
+          <span style="color: var(--text-muted); font-size: 0.9rem;">to</span>
+          <input type="date" id="endDateInput" class="form-input form-input-sm" style="min-height: 38px;">
         </div>
       </div>
 
@@ -390,20 +386,14 @@
           </div>
           <span class="text-xs text-muted" id="highlightsDateRangeBadge">📅 Current Active Range</span>
         </div>
-        <div class="callout-box callout-positive" id="highlightPositive">
-          <strong>Positive:</strong> Anjali and Lubdha maintained a good quality rate by 8.33%. Aditya & Babasaheb
-          showed visible improvement compared to last week in both quality and quantity. 13 out of 19 interns maintain
-          error rates below or around 15%. Shivam showed very good performance in taking a high number of calls.
+        <div class="callout-box callout-positive" id="highlightPositive" contenteditable="true">
+          <strong>Positive:</strong> Loading positive highlights...
         </div>
-        <div class="callout-box callout-concerns" id="highlightConcerns">
-          <strong>Concerns:</strong> Smit kept his error rate higher amongst all interns over the past few weeks.
-          Shivam, Papiha, Samiksha, and Prachi did not meet quality expectations. Paridhi has frequent leaves. This week
-          Prachi & Nitesh did not maintain good attendance. Formal communication will be conducted with Papiha, Smit,
-          Palak & Jaya.
+        <div class="callout-box callout-concerns" id="highlightConcerns" contenteditable="true">
+          <strong>Concerns:</strong> Loading concern highlights...
         </div>
-        <div class="callout-box callout-note" id="highlightNote">
-          <strong>Note:</strong> Productivity was slightly lower last week due to no OT period. For Lubdha and Samiksha,
-          call duties were temporarily paused due to medical issues (call audits omitted accordingly).
+        <div class="callout-box callout-note" id="highlightNote" contenteditable="true">
+          <strong>Note:</strong> Loading note highlights...
         </div>
       </section>
 
@@ -829,18 +819,76 @@
 
 
         <div class="grid-2">
-          <!-- Panel 2: Google Sheets Links (Per Lead) -->
+          <!-- Panel 2: Google Sheets & QC Doc Mappings -->
           <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">2. Google Sheets Links (Per Lead)</h3>
+            <div class="card-header">
+              <h3 class="card-title">2. Google Sheets & QC Doc Mappings</h3>
+            </div>
+            <div class="admin-links-list" id="sheetsLinksContainer" style="max-height: 250px; overflow-y: auto; padding: 0.5rem 0;">
+              <!-- Sheet links per lead -->
+            </div>
+            
+            <div style="border-top: 1px solid var(--border-color, #e4e4e7); padding-top: 1rem; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-teal" style="color: #0d9488; margin-top: 0.5rem;">Add / Update Sheet or QC Doc Link</h4>
+              <div class="form-group" style="margin-bottom: 0.5rem;">
+                <label for="linkTypeInput" class="control-label" style="font-size: 0.75rem;">Section / Category (e.g. "sheets" or "batchQcDocs")</label>
+                <input type="text" id="linkTypeInput" class="form-input" placeholder="e.g. sheets, batchQcDocs" value="sheets" style="padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #ccc; width: 100%;">
+              </div>
+              <div class="form-group" style="margin-bottom: 0.5rem;">
+                <label for="linkKeyInput" class="control-label" style="font-size: 0.75rem;">Key (Lead Name or Batch Name, e.g. "DIKSHA" or "B-21")</label>
+                <input type="text" id="linkKeyInput" class="form-input" placeholder="e.g. B-21" style="padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #ccc; width: 100%;">
+              </div>
+              <div class="form-group" style="margin-bottom: 0.5rem;">
+                <label for="linkUrlInput" class="control-label" style="font-size: 0.75rem;">Google Link URL</label>
+                <input type="text" id="linkUrlInput" class="form-input" placeholder="https://docs.google.com/..." style="padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #ccc; width: 100%;">
+              </div>
+              <button class="btn btn-sm btn-primary" id="btnSaveConfigLink" style="width: 100%; padding: 8px 12px; font-weight: 600;">💾 Save Link</button>
+            </div>
           </div>
-          <div class="admin-links-list" id="sheetsLinksContainer">
-            <!-- Sheet links per lead -->
-          </div>
-        </div>
 
-        <!-- Panel 4: Backend Connection Status & Live Testing -->
-        <div class="card">
+          <!-- Panel 3: Komal AI Dashboard Integration -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">3. Komal AI Dashboard Integration</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem; padding: 0.5rem 0;">
+              <p class="text-xs text-muted">Paste your Komal AI Dashboard Session Token (JWT Token) below to enable background metrics auto-sync. You can copy this from your browser DevTools (LocalStorage or headers) after logging into Komal AI.</p>
+              
+              <div class="form-group">
+                <label for="komalTokenInput" class="control-label">Komal AI Session Token (JWT)</label>
+                <textarea id="komalTokenInput" class="form-input" style="font-family: monospace; font-size: 0.75rem; height: 80px;" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."></textarea>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-sm btn-primary" id="btnSaveKomalToken">💾 Save Token</button>
+                <button class="btn btn-sm btn-outline" id="btnTriggerKomalSync">⚡ Sync Now</button>
+              </div>
+
+              <!-- Option B: Log in via Email OTP -->
+              <div class="form-group" style="border-top: 1px solid var(--border-color, #e4e4e7); padding-top: 1rem; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <label class="control-label text-teal font-bold" style="color: var(--teal); font-weight: 600;">Or: Log in via Email OTP</label>
+                <p class="text-xs text-muted" style="margin: 0;">Enter your registered email on the Komal AI platform to send an OTP to your email inbox, then verify it below to link your account.</p>
+                <div style="display: flex; gap: 0.5rem; width: 100%;">
+                  <input type="email" id="komalEmailInput" class="form-input" style="flex: 1;" placeholder="your.email@habuild.in">
+                  <button class="btn btn-primary btn-sm" id="btnKomalSendOTP" style="min-width: 100px;">Send OTP</button>
+                </div>
+              </div>
+
+              <div class="form-group" id="komalOTPGroup" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                <label for="komalOTPInput" class="control-label">Enter 4-Digit OTP</label>
+                <input type="text" id="komalOTPInput" class="form-input" style="letter-spacing: 0.25rem; font-family: monospace; font-size: 1.1rem; text-align: center; width: 100%;" placeholder="0000" maxlength="4">
+                <button class="btn btn-teal" id="btnKomalVerifyOTP" style="width: 100%; margin-top: 0.25rem; background-color: #0d9488; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer;">Verify & Link</button>
+              </div>
+
+              <div id="komalSyncStatusContainer" style="border-top: 1px solid var(--border); padding-top: 0.75rem;">
+                <strong>Sync Status:</strong> <span id="komalSyncStatusTag" class="badge">Checking...</span>
+                <p class="text-xs text-muted margin-top-xs" id="komalLastSyncedText">Last Synced: never</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Backend Connection Status & Live Testing -->
+          <div class="card">
           <div class="card-header">
             <h3 class="card-title">4. Backend Connection Status</h3>
           </div>
