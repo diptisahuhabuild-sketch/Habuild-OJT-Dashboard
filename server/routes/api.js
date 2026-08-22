@@ -382,8 +382,8 @@ router.get('/qc-images', async (req, res) => {
   }
 });
 
-// Trigger Continuous Google Sync
-router.post('/sync', async (req, res) => {
+// Trigger Continuous Google Sync (Supports both GET and POST for debugging)
+const syncHandler = async (req, res) => {
   try {
     const updatedData = await googleSyncService.fetchAndSyncGoogleSheetsData();
     await googleDocSyncService.syncAndParseAllDocs();
@@ -393,12 +393,15 @@ router.post('/sync', async (req, res) => {
       success: true,
       message: 'Google Sheets data, QC Google Docs, Komal AI metrics, and Drive persistence synchronized successfully',
       lastSyncedAt: updatedData.lastSyncedAt,
-      syncStatus: updatedData.syncStatus
+      syncStatus: updatedData.syncStatus,
+      lastSyncError: updatedData.lastSyncError || null
     });
   } catch (e) {
     res.status(500).json({ success: false, error: e.message });
   }
-});
+};
+router.post('/sync', syncHandler);
+router.get('/sync', syncHandler);
 
 // Trigger Komal AI Sync Endpoint
 router.post('/komal/sync', async (req, res) => {
