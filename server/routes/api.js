@@ -112,6 +112,7 @@ router.get('/data', (req, res) => {
   const lightweightData = {
     lastSyncedAt: data.lastSyncedAt,
     syncStatus: data.syncStatus,
+    lastSyncError: data.lastSyncError || null,
     scanData: {},
     dailyAuditScanned,
     attendanceData: data.attendanceData || {},
