@@ -81,11 +81,23 @@ router.get('/debug-fs', (req, res) => {
         dataContent = dataContent.substring(0, 2000) + '... TRUNCATED';
       }
     }
+    
+    let activeClientEmail = 'None';
+    if (process.env.GOOGLE_CREDENTIALS_JSON) {
+      try {
+        const creds = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+        activeClientEmail = creds.client_email || 'Missing client_email in JSON';
+      } catch (err) {
+        activeClientEmail = `JSON parse error: ${err.message}`;
+      }
+    }
+
     res.json({
       rootDir,
       DATA_FILE,
       dataExists,
       dataContent,
+      activeClientEmail,
       files
     });
   } catch (e) {
