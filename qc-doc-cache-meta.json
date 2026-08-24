@@ -4757,52 +4757,8 @@
     ]
   },
   "1u_6OehVk7mu8-kshSZ-y0P1ZD70J2rB4JovBis28zls": {
-    "modifiedTime": "2026-08-22T12:24:44.673Z",
+    "modifiedTime": "2026-08-24T12:16:45.325Z",
     "data": [
-      {
-        "internName": "Fatema Thool",
-        "chatDate": "2026-08-17",
-        "number": "919830386589",
-        "summary": "QC- The evening batch timings were correctly provided. However, since the member only mentioned that they would join the evening slot, we should not assume or state that they will join the 5:00 PM batch as planned. Instead, we should inform them that they can choose any of the available evening batches as per their convenience.",
-        "index": 1.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/6ae3d77961b2ec23e6db0af74f449231.png"
-      },
-      {
-        "internName": "Fatema Thool",
-        "chatDate": "2026-08-18",
-        "number": "918310551527",
-        "summary": "Please avoid repeating sentences that have already been covered. For example, the option to extend the pause is already mentioned in the during pause steps, so repeating the same information again is not needed.",
-        "index": 3.003,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/04c9194622400e8682cf807b74873e69.png"
-      },
-      {
-        "internName": "Fatema Thool",
-        "chatDate": "2026-08-18",
-        "number": "919359197936",
-        "summary": "3) Please avoid mixing languages within the same conversation. If the communication is being done in Hinglish, please keep the entire conversation in Hinglish. Similarly, if you start in English, continue the conversation completely in English. This will make the communication more consistent and professional. 4)",
-        "index": 3.006,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/04c9194622400e8682cf807b74873e69.png"
-      },
-      {
-        "internName": "Fatema Thool",
-        "chatDate": "2026-08-19",
-        "number": "919707866432",
-        "summary": "1 QC   :-  The member had already clearly mentioned the reason for pausing her subscription; she was unable to manage time for the sessions. you should have reviewed the previous chat, acknowledged the existing reason, and proceeded with the pause instead of asking for the same information again. Please avoid repeating questions when the required information is already available in the chat.",
-        "index": 3.033,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/04c9194622400e8682cf807b74873e69.png"
-      },
       {
         "internName": "Ishika Naik",
         "chatDate": "2026-08-17",
@@ -4812,7 +4768,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
@@ -4823,7 +4779,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
@@ -4834,7 +4790,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
@@ -4845,7 +4801,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
@@ -4856,161 +4812,51 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
         "chatDate": "2026-08-20",
         "number": "919376007750",
-        "summary": "Please avoid using heart emojis in member conversations, as they may appear unprofessional. Since the entire conversation was in Hinglish, the closure should also have been in Hinglish to maintain consistency with the member’s language. 6)",
+        "summary": "Please avoid using heart emojis in member conversations, as they may appear unprofessional. Since the entire conversation was in Hinglish, the closure should also have been in Hinglish to maintain consistency with the member’s language.",
         "index": 1.023,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b9ad66e6f33f1ee0c5db98c0332c7e54.png"
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
       },
       {
         "internName": "Ishika Naik",
-        "chatDate": "2026-08-22",
+        "chatDate": "2026-08-23",
+        "number": "918008485048",
+        "summary": "1) Here, you mentioned 30th August, but August has 31 days. You should have communicated the pause end date correctly as 31st August to avoid any confusion for the member.",
+        "index": 1.034,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/98e0c10b13f51cb59a2d4b4391d2a43c.png"
+      },
+      {
+        "internName": "Ishika Naik",
+        "chatDate": "2026-08-24",
         "number": null,
         "summary": "1)",
         "index": 1,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "suggestion",
-        "screenshot": "/qc-images/B-21/25ba30e785c83475df924cb6787271a1.png"
+        "screenshot": "/qc-images/B-21/98eff6b730441571d31ab59ba5187314.png"
       },
       {
         "internName": "Ishika Naik",
-        "chatDate": "2026-08-22",
+        "chatDate": "2026-08-24",
         "number": "919600180107",
         "summary": "The response correctly acknowledged the member’s health concern and confirmed the subscription pause. However, since the member clearly mentioned that they will resume attending from 20th August, the response should have explicitly mentioned that the subscription will be paused until 19th August for clarity and confirmation.",
         "index": 1.002,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "suggestion",
-        "screenshot": "/qc-images/B-21/25ba30e785c83475df924cb6787271a1.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-17",
-        "number": "918884303000",
-        "summary": "1)  QC - The batch timings were shared clearly and all the necessary information was provided. However, you should avoid using “I” in the response and consistently use “we” when communicating on behalf of Team Habuild. For example, instead of “I have shared the morning as well as evening batch timings,” use “We have shared the morning as well as evening batch timings.”",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/77fa51fbb88841f239864ef986601e53.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-17",
-        "number": "919444931299",
-        "summary": "- Repeated",
-        "index": 1.004,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/77fa51fbb88841f239864ef986601e53.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-18",
-        "number": "919555944131",
-        "summary": "Here, the member’s concern was regarding the 14 Days Challenge, but the concern was not addressed in the response. Please make sure to identify and resolve the member’s actual concern before closing the conversation. If the member has raised a specific query, provide the relevant information or clarification accordingly.",
-        "index": 2.006,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/13820e12a48615373468ca65a9670e39.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-18",
-        "number": "919004794485",
-        "summary": "3) Here, additionally, you should have informed the member that they can also check their details directly through the Habuild App. 4)",
-        "index": 3.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/2d4c92d014157130167cbf33de25bc88.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-19",
-        "number": "917760674466",
-        "summary": "1 QC-   - The member’s subscription was already paused previously, so there was no need to ask for the reason for their absence again. You should have reviewed the previous chat and proceeded accordingly instead of repeating the same question.",
-        "index": 3.03,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/2d4c92d014157130167cbf33de25bc88.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-19",
-        "number": "918553812220",
-        "summary": "2   - QC - your response was incomplete. The member specifically mentioned knee pain, but you did not acknowledge their concern or show empathy before sharing general weight-loss resources. You should have first acknowledged the knee pain, then guided them appropriately and shared knee-friendly yoga/weight-loss resources. Please ensure the member’s specific health concern is addressed before providing generic information.",
-        "index": 5.003,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/bcc8ea37462095b7fb4e76f5ac5cd021.png"
-      },
-      {
-        "internName": "Akshay Doble",
-        "chatDate": "2026-08-22",
-        "number": "918281429768",
-        "summary": "1) Suggestion - Your response is correct, however, you should also inform the member that they can check their membership details directly in the Habuild App for future reference.",
-        "index": 1,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "suggestion",
-        "screenshot": "/qc-images/B-21/08baead7ee930446c615d33a6358926a.png"
-      },
-      {
-        "internName": "Renuka Deshmukh",
-        "chatDate": "2026-08-17",
-        "number": "919463549947",
-        "summary": "1) The response provided useful guidance about the recommended mat thickness and material. However, the member specifically asked for the price of the yoga mat, which was not directly addressed. Since we cannot confirm or share the current price, we should clearly inform the member that we are unable to provide the price and they can check the current price on Amazon.",
-        "index": 1.003,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1745e0b7b395ed6abb1849b931bac12e.png"
-      },
-      {
-        "internName": "Renuka Deshmukh",
-        "chatDate": "2026-08-18",
-        "number": "17346570302",
-        "summary": "Here, an additional response was not necessary, as the concern could have been resolved directly. Please avoid sending unnecessary messages when the issue can be handled without further communication.",
-        "index": 1.01,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1745e0b7b395ed6abb1849b931bac12e.png"
-      },
-      {
-        "internName": "Renuka Deshmukh",
-        "chatDate": "2026-08-18",
-        "number": "918818822226",
-        "summary": "3) Here, you confirmed the member’s pause request but did not share the “During Pause” steps, which are mandatory. Please ensure that these steps are always communicated whenever a pause is confirmed.",
-        "index": 1.015,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1745e0b7b395ed6abb1849b931bac12e.png"
-      },
-      {
-        "internName": "Renuka Deshmukh",
-        "chatDate": "2026-08-19",
-        "number": "919422510081",
-        "summary": "1 QC -   - The user inquired about evening batch options and faced issues joining them. The agent provided instructions, links, and a step-by-step guide for changing class timings and downloading the app. The user requested a specific 5 AM batch link, which the agent initially directed them to via the app and links, but later sent a different session link by mistake. The conversation concluded with the agent clarifying the correct link for the session. FREE MEMBER CAN NOT update THERE BATCH time.",
-        "index": 1.025,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1745e0b7b395ed6abb1849b931bac12e.png"
+        "screenshot": "/qc-images/B-21/98eff6b730441571d31ab59ba5187314.png"
       },
       {
         "internName": "Ishika gour",
@@ -5021,18 +4867,18 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/7a71e0ed25b48cb7b9fe1143ed602f12.png"
+        "screenshot": "/qc-images/B-21/f0859303b6ff605bb21a684a97016452.png"
       },
       {
         "internName": "Ishika gour",
-        "chatDate": "2026-08-22",
+        "chatDate": "2026-08-24",
         "number": "919664836631",
         "summary": "- Suggestion - Closing line is missing.",
         "index": 1.001,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/429c9a0ca4a2860e097f6d12280f89ae.png"
+        "screenshot": "/qc-images/B-21/955947978633228203eb5fa6d87bdfc2.png"
       },
       {
         "internName": "Mohammad Sahil GulamNabi Shamsi",
@@ -5043,7 +4889,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/6413e826e529b6a19adedff5a8830aeb.png"
+        "screenshot": "/qc-images/B-21/53dfb7d4b7e3896fabaf6dcb066dc5db.png"
       },
       {
         "internName": "Mohammad Sahil GulamNabi Shamsi",
@@ -5054,7 +4900,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/3d0e2fc4f98b9f8f4a95c33593db5ee5.png"
+        "screenshot": "/qc-images/B-21/db793e1a74bbcaaac91407789a50a1c3.png"
       },
       {
         "internName": "Mohammad Sahil GulamNabi Shamsi",
@@ -5065,7 +4911,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/01f305bf2731d58697cdbe411c329c7d.png"
+        "screenshot": "/qc-images/B-21/9988d3321ac618a89ba82b7356162a90.png"
       },
       {
         "internName": "Mohammad Sahil GulamNabi Shamsi",
@@ -5076,7 +4922,40 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/9ef5c9aff95b5a1b21b83b6f47ce6048.png"
+        "screenshot": "/qc-images/B-21/55140e8e5ca87156d88089400e9ec6ca.png"
+      },
+      {
+        "internName": "Mohammad Sahil GulamNabi Shamsi",
+        "chatDate": "2026-08-23",
+        "number": "917738158990",
+        "summary": "1) Here, you should also inform the member that they can check their attendance through the Habuild App.",
+        "index": 9.01,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/55140e8e5ca87156d88089400e9ec6ca.png"
+      },
+      {
+        "internName": "Mohammad Sahil GulamNabi Shamsi",
+        "chatDate": "2026-08-23",
+        "number": "919960358321",
+        "summary": "2) Here, since the member’s subscription was not paused from the 18th even after confirming, the gift days should also have been added. The member should have been informed about the gift days as well.",
+        "index": 9.016,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/55140e8e5ca87156d88089400e9ec6ca.png"
+      },
+      {
+        "internName": "Mohammad Sahil GulamNabi Shamsi",
+        "chatDate": "2026-08-23",
+        "number": "919449083926",
+        "summary": "3) Here, you missed sharing the during-pause steps after confirming the pause. Sharing these steps is mandatory, so please ensure they are always communicated whenever a pause is confirmed.",
+        "index": 9.021,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/55140e8e5ca87156d88089400e9ec6ca.png"
       },
       {
         "internName": "Ekta Dahikar",
@@ -5087,7 +4966,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/88d2201b44f897707ffcf491400a0f82.png"
+        "screenshot": "/qc-images/B-21/54d44c87e65a24e64b828038ac8bc1e7.png"
       },
       {
         "internName": "Ekta Dahikar",
@@ -5098,7 +4977,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/88d2201b44f897707ffcf491400a0f82.png"
+        "screenshot": "/qc-images/B-21/54d44c87e65a24e64b828038ac8bc1e7.png"
       },
       {
         "internName": "Ekta Dahikar",
@@ -5109,7 +4988,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/88d2201b44f897707ffcf491400a0f82.png"
+        "screenshot": "/qc-images/B-21/54d44c87e65a24e64b828038ac8bc1e7.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5120,7 +4999,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/1eb80bb2fb0078d361794c4d0c7803cf.png"
+        "screenshot": "/qc-images/B-21/a0132ea194bd0ebbed7dfde2c51ec4dd.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5131,7 +5010,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/10acc3ccc84d1a3f15601ff8fa5094b3.png"
+        "screenshot": "/qc-images/B-21/73bd391078ba9ef3b4de029bbe780c02.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5142,7 +5021,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/edfc17d4c863da47fcc6366f6dec2c29.png"
+        "screenshot": "/qc-images/B-21/a5a729d7ead74de527e4a79fdeb54fb4.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5153,7 +5032,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b027a9045011e516ddf20a2bf203bb96.png"
+        "screenshot": "/qc-images/B-21/7969da2e9c2d1f3f852eea68f511cd88.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5164,7 +5043,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b027a9045011e516ddf20a2bf203bb96.png"
+        "screenshot": "/qc-images/B-21/7969da2e9c2d1f3f852eea68f511cd88.png"
       },
       {
         "internName": "Arjama Chaudhuri",
@@ -5175,183 +5054,40 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/b027a9045011e516ddf20a2bf203bb96.png"
+        "screenshot": "/qc-images/B-21/7969da2e9c2d1f3f852eea68f511cd88.png"
       },
       {
         "internName": "Arjama Chaudhuri",
-        "chatDate": "2026-08-22",
+        "chatDate": "2026-08-23",
+        "number": "917337496686",
+        "summary": "1) Here, you sent two QR —one in Hinglish and one in English—which was not necessary. Sharing only the English QR would have been sufficient.",
+        "index": 8.039,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7969da2e9c2d1f3f852eea68f511cd88.png"
+      },
+      {
+        "internName": "Arjama Chaudhuri",
+        "chatDate": "2026-08-23",
+        "number": "919971283345",
+        "summary": "2) The member’s concern was misunderstood. She was asking Saurabh Sir to record a video or conduct a session explaining which regular exercises are safe for people with knee pain. She was not asking to share a video with the team. The response incorrectly asked her to send a video instead of understanding and addressing her actual request.",
+        "index": 8.046,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7969da2e9c2d1f3f852eea68f511cd88.png"
+      },
+      {
+        "internName": "Arjama Chaudhuri",
+        "chatDate": "2026-08-24",
         "number": "919548577986",
         "summary": "Suggestion :-   - The user informed about their upcoming unavailability; the agent advised on maintaining practice during travel and offered to pause the subscription if needed, providing further assistance options. here you should not share the closing line and members already said they wll join whenever they get time.",
         "index": 1.001,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/55e65750dc1ae3c97229a2924d66a4bf.png"
-      },
-      {
-        "internName": "Jyoti yadav",
-        "chatDate": "2026-08-13",
-        "number": "918928185423",
-        "summary": "1 QC-   - Member Gaurav Ji reported soreness and significant pain in his right thigh for the past week, especially during Dhanurasana, Setu Bandhasana, and prone asanas, and asked whether to use an ice pack or hot water bag. Jyoti advised him to stop painful asanas, avoid pushing through the pain, and consult a doctor or in-house physiotherapist for proper assessment and guidance. here you should always use we not i also you did not offer for pause and the response is very long make short and crisp.",
-        "index": 1.003,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/cdb3a7aa9ceeb7915d3c96b8f22a5814.png"
-      },
-      {
-        "internName": "Pranay Lokhare",
-        "chatDate": "2026-08-17",
-        "number": "919902606002",
-        "summary": "1 QC -  your response was incomplete. The member asked about the Sunday session duration, but you only shared the Pranayama session link. Please address both queries—clearly mention the Sunday session duration and then share the relevant Pranayama resource.",
-        "index": 3.005,
-        "batch": "B-18",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-18/a5d387c930c4232938c9342bc300939d.png"
-      },
-      {
-        "internName": "Jyoyi yadav   - QC's",
-        "chatDate": "2026-08-19",
-        "number": "919957706469",
-        "summary": "1 QC -   - your response was incomplete. The member specifically asked for the Menopause session link, but you only introduced yourself and did not provide the requested link. Please address the member’s exact query and share the relevant link instead of giving a generic response.",
-        "index": 5.007,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/4a37fec0dab5a50998317ee978d41547.png"
-      },
-      {
-        "internName": "Jyoyi yadav   - QC's",
-        "chatDate": "2026-08-19",
-        "number": "918376909772",
-        "summary": "2 - QC -    your response should have been in Hinglish, as the member was communicating in Hinglish. Please ensure you match the member’s language consistently while responding, especially for appointment-related queries.",
-        "index": 7.004,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/8170a72811a51757679a0151334b41af.png"
-      },
-      {
-        "internName": "Jyoti yadav",
-        "chatDate": "2026-08-22",
-        "number": "918369728984",
-        "summary": "Suggestion -  - Avoid repeated line.",
-        "index": 1.001,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/9ec81c86b7b54cfb49ef1f56a6bca471.png"
-      },
-      {
-        "internName": "Sachi Nagdev",
-        "chatDate": "2026-08-14",
-        "number": "919845044818",
-        "summary": "Sanchi should have directly filled out the Yoga Query Form, as the member is a paid subscriber. Although Sanchi mentioned that the query had been forwarded, she did not fill out the Yoga Query Form.",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/2a1faeb2194830f32623085610c33ede.png"
-      },
-      {
-        "internName": "Sachi Nagdev",
-        "chatDate": "2026-08-18",
-        "number": "19092828160",
-        "summary": "@Sachi HB You missed sharing the /duringpause steps. Please always make sure that whenever a member’s subscription is paused, the /duringpause steps are also shared with them.",
-        "index": 29,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/37979eca8ce4e093f184c50efaae45ad.png"
-      },
-      {
-        "internName": "Sachi Nagdev",
-        "chatDate": "2026-08-19",
-        "number": "917016401629",
-        "summary": "@Sachi HB Here, you missed sharing the /duringpause steps. Please always make sure that whenever you pause a member’s subscription, the /duringpause steps are also shared with them.",
-        "index": 49,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/f95111fe07de7357f99a6d59fc1843df.png"
-      },
-      {
-        "internName": "Sachi Nagdev",
-        "chatDate": "2026-08-19",
-        "number": "919101171992",
-        "summary": "@Sachi HB Here, the member was communicating in English, but you responded in Hindi. Please make sure to always follow the member’s language while communicating with them and avoid such mistakes in the future.",
-        "index": 52,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/86c9aa097a55fe565d67d6029e108461.png"
-      },
-      {
-        "internName": "Sachi Nagdev",
-        "chatDate": "2026-08-21",
-        "number": "917588614310",
-        "summary": "In this sentence, you should not mention a call, as our physiotherapists do not call members from our side.",
-        "index": 53.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1d09fdd2b0648bb8621b0a3c25ee7f4e.png"
-      },
-      {
-        "internName": "Dhanlaxmi khawshi",
-        "chatDate": "2026-08-21",
-        "number": "917384964301",
-        "summary": "@~Dhanlaxmi Here, you should have informed the member that we have 6 available batch timings, and they can join any of the available batches as per their convenience. You should also have clearly clarified that currently, we do not have a 5:30 PM batch timing. Please make sure to provide the complete information and resolution.",
-        "index": 4,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/b1dbc86de59cd4b926a1e49f5863dc2d.png"
-      },
-      {
-        "internName": "Dhanlaxmi khawshi",
-        "chatDate": "2026-08-21",
-        "number": "917893418461",
-        "summary": "@~Dhanlaxmi The member asked for exercises for trigger finger. You should have acknowledged the member’s concern and forwarded the query to the concerned Yoga Team for appropriate guidance instead of asking the member for further clarification. Please make sure to address the member’s concern completely and provide a clear resolution or update before closing the conversation.",
-        "index": 7,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/bf99c33bd8f11dc2037f63d092ae77bb.png"
-      },
-      {
-        "internName": "Ashish sethi",
-        "chatDate": "2026-08-14",
-        "number": "919654930634",
-        "summary": "Here Ashish should mention before following the video, we recommend consulting with our physiotherapist for the proper guidance, and he should avoid giving the closure until the member’s query is fully resolved.",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/dc53ab6466b77de59c18cadb77c4b494.png"
-      },
-      {
-        "internName": "Ritikesh Hirekhan",
-        "chatDate": "2026-08-14",
-        "number": "14086087518",
-        "summary": "Ritikesh should make sure to respond to every member's concern, as he missed responding to the member's query on payment confirmation.",
-        "index": 1.003,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/257a42eb378c0f5b84c3381d4498ce94.png"
-      },
-      {
-        "internName": "Ritikesh Hirekhan",
-        "chatDate": "2026-08-21",
-        "number": "919922997550",
-        "summary": "Here, you provided the /revert to the member but missed providing the resolution after that. Kindly make sure to address the member’s query fully after sending the /revert, so the member receives a complete resolution.",
-        "index": 17,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/5522be01aec45a81af9f03e63bf53a19.png"
+        "screenshot": "/qc-images/B-21/bf591d08a5f60f2601aa23b31ef1cef0.png"
       },
       {
         "internName": "Vedant Dudhat",
@@ -5362,7 +5098,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/5668b98821410daad297843f376f9a4e.png"
+        "screenshot": "/qc-images/B-21/d0a827236f1298f4c68dc7afe6582cc0.png"
       },
       {
         "internName": "Vedant Dudhat",
@@ -5373,183 +5109,18 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/38bdabd2e38fed0d32a832b79593e1fe.png"
+        "screenshot": "/qc-images/B-21/f1126a92f5e052d6a60ebabfa8af727f.png"
       },
       {
-        "internName": "Parivartan Patil",
-        "chatDate": "2026-08-19",
-        "number": "919586652646",
-        "summary": "@Parivartan Patil Hb , here you should have directly forwarded the member’s request to the concerned email team instead of informing them that the payment link can only be shared through WhatsApp. You should have informed the member that we have forwarded the query to the concerned team, and they will share the payment link with them via email shortly.",
-        "index": 5,
+        "internName": "Vedant Dudhat",
+        "chatDate": "2026-08-23",
+        "number": "919480502701",
+        "summary": "1)  Here, you should have also shared the Habuild App details and informed the member that they can also check their subscription and other details through the app.",
+        "index": 8.001,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/0aedfec8cba4d28f3e93c3e8a43d1e6d.png"
-      },
-      {
-        "internName": "Parivartan Patil",
-        "chatDate": "2026-08-19",
-        "number": "919404540554",
-        "summary": "@Parivartan Patil Hb here you should have responded in Hindi (Hinglish), as the member communicated in Hindi. You should also have clearly checked the member’s subscription details and informed them that only 4 days are remaining on their current subscription, so the upgrade option is not available at this stage. You should have guided the member to renew their subscription instead.",
-        "index": 9,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/5d0c099dbd77a3594748c6b54a6c0126.png"
-      },
-      {
-        "internName": "Parivartan Patil",
-        "chatDate": "2026-08-21",
-        "number": "918888323344",
-        "summary": "Here your response is correct, but you should also mention that the member can make the payment using the above link and choose the payment method as per their convenience.",
-        "index": 10.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/b14a224265aa6b5e034cb9880f2cab46.png"
-      },
-      {
-        "internName": "Parivartan Patil",
-        "chatDate": "2026-08-21",
-        "number": "12404474676",
-        "summary": "As the member has already made the payment, you should check the member's details in the CRM before responding. In this case, you should directly pause the member's subscription.",
-        "index": 10.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/b14a224265aa6b5e034cb9880f2cab46.png"
-      },
-      {
-        "internName": "Parivartan Patil",
-        "chatDate": "2026-08-21",
-        "number": "919448355398",
-        "summary": "As the member mentioned that they are unable to attend the session and have already missed the sessions for the last 3 days, you should directly pause the member's subscription.",
-        "index": 11.001,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/4fa457d8b6ed309380b9ce9e0063b897.png"
-      },
-      {
-        "internName": "Sufiyan Mugal",
-        "chatDate": "2026-08-14",
-        "number": "919886038081",
-        "summary": "please ensure you carefully check the member’s requested rejoining date before applying a pause. Since the member clearly mentioned that they would rejoin from Tuesday, you should have paused the subscription for 5 days instead of 4 days to ensure their subscription days were preserved correctly.",
-        "index": 2,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/d2940a020fe1eae30f34f60ef09e1dc9.png"
-      },
-      {
-        "internName": "Sufiyan Mugal",
-        "chatDate": "2026-08-19",
-        "number": "917588870155",
-        "summary": "@Sufiyan Hb  As the member asked for the renewal link, you shared the wrong link. The link you shared was for the Strong Everyday subscription. In this case, you should have directly shared the /YE Renew quick reply with the member for the Yoga Everyday subscription.",
-        "index": 18,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/7ddabb60dcf1836deab3826e1b60292a.png"
-      },
-      {
-        "internName": "Sufiyan Mugal",
-        "chatDate": "2026-08-19",
-        "number": "919096081468",
-        "summary": "@Sufiyan Hb As the member requested a QR code to make the payment on 28th August, you should have informed them that the QR code has a limited validity, so they can request the QR code on the day they wish to make the payment. You should also have asked the member to inform us which subscription plan they would like to purchase, so that we could share the appropriate QR code accordingly.",
-        "index": 21,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/fe25ad881245b23f8c79111cfa8e8993.png"
-      },
-      {
-        "internName": "Sufiyan Mugal",
-        "chatDate": "2026-08-14",
-        "number": "919755647561",
-        "summary": "919755647561",
-        "index": 4,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "suggestion",
-        "screenshot": "/qc-images/B-21/0cbd3d0956b967ce3b74daa03c37f296.png"
-      },
-      {
-        "internName": "Sufiyan Mugal",
-        "chatDate": "2026-08-14",
-        "number": null,
-        "summary": "The member informed that they were down with viral fever and requested a 5-day pause as they needed rest and would be unable to attend the live sessions. Sufiyan empathised with the member and informed them that their subscription would be paused, but he did not clearly mention the 5-day pause period in his response.",
-        "index": 4.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "suggestion",
-        "screenshot": "/qc-images/B-21/0cbd3d0956b967ce3b74daa03c37f296.png"
-      },
-      {
-        "internName": "Dhananjay Hivre",
-        "chatDate": "2026-08-19",
-        "number": "918910803533",
-        "summary": "As member got the messages above, if they renew their subscription before 31st August, they will get 15 extra days. Here, you should simply inform the member that if they renew before 31st August, they will receive 15 extra days. Please always check the previous messages or templates before responding.",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/8e3deefc2ef302a33715719b60999157.png"
-      },
-      {
-        "internName": "Dhananjay Hivre",
-        "chatDate": "2026-08-19",
-        "number": "919284561850",
-        "summary": "As the member is a paid member and mentioned that they will join the session from tomorrow and has also shared their paid registration number above, you should simply inform the member that we hope to see you in tomorrow's session. Please always review the chat history before responding.",
-        "index": 1.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/8e3deefc2ef302a33715719b60999157.png"
-      },
-      {
-        "internName": "Dhananjay Hivre",
-        "chatDate": "2026-08-19",
-        "number": "919414607377",
-        "summary": "As the member asked for the renewal link, you shared the wrong link. The link you shared is for the Strong Everyday subscription. In this case, you should directly share the /behalf quick reply with the member for the Yoga everyday subscription.",
-        "index": 2.001,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/5efc8f922d126c8a797ded7af02d14ea.png"
-      },
-      {
-        "internName": "Dhananjay Hivre",
-        "chatDate": "2026-08-14",
-        "number": "919666509057",
-        "summary": "919666509057",
-        "index": 4,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "suggestion",
-        "screenshot": "/qc-images/B-21/f0820d06a3e93a4ba884f61f27e9104d.png"
-      },
-      {
-        "internName": "Dhananjay Hivre",
-        "chatDate": "2026-08-14",
-        "number": null,
-        "summary": "He missed sharing the necessary pause guidelines with the member.",
-        "index": 4.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "suggestion",
-        "screenshot": "/qc-images/B-21/f0820d06a3e93a4ba884f61f27e9104d.png"
-      },
-      {
-        "internName": "Saurabh Chavhan",
-        "chatDate": "2026-08-14",
-        "number": "919910014117",
-        "summary": "Here, you should have shared yesterday’s video with the member instead of asking for clarification, as the member had clearly mentioned that they wanted the yesterday's video that Saurabh Sir had discussed in today’s session.",
-        "index": 6,
-        "batch": "B-20",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-20/0542363273c56e91a517473e05091385.png"
+        "screenshot": "/qc-images/B-21/f51249737569c2c91c497a65c7bbc9f6.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5560,7 +5131,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/6c02d000f6a88b41991e871159ad246d.png"
+        "screenshot": "/qc-images/B-21/774fc1f9ca0d21d24e12e8947a22aedb.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5571,7 +5142,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/9bc9ae3146bc660b7b70b98c5247caf9.png"
+        "screenshot": "/qc-images/B-21/b5d15df0885e911347f5da307c73dd75.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5582,7 +5153,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/a774299892c053515226b7b2c05223f4.png"
+        "screenshot": "/qc-images/B-21/b980a013a85a90893fa80face64f42ef.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5593,7 +5164,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/bdda746b91d8f0cd9d3a02ec24efdedd.png"
+        "screenshot": "/qc-images/B-21/ea07552d8431cf7a37b2cc2673accde5.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5604,7 +5175,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/97be690267ad413a8b67ed5d272a1ccf.png"
+        "screenshot": "/qc-images/B-21/aa0235d0b81443a9eb3ce98cfa10cdd0.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5615,7 +5186,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/d1133f859b27839f9f99efeaab0ae9b8.png"
+        "screenshot": "/qc-images/B-21/8617c4cad1462cecbf9a9891de998023.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5626,7 +5197,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/512d843baa088bc35f01072aaa110a8a.png"
+        "screenshot": "/qc-images/B-21/b01da330fb36db51002dd89a7b92990d.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5637,7 +5208,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/c71a48abaf8b639f4234b6ded71c4d76.png"
+        "screenshot": "/qc-images/B-21/c25866ac8901aedc48fc28c9205de943.png"
       },
       {
         "internName": "Vanshika Ragde",
@@ -5648,227 +5219,293 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/6c86fec5f63978aa1a0a99cff3bb66ad.png"
+        "screenshot": "/qc-images/B-21/fe69ed8f6c92bb0e615d74f7adbec470.png"
       },
       {
-        "internName": "Karan vaidya",
-        "chatDate": "2026-08-20",
-        "number": null,
-        "summary": "@Karan Vaidya HB Please cross-check your sentence once before sharing it with the member to avoid spelling mistakes.",
-        "index": 4,
+        "internName": "Vanshika Ragde",
+        "chatDate": "2026-08-23",
+        "number": "919158884199",
+        "summary": "1 QC -   - you did well by acknowledging and motivating the member, which was appropriate. However, you still missed manually marking the Sunday attendance, along with the proper introduction and closing line. Please ensure these points are also covered before closing the chat.",
+        "index": 19.004,
         "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/125b93687168edfe7c46f1d0c30a84bf.png"
+      },
+      {
+        "internName": "Vanshika Ragde",
+        "chatDate": "2026-08-23",
+        "number": "919377154582",
+        "summary": "2   - QC - your response was incomplete.  you missed her request to join the Jogger’s Park group in Naranpura. You should have shared the relevant group link as well. Please ensure you address every query raised by the member.",
+        "index": 23.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/6bdace7f1b981fea108750068551e967.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-23",
+        "number": "919769545759",
+        "summary": "1 QC -  - the member confirmed that she joined the 7:30 AM live session, but her attendance was not marked in the system. You should have manually marked her attendance and also provided a proper introduction before responding. Please ensure both the member’s request and attendance status are handled correctly.",
+        "index": 3.03,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/6228bb7c590ca71f3b4de225a15bb1fb.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-23",
+        "number": "917000879331",
+        "summary": "2 QC -  -  your response was incorrect and did not address the member’s issue. If a member is unable to join the free yoga session, you should apologize, ask for the error screenshot, and troubleshoot the issue instead of promoting a paid subscription. Since the member also requested to connect with someone, you should have provided the call option. Please address the actual concern before suggesting any payment.",
+        "index": 5.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/622239722be054b34ab809be20878755.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-17",
+        "number": "919830386589",
+        "summary": "QC- The evening batch timings were correctly provided. However, since the member only mentioned that they would join the evening slot, we should not assume or state that they will join the 5:00 PM batch as planned. Instead, we should inform them that they can choose any of the available evening batches as per their convenience.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/d0f199c5aebc45d713269cd7ddbd485b.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-18",
+        "number": "918310551527",
+        "summary": "Please avoid repeating sentences that have already been covered. For example, the option to extend the pause is already mentioned in the during pause steps, so repeating the same information again is not needed.",
+        "index": 3.003,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/a7fb5aa450a90f0bb58c8c41816b9468.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-18",
+        "number": "919359197936",
+        "summary": "3) Please avoid mixing languages within the same conversation. If the communication is being done in Hinglish, please keep the entire conversation in Hinglish. Similarly, if you start in English, continue the conversation completely in English. This will make the communication more consistent and professional. 4)",
+        "index": 3.006,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/a7fb5aa450a90f0bb58c8c41816b9468.png"
+      },
+      {
+        "internName": "Fatema Thool",
+        "chatDate": "2026-08-19",
+        "number": "919707866432",
+        "summary": "1 QC   :-  The member had already clearly mentioned the reason for pausing her subscription; she was unable to manage time for the sessions. you should have reviewed the previous chat, acknowledged the existing reason, and proceeded with the pause instead of asking for the same information again. Please avoid repeating questions when the required information is already available in the chat.",
+        "index": 3.033,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/a7fb5aa450a90f0bb58c8c41816b9468.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-17",
+        "number": "918884303000",
+        "summary": "1)  QC - The batch timings were shared clearly and all the necessary information was provided. However, you should avoid using “I” in the response and consistently use “we” when communicating on behalf of Team Habuild. For example, instead of “I have shared the morning as well as evening batch timings,” use “We have shared the morning as well as evening batch timings.”",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/ba0a95aa35eac77b0cd4f8041f94e683.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-17",
+        "number": "919444931299",
+        "summary": "- Repeated",
+        "index": 1.004,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/ba0a95aa35eac77b0cd4f8041f94e683.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-18",
+        "number": "919555944131",
+        "summary": "Here, the member’s concern was regarding the 14 Days Challenge, but the concern was not addressed in the response. Please make sure to identify and resolve the member’s actual concern before closing the conversation. If the member has raised a specific query, provide the relevant information or clarification accordingly.",
+        "index": 2.006,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/48b1ba76f516a0999aeaf6813340a7f2.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-18",
+        "number": "919004794485",
+        "summary": "3) Here, additionally, you should have informed the member that they can also check their details directly through the Habuild App. 4)",
+        "index": 3.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/34e2ff7a3fcaccd4aae6805daa649265.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-19",
+        "number": "917760674466",
+        "summary": "1 QC-   - The member’s subscription was already paused previously, so there was no need to ask for the reason for their absence again. You should have reviewed the previous chat and proceeded accordingly instead of repeating the same question.",
+        "index": 3.03,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/34e2ff7a3fcaccd4aae6805daa649265.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-19",
+        "number": "918553812220",
+        "summary": "2   - QC - your response was incomplete. The member specifically mentioned knee pain, but you did not acknowledge their concern or show empathy before sharing general weight-loss resources. You should have first acknowledged the knee pain, then guided them appropriately and shared knee-friendly yoga/weight-loss resources. Please ensure the member’s specific health concern is addressed before providing generic information.",
+        "index": 5.003,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/3d3643e15ebd540b792b7500fd97662b.png"
+      },
+      {
+        "internName": "Akshay Doble",
+        "chatDate": "2026-08-21",
+        "number": "919970369830",
+        "summary": "- QC - your response was incorrect. The member had already clearly shared the reason for the pause—there was no internet availability. You should have reviewed the previous chat and processed the extension instead of asking for the reason again. Do not repeat questions when the information is already available in the conversation.",
+        "index": 7.007,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/4ff12c93412d279808fd9468cab59094.png"
+      },
+      {
+        "internName": "Sonali Landge",
+        "chatDate": "2026-08-24",
+        "number": "918281429768",
+        "summary": "1) Suggestion - Your response is correct, however, you should also inform the member that they can check their membership details directly in the Habuild App for future reference.",
+        "index": 1,
+        "batch": "OJT Lead",
         "auditor": "Rashi",
         "type": "suggestion",
-        "screenshot": "/qc-images/B-21/30d08c1b682e7b5d825d592ce69feb07.png"
+        "screenshot": "/qc-images/OJT Lead/05a1766dfb9c9706c185f7502b550565.png"
       },
       {
-        "internName": "Akanksha Singh",
-        "chatDate": "2026-08-19",
-        "number": "919040033114",
-        "summary": "Here your response is correct, but you should also inform the member that currently we have a free 14-day yoga session ongoing, and they can share the above referral link with their husband.",
-        "index": 1.002,
+        "internName": "Renuka Deshmukh",
+        "chatDate": "2026-08-17",
+        "number": "919463549947",
+        "summary": "1) The response provided useful guidance about the recommended mat thickness and material. However, the member specifically asked for the price of the yoga mat, which was not directly addressed. Since we cannot confirm or share the current price, we should clearly inform the member that we are unable to provide the price and they can check the current price on Amazon.",
+        "index": 1.003,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/d6d204883bf3f4c730d0e20d24f3cfc6.png"
+        "screenshot": "/qc-images/B-21/49477a14b61f4749e4b55058da7d7f22.png"
       },
       {
-        "internName": "Akanksha Singh",
-        "chatDate": "2026-08-19",
-        "number": "918331023091",
-        "summary": "Please avoid asking if the member needs any further assistance until their query has been fully resolved.",
-        "index": 1.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/d6d204883bf3f4c730d0e20d24f3cfc6.png"
-      },
-      {
-        "internName": "Gayatri Junghare",
+        "internName": "Renuka Deshmukh",
         "chatDate": "2026-08-18",
-        "number": "917405816121",
-        "summary": "while you correctly identified that the member's subscription was paused, shared the personal link, and explained how to unpause it, you provided an incorrect pause end date. The dashboard showed the pause period as 13–18 August, but you informed the member that it was paused until 19 August. You should have verified the dashboard and communicated the correct pause end date to avoid confusion.",
-        "index": 7,
+        "number": "17346570302",
+        "summary": "Here, an additional response was not necessary, as the concern could have been resolved directly. Please avoid sending unnecessary messages when the issue can be handled without further communication.",
+        "index": 3.006,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/70d39a9de69fa5cf931b75fb97694c6e.png"
+        "screenshot": "/qc-images/B-21/bb4f8abd722637e1bd0499ec3c1911a1.png"
       },
       {
-        "internName": "Gayatri Junghare",
+        "internName": "Renuka Deshmukh",
+        "chatDate": "2026-08-18",
+        "number": "918818822226",
+        "summary": "3) Here, you confirmed the member’s pause request but did not share the “During Pause” steps, which are mandatory. Please ensure that these steps are always communicated whenever a pause is confirmed.",
+        "index": 3.011,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/bb4f8abd722637e1bd0499ec3c1911a1.png"
+      },
+      {
+        "internName": "Renuka Deshmukh",
         "chatDate": "2026-08-19",
-        "number": "919428500458",
-        "summary": "While you appropriately processed the subscription pause based on the member’s need for rest, the member had mentioned 11/2 (1.5) months, not 2 months. You should have either paused the subscription for 1.5 months or clarified the exact duration before processing the request to avoid applying an incorrect pause period",
-        "index": 23,
+        "number": "919422510081",
+        "summary": "1 QC -   - The user inquired about evening batch options and faced issues joining them. The agent provided instructions, links, and a step-by-step guide for changing class timings and downloading the app. The user requested a specific 5 AM batch link, which the agent initially directed them to via the app and links, but later sent a different session link by mistake. The conversation concluded with the agent clarifying the correct link for the session. FREE MEMBER CAN NOT update THERE BATCH time.",
+        "index": 5.006,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/382a5ac1a0a4525f7b5000fe297038e3.png"
+        "screenshot": "/qc-images/B-21/66a033bfdbccf91c4785231e47bfc4be.png"
       },
       {
-        "internName": "Nikhil Damle",
+        "internName": "Renuka Deshmukh",
+        "chatDate": "2026-08-21",
+        "number": "447506658189",
+        "summary": "1- QC -  -      The member had shared the error screenshot, which clearly showed an incorrect country code. You should have identified this and informed the member to enter the correct country code and try logging in again. Please review the screenshot.",
+        "index": 7.014,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/8d5477a7a6de15260849bdf7682a7b0c.png"
+      },
+      {
+        "internName": "Jyoti yadav",
+        "chatDate": "2026-08-13",
+        "number": "918928185423",
+        "summary": "1 QC-   - Member Gaurav Ji reported soreness and significant pain in his right thigh for the past week, especially during Dhanurasana, Setu Bandhasana, and prone asanas, and asked whether to use an ice pack or hot water bag. Jyoti advised him to stop painful asanas, avoid pushing through the pain, and consult a doctor or in-house physiotherapist for proper assessment and guidance. here you should always use we not i also you did not offer for pause and the response is very long make short and crisp.",
+        "index": 1.003,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/d3a50268c05bf0e94803438bb3c0dd96.png"
+      },
+      {
+        "internName": "Pranay Lokhare",
+        "chatDate": "2026-08-17",
+        "number": "919902606002",
+        "summary": "1 QC -  your response was incomplete. The member asked about the Sunday session duration, but you only shared the Pranayama session link. Please address both queries—clearly mention the Sunday session duration and then share the relevant Pranayama resource.",
+        "index": 3.005,
+        "batch": "B-18",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-18/1bee281c5943b3f22bd04d668c0adacf.png"
+      },
+      {
+        "internName": "Jyoyi yadav   - QC's",
         "chatDate": "2026-08-19",
-        "number": "919985901460",
-        "summary": "Nikhil, while you apologized and shared the customer care number, you should have reviewed the previous messages more carefully. The member's concern was regarding their relative's access to sessions from the UK, and the bot had provided incorrect information. You should have clarified that members living abroad can receive 24-hour access and provided the appropriate guidance instead of focusing only on the helpline.",
-        "index": 11,
+        "number": "919957706469",
+        "summary": "1 QC -   - your response was incomplete. The member specifically asked for the Menopause session link, but you only introduced yourself and did not provide the requested link. Please address the member’s exact query and share the relevant link instead of giving a generic response.",
+        "index": 5.007,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/7775f8b620a7c5efcf677b56411b4b3a.png"
+        "screenshot": "/qc-images/B-21/e531ad9b9169609747614e5d5d713298.png"
       },
       {
-        "internName": "Ashish sethi",
+        "internName": "Jyoyi yadav   - QC's",
         "chatDate": "2026-08-19",
-        "number": "919930589969",
-        "summary": "while you shared the renewal link and payment tutorial, you did not fully address the member’s queries. You should have first confirmed the subscription end date and clearly explained the 15-day free access, before sharing the renewal details and payment information.",
-        "index": 7,
+        "number": "918376909772",
+        "summary": "2 - QC -    your response should have been in Hinglish, as the member was communicating in Hinglish. Please ensure you match the member’s language consistently while responding, especially for appointment-related queries.",
+        "index": 7.004,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/a8da322b52b47c512a357c9696897af2.png"
+        "screenshot": "/qc-images/B-21/80a9735b961bb900fe2ffbbd01bd27c5.png"
       },
       {
-        "internName": "Shraboli Khobragade",
-        "chatDate": "2026-08-19",
-        "number": "919483545575",
-        "summary": "While you appropriately acknowledged the member’s situation, advised them to follow their doctor’s guidance, and informed them about the subscription pause, you provided incorrect pause dates. The system showed that the subscription was paused until 18th September 2026, whereas you informed the member that it was paused until 15th September 2026. You should have verified the system details before sharing the pause information.",
-        "index": 6,
+        "internName": "Jyoti yadav",
+        "chatDate": "2026-08-24",
+        "number": "918369728984",
+        "summary": "Suggestion -  - Avoid repeated line.",
+        "index": 1.001,
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/52306afdcf3554e2f6e1acfa143afcff.png"
-      },
-      {
-        "internName": "Shefali Humne",
-        "chatDate": "2026-08-19",
-        "number": "919824310322",
-        "summary": "Here your response is correct, but here you should mention that the free 14-day challenge is only for fresh and new members, instead of saying that the free challenge is open for everyone.",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/3498147787dbfc0aa4c19d300e32e408.png"
-      },
-      {
-        "internName": "Shefali Humne",
-        "chatDate": "2026-08-19",
-        "number": "919448440784",
-        "summary": "Here your response is correct, but you have mentioned that the member can join the session using the above link. However, it is the Habuild App link. Here, you should share the /dpersonal quick response with the member so that the member can join the session.",
-        "index": 1.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/3498147787dbfc0aa4c19d300e32e408.png"
-      },
-      {
-        "internName": "Shefali Humne",
-        "chatDate": "2026-08-20",
-        "number": "919274591351",
-        "summary": "@Shefali HB Here, you should have also acknowledged the member’s inconvenience and apologised for the issue before sharing the alternative link. Please make sure to show empathy and personalise your response according to the member’s concern, so they feel supported.",
-        "index": 7,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/2a6e47a662a5d702227f812f057b4f48.png"
-      },
-      {
-        "internName": "Shefali Humne",
-        "chatDate": "2026-08-22",
-        "number": "918318304062",
-        "summary": "@Shefali HB Here, you should have first checked the system and verified the member’s existing registration. The member was already registered for the 14-Day Free Yoga Challenge, which was scheduled to start from 24th August. You should have informed the member that after completing their 14-Day Free Yoga Challenge, they would be able to register for the 14-Day Free Strong Everyday Challenge. Please make sure to check the member’s registration details before responding.",
-        "index": 26,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/1559f5845b8998a36fa609604caf73ec.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-19",
-        "number": "919914717133",
-        "summary": "Here your response is correct, but as the member has also asked about the gift, you should also inform the member about the gifts and rewards they will receive once they reach the particular level.",
-        "index": 1.002,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/312b8e4a539365aaa8cf45d0b517a8a0.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-19",
-        "number": "919398036472",
-        "summary": "Here your response is correct, but you have mentioned that we are sharing the link below. You should not mention that in the conversation, as you have already shared the steps below explaining how the member can access the 5:30 AM session.",
-        "index": 1.005,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/312b8e4a539365aaa8cf45d0b517a8a0.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-19",
-        "number": "918888833559",
-        "summary": "Here, the member asked for the Strong Everyday session link, and you have shared the correct link. However, you should also share the steps to enable Strong Everyday notifications.",
-        "index": 2.001,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/78ec6665a4b8dfbcf2b6fb724541e3ec.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-20",
-        "number": "919408706655",
-        "summary": "you should have acknowledged the member’s request to stop receiving messages and addressed their communication preference. Instead, you provided troubleshooting steps for a session video issue, which was unrelated to the member’s actual concern. You should have confirmed that further messages would not be sent to that number.",
-        "index": 34,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/532b8aaab7c0900c0b73d8fd95f6c445.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-20",
-        "number": "917972330889",
-        "summary": "while you appropriately guided the member to the in-house physiotherapist for suitable exercise guidance, you should have shown more empathy given the member’s multiple physical concerns. Additionally, if the discomfort was affecting their ability to practice, you could have offered a temporary subscription pause so their membership days would not be wasted.",
-        "index": 63,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/b3088b37b4ef1217592f400ecd0bb320.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-20",
-        "number": "919115738336",
-        "summary": "While you informed the member that the query had been shared with the concerned department, you should have responded in Hinglish, as the member had communicated in Hinglish. This would have provided a more comfortable and personalized member experience.",
-        "index": 90,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/cf5e1741c59e957c201c96763fd1671f.png"
-      },
-      {
-        "internName": "Janvi Raichada",
-        "chatDate": "2026-08-20",
-        "number": "918547840700",
-        "summary": "while you shared the in-house physiotherapist details, you should have reviewed the previous conversation first. The consultation had already been provided, and the member had agreed to pause the subscription until Monday. Since the member later confirmed that they were still unwell with knee pain, you should have directly processed the requested pause instead of sharing the physiotherapist details again.",
-        "index": 123,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/76188ad09e490159e2d5952d21099b48.png"
-      },
-      {
-        "internName": "Ayushi Bansod",
-        "chatDate": "2026-08-19",
-        "number": "17049647634",
-        "summary": "while you shared the available batches and informed the member about 24-hour access for international members, you did not clearly explain how to access the 24-hour session through the Habuild App or using the personal link. You should have provided the access steps clearly so the member could join the session without confusion.",
-        "index": 17,
-        "batch": "B-21",
-        "auditor": "Rashi",
-        "type": "qc",
-        "screenshot": "/qc-images/B-21/ced19106d49d3847b4b521de490ecf1f.png"
+        "screenshot": "/qc-images/B-21/14e8428242afb33258899e0c5ea6238c.png"
       },
       {
         "internName": "Moin Sheikh",
@@ -5879,7 +5516,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/323d2a0a29beeec5ea16b052afa11fb0.png"
+        "screenshot": "/qc-images/B-21/ba5c9043fa5ac140b2eafe32391263ce.png"
       },
       {
         "internName": "Moin Sheikh",
@@ -5890,7 +5527,733 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/3673f6a0bc7fb49c32d07a4797343acf.png"
+        "screenshot": "/qc-images/B-21/077dc7e8b7cfb8c8f7e6495f86f182c2.png"
+      },
+      {
+        "internName": "Moin Sheikh",
+        "chatDate": "2026-08-21",
+        "number": "918766607032",
+        "summary": "1 QC -   - your response was incorrect. The member had already shared their paid/registered number, so there was no need to share a payment link again. You should have reviewed the previous chat and provided the correct session joining link/information based on their existing membership. Please scroll through the chat before responding.",
+        "index": 6.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7c5b37e40069d9bb3a55499fe46f7d4d.png"
+      },
+      {
+        "internName": "Moin Sheikh",
+        "chatDate": "2026-08-21",
+        "number": "919839888227",
+        "summary": "2 -QC-  - The member raised a specific concern about noise and vibration during right-nostril breathing in Nadi Shodhana Pranayama, so you should have filled the Yoga Query form and forwarded it to the concerned team for proper guidance",
+        "index": 8.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/f3261bcfa43856f565bd55095d5702e7.png"
+      },
+      {
+        "internName": "Moin Sheikh",
+        "chatDate": "2026-04-23",
+        "number": "919950141948",
+        "summary": "1 - QC -  - your response was incorrect. The Hand Mudras PDF is available in the Resources section only after a specific duration, so you should not have told the member that it was immediately available there. Please verify the resource availability and duration before sharing incorrect information.",
+        "index": 10.024,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/18a1569f9796c0f9319705f323418589.png"
+      },
+      {
+        "internName": "Moin Sheikh",
+        "chatDate": "2026-04-23",
+        "number": "919422500035",
+        "summary": "2   –QC - The user inquired about weight loss yoga classes and premium options. The agent clarified that there are no exclusive yoga classes for weight loss but provided multiple YouTube videos with tips and routines. The conversation ended with an offer for further assistance. your response was incomplete. The member also asked “Which are the premium classes available?”, but you did not address this query. Please ensure you read the complete chat and respond to every question raised by the member before closing the conversation.",
+        "index": 13.004,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/040bfaccf7ff5ca5a0daa552edac51eb.png"
+      },
+      {
+        "internName": "Sachi Nagdev",
+        "chatDate": "2026-08-14",
+        "number": "919845044818",
+        "summary": "Sanchi should have directly filled out the Yoga Query Form, as the member is a paid subscriber. Although Sanchi mentioned that the query had been forwarded, she did not fill out the Yoga Query Form.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/dfa2e3cdf151a8b244ac8b49de2ce2c8.png"
+      },
+      {
+        "internName": "Sachi Nagdev",
+        "chatDate": "2026-08-18",
+        "number": "19092828160",
+        "summary": "@Sachi HB You missed sharing the /duringpause steps. Please always make sure that whenever a member’s subscription is paused, the /duringpause steps are also shared with them.",
+        "index": 29,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/115088c424056784921506c0215aeac0.png"
+      },
+      {
+        "internName": "Sachi Nagdev",
+        "chatDate": "2026-08-19",
+        "number": "917016401629",
+        "summary": "@Sachi HB Here, you missed sharing the /duringpause steps. Please always make sure that whenever you pause a member’s subscription, the /duringpause steps are also shared with them.",
+        "index": 49,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/21dc9bcdf5aaa7c5d5f766fcd4fd6f5a.png"
+      },
+      {
+        "internName": "Sachi Nagdev",
+        "chatDate": "2026-08-19",
+        "number": "919101171992",
+        "summary": "@Sachi HB Here, the member was communicating in English, but you responded in Hindi. Please make sure to always follow the member’s language while communicating with them and avoid such mistakes in the future.",
+        "index": 52,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/8fbb4280e6330a70ba96342f7a80460c.png"
+      },
+      {
+        "internName": "Sachi Nagdev",
+        "chatDate": "2026-08-21",
+        "number": "917588614310",
+        "summary": "In this sentence, you should not mention a call, as our physiotherapists do not call members from our side.",
+        "index": 53.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/c70cc5895f4dd93d01ef8433dd8986a8.png"
+      },
+      {
+        "internName": "Ashish sethi",
+        "chatDate": "2026-08-14",
+        "number": "919654930634",
+        "summary": "Here Ashish should mention before following the video, we recommend consulting with our physiotherapist for the proper guidance, and he should avoid giving the closure until the member’s query is fully resolved.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/e3530cd0c54ee3079f086bb6d7ac0969.png"
+      },
+      {
+        "internName": "Nikita Sharma",
+        "chatDate": "2026-08-22",
+        "number": "14168417860",
+        "summary": "As the member has already registered for the paid subscription from another number and asked whether their subscription has ended because they are not receiving the link, you should scroll through the chat and inform the member that their subscription has ended. If they wish to rejoin, they can renew their subscription. Please always scroll through the chat before responding.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/2dd1825092c624ce3bcfa6578994c0c9.png"
+      },
+      {
+        "internName": "Nikita Sharma",
+        "chatDate": "2026-08-22",
+        "number": "918097028889",
+        "summary": "Here your response is correct, but please always make sure to mention the pause duration in the conversation.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/2dd1825092c624ce3bcfa6578994c0c9.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-19",
+        "number": "919586652646",
+        "summary": "@Parivartan Patil Hb , here you should have directly forwarded the member’s request to the concerned email team instead of informing them that the payment link can only be shared through WhatsApp. You should have informed the member that we have forwarded the query to the concerned team, and they will share the payment link with them via email shortly.",
+        "index": 5,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/1c88e3c96cc6fa13b633d93513128d4c.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-19",
+        "number": "919404540554",
+        "summary": "@Parivartan Patil Hb here you should have responded in Hindi (Hinglish), as the member communicated in Hindi. You should also have clearly checked the member’s subscription details and informed them that only 4 days are remaining on their current subscription, so the upgrade option is not available at this stage. You should have guided the member to renew their subscription instead.",
+        "index": 9,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/deb1809b657dc478f255ca88e6942148.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-21",
+        "number": "918888323344",
+        "summary": "Here your response is correct, but you should also mention that the member can make the payment using the above link and choose the payment method as per their convenience.",
+        "index": 10.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/841c519df32910a43bccea230899cca9.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-21",
+        "number": "12404474676",
+        "summary": "As the member has already made the payment, you should check the member's details in the CRM before responding. In this case, you should directly pause the member's subscription.",
+        "index": 10.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/841c519df32910a43bccea230899cca9.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-21",
+        "number": "919448355398",
+        "summary": "As the member mentioned that they are unable to attend the session and have already missed the sessions for the last 3 days, you should directly pause the member's subscription.",
+        "index": 11.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7e6371e9012fb031dd75de8c4fe38fc5.png"
+      },
+      {
+        "internName": "Parivartan Patil",
+        "chatDate": "2026-08-24",
+        "number": "919224380523",
+        "summary": "Here, your response is correct, but as the member is sharing their health concern, you should also show empathy towards the member's health condition.",
+        "index": 11.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7e6371e9012fb031dd75de8c4fe38fc5.png"
+      },
+      {
+        "internName": "Sufiyan Mugal",
+        "chatDate": "2026-08-14",
+        "number": "919886038081",
+        "summary": "please ensure you carefully check the member’s requested rejoining date before applying a pause. Since the member clearly mentioned that they would rejoin from Tuesday, you should have paused the subscription for 5 days instead of 4 days to ensure their subscription days were preserved correctly.",
+        "index": 2,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/63bf6aea21520985a5b7e9717f4db14c.png"
+      },
+      {
+        "internName": "Sufiyan Mugal",
+        "chatDate": "2026-08-19",
+        "number": "917588870155",
+        "summary": "@Sufiyan Hb  As the member asked for the renewal link, you shared the wrong link. The link you shared was for the Strong Everyday subscription. In this case, you should have directly shared the /YE Renew quick reply with the member for the Yoga Everyday subscription.",
+        "index": 18,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/c13c54b81d1af280b9fc95b489b6a259.png"
+      },
+      {
+        "internName": "Sufiyan Mugal",
+        "chatDate": "2026-08-19",
+        "number": "919096081468",
+        "summary": "@Sufiyan Hb As the member requested a QR code to make the payment on 28th August, you should have informed them that the QR code has a limited validity, so they can request the QR code on the day they wish to make the payment. You should also have asked the member to inform us which subscription plan they would like to purchase, so that we could share the appropriate QR code accordingly.",
+        "index": 21,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/023d2d6d52e97bd367cbf5e08127ab1a.png"
+      },
+      {
+        "internName": "Sufiyan Mugal",
+        "chatDate": "2026-08-14",
+        "number": "919755647561",
+        "summary": "919755647561",
+        "index": 4,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/a34570415563941e3e2b0b5ad4807568.png"
+      },
+      {
+        "internName": "Sufiyan Mugal",
+        "chatDate": "2026-08-14",
+        "number": null,
+        "summary": "The member informed that they were down with viral fever and requested a 5-day pause as they needed rest and would be unable to attend the live sessions. Sufiyan empathised with the member and informed them that their subscription would be paused, but he did not clearly mention the 5-day pause period in his response.",
+        "index": 4.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/a34570415563941e3e2b0b5ad4807568.png"
+      },
+      {
+        "internName": "Dhananjay Hivre",
+        "chatDate": "2026-08-19",
+        "number": "918910803533",
+        "summary": "As member got the messages above, if they renew their subscription before 31st August, they will get 15 extra days. Here, you should simply inform the member that if they renew before 31st August, they will receive 15 extra days. Please always check the previous messages or templates before responding.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/326d5063d5b44b14c80c82e709337415.png"
+      },
+      {
+        "internName": "Dhananjay Hivre",
+        "chatDate": "2026-08-19",
+        "number": "919284561850",
+        "summary": "As the member is a paid member and mentioned that they will join the session from tomorrow and has also shared their paid registration number above, you should simply inform the member that we hope to see you in tomorrow's session. Please always review the chat history before responding.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/326d5063d5b44b14c80c82e709337415.png"
+      },
+      {
+        "internName": "Dhananjay Hivre",
+        "chatDate": "2026-08-19",
+        "number": "919414607377",
+        "summary": "As the member asked for the renewal link, you shared the wrong link. The link you shared is for the Strong Everyday subscription. In this case, you should directly share the /behalf quick reply with the member for the Yoga everyday subscription.",
+        "index": 2.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/690d9642e3a4f7505915f7d3d67c75fa.png"
+      },
+      {
+        "internName": "Dhananjay Hivre",
+        "chatDate": "2026-08-14",
+        "number": "919666509057",
+        "summary": "919666509057",
+        "index": 4,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/4c1def59b976db18437d3bbe80c390c0.png"
+      },
+      {
+        "internName": "Dhananjay Hivre",
+        "chatDate": "2026-08-14",
+        "number": null,
+        "summary": "He missed sharing the necessary pause guidelines with the member.",
+        "index": 4.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/4c1def59b976db18437d3bbe80c390c0.png"
+      },
+      {
+        "internName": "Saurabh Chavhan",
+        "chatDate": "2026-08-14",
+        "number": "919910014117",
+        "summary": "Here, you should have shared yesterday’s video with the member instead of asking for clarification, as the member had clearly mentioned that they wanted the yesterday's video that Saurabh Sir had discussed in today’s session.",
+        "index": 6,
+        "batch": "B-20",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-20/642c51d7b4d18459b5aa3b3e37c56c41.png"
+      },
+      {
+        "internName": "Karan vaidya",
+        "chatDate": "2026-08-20",
+        "number": null,
+        "summary": "@Karan Vaidya HB Please cross-check your sentence once before sharing it with the member to avoid spelling mistakes.",
+        "index": 4,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/1a66a30cafd4ea0e0fd29aedfcc2e623.png"
+      },
+      {
+        "internName": "Akanksha Singh",
+        "chatDate": "2026-08-19",
+        "number": "919040033114",
+        "summary": "Here your response is correct, but you should also inform the member that currently we have a free 14-day yoga session ongoing, and they can share the above referral link with their husband.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/9737fcfb27f82c656fda00ad751d6a42.png"
+      },
+      {
+        "internName": "Akanksha Singh",
+        "chatDate": "2026-08-19",
+        "number": "918331023091",
+        "summary": "Please avoid asking if the member needs any further assistance until their query has been fully resolved.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/9737fcfb27f82c656fda00ad751d6a42.png"
+      },
+      {
+        "internName": "Akanksha Singh",
+        "chatDate": "2026-08-24",
+        "number": "919582880983",
+        "summary": "Here, you could have simply acknowledged the member’s message instead of asking for clarification, as the member was sharing the steps/count of the breathing exercise.",
+        "index": 12,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/3b7f5b9c005bf7ee4829fcf3ebf9984c.png"
+      },
+      {
+        "internName": "Akanksha Singh",
+        "chatDate": "2026-08-24",
+        "number": "18478584777",
+        "summary": "Here She should have also clarified that we have a 5-day Gut Detox Program not 7 days",
+        "index": 40,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/23e32c33cd81a23d7b54d8968f5759f3.png"
+      },
+      {
+        "internName": "Nikhil Damle",
+        "chatDate": "2026-08-19",
+        "number": "919985901460",
+        "summary": "Nikhil, while you apologized and shared the customer care number, you should have reviewed the previous messages more carefully. The member's concern was regarding their relative's access to sessions from the UK, and the bot had provided incorrect information. You should have clarified that members living abroad can receive 24-hour access and provided the appropriate guidance instead of focusing only on the helpline.",
+        "index": 11,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/6e3dc31f501e42bdf7d9860a852eca1c.png"
+      },
+      {
+        "internName": "Ashish sethi",
+        "chatDate": "2026-08-19",
+        "number": "919930589969",
+        "summary": "while you shared the renewal link and payment tutorial, you did not fully address the member’s queries. You should have first confirmed the subscription end date and clearly explained the 15-day free access, before sharing the renewal details and payment information.",
+        "index": 7,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/8e81ca2f6e3c03a5eb139b3674be08a0.png"
+      },
+      {
+        "internName": "Ashish sethi",
+        "chatDate": "2026-08-22",
+        "number": "919552557828",
+        "summary": "Here your response is correct, but as the member was facing an issue with the app not opening, you should also show empathy toward the member.",
+        "index": 10.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/7e1e756fa6240d893834e1b78a7005a7.png"
+      },
+      {
+        "internName": "Shraboli Khobragade",
+        "chatDate": "2026-08-19",
+        "number": "919483545575",
+        "summary": "While you appropriately acknowledged the member’s situation, advised them to follow their doctor’s guidance, and informed them about the subscription pause, you provided incorrect pause dates. The system showed that the subscription was paused until 18th September 2026, whereas you informed the member that it was paused until 15th September 2026. You should have verified the system details before sharing the pause information.",
+        "index": 6,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/b343433ac5cf65a3d9a56acea1c7bb90.png"
+      },
+      {
+        "internName": "Shraboli Khobragade",
+        "chatDate": "2026-08-23",
+        "number": "917204098400",
+        "summary": "Shraboli, while you correctly confirmed the available meetup location, you incorrectly informed the member that no OTP was required. Since an OTP is required for login/registration and is sent to the member’s WhatsApp number, you should have clearly explained the OTP process to avoid confusion",
+        "index": 22,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/9ded509837b43cf78ed1e4f7c2719c41.png"
+      },
+      {
+        "internName": "Shraboli Khobragade",
+        "chatDate": "2026-08-23",
+        "number": "17736802644",
+        "summary": "While you correctly clarified that the Status Everyday app is free and explained the registration requirements, you should have addressed the member’s technical issue more effectively. You should have requested a screenshot of the issue and forwarded it to the concerned Link/Bug Issue Team for further investigation.",
+        "index": 53,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/d4cc1dd62feab81cb935ea18f88ab912.png"
+      },
+      {
+        "internName": "Shefali Humne",
+        "chatDate": "2026-08-19",
+        "number": "919824310322",
+        "summary": "Here your response is correct, but here you should mention that the free 14-day challenge is only for fresh and new members, instead of saying that the free challenge is open for everyone.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/ba185402cbd455a034a37fd33599637f.png"
+      },
+      {
+        "internName": "Shefali Humne",
+        "chatDate": "2026-08-19",
+        "number": "919448440784",
+        "summary": "Here your response is correct, but you have mentioned that the member can join the session using the above link. However, it is the Habuild App link. Here, you should share the /dpersonal quick response with the member so that the member can join the session.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/ba185402cbd455a034a37fd33599637f.png"
+      },
+      {
+        "internName": "Shefali Humne",
+        "chatDate": "2026-08-20",
+        "number": "919274591351",
+        "summary": "@Shefali HB Here, you should have also acknowledged the member’s inconvenience and apologised for the issue before sharing the alternative link. Please make sure to show empathy and personalise your response according to the member’s concern, so they feel supported.",
+        "index": 7,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/c33dd19ff7ecdf22e0d8fe4ee72efb9f.png"
+      },
+      {
+        "internName": "Shefali Humne",
+        "chatDate": "2026-08-22",
+        "number": "918318304062",
+        "summary": "@Shefali HB Here, you should have first checked the system and verified the member’s existing registration. The member was already registered for the 14-Day Free Yoga Challenge, which was scheduled to start from 24th August. You should have informed the member that after completing their 14-Day Free Yoga Challenge, they would be able to register for the 14-Day Free Strong Everyday Challenge. Please make sure to check the member’s registration details before responding.",
+        "index": 26,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/f6f96e5566829b402e1cebf9a2869895.png"
+      },
+      {
+        "internName": "Gayatri Junghare",
+        "chatDate": "2026-08-18",
+        "number": "917405816121",
+        "summary": "while you correctly identified that the member's subscription was paused, shared the personal link, and explained how to unpause it, you provided an incorrect pause end date. The dashboard showed the pause period as 13–18 August, but you informed the member that it was paused until 19 August. You should have verified the dashboard and communicated the correct pause end date to avoid confusion.",
+        "index": 7,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/8bb3ef699b9965c05e59c08e4bfaa2b5.png"
+      },
+      {
+        "internName": "Gayatri Junghare",
+        "chatDate": "2026-08-19",
+        "number": "919428500458",
+        "summary": "While you appropriately processed the subscription pause based on the member’s need for rest, the member had mentioned 11/2 (1.5) months, not 2 months. You should have either paused the subscription for 1.5 months or clarified the exact duration before processing the request to avoid applying an incorrect pause period",
+        "index": 23,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/977e49577e4b11f4a9efd7d64bd00d4a.png"
+      },
+      {
+        "internName": "Gayatri Junghare",
+        "chatDate": "2026-08-22",
+        "number": "14375512572",
+        "summary": "@Gayatri Junghare HB Please always cross-check your response once before sharing it with the member. Here, you copy-pasted the same old number in your response. Kindly verify the member’s details carefully before sending the response to avoid such errors.",
+        "index": 69,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/45b43742561b2e8f388797ac05854946.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-19",
+        "number": "919914717133",
+        "summary": "Here your response is correct, but as the member has also asked about the gift, you should also inform the member about the gifts and rewards they will receive once they reach the particular level.",
+        "index": 1.002,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/705fe95960821453eaa1ba7004837d98.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-19",
+        "number": "919398036472",
+        "summary": "Here your response is correct, but you have mentioned that we are sharing the link below. You should not mention that in the conversation, as you have already shared the steps below explaining how the member can access the 5:30 AM session.",
+        "index": 1.005,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/705fe95960821453eaa1ba7004837d98.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-19",
+        "number": "918888833559",
+        "summary": "Here, the member asked for the Strong Everyday session link, and you have shared the correct link. However, you should also share the steps to enable Strong Everyday notifications.",
+        "index": 2.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/bda373c7d21019c12a644256761b8b68.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-20",
+        "number": "919408706655",
+        "summary": "you should have acknowledged the member’s request to stop receiving messages and addressed their communication preference. Instead, you provided troubleshooting steps for a session video issue, which was unrelated to the member’s actual concern. You should have confirmed that further messages would not be sent to that number.",
+        "index": 34,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/28eee8641e48abeb9824bbca08bbcb0e.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-20",
+        "number": "917972330889",
+        "summary": "while you appropriately guided the member to the in-house physiotherapist for suitable exercise guidance, you should have shown more empathy given the member’s multiple physical concerns. Additionally, if the discomfort was affecting their ability to practice, you could have offered a temporary subscription pause so their membership days would not be wasted.",
+        "index": 63,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/89d920ffad2e7823d74a2762384c37cd.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-20",
+        "number": "919115738336",
+        "summary": "While you informed the member that the query had been shared with the concerned department, you should have responded in Hinglish, as the member had communicated in Hinglish. This would have provided a more comfortable and personalized member experience.",
+        "index": 90,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/0638d2c4206cc00520ec518e298a1f43.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-20",
+        "number": "918547840700",
+        "summary": "while you shared the in-house physiotherapist details, you should have reviewed the previous conversation first. The consultation had already been provided, and the member had agreed to pause the subscription until Monday. Since the member later confirmed that they were still unwell with knee pain, you should have directly processed the requested pause instead of sharing the physiotherapist details again.",
+        "index": 123,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/530508842b5221fc32da6f5a68407bbf.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-24",
+        "number": "19145522754",
+        "summary": "She did not share the during-pause steps",
+        "index": 151,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/cf3693ea1691a7de6c971a5d6a6de577.png"
+      },
+      {
+        "internName": "Janvi Raichada",
+        "chatDate": "2026-08-24",
+        "number": "919902097175",
+        "summary": "Janvi, while you responded empathetically, advised the member to consult the in-house physiotherapist, and recommended avoiding movements that increase the pain, you should have also offered a subscription pause since the member was experiencing pain after a fall. This would have allowed them to focus on recovery without their subscription days being wasted.",
+        "index": 183,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/e41d613db6e5fd3ce3efec37aa4b05f6.png"
+      },
+      {
+        "internName": "Ayushi Bansod",
+        "chatDate": "2026-08-19",
+        "number": "17049647634",
+        "summary": "while you shared the available batches and informed the member about 24-hour access for international members, you did not clearly explain how to access the 24-hour session through the Habuild App or using the personal link. You should have provided the access steps clearly so the member could join the session without confusion.",
+        "index": 17,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/244ce80df41e1c55ca6b561b83bb5716.png"
+      },
+      {
+        "internName": "Ayushi Bansod",
+        "chatDate": "2026-08-23",
+        "number": "917028020161",
+        "summary": "Ayushi, while you appropriately shared the member’s concern with the in-house specialists for further guidance, the response lacked empathy. You should have first acknowledged the member’s long-term discomfort and concern regarding menopause symptoms before explaining the next steps. This would have made the response more supportive and reassuring.",
+        "index": 47,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/1ee0a511f2345b44bd0184dbee0ef593.png"
+      },
+      {
+        "internName": "Ritikesh Hirekhan",
+        "chatDate": "2026-08-14",
+        "number": "14086087518",
+        "summary": "Ritikesh should make sure to respond to every member's concern, as he missed responding to the member's query on payment confirmation.",
+        "index": 1.003,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/47c2aa59686715878651c566bd891c33.png"
+      },
+      {
+        "internName": "Ritikesh Hirekhan",
+        "chatDate": "2026-08-21",
+        "number": "919922997550",
+        "summary": "Here, you provided the /revert to the member but missed providing the resolution after that. Kindly make sure to address the member’s query fully after sending the /revert, so the member receives a complete resolution.",
+        "index": 17,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/e55956c698ceec84b9fa6c493a506780.png"
+      },
+      {
+        "internName": "Ritikesh Hirekhan",
+        "chatDate": "2026-08-24",
+        "number": "919322231414",
+        "summary": "@Ritikesh Hirekhan The member requested to cancel their membership due to health reasons and asked for a refund. You informed the member that the concerned team would get back to them, but you missed acknowledging their health concern with empathy. Please always ensure that you acknowledge the member’s concern and show empathy.",
+        "index": 32,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/844b5e5785a5d2daa84c25eda310ed7d.png"
+      },
+      {
+        "internName": "Ritikesh Hirekhan",
+        "chatDate": "2026-08-24",
+        "number": "919948269129",
+        "summary": "919948269129",
+        "index": 4,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/fb8ead80f7e49bf26ca373bb6da6b005.png"
+      },
+      {
+        "internName": "Ritikesh Hirekhan",
+        "chatDate": "2026-08-24",
+        "number": null,
+        "summary": "@Ritikesh Hirekhan Suggestion Please always cross-check your response once before sharing it with the member to avoid spelling mistakes.",
+        "index": 4.001,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "suggestion",
+        "screenshot": "/qc-images/B-21/fb8ead80f7e49bf26ca373bb6da6b005.png"
+      },
+      {
+        "internName": "Dhanlaxmi khawshi",
+        "chatDate": "2026-08-21",
+        "number": "917384964301",
+        "summary": "@~Dhanlaxmi Here, you should have informed the member that we have 6 available batch timings, and they can join any of the available batches as per their convenience. You should also have clearly clarified that currently, we do not have a 5:30 PM batch timing. Please make sure to provide the complete information and resolution.",
+        "index": 4,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/8f77d7f1c302fd072ec99743d6a2eab2.png"
+      },
+      {
+        "internName": "Dhanlaxmi khawshi",
+        "chatDate": "2026-08-21",
+        "number": "917893418461",
+        "summary": "@~Dhanlaxmi The member asked for exercises for trigger finger. You should have acknowledged the member’s concern and forwarded the query to the concerned Yoga Team for appropriate guidance instead of asking the member for further clarification. Please make sure to address the member’s concern completely and provide a clear resolution or update before closing the conversation.",
+        "index": 7,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/5dec6485d3bc28a45575df0ee0c0f32f.png"
+      },
+      {
+        "internName": "Dhanlaxmi khawshi",
+        "chatDate": "2026-08-22",
+        "number": "918097020609",
+        "summary": "@~Dhanlaxmi Here, you did not explain how the member could adjust their batch timing or provide the available batch options. You should have informed the member that we have 6 batch timings available, and they can join any of the available batches as per their convenience. Please make sure to clearly explain the available options.",
+        "index": 28,
+        "batch": "B-21",
+        "auditor": "Rashi",
+        "type": "qc",
+        "screenshot": "/qc-images/B-21/d445ace846511f957be2b8c42539714f.png"
       },
       {
         "internName": "Disha Kamble",
@@ -5901,7 +6264,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/77e2829753ea503b60a488bfe7614187.png"
+        "screenshot": "/qc-images/B-21/f571c1b699eb5a1ae74159ce7cd52526.png"
       },
       {
         "internName": "Sharayu Aswale",
@@ -5912,7 +6275,7 @@
         "batch": "B-21",
         "auditor": "Rashi",
         "type": "qc",
-        "screenshot": "/qc-images/B-21/d05e52431988cf03bac85e7a56ab56c6.png"
+        "screenshot": "/qc-images/B-21/6852bb907ab449f7f276256ad440f018.png"
       }
     ]
   },

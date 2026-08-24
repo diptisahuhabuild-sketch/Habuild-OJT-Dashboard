@@ -181,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cleanReg.includes('raichadda') && cleanTarget.includes('raichada')) return true;
     if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
     if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
+    if (cleanReg.includes('asawari') && cleanTarget.includes('asawri')) return true;
+    if (cleanReg.includes('asawri') && cleanTarget.includes('asawari')) return true;
 
     // Surname and First name matching
     const getFirstName = (words) => {
@@ -1647,7 +1649,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // OJT Interns List from config/registry (Excludes leads, managers, and non-intern regular staff)
     const ojtInternNames = (state.config && state.config.internsRegistry)
       ? state.config.internsRegistry.map(i => i.name.toLowerCase().trim()).filter(n => !n.includes('dipti'))
-      : ['smit', 'mahak', 'aditya', 'anjali', 'kunal', 'papiha', 'palak', 'mosin', 'tina', 'babasaheb', 'jaya'];
+      : [];
 
     // Retrieve Komal AI agent metrics
     let ojtTotalSimple = 0;
@@ -1828,20 +1830,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // High-performance O(1) batch lookup map (same as scorecard!)
     const internBatchMap = new Map();
-    const baseline = [
-      { name: 'Smit', batch: 'B-20' },
-      { name: 'Mahak', batch: 'B-20' },
-      { name: 'Aditya', batch: 'B-20' },
-      { name: 'Anjali', batch: 'B-19' },
-      { name: 'Kunal', batch: 'B-19' },
-      { name: 'Papiha', batch: 'B-19' },
-      { name: 'Palak', batch: 'B-18' },
-      { name: 'Mosin', batch: 'B-18' },
-      { name: 'Tina', batch: 'B-17' },
-      { name: 'Babasaheb', batch: 'B-17' },
-      { name: 'Jaya', batch: 'B-17' }
-    ];
-    baseline.forEach(b => internBatchMap.set(b.name.toLowerCase().trim(), normalizeBatchName(b.batch)));
     const regList = (state.config && state.config.internsRegistry) || [];
     regList.forEach(i => {
       if (i.name && i.batch) {
@@ -1872,7 +1860,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const q = state.searchQuery.toLowerCase().trim();
       filtered = filtered.filter(r => {
         const name = (r.internName || '').toLowerCase();
-        return name.includes(q);
+        return name.includes(q) || namesMatch(name, q);
       });
     }
 
@@ -2246,7 +2234,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (hasCommsData) {
         chatCountVal = totalChats; // Sum for week/multi-day, or exact single day value
-        avgChatCountVal = isSingleDayFilter ? totalChats : (availableDays > 0 ? parseFloat((totalChats / availableDays).toFixed(1)) : 0);
+        if (availableDays === 1) {
+          avgChatCountVal = totalChats;
+        } else if (availableDays > 0) {
+          avgChatCountVal = parseFloat((totalChats / availableDays).toFixed(1));
+        } else {
+          avgChatCountVal = 0;
+        }
       }
 
       let qcDocsCount = 0;
@@ -2498,8 +2492,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // 4. Search input filter
       if (state.searchQuery) {
         const query = state.searchQuery.toLowerCase().trim();
-        const matchesName = reg.name.toLowerCase().includes(query);
-        const matchesLead = reg.lead && reg.lead.toLowerCase().includes(query);
+        const matchesName = reg.name.toLowerCase().includes(query) || namesMatch(reg.name, query);
+        const matchesLead = (reg.lead && reg.lead.toLowerCase().includes(query)) || (reg.lead && namesMatch(reg.lead, query));
         if (!matchesName && !matchesLead) return;
       }
 
@@ -3010,7 +3004,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tbody.innerHTML = '';
     sampleTransition.forEach(row => {
-      if (state.searchQuery && !row.intern.toLowerCase().includes(state.searchQuery)) return;
+      if (state.searchQuery && !row.intern.toLowerCase().includes(state.searchQuery) && !namesMatch(row.intern, state.searchQuery)) return;
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td class="font-bold">${row.intern}</td>
@@ -3095,7 +3089,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tbody.innerHTML = '';
     sampleFeedback.forEach(row => {
-      if (state.searchQuery && !row.agent.toLowerCase().includes(state.searchQuery) && !row.reviewer.toLowerCase().includes(state.searchQuery)) return;
+      if (state.searchQuery && !row.agent.toLowerCase().includes(state.searchQuery) && !row.reviewer.toLowerCase().includes(state.searchQuery) && !namesMatch(row.agent, state.searchQuery) && !namesMatch(row.reviewer, state.searchQuery)) return;
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${row.date}</td>
@@ -3408,7 +3402,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.activeLead && state.activeLead !== 'ALL' && row.lead.toUpperCase().trim() !== state.activeLead.toUpperCase().trim()) {
         return;
       }
-      if (state.searchQuery && !row.lead.toLowerCase().includes(state.searchQuery)) {
+      if (state.searchQuery && !row.lead.toLowerCase().includes(state.searchQuery) && !namesMatch(row.lead, state.searchQuery)) {
         return;
       }
       const tr = document.createElement('tr');
@@ -4333,20 +4327,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // High-performance O(1) batch lookup map
     const internBatchMap = new Map();
-    const baseline = [
-      { name: 'Smit', batch: 'B-20' },
-      { name: 'Mahak', batch: 'B-20' },
-      { name: 'Aditya', batch: 'B-20' },
-      { name: 'Anjali', batch: 'B-19' },
-      { name: 'Kunal', batch: 'B-19' },
-      { name: 'Papiha', batch: 'B-19' },
-      { name: 'Palak', batch: 'B-18' },
-      { name: 'Mosin', batch: 'B-18' },
-      { name: 'Tina', batch: 'B-17' },
-      { name: 'Babasaheb', batch: 'B-17' },
-      { name: 'Jaya', batch: 'B-17' }
-    ];
-    baseline.forEach(b => internBatchMap.set(b.name.toLowerCase().trim(), normalizeBatchName(b.batch)));
     const regList = (state.config && state.config.internsRegistry) || [];
     regList.forEach(i => {
       if (i.name && i.batch) {

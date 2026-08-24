@@ -292,6 +292,8 @@ function namesMatch(regName, targetName) {
   if (cleanReg.includes('raichadda') && cleanTarget.includes('raichada')) return true;
   if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
   if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
+  if (cleanReg.includes('asawari') && cleanTarget.includes('asawri')) return true;
+  if (cleanReg.includes('asawri') && cleanTarget.includes('asawari')) return true;
 
   // Surname and First name matching
   const getFirstName = (words) => {
@@ -652,6 +654,7 @@ async function fetchAndSyncGoogleSheetsData() {
         
         const activeAttendTabs = attendTabs.filter(t => {
           const cleanTab = t.toLowerCase().trim();
+          if (cleanTab === 'hide sheet') return true;
           if (cleanTab.includes('time') || cleanTab.includes('leave') || cleanTab.includes('late') || cleanTab.includes('lop') || cleanTab.includes('tracker') || cleanTab.includes('upload') || cleanTab.includes('import') || cleanTab.includes('change') || cleanTab.includes('department') || cleanTab.includes('sheet') || cleanTab.includes('check') || cleanTab.includes('ot') || cleanTab.includes('mastersheet')) {
             return false;
           }
@@ -660,7 +663,7 @@ async function fetchAndSyncGoogleSheetsData() {
         });
         
         console.log(`[GoogleSyncService] Fetching ${activeAttendTabs.length} HR Attendance tabs via batchGet...`);
-        const attendRanges = activeAttendTabs.map(t => `'${t}'!A1:AJ400`);
+        const attendRanges = activeAttendTabs.map(t => `'${t}'!A1:FJ400`);
         const attendBatchRes = await sheets.spreadsheets.values.batchGet({
           spreadsheetId: attendId,
           ranges: attendRanges

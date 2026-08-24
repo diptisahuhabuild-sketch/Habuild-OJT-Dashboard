@@ -57,8 +57,8 @@ if (!fs.existsSync(DATA_FILE_PATH)) {
 }
 console.log('[ServerInit] Boot completed. Ready to serve dashboard. Continuous sync scheduled in the background.');
 
-// Scheduled Continuous Sync (Every 10 Minutes)
-cron.schedule('*/10 * * * *', async () => {
+// Scheduled Continuous Sync (Every 2 Minutes)
+cron.schedule('*/2 * * * *', async () => {
   console.log('[Cron] Continuous background data sync executing...');
   try {
     await googleSyncService.fetchAndSyncGoogleSheetsData();

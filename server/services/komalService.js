@@ -84,6 +84,8 @@ function namesMatch(regName, targetName) {
   if (cleanReg.includes('raichadda') && cleanTarget.includes('raichada')) return true;
   if (cleanReg.includes('nagdev') && cleanTarget.includes('nagdeve')) return true;
   if (cleanReg.includes('nagdeve') && cleanTarget.includes('nagdev')) return true;
+  if (cleanReg.includes('asawari') && cleanTarget.includes('asawri')) return true;
+  if (cleanReg.includes('asawri') && cleanTarget.includes('asawari')) return true;
 
   // Surname and First name matching
   const getFirstName = (words) => {
