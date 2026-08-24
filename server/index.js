@@ -39,21 +39,28 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'public', 'index.html'));
 });
 
-// Initial boot sync: run immediately if data.json does not exist to prevent empty dashboard on new deploy/start
+// Initial boot sync: run immediately if data.json or komal-cache.json does not exist to prevent empty dashboard on new deploy/start
 const DATA_FILE_PATH = path.join(rootDir, 'data.json');
-if (!fs.existsSync(DATA_FILE_PATH)) {
-  console.log('[ServerInit] data.json not found! Running initial sync in the background...');
+const KOMAL_CACHE_PATH = path.join(rootDir, 'komal-cache.json');
+
+if (!fs.existsSync(DATA_FILE_PATH) || !fs.existsSync(KOMAL_CACHE_PATH)) {
+  console.log('[ServerInit] data.json or komal-cache.json not found! Running initial sync in the background...');
   setTimeout(async () => {
     try {
-      await googleSyncService.fetchAndSyncGoogleSheetsData();
-      await googleDocSyncService.syncAndParseAllDocs();
+      if (!fs.existsSync(DATA_FILE_PATH)) {
+        await googleSyncService.fetchAndSyncGoogleSheetsData();
+        await googleDocSyncService.syncAndParseAllDocs();
+      }
+      if (!fs.existsSync(KOMAL_CACHE_PATH)) {
+        await komalService.syncKomalAIData();
+      }
       console.log('[ServerInit] Initial background sync completed successfully.');
     } catch (e) {
       console.error('[ServerInit] Initial background sync error:', e.message);
     }
   }, 1000);
 } else {
-  console.log('[ServerInit] data.json found. Skipping initial boot sync.');
+  console.log('[ServerInit] Both data.json and komal-cache.json found. Skipping initial boot sync.');
 }
 console.log('[ServerInit] Boot completed. Ready to serve dashboard. Continuous sync scheduled in the background.');
 
