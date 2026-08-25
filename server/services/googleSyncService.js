@@ -11,10 +11,53 @@ const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
 
 /**
+ * Performs atomic file writing to prevent empty reads or file corruption.
+ */
+function safeWriteFileSync(filePath, content) {
+  const tempPath = filePath + '.tmp';
+  fs.writeFileSync(tempPath, content);
+  fs.renameSync(tempPath, filePath);
+}
+
+/**
+ * Scans date columns to dynamically detect if a tab uses DD/MM/YYYY or MM/DD/YYYY format.
+ */
+function detectDateFormat(rows, headers) {
+  const dateCols = [];
+  headers.forEach((h, idx) => {
+    const hl = String(h || '').toLowerCase();
+    if (hl.includes('date') || hl.includes('conversation')) {
+      dateCols.push(idx);
+    }
+  });
+  if (dateCols.length === 0) return 'DDMM';
+
+  for (let r = 1; r < Math.min(rows.length, 100); r++) {
+    const row = rows[r];
+    if (!row) continue;
+    for (const colIdx of dateCols) {
+      const val = String(row[colIdx] || '').trim();
+      if (val.includes('/') || val.includes('-')) {
+        const parts = val.split(/[\/-]/);
+        if (parts.length === 3) {
+          const p0 = parseInt(parts[0], 10);
+          const p1 = parseInt(parts[1], 10);
+          if (!isNaN(p0) && !isNaN(p1)) {
+            if (p0 > 12) return 'DDMM'; // p0 is day -> DD/MM
+            if (p1 > 12) return 'MMDD'; // p1 is day -> MM/DD
+          }
+        }
+      }
+    }
+  }
+  return 'DDMM'; // default fallback
+}
+
+/**
  * Parses DD/MM/YYYY or YYYY-MM-DD explicit date strings
  * Treats 0 or blank cells as null
  */
-function parseDDMMYYYYDate(val) {
+function parseDDMMYYYYDate(val, preferMMDDYYYY = false) {
   if (val === undefined || val === null || val === '' || val === 0 || val === '0') {
     return null;
   }
@@ -43,9 +86,14 @@ function parseDDMMYYYYDate(val) {
           day = p1;
           month = p0 - 1;
         } else {
-          // If both <= 12, default to DD/MM/YYYY (Standard format in these sheets)
-          day = p0;
-          month = p1 - 1;
+          // If both <= 12, use sheet format preference
+          if (preferMMDDYYYY) {
+            day = p1;
+            month = p0 - 1;
+          } else {
+            day = p0;
+            month = p1 - 1;
+          }
         }
         if (!isNaN(day) && !isNaN(month) && !isNaN(p2)) {
           const d = new Date(Date.UTC(p2, month, day));
@@ -215,7 +263,7 @@ async function syncInternsRegistryFromGoogleSheet() {
         } catch (e) {}
       }
       batchData.interns = interns;
-      fs.writeFileSync(batchFile, JSON.stringify(batchData, null, 2));
+      safeWriteFileSync(batchFile, JSON.stringify(batchData, null, 2));
     }
 
     // Write back to server-config.json to persist registry
@@ -223,7 +271,7 @@ async function syncInternsRegistryFromGoogleSheet() {
       try {
         const configJson = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
         configJson.internsRegistry = registry;
-        fs.writeFileSync(CONFIG_FILE, JSON.stringify(configJson, null, 2));
+        safeWriteFileSync(CONFIG_FILE, JSON.stringify(configJson, null, 2));
         console.log(`[GoogleSyncService] Successfully updated server-config.json with ${registry.length} registry interns.`);
       } catch (configErr) {
         console.error('[GoogleSyncService] Failed to write config registry:', configErr.message);
@@ -341,9 +389,11 @@ function namesMatch(regName, targetName) {
  * Parses raw sheet rows into structured batch scan records using dynamic header indexing
  */
 function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, headers, mergedData, internBatchMap) {
+  const isMMDD = detectDateFormat(rows, headers) === 'MMDD';
   const scanDateIdx = headers.findIndex(h => h.includes('scan date') || h.includes('date'));
   const chatDateIdx = headers.findIndex(h => h.includes('chat date') || h.includes('date of conversation') || h.includes('conversation date'));
   const auditorIdx = headers.findIndex(h => h.includes('auditor') || h.includes('reviewer'));
+  const numberIdx = headers.findIndex(h => h === 'number' || h === 'member number' || h === 'contact' || h === 'client number' || h === 'phone');
   const chatCountIdx = headers.findIndex(h => h.includes('chat count') || h.includes('chats') || h.includes('scanned'));
   const auditCountIdx = headers.findIndex(h => h.includes('audit count') || h.includes('audits'));
   const qcFoundIdx = headers.findIndex(h => h.includes('qc found') || h.includes('qcs'));
@@ -401,8 +451,8 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
       mergedData[resolvedBatch] = [];
     }
 
-    let scanDate = scanDateIdx >= 0 ? parseDDMMYYYYDate(row[scanDateIdx]) : null;
-    let chatDate = chatDateIdx >= 0 ? parseDDMMYYYYDate(row[chatDateIdx]) : null;
+    let scanDate = scanDateIdx >= 0 ? parseDDMMYYYYDate(row[scanDateIdx], isMMDD) : null;
+    let chatDate = chatDateIdx >= 0 ? parseDDMMYYYYDate(row[chatDateIdx], isMMDD) : null;
 
     if (scanDate) {
       lastSeenScanDate = scanDate;
@@ -428,6 +478,7 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
       internName,
       auditor,
       lead: leadOwner,
+      number: numberIdx >= 0 && row[numberIdx] ? String(row[numberIdx]).trim() : '',
       chatCount: chatCountIdx >= 0 && row[chatCountIdx] ? parseInt(row[chatCountIdx], 10) || 0 : 0,
       auditCount: auditCountIdx >= 0 && row[auditCountIdx] ? parseInt(row[auditCountIdx], 10) || 1 : 1,
       qcFound: qcFoundIdx >= 0 && row[qcFoundIdx] ? parseInt(row[qcFoundIdx], 10) || 0 : 0,
@@ -575,7 +626,7 @@ async function fetchAndSyncGoogleSheetsData() {
 
       if (activeAuditTabs.length > 0) {
         console.log(`[GoogleSyncService] Fetching ${activeAuditTabs.length} tabs for spreadsheet "${sheetObj.lead}" via batchGet...`);
-        const auditRanges = activeAuditTabs.map(t => `'${t}'!A1:AE500`);
+        const auditRanges = activeAuditTabs.map(t => `'${t.replace(/'/g, "''")}'!A1:AE500`);
         try {
           const auditBatchRes = await sheets.spreadsheets.values.batchGet({
             spreadsheetId: sheetObj.id,
@@ -663,7 +714,7 @@ async function fetchAndSyncGoogleSheetsData() {
         });
         
         console.log(`[GoogleSyncService] Fetching ${activeAttendTabs.length} HR Attendance tabs via batchGet...`);
-        const attendRanges = activeAttendTabs.map(t => `'${t}'!A1:FJ400`);
+        const attendRanges = activeAttendTabs.map(t => `'${t.replace(/'/g, "''")}'!A1:FJ400`);
         const attendBatchRes = await sheets.spreadsheets.values.batchGet({
           spreadsheetId: attendId,
           ranges: attendRanges
@@ -673,17 +724,38 @@ async function fetchAndSyncGoogleSheetsData() {
           const rows = vr.values || [];
           if (rows.length === 0) return;
 
+          // Detect date format for this tab dynamically
+          let isMMDD = false;
+          for (let r = 0; r < Math.min(rows.length, 15); r++) {
+            const row = rows[r];
+            if (!row) continue;
+            for (const cell of row) {
+              const val = String(cell || '').trim();
+              if (val.includes('/') || val.includes('-')) {
+                const parts = val.split(/[\/-]/);
+                if (parts.length === 3) {
+                  const p0 = parseInt(parts[0], 10);
+                  const p1 = parseInt(parts[1], 10);
+                  if (!isNaN(p0) && !isNaN(p1)) {
+                    if (p0 > 12) { isMMDD = false; break; }
+                    if (p1 > 12) { isMMDD = true; break; }
+                  }
+                }
+              }
+            }
+          }
+
           let dateHeaderRow = null;
           let dates = [];
 
           for (let r = 0; r < rows.length; r++) {
             const row = rows[r];
-            const dateCells = row.filter(c => parseDDMMYYYYDate(c));
+            const dateCells = row.filter(c => parseDDMMYYYYDate(c, isMMDD));
             if (dateCells.length > 5) {
               dateHeaderRow = r;
               let lastSeenDate = null;
               dates = row.map(c => {
-                const parsed = parseDDMMYYYYDate(c);
+                const parsed = parseDDMMYYYYDate(c, isMMDD);
                 if (parsed) lastSeenDate = parsed;
                 return lastSeenDate;
               });
@@ -694,8 +766,14 @@ async function fetchAndSyncGoogleSheetsData() {
           if (dateHeaderRow === null) return;
 
           const subHeaderRow = rows[dateHeaderRow + 1] || [];
+          const isRealSubHeader = subHeaderRow.some(c => {
+            const val = String(c || '').toLowerCase().trim();
+            return val.includes('in time') || val.includes('out time') || val.includes('status') || val.includes('attendance');
+          });
 
-          for (let r = dateHeaderRow + 1; r < rows.length; r++) {
+          const startDataRow = isRealSubHeader ? dateHeaderRow + 2 : dateHeaderRow + 1;
+
+          for (let r = startDataRow; r < rows.length; r++) {
             const row = rows[r];
             if (!row || row.length === 0) continue;
 
@@ -729,9 +807,8 @@ async function fetchAndSyncGoogleSheetsData() {
               const dateStr = dates[col];
               if (dateStr) {
                 const val = String(row[col] || '').trim();
-                const subHeaderVal = String(subHeaderRow[col] || '').toLowerCase().trim();
 
-                if (!parsedAttendance[cleanName][dateStr] || typeof parsedAttendance[cleanName][dateStr] === 'string') {
+                if (!parsedAttendance[cleanName][dateStr]) {
                   parsedAttendance[cleanName][dateStr] = {
                     status: '-',
                     inTime: '-',
@@ -739,31 +816,39 @@ async function fetchAndSyncGoogleSheetsData() {
                   };
                 }
 
-                if (subHeaderVal.includes('in time')) {
-                  if (val && val !== '-') parsedAttendance[cleanName][dateStr].inTime = val;
-                } else if (subHeaderVal.includes('out time')) {
-                  if (val && val !== '-') parsedAttendance[cleanName][dateStr].outTime = val;
-                } else if (subHeaderVal.includes('status') || subHeaderVal.includes('attendance')) {
+                if (isRealSubHeader) {
+                  const subHeaderVal = String(subHeaderRow[col] || '').toLowerCase().trim();
+                  if (subHeaderVal.includes('in time')) {
+                    if (val && val !== '-') parsedAttendance[cleanName][dateStr].inTime = val;
+                  } else if (subHeaderVal.includes('out time')) {
+                    if (val && val !== '-') parsedAttendance[cleanName][dateStr].outTime = val;
+                  } else if (subHeaderVal.includes('status') || subHeaderVal.includes('attendance')) {
+                    if (val && val !== '-') parsedAttendance[cleanName][dateStr].status = val;
+                  }
+                } else {
+                  // Direct status mapping
                   if (val && val !== '-') parsedAttendance[cleanName][dateStr].status = val;
                 }
               }
             }
-
-            // Post-process the intern's dates to compile them into strings
-            Object.keys(parsedAttendance[cleanName]).forEach(dateStr => {
-              const obj = parsedAttendance[cleanName][dateStr];
-              if (obj && typeof obj === 'object') {
-                const status = obj.status || '-';
-                const inTime = obj.inTime || '-';
-                const outTime = obj.outTime || '-';
-                if (inTime !== '-' || outTime !== '-') {
-                  parsedAttendance[cleanName][dateStr] = `${status}|${inTime}|${outTime}`;
-                } else {
-                  parsedAttendance[cleanName][dateStr] = status;
-                }
-              }
-            });
           }
+        });
+
+        // Compile all parsed attendance details into final string status representations after processing all tabs
+        Object.keys(parsedAttendance).forEach(cleanName => {
+          Object.keys(parsedAttendance[cleanName]).forEach(dateStr => {
+            const obj = parsedAttendance[cleanName][dateStr];
+            if (obj && typeof obj === 'object') {
+              const status = obj.status || '-';
+              const inTime = obj.inTime || '-';
+              const outTime = obj.outTime || '-';
+              if (inTime !== '-' || outTime !== '-') {
+                parsedAttendance[cleanName][dateStr] = `${status}|${inTime}|${outTime}`;
+              } else {
+                parsedAttendance[cleanName][dateStr] = status;
+              }
+            }
+          });
         });
       }
       currentData.attendanceData = parsedAttendance;
@@ -815,12 +900,33 @@ async function fetchAndSyncGoogleSheetsData() {
           let dateHeaderRow = null;
           let dates = [];
 
+          // Detect date format dynamically for this Comms tab
+          let isMMDD = false;
+          for (let r = 0; r < Math.min(rows.length, 15); r++) {
+            const row = rows[r];
+            if (!row) continue;
+            for (const cell of row) {
+              const val = String(cell || '').trim();
+              if (val.includes('/') || val.includes('-')) {
+                const parts = val.split(/[\/-]/);
+                if (parts.length === 3) {
+                  const p0 = parseInt(parts[0], 10);
+                  const p1 = parseInt(parts[1], 10);
+                  if (!isNaN(p0) && !isNaN(p1)) {
+                    if (p0 > 12) { isMMDD = false; break; }
+                    if (p1 > 12) { isMMDD = true; break; }
+                  }
+                }
+              }
+            }
+          }
+
           for (let r = 0; r < rows.length; r++) {
             const row = rows[r];
-            const dateCells = row.filter(c => parseDDMMYYYYDate(c));
+            const dateCells = row.filter(c => parseDDMMYYYYDate(c, isMMDD));
             if (dateCells.length > 5) {
               dateHeaderRow = r;
-              dates = row.map(c => parseDDMMYYYYDate(c));
+              dates = row.map(c => parseDDMMYYYYDate(c, isMMDD));
               break;
             }
           }
@@ -886,7 +992,7 @@ async function fetchAndSyncGoogleSheetsData() {
     currentData.syncStatus = 'ERROR';
     currentData.lastSyncError = err.message;
     try {
-      fs.writeFileSync(DATA_FILE, JSON.stringify(currentData, null, 2));
+      safeWriteFileSync(DATA_FILE, JSON.stringify(currentData, null, 2));
     } catch (saveErr) {
       console.error('[GoogleSyncService] Error saving error state:', saveErr.message);
     }
@@ -900,7 +1006,7 @@ async function fetchAndSyncGoogleSheetsData() {
  */
 function saveDataToDisk(data) {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+    safeWriteFileSync(DATA_FILE, JSON.stringify(data, null, 2));
     googleService.driveUploadFile('data.json', DATA_FILE).catch(e => {
       console.error('[GoogleSyncService] Drive upload note:', e.message);
     });
@@ -1151,7 +1257,7 @@ async function syncBatch20ReportingData() {
       }
 
       const outPath = path.join(rootDir, bInfo.outFile);
-      fs.writeFileSync(outPath, JSON.stringify(currentData, null, 2));
+      safeWriteFileSync(outPath, JSON.stringify(currentData, null, 2));
       console.log(`[GoogleSyncService] Successfully synced ${bInfo.key} Reporting Data to ${outPath}`);
     }
 

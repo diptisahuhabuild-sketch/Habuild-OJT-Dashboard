@@ -13,13 +13,23 @@ const rootDir = path.resolve(__dirname, '../../');
 const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
 
+let cachedData = null;
+let cachedDataMtime = 0;
+
 function getData() {
   try {
     if (fs.existsSync(DATA_FILE)) {
-      return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+      const stat = fs.statSync(DATA_FILE);
+      const mtime = stat.mtimeMs;
+      if (!cachedData || mtime !== cachedDataMtime) {
+        cachedData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+        cachedDataMtime = mtime;
+      }
+      return cachedData;
     }
   } catch (e) {
     console.error('[API Router] Error reading data.json:', e.message);
+    if (cachedData) return cachedData; // Fallback to stale cache
   }
   return { scanData: {}, milestones: {}, eodUpdates: [], lastSyncedAt: null };
 }
@@ -112,11 +122,21 @@ router.get('/data', (req, res) => {
 
   // Pre-calculate daily audit scanned counts from data.scanData
   const dailyAuditScanned = {};
+  const internBatchMap = {};
+  if (config.internsRegistry) {
+    config.internsRegistry.forEach(i => {
+      if (i.name && i.batch) {
+        internBatchMap[i.name.toLowerCase().trim()] = i.batch;
+      }
+    });
+  }
+
+  const seenScans = new Set();
+
   if (data.scanData) {
     Object.entries(data.scanData).forEach(([batchKey, rows]) => {
       if (!Array.isArray(rows)) return;
       const bKey = batchKey.toUpperCase().trim();
-      dailyAuditScanned[bKey] = {};
       
       rows.forEach(row => {
         if (!row.internName) return;
@@ -124,21 +144,106 @@ router.get('/data', (req, res) => {
         const dateStr = row.chatDate || row.scanDate;
         if (!dateStr) return;
         
-        if (!dailyAuditScanned[bKey][nameKey]) {
-          dailyAuditScanned[bKey][nameKey] = {};
+        // Skip summary rows (which represent daily metrics instead of single chats)
+        if (row.chatCount > 0) return;
+        
+        // Skip rows that are explicitly not audits (e.g. blank rating and blank feedback)
+        const rating = parseFloat(row.leadRating);
+        if (isNaN(rating) && !row.summary) return;
+        
+        // Resolve batch from registry to align with single source of truth
+        let resolvedBKey = bKey;
+        let matchedBatch = internBatchMap[nameKey];
+        let resolvedNameKey = nameKey;
+
+        if (!matchedBatch) {
+          const matchedName = Object.keys(internBatchMap).find(k => {
+            const cleanReg = k;
+            const cleanTarget = nameKey;
+            if (cleanReg === cleanTarget) return true;
+            
+            const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
+            const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
+            
+            const levDist = (s1, s2) => {
+              const len1 = s1.length;
+              const len2 = s2.length;
+              const matrix = Array.from({ length: len1 + 1 }, () => Array(len2 + 1).fill(0));
+              for (let i = 0; i <= len1; i++) matrix[i][0] = i;
+              for (let j = 0; j <= len2; j++) matrix[0][j] = j;
+              for (let i = 1; i <= len1; i++) {
+                for (let j = 1; j <= len2; j++) {
+                  const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+                  matrix[i][j] = Math.min(
+                    matrix[i - 1][j] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j - 1] + cost
+                  );
+                }
+              }
+              return matrix[len1][len2];
+            };
+            
+            const tokMatch = (t1, t2) => {
+              if (t1 === t2) return true;
+              if (t1.length <= 4 || t2.length <= 4) return levDist(t1, t2) <= 1;
+              return levDist(t1, t2) <= 2;
+            };
+
+            if (regTokens.length === targetTokens.length && regTokens.length > 0) {
+              return regTokens.every((t, idx) => tokMatch(t, targetTokens[idx]));
+            }
+            return false;
+          });
+
+          if (matchedName) {
+            matchedBatch = internBatchMap[matchedName];
+            resolvedNameKey = matchedName;
+          }
+        } else {
+          const matchedName = Object.keys(internBatchMap).find(k => k === nameKey);
+          if (matchedName) {
+            resolvedNameKey = matchedName;
+          }
+        }
+
+        if (matchedBatch) {
+          let bName = matchedBatch.toUpperCase().trim();
+          if (bName.startsWith('BATCH ')) {
+            bName = 'B-' + bName.split(' ')[1];
+          }
+          
+          // Skip mismatched batch tab rows to prevent duplicate or stale counts
+          const regNum = (bName.match(/\d+/) || [])[0];
+          const tabNum = (bKey.match(/\d+/) || [])[0];
+          if (regNum && tabNum && regNum !== tabNum) {
+            return; // Skip! Mismatch (e.g. Batch 21 intern row found in Batch 19 tab)
+          }
+          resolvedBKey = bName;
+        }
+
+        // De-duplicate copy-pasted audit rows using phone number, rating, and summary context
+        const uniqueKey = `${resolvedBKey}|${resolvedNameKey}|${dateStr}|${row.number || ''}|${rating || ''}|${(row.summary || '').trim().substring(0, 50)}`;
+        if (seenScans.has(uniqueKey)) return;
+        seenScans.add(uniqueKey);
+
+        if (!dailyAuditScanned[resolvedBKey]) {
+          dailyAuditScanned[resolvedBKey] = {};
+        }
+        if (!dailyAuditScanned[resolvedBKey][resolvedNameKey]) {
+          dailyAuditScanned[resolvedBKey][resolvedNameKey] = {};
         }
         
-        if (!dailyAuditScanned[bKey][nameKey][dateStr]) {
-          dailyAuditScanned[bKey][nameKey][dateStr] = { scanned: 0, ratingSum: 0, ratingCount: 0 };
+        if (!dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr]) {
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr] = { scanned: 0, ratingSum: 0, ratingCount: 0 };
         }
         
         // Increment by 1 per row (each row in sheet = 1 chat scanned/audited)
-        dailyAuditScanned[bKey][nameKey][dateStr].scanned += 1;
+        dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].scanned += 1;
         
-        const rating = parseFloat(row.leadRating);
         if (!isNaN(rating) && rating !== null) {
-          dailyAuditScanned[bKey][nameKey][dateStr].ratingSum += rating;
-          dailyAuditScanned[bKey][nameKey][dateStr].ratingCount += 1;
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].ratingSum += rating;
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].ratingCount += 1;
         }
       });
     });

@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     config: null,
     komalMetrics: null,
     charts: {},
-    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'avail', 'count', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'arpt', 'frt', 'break', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'score', 'trend', 'action'],
+    internCustomCols: ['intern', 'batch', 'lead', 'shift', 'process', 'phone', 'email', 'avail', 'count', 'simpleQ', 'complexQ', 'aiRtg', 'arst', 'arpt', 'frt', 'break', 'scanned', 'qcs', 'errorPct', 'ojtRtg', 'score', 'trend', 'action'],
     leadCustomCols: ['lead', 'shift', 'attend', 'assignedInterns', 'teamChats', 'audits', 'qcPosted', 'simpleQ', 'complexQ', 'aiRtg'],
     adminDisplayLimit: 15
   };
@@ -396,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shift: 'Shift',
     phone: 'Number',
     email: 'Email',
+    process: 'Process',
     remark: 'Remark',
     avail: 'Attendance',
     avg: 'Avg Mess',
@@ -2244,16 +2245,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       let qcDocsCount = 0;
-      const regBatch = normalizeBatchName(reg.batch || 'B-20');
       if (state.data && state.data.qcDocData) {
         state.data.qcDocData.forEach(item => {
           if (item.type !== 'suggestion') {
-            const itemBatch = normalizeBatchName(item.batch || 'B-20');
-            if (itemBatch === regBatch || itemBatch === 'UNASSIGNED' || !item.batch) {
-              if (item.internName && namesMatch(reg.name, item.internName)) {
-                if (item.chatDate && datesList.includes(item.chatDate)) {
-                  qcDocsCount++;
-                }
+            if (item.internName && namesMatch(reg.name, item.internName)) {
+              if (item.chatDate && datesList.includes(item.chatDate)) {
+                qcDocsCount++;
               }
             }
           }
@@ -2677,6 +2674,7 @@ document.addEventListener('DOMContentLoaded', () => {
         batch: regBatch,
         lead: reg.ojtLead || reg.lead || '-',
         shift: reg.shift || '-',
+        process: reg.process || '-',
         phone: reg.phone || '-',
         email: reg.email || '-',
         remark: reg.remark || '-',
@@ -4393,14 +4391,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
     container.innerHTML = '';
 
+    if (filterInternName) {
+      const internDetails = regList.find(i => i.name && namesMatch(filterInternName, i.name));
+      const internBatch = normalizeBatchName(internBatchMap.get(filterInternName.toLowerCase().trim()) || 'B-21');
+      if (internDetails) {
+        const infoBanner = document.createElement('div');
+        infoBanner.style.cssText = `
+          background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+          border: 1px solid #cbd5e1;
+          border-radius: 12px;
+          padding: 1.25rem;
+          margin-bottom: 1.5rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+          text-align: left;
+          width: 100%;
+        `;
+        
+        const firstLetter = (internDetails.name || filterInternName)[0].toUpperCase();
+        
+        infoBanner.innerHTML = `
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="background: #3b82f6; color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; box-shadow: 0 4px 6px rgba(59,130,246,0.2);">
+              ${firstLetter}
+            </div>
+            <div>
+              <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1e293b;">${internDetails.name}</h3>
+              <span style="background: #cbd5e1; color: #334155; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-top: 0.25rem; display: inline-block;">${internBatch}</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.85rem; color: #475569;">
+            <div><strong>📞 Phone:</strong> ${internDetails.phone || '-'}</div>
+            <div><strong>✉️ Email:</strong> ${internDetails.email || '-'}</div>
+            <div><strong>👤 Lead:</strong> ${internDetails.ojtLead || internDetails.lead || '-'}</div>
+            <div><strong>⚙️ Process:</strong> ${internDetails.process || '-'}</div>
+            <div><strong>🕒 Shift:</strong> ${internDetails.shift || '-'}</div>
+          </div>
+        `;
+        container.appendChild(infoBanner);
+      }
+    }
+
     if (filtered.length === 0 && sheetAudits.length === 0) {
-      container.innerHTML = `
-        <div style="text-align: center; padding: 2.5rem; color: #64748b;">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">✅</div>
-          <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; color: #0f172a;">All Clear! No Audited Data Found</h4>
-          <p style="font-size: 0.88rem; margin: 0; color: #94a3b8;">No audited chats or QC mistakes were recorded during this period.</p>
-        </div>
+      const emptyDiv = document.createElement('div');
+      emptyDiv.style.cssText = 'text-align: center; padding: 2.5rem; color: #64748b; width: 100%;';
+      emptyDiv.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">✅</div>
+        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; color: #0f172a;">All Clear! No Audited Data Found</h4>
+        <p style="font-size: 0.88rem; margin: 0; color: #94a3b8;">No audited chats or QC mistakes were recorded during this period.</p>
       `;
+      container.appendChild(emptyDiv);
       window.openModal('qcDocModal');
       return;
     }
@@ -4467,63 +4511,108 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(header);
       }
 
-      qcErrors.forEach(item => {
-        const card = document.createElement('div');
-        card.style.cssText = 'border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.75rem; border: 1px solid #fee2e2; border-left: 4px solid #ef4444; background-color: #fef2f2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);';
+    qcErrors.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.style.cssText = 'border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.75rem; border: 1px solid #fee2e2; border-left: 4px solid #ef4444; background-color: #fef2f2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);';
 
-        const screenshotLink = item.screenshot || '';
-        const isLocal = screenshotLink.startsWith('/qc-images');
-        const isURL = screenshotLink.startsWith('http') || screenshotLink.startsWith('https') || isLocal;
+      const screenshotLink = item.screenshot || '';
+      const isLocal = screenshotLink.startsWith('/qc-images');
+      const isURL = screenshotLink.startsWith('http') || screenshotLink.startsWith('https') || isLocal;
 
-        let proofHTML = '';
-        if (isURL) {
-          let proxiedUrl = screenshotLink;
-          if (!isLocal) {
-            const directImgUrl = getDirectImageUrl(screenshotLink);
-            proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(directImgUrl)}`;
-          }
-          proofHTML = `
-            <div style="margin-top: 0.5rem; background: #ffffff; border: 1px solid #fee2e2; border-radius: 6px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
-              <div style="font-size: 0.8rem; color: #b91c1c; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <strong>🖼️ Proof Screenshot:</strong> <a href="${screenshotLink}" target="_blank" style="color: #ef4444; text-decoration: underline;">${screenshotLink}</a>
-              </div>
-              <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <img src="${proxiedUrl}" alt="QC Screenshot" onclick="window.zoomImage('${proxiedUrl}')" style="max-width: 280px; max-height: 180px; border-radius: 6px; border: 1px solid #fca5a5; cursor: zoom-in; object-fit: contain; background: #f8fafc;" title="Click to Zoom Image">
-                <span style="font-size: 0.75rem; color: #991b1b; font-weight: 600; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.25rem 0.5rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 0.25rem;">
-                  ✅ Mapped QC Doc Image
-                </span>
-              </div>
+      let proofHTML = '';
+      if (isURL) {
+        let proxiedUrl = screenshotLink;
+        if (!isLocal) {
+          const directImgUrl = getDirectImageUrl(screenshotLink);
+          proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(directImgUrl)}`;
+        }
+        proofHTML = `
+          <div style="margin-top: 0.5rem; background: #ffffff; border: 1px solid #fee2e2; border-radius: 6px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+            <div style="font-size: 0.8rem; color: #b91c1c; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <strong>🖼️ Proof Screenshot:</strong> <a href="${screenshotLink}" target="_blank" style="color: #ef4444; text-decoration: underline;">${screenshotLink}</a>
             </div>
-          `;
-        } else {
-          proofHTML = `
-            <div style="margin-top: 0.5rem; background: #ffffff; border: 1px solid #fee2e2; border-radius: 6px; padding: 0.75rem; color: #b91c1c; font-size: 0.8rem; text-align: left; display: flex; align-items: center; gap: 0.5rem;">
-              <span>ℹ️</span> <strong>No screenshot proof was attached in Google Doc for this chat audit.</strong>
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+              <img src="${proxiedUrl}" alt="QC Screenshot" onclick="window.zoomImage('${proxiedUrl}')" style="max-width: 280px; max-height: 180px; border-radius: 6px; border: 1px solid #fca5a5; cursor: zoom-in; object-fit: contain; background: #f8fafc;" title="Click to Zoom Image">
+              <span style="font-size: 0.75rem; color: #991b1b; font-weight: 600; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.25rem 0.5rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 0.25rem;">
+                ✅ Mapped QC Doc Image
+              </span>
+            </div>
+          </div>
+        `;
+      } else {
+        proofHTML = `
+          <div style="margin-top: 0.5rem; background: #ffffff; border: 1px solid #fee2e2; border-radius: 6px; padding: 0.75rem; color: #b91c1c; font-size: 0.8rem; text-align: left; display: flex; align-items: center; gap: 0.5rem;">
+            <span>ℹ️</span> <strong>No screenshot proof was attached in Google Doc for this chat audit.</strong>
+          </div>
+        `;
+      }
+
+      // Match with related suggestions dynamically by date and intern name
+      const matchingSuggestion = suggestions.find(s => 
+        s.chatDate === item.chatDate && 
+        s.internName && item.internName && 
+        namesMatch(item.internName, s.internName)
+      );
+
+      let suggestionToggleHTML = '';
+      if (matchingSuggestion) {
+        const sugId = `sug-toggle-${idx}`;
+        const sugScreenshot = matchingSuggestion.screenshot || '';
+        const sugIsLocal = sugScreenshot.startsWith('/qc-images');
+        const sugIsURL = sugScreenshot.startsWith('http') || sugScreenshot.startsWith('https') || sugIsLocal;
+        
+        let sugProofHTML = '';
+        if (sugIsURL) {
+          let sugProxiedUrl = sugScreenshot;
+          if (!sugIsLocal) {
+            const directImgUrl = getDirectImageUrl(sugScreenshot);
+            sugProxiedUrl = `/api/proxy-image?url=${encodeURIComponent(directImgUrl)}`;
+          }
+          sugProofHTML = `
+            <div style="margin-top: 0.5rem;">
+              <img src="${sugProxiedUrl}" alt="Suggestion Screenshot" onclick="window.zoomImage('${sugProxiedUrl}')" style="max-width: 200px; max-height: 120px; border-radius: 4px; border: 1px solid #fcd34d; cursor: zoom-in; object-fit: contain; background: #fffbeb;">
             </div>
           `;
         }
 
-        card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px dashed #fee2e2; padding-bottom: 0.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-              <span style="background-color: #fee2e2; color: #991b1b; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">📅 ${item.chatDate || '-'}</span>
-              <span style="font-weight: 700; color: #7f1d1d; font-size: 0.95rem;">👤 ${item.internName}</span>
-              <span style="background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">📞 Member: ${item.number || 'N/A'}</span>
-            </div>
-            <div style="font-size: 0.8rem; color: #991b1b; font-weight: 600;">
-              Batch: <span style="color: #7f1d1d;">${item.batch}</span>
-            </div>
-          </div>
-          <div style="font-size: 0.88rem; color: #7f1d1d; line-height: 1.5; text-align: left; white-space: normal;">
-            <strong>Feedback & Observation:</strong>
-            <div style="margin-top: 0.25rem; background: rgba(255,255,255,0.75); padding: 0.85rem; border-radius: 6px; border: 1px solid #fee2e2; color: #7f1d1d; font-weight: 500; word-break: break-word; white-space: normal; overflow-wrap: break-word; line-height: 1.6;">
-              ${item.summary || 'No detailed feedback text provided.'}
+        suggestionToggleHTML = `
+          <div style="margin-top: 0.75rem; border-top: 1px dashed #fca5a5; padding-top: 0.75rem;">
+            <button class="btn btn-xs btn-warning font-semibold" onclick="const el = document.getElementById('${sugId}'); el.style.display = el.style.display === 'none' ? 'block' : 'none'" style="background-color: #f59e0b; border-color: #d97706; color: white; border-radius: 4px; padding: 0.2rem 0.5rem; font-size: 0.75rem; cursor: pointer;">
+              💡 View Related Lead's Suggestion
+            </button>
+            <div id="${sugId}" style="display: none; margin-top: 0.5rem; background: #fffbeb; border: 1px solid #fef3c7; border-left: 3px solid #f59e0b; border-radius: 6px; padding: 0.85rem; text-align: left;">
+              <div style="font-size: 0.82rem; font-weight: 700; color: #92400e; margin-bottom: 0.25rem;">💡 Lead's Suggestion / Observation:</div>
+              <p style="margin: 0; font-size: 0.85rem; color: #78350f; line-height: 1.5; font-weight: 500; word-break: break-word;">
+                ${matchingSuggestion.summary || 'No description text provided.'}
+              </p>
+              ${sugProofHTML}
             </div>
           </div>
-          ${proofHTML}
         `;
-        container.appendChild(card);
-      });
+      }
+
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px dashed #fee2e2; padding-bottom: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <span style="background-color: #fee2e2; color: #991b1b; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700;">📅 ${item.chatDate || '-'}</span>
+            <span style="font-weight: 700; color: #7f1d1d; font-size: 0.95rem;">👤 ${item.internName}</span>
+            <span style="background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">📞 Member: ${item.number || 'N/A'}</span>
+          </div>
+          <div style="font-size: 0.8rem; color: #991b1b; font-weight: 600;">
+            Batch: <span style="color: #7f1d1d;">${item.batch}</span>
+          </div>
+        </div>
+        <div style="font-size: 0.88rem; color: #7f1d1d; line-height: 1.5; text-align: left; white-space: normal;">
+          <strong>Feedback & Observation:</strong>
+          <div style="margin-top: 0.25rem; background: rgba(255,255,255,0.75); padding: 0.85rem; border-radius: 6px; border: 1px solid #fee2e2; color: #7f1d1d; font-weight: 500; word-break: break-word; white-space: normal; overflow-wrap: break-word; line-height: 1.6;">
+            ${item.summary || 'No detailed feedback text provided.'}
+          </div>
+        </div>
+        ${proofHTML}
+        ${suggestionToggleHTML}
+      `;
+      container.appendChild(card);
+    });
     }
 
     // Render Google Doc Suggestions
