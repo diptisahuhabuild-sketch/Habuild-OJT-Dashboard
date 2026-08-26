@@ -2462,8 +2462,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // The batch under Current OJT team will appear ONLY when turned ON
         if (regBatch !== currentBatchName) return;
       } else {
-        // Otherwise no matter what it will not be displayed
-        if (regBatch === currentBatchName) return;
+        // Otherwise skip current batch ONLY if the activeBatch dropdown is NOT explicitly set to it
+        if (regBatch === currentBatchName && state.activeBatch !== currentBatchName) return;
 
         if (state.ojtMode === 'PREVIOUS') {
           const targetPrevious = normalizeBatchName(state.selectedPreviousBatch || 'B-20');
