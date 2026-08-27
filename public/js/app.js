@@ -2264,7 +2264,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const nameKey = reg.name.toLowerCase().trim();
 
       if (state.data && state.data.dailyAuditScanned) {
-        const bKeys = [regBatch, regBatch.replace('Batch ', 'B-'), reg.batch].map(k => k ? k.toUpperCase().trim() : '');
+        const rBatch = normalizeBatchName(reg.batch);
+        const bKeys = [rBatch, rBatch.replace('Batch ', 'B-'), reg.batch].map(k => k ? k.toUpperCase().trim() : '');
         const uniqueBKeys = Array.from(new Set(bKeys));
 
         for (const bKey of uniqueBKeys) {
