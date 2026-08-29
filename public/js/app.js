@@ -2260,6 +2260,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let scannedChatsSum = 0;
       let ratingSum = 0;
       let ratingCount = 0;
+      let aiRatingSum = 0;
+      let aiRatingCount = 0;
+      let sheetQcCountSum = 0;
       let hasScannedData = false;
       const nameKey = reg.name.toLowerCase().trim();
 
@@ -2283,6 +2286,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     ratingSum += (entry.ratingSum || 0);
                     ratingCount += (entry.ratingCount || 0);
                   }
+                  if (entry.aiRatingCount > 0) {
+                    aiRatingSum += (entry.aiRatingSum || 0);
+                    aiRatingCount += (entry.aiRatingCount || 0);
+                  }
+                  sheetQcCountSum += (entry.qcCount || 0);
                   hasScannedData = true;
                 }
               });
@@ -2294,12 +2302,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const finalScannedVal = hasScannedData ? scannedChatsSum : "No Data";
       const finalOjtRtg = (hasScannedData && ratingCount > 0) ? parseFloat((ratingSum / ratingCount).toFixed(2)) : "No Data";
+      const finalSheetAiRtg = (hasScannedData && aiRatingCount > 0) ? parseFloat((aiRatingSum / aiRatingCount).toFixed(2)) : "No Data";
       
       let finalErrorPct = "No Data";
       if (hasScannedData) {
         if (scannedChatsSum > 0) {
           // Dynamic Formula: Error % = QC Found / Chats Scanned * 100
-          finalErrorPct = parseFloat(((qcDocsCount / scannedChatsSum) * 100).toFixed(2));
+          const finalQcUsed = Math.max(qcDocsCount, sheetQcCountSum);
+          finalErrorPct = parseFloat(((finalQcUsed / scannedChatsSum) * 100).toFixed(2));
         } else {
           finalErrorPct = 0;
         }
@@ -2312,7 +2322,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let avgBreakVal = "No Data";
       let finalArst = "No Data";
       let finalArpt = "No Data";
-      let finalAiRtg = "No Data";
+      let finalAiRtg = finalSheetAiRtg;
       let finalFrt = "No Data";
       let finalCalcScore = "No Data";
       let hasKomalData = false;
@@ -2422,7 +2432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatCount: chatCountVal,
         avgChatCount: avgChatCountVal,
         scannedVal: finalScannedVal,
-        qcs: qcDocsCount,
+        qcs: Math.max(qcDocsCount, sheetQcCountSum),
         errorPct: finalErrorPct,
         ojtRtg: finalOjtRtg,
         simpleQ: simpleQ,

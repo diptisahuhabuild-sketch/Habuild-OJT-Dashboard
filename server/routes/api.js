@@ -235,7 +235,14 @@ router.get('/data', (req, res) => {
         }
         
         if (!dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr]) {
-          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr] = { scanned: 0, ratingSum: 0, ratingCount: 0 };
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr] = { 
+            scanned: 0, 
+            ratingSum: 0, 
+            ratingCount: 0,
+            aiRatingSum: 0,
+            aiRatingCount: 0,
+            qcCount: 0
+          };
         }
         
         // Increment by 1 per row (each row in sheet = 1 chat scanned/audited)
@@ -244,6 +251,17 @@ router.get('/data', (req, res) => {
         if (!isNaN(rating) && rating !== null) {
           dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].ratingSum += rating;
           dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].ratingCount += 1;
+        }
+
+        const aiRating = parseFloat(row.aiRating);
+        if (!isNaN(aiRating) && aiRating !== null) {
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].aiRatingSum += aiRating;
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].aiRatingCount += 1;
+        }
+
+        const sheetQc = parseInt(row.qcFound, 10);
+        if (!isNaN(sheetQc) && sheetQc > 0) {
+          dailyAuditScanned[resolvedBKey][resolvedNameKey][dateStr].qcCount += sheetQc;
         }
       });
     });
