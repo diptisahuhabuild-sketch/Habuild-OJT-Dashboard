@@ -532,52 +532,10 @@ async function parseDoc(docs, docId, batchName, nameResolver) {
 }
 
 function getBatchDocMap() {
-  const batchesDir = path.join(__dirname, '../../data/batches');
-  const map = {};
-  
-  try {
-    if (fs.existsSync(batchesDir)) {
-      const files = fs.readdirSync(batchesDir);
-      for (const file of files) {
-        if (!file.endsWith('.json')) continue;
-        const batchData = JSON.parse(fs.readFileSync(path.join(batchesDir, file), 'utf8'));
-        const batchKey = file.replace('.json', '');
-        
-        if (batchData.qcDocs && Array.isArray(batchData.qcDocs)) {
-          // We can map multiple docs to one batch in the future, 
-          // but for now, just map the first one and extract the ID
-          if (batchData.qcDocs.length > 0) {
-            const match = batchData.qcDocs[0].match(/\/d\/([a-zA-Z0-9-_]+)/);
-            if (match && match[1]) {
-              map[batchKey] = match[1];
-            }
-          }
-        }
-      }
-    }
-  } catch(e) {
-    console.error('[DocSync] Error parsing modular batches:', e);
-  }
-
-  try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
-      if (config.batchQcDocs && typeof config.batchQcDocs === 'object') {
-        Object.entries(config.batchQcDocs).forEach(([batchKey, docUrl]) => {
-          if (docUrl) {
-            const match = docUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
-            if (match && match[1]) {
-              map[batchKey] = match[1];
-            }
-          }
-        });
-      }
-    }
-  } catch(e) {
-    console.error('[DocSync] Error reading batchQcDocs from config:', e);
-  }
-
-  return map;
+  return {
+    'B-21': '1u_6OehVk7mu8-kshSZ-y0P1ZD70J2rB4JovBis28zls',
+    'B-20': '1m9cnG_wNubNG7sy2zaTtnpmIfy_7Wv26udBKgHFbPOE'
+  };
 }
 
 /**

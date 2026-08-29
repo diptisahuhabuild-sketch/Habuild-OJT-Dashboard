@@ -388,7 +388,7 @@ function namesMatch(regName, targetName) {
 /**
  * Parses raw sheet rows into structured batch scan records using dynamic header indexing
  */
-function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, headers, mergedData, internBatchMap) {
+function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, headers, mergedData, internBatchMap, sourceSheet) {
   const isMMDD = detectDateFormat(rows, headers) === 'MMDD';
   const scanDateIdx = headers.findIndex(h => h.includes('scan date') || h.includes('date'));
   const chatDateIdx = headers.findIndex(h => h.includes('chat date') || h.includes('date of conversation') || h.includes('conversation date'));
@@ -478,6 +478,7 @@ function parseSheetRowsIntoMergedData(sheetName, rows, leadOwner, internIdx, hea
       internName,
       auditor,
       lead: leadOwner,
+      source: sourceSheet,
       number: numberIdx >= 0 && row[numberIdx] ? String(row[numberIdx]).trim() : '',
       chatCount: chatCountIdx >= 0 && row[chatCountIdx] ? parseInt(row[chatCountIdx], 10) || 0 : 0,
       auditCount: auditCountIdx >= 0 && row[auditCountIdx] ? parseInt(row[auditCountIdx], 10) || 1 : 1,
@@ -555,25 +556,12 @@ async function fetchAndSyncGoogleSheetsData() {
     }
   });
 
-  // Extract OJT Leads spreadsheet IDs from config
+  // Extract OJT Leads spreadsheet IDs from config - Limit to only AuditPerformance and Master for performance
   const spreadsheetIds = [];
-  if (config.sheets) {
-    Object.entries(config.sheets).forEach(([key, url]) => {
-      // Exclude masterId from leads list loop
-      if (url && typeof url === 'string' && key !== 'masterId') {
-        const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-        if (match) {
-          spreadsheetIds.push({ lead: key, id: match[1] });
-        }
-      }
-    });
-  }
 
   // Include OJT Audit Performance Sheet explicitly
   const auditPerformanceId = '12l-8GZZ5-Hf9dIuU_g0Wev1GN-SrN7hPh11RLNwBPI0';
-  if (!spreadsheetIds.some(s => s.id === auditPerformanceId)) {
-    spreadsheetIds.push({ lead: 'AuditPerformance', id: auditPerformanceId });
-  }
+  spreadsheetIds.push({ lead: 'AuditPerformance', id: auditPerformanceId });
 
   // Include Master Spreadsheet as well
   if (config.sheets && config.sheets.masterId) {
@@ -599,7 +587,7 @@ async function fetchAndSyncGoogleSheetsData() {
               skipLead = true;
               
               Object.keys(currentData.scanData || {}).forEach(batch => {
-                const leadRecords = currentData.scanData[batch].filter(record => record.lead === sheetObj.lead);
+                const leadRecords = currentData.scanData[batch].filter(record => record.source === sheetObj.lead);
                 if (leadRecords.length > 0) {
                   if (!mergedScanData[batch]) mergedScanData[batch] = [];
                   mergedScanData[batch].push(...leadRecords);
@@ -667,7 +655,7 @@ async function fetchAndSyncGoogleSheetsData() {
               else if (lowerTab.includes('harsh')) resolvedLead = 'HARSH';
             }
 
-            parseSheetRowsIntoMergedData(tabName, rows, resolvedLead, internIdx, headers, mergedScanData, internBatchMap);
+            parseSheetRowsIntoMergedData(tabName, rows, resolvedLead, internIdx, headers, mergedScanData, internBatchMap, sheetObj.lead);
           });
         } catch (tabErr) {
           console.warn(`[GoogleSyncService] Failed batchGet in "${sheetObj.lead}":`, tabErr.message);
@@ -1001,15 +989,26 @@ async function fetchAndSyncGoogleSheetsData() {
   return currentData;
 }
 
+let lastDriveUploadTime = 0;
+
 /**
  * Save state to data.json and trigger Drive mirror
  */
 function saveDataToDisk(data) {
   try {
     safeWriteFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-    googleService.driveUploadFile('data.json', DATA_FILE).catch(e => {
-      console.error('[GoogleSyncService] Drive upload note:', e.message);
-    });
+    const now = Date.now();
+    // Only upload to Google Drive at most once every 12 hours to conserve bandwidth
+    if (now - lastDriveUploadTime > 12 * 60 * 60 * 1000) {
+      googleService.driveUploadFile('data.json', DATA_FILE).then(() => {
+        lastDriveUploadTime = now;
+        console.log('[GoogleSyncService] Successfully backed up data.json to Google Drive.');
+      }).catch(e => {
+        console.error('[GoogleSyncService] Drive upload note:', e.message);
+      });
+    } else {
+      console.log('[GoogleSyncService] Skipping Google Drive upload to conserve bandwidth (last upload was < 12h ago).');
+    }
   } catch (e) {
     console.error('[GoogleSyncService] Error saving data.json:', e.message);
   }
