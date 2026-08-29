@@ -4235,14 +4235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelMap = isIntern ? INTERN_COL_LABELS : LEAD_COL_LABELS;
     const activeCols = isIntern ? state.internCustomCols : state.leadCustomCols;
 
-    const previousOnlyCols = ['scanned', 'qcs', 'errorPct', 'ojtRtg', 'score', 'trend', 'action'];
-
-    container.innerHTML = Object.entries(labelMap).filter(([key]) => {
-      if (isIntern && state.ojtMode !== 'PREVIOUS' && previousOnlyCols.includes(key)) {
-        return false;
-      }
-      return true;
-    }).map(([key, label]) => `
+    container.innerHTML = Object.entries(labelMap).map(([key, label]) => `
       <label class="recipient-item">
         <input type="checkbox" class="col-toggle-cb" value="${key}" ${activeCols.includes(key) ? 'checked' : ''}>
         <span>${label}</span>
