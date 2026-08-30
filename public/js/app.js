@@ -4343,12 +4343,15 @@ document.addEventListener('DOMContentLoaded', () => {
       filtered = records.filter(r => r.internName && namesMatch(filterInternName, r.internName));
     }
 
-    // Apply date range filter (fallback to all records if date filter yields no items)
+    // Apply date range filter, but if it yields no records for this intern, fall back to all records for the batch so they are still viewable
     const activeFilter = state.dateFilter || 'YESTERDAY';
     const { startStr, endStr } = getDateRangeFromFilter(activeFilter);
 
     if (startStr && endStr) {
-      filtered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
+      const dateFiltered = filtered.filter(r => r.chatDate && r.chatDate >= startStr && r.chatDate <= endStr);
+      if (dateFiltered.length > 0) {
+        filtered = dateFiltered;
+      }
     }
 
     // Filter spreadsheet audits dynamically

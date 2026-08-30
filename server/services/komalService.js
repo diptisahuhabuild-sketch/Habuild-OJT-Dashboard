@@ -55,26 +55,6 @@ function namesMatch(regName, targetName) {
   let cleanTarget = targetName.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
   if (cleanReg === cleanTarget) return true;
 
-  // Normalized words lists
-  const regWords = cleanReg.split(/\s+/).filter(w => w.length > 0);
-  const targetWords = cleanTarget.split(/\s+/).filter(w => w.length > 0);
-  if (regWords.length === 0 || targetWords.length === 0) return false;
-
-  // Handle "mohammad" vs "md" alias abbreviation explicitly
-  const normalizeWord = (w) => {
-    if (w === 'mohammad' || w === 'mohamad' || w === 'mohammed' || w === 'md') return 'md';
-    return w;
-  };
-  const normRegWords = regWords.map(normalizeWord);
-  const normTargetWords = targetWords.map(normalizeWord);
-
-  // Concatenation & suffix removal logic (e.g. "Asawariganar Habuild" vs "Asawari Ganar")
-  const cleanRegNoSpace = cleanReg.replace(/habuild/g, '').replace(/\s+/g, '');
-  const cleanTargetNoSpace = cleanTarget.replace(/habuild/g, '').replace(/\s+/g, '');
-  if (cleanRegNoSpace === cleanTargetNoSpace) return true;
-  if (cleanRegNoSpace.length > 5 && cleanTargetNoSpace.includes(cleanRegNoSpace)) return true;
-  if (cleanTargetNoSpace.length > 5 && cleanRegNoSpace.includes(cleanTargetNoSpace)) return true;
-
   // Explicit Alias mappings for known misspellings in the sheets
   if (cleanReg.includes('pareedhi') && cleanTarget.includes('paridhi')) return true;
   if (cleanReg.includes('paridhi') && cleanTarget.includes('pareedhi')) return true;
@@ -87,43 +67,39 @@ function namesMatch(regName, targetName) {
   if (cleanReg.includes('asawari') && cleanTarget.includes('asawri')) return true;
   if (cleanReg.includes('asawri') && cleanTarget.includes('asawari')) return true;
 
-  // Surname and First name matching
-  const getFirstName = (words) => {
-    if (words.length > 1 && words[0] === 'md') return words[1];
-    return words[0];
-  };
-  const getLastName = (words) => {
-    if (words.length > 1) return words[words.length - 1];
-    return null;
-  };
-
-  const regFirst = getFirstName(normRegWords);
-  const regLast = getLastName(normRegWords);
-  const targetFirst = getFirstName(normTargetWords);
-  const targetLast = getLastName(normTargetWords);
-
-  // If we have both first name and last name, check if they both match!
-  if (regFirst && regLast && targetFirst && targetLast) {
-    if (regFirst === targetFirst && lastNamesMatch(regLast, targetLast)) {
-      return true;
-    }
-  }
-
-  // Subset match: only if both names have at least 2 tokens (prevents single-word false positive overlaps)
   const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
   const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
-  if (regTokens.length >= 2 && targetTokens.length >= 2) {
-    if (regTokens.every(t => targetTokens.includes(t)) || targetTokens.every(t => regTokens.includes(t))) {
+
+  const levDist = (s1, s2) => {
+    const len1 = s1.length;
+    const len2 = s2.length;
+    const matrix = Array.from({ length: len1 + 1 }, () => Array(len2 + 1).fill(0));
+    for (let i = 0; i <= len1; i++) matrix[i][0] = i;
+    for (let j = 0; j <= len2; j++) matrix[0][j] = j;
+    for (let i = 1; i <= len1; i++) {
+      for (let j = 1; j <= len2; j++) {
+        const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[len1][len2];
+  };
+
+  const tokMatch = (t1, t2) => {
+    if (t1 === t2) return true;
+    if (t1.length <= 4 || t2.length <= 4) return levDist(t1, t2) <= 1;
+    return levDist(t1, t2) <= 2;
+  };
+
+  if (regTokens.length > 0 && targetTokens.length > 0) {
+    if (regTokens.every(t => targetTokens.some(t2 => tokMatch(t, t2))) ||
+        targetTokens.every(t => regTokens.some(t2 => tokMatch(t, t2)))) {
       return true;
     }
-  }
-
-  // Single word fallback
-  if (regWords.length === 1) {
-    return normRegWords[0] === normTargetWords[0];
-  }
-  if (targetWords.length === 1) {
-    return normTargetWords[0] === normRegWords[0];
   }
 
   return false;
