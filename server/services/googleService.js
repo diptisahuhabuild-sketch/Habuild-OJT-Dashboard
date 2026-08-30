@@ -5,6 +5,7 @@ let google, sheets, docs, drive;
 const rootDir = path.resolve(__dirname, '../../');
 const DATA_FILE = path.join(rootDir, 'data.json');
 const CONFIG_FILE = path.join(rootDir, 'server-config.json');
+const KOMAL_CACHE_FILE = path.join(rootDir, 'komal-cache.json');
 const DRIVE_STATE_FOLDER_ID = process.env.DRIVE_STATE_FOLDER_ID || null;
 
 try {
@@ -84,7 +85,8 @@ async function syncDriveState() {
   if (!drive || !DRIVE_STATE_FOLDER_ID) return;
   const filesToSync = [
     { name: 'data.json', localPath: DATA_FILE },
-    { name: 'server-config.json', localPath: CONFIG_FILE }
+    { name: 'server-config.json', localPath: CONFIG_FILE },
+    { name: 'komal-cache.json', localPath: KOMAL_CACHE_FILE }
   ];
   for (const item of filesToSync) {
     try {

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const compression = require('compression');
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
@@ -11,6 +12,7 @@ const komalService = require('./services/komalService');
 const apiRoutes = require('./routes/api');
 
 const app = express();
+app.use(compression());
 const PORT = process.env.PORT || 3848;
 const rootDir = path.resolve(__dirname, '../');
 
@@ -39,29 +41,32 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'public', 'index.html'));
 });
 
-// Initial boot sync: run immediately if data.json or komal-cache.json does not exist to prevent empty dashboard on new deploy/start
-const DATA_FILE_PATH = path.join(rootDir, 'data.json');
-const KOMAL_CACHE_PATH = path.join(rootDir, 'komal-cache.json');
-
-if (!fs.existsSync(DATA_FILE_PATH) || !fs.existsSync(KOMAL_CACHE_PATH)) {
-  console.log('[ServerInit] data.json or komal-cache.json not found! Running initial sync in the background...');
-  setTimeout(async () => {
-    try {
-      if (!fs.existsSync(DATA_FILE_PATH)) {
-        await googleSyncService.fetchAndSyncGoogleSheetsData();
-        await googleDocSyncService.syncAndParseAllDocs();
-      }
-      if (!fs.existsSync(KOMAL_CACHE_PATH)) {
-        await komalService.syncKomalAIData();
-      }
-      console.log('[ServerInit] Initial background sync completed successfully.');
-    } catch (e) {
-      console.error('[ServerInit] Initial background sync error:', e.message);
+// Initial boot restore and sync
+setTimeout(async () => {
+  try {
+    console.log('[ServerInit] Running startup Google Drive sync to restore data...');
+    // Restore data.json, server-config.json, and komal-cache.json from Google Drive first!
+    await googleService.syncDriveState();
+    
+    const DATA_FILE_PATH = path.join(rootDir, 'data.json');
+    const KOMAL_CACHE_PATH = path.join(rootDir, 'komal-cache.json');
+    
+    if (!fs.existsSync(DATA_FILE_PATH)) {
+      console.log('[ServerInit] data.json not found after restore. Running fresh sheets/doc sync...');
+      await googleSyncService.fetchAndSyncGoogleSheetsData();
+      await googleDocSyncService.syncAndParseAllDocs();
     }
-  }, 1000);
-} else {
-  console.log('[ServerInit] Both data.json and komal-cache.json found. Skipping initial boot sync.');
-}
+    
+    if (!fs.existsSync(KOMAL_CACHE_PATH)) {
+      console.log('[ServerInit] komal-cache.json not found after restore. Running Komal AI sync...');
+      await komalService.syncKomalAIData();
+    }
+    
+    console.log('[ServerInit] Startup restore and sync completed successfully.');
+  } catch (e) {
+    console.error('[ServerInit] Startup restore/sync error:', e.message);
+  }
+}, 1000);
 console.log('[ServerInit] Boot completed. Ready to serve dashboard. Continuous sync scheduled in the background.');
 
 // Scheduled Continuous Sync (Every 2 Minutes)

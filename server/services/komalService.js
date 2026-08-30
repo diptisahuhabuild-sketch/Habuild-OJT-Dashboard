@@ -367,6 +367,12 @@ async function syncKomalAIData(sessionToken = null) {
 
     // Save cache to disk
     fs.writeFileSync(CACHE_FILE, JSON.stringify(memoryCache, null, 2));
+    const googleService = require('./googleService');
+    googleService.driveUploadFile('komal-cache.json', CACHE_FILE).then(() => {
+      console.log('[KomalService] Successfully backed up komal-cache.json to Google Drive.');
+    }).catch(e => {
+      console.error('[KomalService] Drive upload note:', e.message);
+    });
     console.log('[KomalService] Komal AI sync complete.');
 
   } catch (err) {
