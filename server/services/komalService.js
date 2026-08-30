@@ -70,6 +70,17 @@ function namesMatch(regName, targetName) {
   const regTokens = cleanReg.split(/\s+/).filter(t => t.length > 2);
   const targetTokens = cleanTarget.split(/\s+/).filter(t => t.length > 2);
 
+  // Enforce exact first name match or explicit first name aliases to prevent cross-matching different people (e.g. Moin vs Mosin, Nilesh vs Nitesh)
+  const firstReg = regTokens[0];
+  const firstTarget = targetTokens[0];
+  if (firstReg && firstTarget && firstReg !== firstTarget) {
+    const isAlias = 
+      (firstReg === 'paridhi' && firstTarget === 'pareedhi') || (firstReg === 'pareedhi' && firstTarget === 'paridhi') ||
+      (firstReg === 'mahek' && firstTarget === 'mahak') || (firstReg === 'mahak' && firstTarget === 'mahek') ||
+      (firstReg === 'asawri' && firstTarget === 'asawari') || (firstReg === 'asawari' && firstTarget === 'asawri');
+    if (!isAlias) return false;
+  }
+
   const levDist = (s1, s2) => {
     const len1 = s1.length;
     const len2 = s2.length;
